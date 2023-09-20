@@ -1,0 +1,91 @@
+* {
+  font-size: 18px;
+  scroll-behavior: smooth;
+  padding: 0;
+  margin: 0;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+hr,
+p, pre,
+blockquote,
+dl, dt, dd, ul, ol, li,
+form, fieldset, legend, input, button, textarea,
+th, td {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  border: 0;
+}
+
+b, strong {
+  font-weight: normal;
+}
+
+i, em {
+  font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+u, s, ins, del {
+  text-decoration: none;
+}
+
+table {
+  border: 1px solid #000;    
+  border-spacing: 0;            
+  border-collapse: collapse;    
+}
+
+th, td {
+  border: 1px solid #000;
+}
+
+input, button {
+  outline: none;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 0;
+}
+
+textarea {
+  border: none;
+  resize: none;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.leftfix {
+  float: left;
+}
+
+.rightfix {
+  float: right;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+

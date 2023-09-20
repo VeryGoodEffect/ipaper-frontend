@@ -1,0 +1,126 @@
+:root {
+  --theme-mode: #000;
+  --theme-color: rgba(195, 29, 35, 1);
+  --theme-color-80: rgba(195, 29, 35, .8);
+  --theme-color-60: rgba(195, 29, 35, .6);
+  --theme-color-50: rgba(195, 29, 35, .5);
+  --theme-color-30: rgba(195, 29, 35, .3);
+  --theme-color-10: rgba(195, 29, 35, .1);
+}
+
+body {
+  background: var(--theme-mode);
+  /* 下面这行记得删 */
+  padding: 50px;
+}
+
+* {
+  color: white;
+}
+
+/* #region basic-button */
+
+button {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.basic-btn {
+  background: var(--theme-color);
+  color: #fff;
+}
+.basic-btn:hover {
+  background: var(--theme-color-80);
+}
+
+.basic-btn-outline {
+  box-sizing: border-box;
+  background-color: transparent;
+  border: 1px solid var(--theme-color);
+  color: var(--theme-color);
+}
+.basic-btn-outline:hover {
+  border: 1px solid var(--theme-color-60);
+  color: var(--theme-color-80);
+}
+
+/* #endregion */
+
+
+/* #region basic-input */
+input {
+  width: 300px;
+  height: 50px;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  caret-color: var(--theme-color);
+  border: 1px solid var(--theme-color);
+  border-radius: 5px;
+  background: transparent;
+  outline: 0 solid var(--theme-color);
+  transition: .1s linear;
+}
+input:focus {
+  border: 1px solid var(--theme-color);
+  outline: 2px solid var(--theme-color);
+}
+/* #endregion */
+
+
+/* #region huge-input */
+.huge-input-wrapper {
+  width: 800px;
+  height: 80px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.huge-input {
+  width: 800px;
+  height: 80px;
+  font-size: 30px;
+  padding: 10px 20px;
+  position: absolute;
+  z-index: 10;
+  border: none;
+}
+.huge-input:focus {
+  outline: 0;
+  border: 0;
+}
+.huge-input::placeholder {
+  color: grey;
+}
+.huge-input-wrapper::before {
+  content: "";
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  background: #000;
+  border-radius: 10px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: 2;
+}
+.huge-input-wrapper::after {
+  content: "";
+  width: 300%;
+  height: 1500%;
+  
+  background: conic-gradient(#EEEEEE22, #EEEEEE22, var(--theme-color) 90%);
+  /* background: white; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  translate: -50% -50%;
+  animation: rotate 5s linear infinite;
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* #endregion */
