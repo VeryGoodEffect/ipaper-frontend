@@ -50,7 +50,7 @@ button {
 
 
 /* #region basic-input */
-input {
+.basic-input {
   width: 300px;
   height: 50px;
   box-sizing: border-box;
@@ -62,7 +62,7 @@ input {
   outline: 0 solid var(--theme-color);
   transition: .1s linear;
 }
-input:focus {
+.basic-input:focus {
   border: 1px solid var(--theme-color);
   outline: 2px solid var(--theme-color);
 }
@@ -124,3 +124,36 @@ input:focus {
   }
 }
 /* #endregion */
+
+
+/* #region tooltip-animation */
+@keyframes tooltip-zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes tooltip-zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.tooltip-appear {
+  animation: tooltip-zoomIn .3s forwards;
+} 
+.tooltip-disappear {
+  animation: tooltip-zoomOut .3s forwards;
+}
+
+/* #endregion*/
