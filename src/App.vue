@@ -8,7 +8,8 @@
   <div class="huge-input-wrapper">
     <input class="basic-input huge-input" type="text" placeholder="文献、期刊、作者以及更多"/>
   </div>
-  <pagination :default-items-per-page="5">
+  <br><br>
+  <Pagination :default-items-per-page="5">
     <button v-for="i in 100" :key="i" @click="handleclick(i)">
     第 {{ i }} 个条目
     </button>
@@ -28,11 +29,12 @@
     <ul><li>ul li</li></ul>
     <input type="color"> -->
 
-  </pagination>
+  </Pagination>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import Pagination from './components/pagination/Pagination.vue'
 let msg = ref('hhh')
 
 
@@ -41,4 +43,8 @@ let handleclick = (i)=>{
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+button {
+  width: 200px;
+}
+</style>
