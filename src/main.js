@@ -13,13 +13,24 @@ app.use(router).use(store)
 app.directive('tooltip', {
   mounted(el, binding) {
     const tooltip = document.createElement('div')
-    tooltip.innerHTML = binding.value
+    if (binding.value.c) {
+      tooltip.innerHTML = binding.value.c
+    }
+    if (binding.value.fs) {
+      tooltip.style.fontSize = binding.value.fs
+    }
+    if (binding.value.mw) {
+      tooltip.style.maxWidth = binding.value.mw
+      tooltip.style.overflowWrap = 'break-word'
+    } else {
+      tooltip.style.whiteSpace = 'nowrap'
+    }
+    
 
     tooltip.style.display = 'none'
     tooltip.style.padding = '5px'
     tooltip.style.borderRadius = '5px'
     tooltip.style.boxShadow = '1px 1px 5px grey'
-    tooltip.style.whiteSpace = 'nowrap'
     tooltip.style.color = 'var(--theme-color)'
     tooltip.style.fontWeight = 'bold'
 
@@ -43,12 +54,16 @@ app.directive('tooltip', {
     el.addEventListener('click', () => {
       el.style.zIndex = 'inherit'
       tooltip.className = 'tooltip-disappear'
-      tooltip.style.display = 'none'
+      setTimeout(() => {
+        tooltip.style.display = 'none'
+      }, 300);
     })
     el.addEventListener('mouseleave', () => {
       el.style.zIndex = 'inherit'
       tooltip.className = 'tooltip-disappear'
-      tooltip.style.display = 'none'
+      setTimeout(() => {
+        tooltip.style.display = 'none'
+      }, 300);
     })
   }
 })
