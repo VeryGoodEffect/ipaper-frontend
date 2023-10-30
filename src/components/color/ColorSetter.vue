@@ -32,9 +32,11 @@ export default {
       let mode = getComputedStyle(document.documentElement).getPropertyValue('--theme-mode')
       if (mode === '#000') {
         document.documentElement.style.setProperty('--theme-mode', '#fff')
+        document.documentElement.style.setProperty('--theme-mode-like', '#eee')
         document.documentElement.style.setProperty('--default-text-color', '#000')
       } else {
         document.documentElement.style.setProperty('--theme-mode', '#000')
+        document.documentElement.style.setProperty('--theme-mode-like', '#111')
         document.documentElement.style.setProperty('--default-text-color', '#fff')
       }
     },
