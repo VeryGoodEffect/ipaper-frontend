@@ -1,21 +1,24 @@
 :root {
   --theme-mode: #000;
-  --theme-color: rgba(195, 29, 35, 1);
-  --theme-color-80: rgba(195, 29, 35, .8);
-  --theme-color-60: rgba(195, 29, 35, .6);
-  --theme-color-50: rgba(195, 29, 35, .5);
-  --theme-color-30: rgba(195, 29, 35, .3);
-  --theme-color-10: rgba(195, 29, 35, .1);
+  --default-text-color: #fff;
+  --theme-color: rgba(3,122,255, 1);
+  --theme-color-80: rgba(3,122,255, .8);
+  --theme-color-60: rgba(3,122,255, .6);
+  --theme-color-50: rgba(3,122,255, .5);
+  --theme-color-30: rgba(3,122,255, .3);
+  --theme-color-10: rgba(3,122,255, .1);
 }
 
 body {
   background: var(--theme-mode);
+  transition-property: background-color;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   /* 下面这行记得删 */
-  padding: 50px;
+  /* padding: 50px; */
 }
 
 * {
-  color: white;
+  color: var(--default-text-color);
 }
 
 /* #region basic-button */
@@ -76,14 +79,19 @@ button {
   border-radius: 10px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .huge-input {
-  width: 800px;
-  height: 80px;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  background: var(--theme-mode);
+  border-radius: 10px;
   font-size: 30px;
   padding: 10px 20px;
   position: absolute;
-  z-index: 10;
+  z-index: 2;
   border: none;
 }
 .huge-input:focus {
@@ -94,35 +102,60 @@ button {
   color: grey;
 }
 .huge-input-wrapper::before {
-  content: "";
-  width: calc(100% - 6px);
-  height: calc(100% - 6px);
-  background: #000;
-  border-radius: 10px;
+  content: '';
   position: absolute;
-  top: 3px;
-  left: 3px;
-  z-index: 2;
+  width: 1000%;
+  height: 95%;
+  background-image: conic-gradient(transparent, transparent, transparent, var(--theme-color));
+  animation: 
+    rotate1 3s cubic-bezier(0,.44,.19,.99), 
+    rotate2 3s cubic-bezier(0,.44,.19,.99);
+  animation-delay: 0s 3s;
 }
 .huge-input-wrapper::after {
-  content: "";
-  width: 300%;
-  height: 1500%;
-  
-  background: conic-gradient(#EEEEEE22, #EEEEEE22, var(--theme-color) 90%);
-  /* background: white; */
+  content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 1;
-  translate: -50% -50%;
-  animation: rotate 5s linear infinite;
+  width: 1000%;
+  height: 95%;
+  background-image: conic-gradient(from 180deg, transparent, transparent, transparent, var(--theme-color));
+  animation: 
+    rotate1 3s cubic-bezier(0,.44,.19,.99), 
+    rotate2 3s cubic-bezier(0,.44,.19,.99);
+  animation-delay: 0s 3s;
 }
-@keyframes rotate {
+@keyframes rotate1 {
+  100% {
+    transform: rotate(240deg);
+  }
+}
+@keyframes rotate2 {
+  0% {
+    transform: rotate(240deg);
+  }
   100% {
     transform: rotate(360deg);
   }
 }
+
+@media screen and (max-width: 850px) {
+  .huge-input-wrapper {
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .huge-input {
+    padding: 5px 10px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .huge-input {
+    font-size: 20px;
+  }
+}
+
 /* #endregion */
 
 

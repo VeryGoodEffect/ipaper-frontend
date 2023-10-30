@@ -1,5 +1,5 @@
 <template>
-  <button class="basic-btn" v-tooltip="'hello'">666</button>
+  <!-- <button class="basic-btn" v-tooltip="'hello'">666</button>
   <br><br>
   <button class="basic-btn-outline">777</button>
   <br><br>
@@ -8,16 +8,20 @@
   <div class="huge-input-wrapper">
     <input class="basic-input huge-input" type="text" placeholder="文献、期刊、作者以及更多"/>
   </div>
-  <br><br>
+  <br><br> -->
   <!-- <Pagination :default-items-per-page="5">
     <button v-for="i in 100" :key="i" @click="handleclick(i)">
     第 {{ i }} 个条目
     </button>
   </Pagination> -->
-  <div class="temp" 
+  <!-- <div class="temp" 
     v-tooltip="{ c: '收藏/取消收藏', fs: '16px' }"
     @click="sendMsg"
   >
+  </div> -->
+  <RouterView />
+  <div style="position: fixed; bottom: 30px; left: 30px">
+    <ColorSetter/>
   </div>
   <PopoutMessage :show="showMessage" :title="messageTitle" :content="messageContent" />
 </template> 
@@ -26,7 +30,7 @@
 
 import { ref, getCurrentInstance } from 'vue'
 import PopoutMessage from './components/popout-message/PopoutMessage.vue'
-
+import ColorSetter from './components/color/ColorSetter.vue'
 
 import Pagination from './components/pagination/Pagination.vue'
 
