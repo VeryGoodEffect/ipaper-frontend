@@ -20,6 +20,7 @@ body {
 
 * {
   color: var(--default-text-color);
+  font-family: "SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif;
 }
 
 /* #region basic-button */
@@ -143,6 +144,9 @@ button {
   .huge-input-wrapper {
     transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     width: 80vw;
+  }
+  .huge-input {
+    font-size: 25px;
   }
 }
 
