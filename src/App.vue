@@ -21,7 +21,7 @@
   </div> -->
   <RouterView />
   <div style="position: fixed; bottom: 30px; left: 30px">
-    <ColorSetter/>
+    <ColorSetter />
   </div>
   <PopoutMessage :show="showMessage" :title="messageTitle" :content="messageContent" />
 </template> 
@@ -31,6 +31,7 @@
 import { ref, getCurrentInstance } from 'vue'
 import PopoutMessage from './components/popout-message/PopoutMessage.vue'
 import ColorSetter from './components/color/ColorSetter.vue'
+
 
 import Pagination from './components/pagination/Pagination.vue'
 
@@ -49,16 +50,17 @@ instance.proxy.$bus.on('message', (data) => {
     setTimeout(() => {
       messageTitle.value = ''
       messageContent.value = ''
-    },1000)
+    }, 1000)
   }, data.time)
 })
 
-let handleclick = (i)=>{
-  alert('点击第'+i+'个条目')
+
+let handleclick = (i) => {
+  alert('点击第' + i + '个条目')
 }
 
 let sendMsg = () => {
-  instance.proxy.$bus.emit('message', { title: 'hel lgfiubfgi chasiuchwd askbckj abckjgak jsgck jagckja bgcjkb vsdajcbvk jasvb ckjabckwqab fwid   fhdiugf iuwef i u广泛的 fgdqiahfdiq  iaeufwiufgh iuwfhqio', content: 'gfhaowhfia vgiowab kcabkjfv baw kjbfvjka wgvj uedsgg juvaeqiug fva eiugv iquhgi uqhiugqe hfuk qwa bqfjhqg uy', time: 300000})
+  instance.proxy.$bus.emit('message', { title: 'hel lgfiubfgi chasiuchwd askbckj abckjgak jsgck jagckja bgcjkb vsdajcbvk jasvb ckjabckwqab fwid   fhdiugf iuwef i u广泛的 fgdqiahfdiq  iaeufwiufgh iuwfhqio', content: 'gfhaowhfia vgiowab kcabkjfv baw kjbfvjka wgvj uedsgg juvaeqiug fva eiugv iquhgi uqhiugqe hfuk qwa bqfjhqg uy', time: 300000 })
   console.log(instance.proxy.$bus)
 }
 
