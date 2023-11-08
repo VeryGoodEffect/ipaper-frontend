@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div v-if="visible" ref="canvasContainer" class="container" :style="{
             'opacity': progress === 100 ? '0' : '1'
-        }">          
+        }">
         </div>
         <div class="progress">{{ progress }}%</div>
     </div>
@@ -104,7 +104,9 @@ export default {
                 update = (progress) => {
                     const color = this.getCurrentColor(progress)
                     this.elements.forEach((ele) => {
-                        this.updateWavingAnimation(ele)
+                        if (ele.name !== 'center_ball') {
+                            this.updateWavingAnimation(ele)
+                        }
                         this.updateRotationAnimation(ele)
                         ele.material.color = color
                     })
