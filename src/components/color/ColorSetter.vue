@@ -5,6 +5,7 @@
       <li v-for="(color, index) in colors" :key="index">
         <button @click="changeThemeColor(color)"></button>
       </li>
+
     </ul>
   </div>
   
@@ -33,10 +34,14 @@ export default {
       if (mode === '#000') {
         document.documentElement.style.setProperty('--theme-mode', '#fff')
         document.documentElement.style.setProperty('--theme-mode-like', '#eee')
+        document.documentElement.style.setProperty('--theme-mode-contrast', '#ccc')
+        document.documentElement.style.setProperty('--theme-mode-high-contrast', '#555')
         document.documentElement.style.setProperty('--default-text-color', '#000')
       } else {
         document.documentElement.style.setProperty('--theme-mode', '#000')
         document.documentElement.style.setProperty('--theme-mode-like', '#111')
+        document.documentElement.style.setProperty('--theme-mode-contrast', '#444')
+        document.documentElement.style.setProperty('--theme-mode-high-contrast', '#aaa')
         document.documentElement.style.setProperty('--default-text-color', '#fff')
       }
     },

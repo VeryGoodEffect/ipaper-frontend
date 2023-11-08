@@ -53,7 +53,7 @@ instance.proxy.$bus.on('message', (data) => {
   }, data.time)
 })
 
-let handleclick = (i)=>{
+let handleclick = (i) => {
   alert('点击第'+i+'个条目')
 }
 

@@ -5,11 +5,11 @@
       <h1>iPaper<span> 学术成果分享平台</span></h1>
     </section>
     <section>
-      <button class="basic-btn">登录</button>
+      <button class="basic-btn" @click="loginModalShouldShow = true">登录</button>
       <button class="basic-btn-outline">注册</button>
       <div class="dropdown-icon">
         <ul>
-          <li>登录</li>
+          <li @click="loginModalShouldShow = true">登录</li>
           <li>注册</li>
         </ul>
       </div>
@@ -19,16 +19,41 @@
     <div>
       <h2>一些吹牛的文案</h2>
       <div class="huge-input-wrapper">
-        <input class="basic-input huge-input" type="text" placeholder="文献、期刊、作者以及更多"/>
-        <svg t="1699356103686" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4162" width="200" height="200"><path d="M945.066667 898.133333l-189.866667-189.866666c55.466667-64 87.466667-149.333333 87.466667-241.066667 0-204.8-168.533333-373.333333-373.333334-373.333333S96 264.533333 96 469.333333 264.533333 842.666667 469.333333 842.666667c91.733333 0 174.933333-34.133333 241.066667-87.466667l189.866667 189.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c8.533333-12.8 8.533333-34.133333-2.133333-46.933334zM469.333333 778.666667C298.666667 778.666667 160 640 160 469.333333S298.666667 160 469.333333 160 778.666667 298.666667 778.666667 469.333333 640 778.666667 469.333333 778.666667z"  p-id="4163"></path></svg>
+        <input 
+          class="basic-input huge-input" type="text" placeholder="文献、期刊、作者以及更多"
+          v-model="searchKeyword" @keyup.enter="basicSearch"
+        />
+        <svg @click="basicSearch"
+          t="1699356103686" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4162" width="200" height="200"><path d="M945.066667 898.133333l-189.866667-189.866666c55.466667-64 87.466667-149.333333 87.466667-241.066667 0-204.8-168.533333-373.333333-373.333334-373.333333S96 264.533333 96 469.333333 264.533333 842.666667 469.333333 842.666667c91.733333 0 174.933333-34.133333 241.066667-87.466667l189.866667 189.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c8.533333-12.8 8.533333-34.133333-2.133333-46.933334zM469.333333 778.666667C298.666667 778.666667 160 640 160 469.333333S298.666667 160 469.333333 160 778.666667 298.666667 778.666667 469.333333 640 778.666667 469.333333 778.666667z"  p-id="4163"></path></svg>
       </div>
     </div>
   </main>
+  <LoginModal :show="loginModalShouldShow" @close="loginModalShouldShow = false"/>
+
 </template>
 
 <script>
+import LoginModal from '../../components/modals/LoginModal.vue'
+
 export default {
-  name: 'IntroView'
+  name: 'IntroView',
+  components: {
+    LoginModal
+  },
+  data() {
+    return {
+      searchKeyword: '', // 搜索关键字
+      loginModalShouldShow: false
+    }
+  },
+  methods: {
+    basicSearch() {
+      if (this.searchKeyword != '') {
+        alert('搜索关键字：' + this.searchKeyword)
+        this.searchKeyword = ''
+      }
+    }
+  }
 }
 </script>
 
