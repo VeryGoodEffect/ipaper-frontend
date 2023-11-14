@@ -1,6 +1,8 @@
 :root {
   --theme-mode: #000;
   --theme-mode-like: #111;
+  --theme-mode-contrast: #444;
+  --theme-mode-high-contrast: #aaa;
   --default-text-color: #fff;
   --theme-color: rgba(3,122,255, 1);
   --theme-color-80: rgba(3,122,255, .8);
@@ -56,7 +58,7 @@ button {
 
 /* #region basic-input */
 .basic-input {
-  width: 300px;
+  width: 400px;
   height: 50px;
   box-sizing: border-box;
   padding: 5px 10px;
@@ -196,3 +198,11 @@ button {
 }
 
 /* #endregion*/
+
+a {
+  color: var(--theme-color);
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+}
