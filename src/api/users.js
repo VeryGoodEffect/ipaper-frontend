@@ -1,8 +1,8 @@
 import service from "../http";
 const url = {
-    users: "users/",
-    follow: "users/follow/",
-    settings: "users/settings/"
+    users: "/users/",
+    follow: "/users/follow/",
+    settings: "/users/settings/"
 }
 
 export class Application {
