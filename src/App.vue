@@ -33,7 +33,6 @@ import PopoutMessage from './components/popout-message/PopoutMessage.vue'
 import ColorSetter from './components/color/ColorSetter.vue'
 
 
-import Pagination from './components/pagination/Pagination.vue'
 
 let showMessage = ref(false)  // 展示消息
 let messageTitle = ref('')    // 消息标题

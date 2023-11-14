@@ -47,7 +47,7 @@ export default {
   mounted() {
     setInterval(() => {
       if(this.progress<100)this.progress++
-    }, 10)
+    }, 100)
   }
 }
 </script>
