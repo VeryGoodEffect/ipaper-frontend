@@ -1,12 +1,12 @@
 import service from "../http";
 const url = {
-    active: "/accounts/active",
-    login: "/accounts/login",
-    logout: "/accounts/logout",
-    passwordChange: "/accounts/password_change",
-    passwordResetConfirm: "/accounts/password_reset_confirm",
-    passwordReset: "/accounts/password_reset",
-    register: "/accounts/register"
+    active: "/accounts/active/",
+    login: "/accounts/login/",
+    logout: "/accounts/logout/",
+    passwordChange: "/accounts/password_change/",
+    passwordResetConfirm: "/accounts/password_reset_confirm/",
+    passwordReset: "/accounts/password_reset/",
+    register: "/accounts/register/"
 }
 
 export class Account {
