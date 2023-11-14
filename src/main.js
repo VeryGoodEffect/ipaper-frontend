@@ -5,12 +5,96 @@ import store from './store'
 import mitt from 'mitt'
 import VueCookies from 'vue-cookies'
 import i18n from './language'
+import { walk } from 'vue/compiler-sfc'
 const app = createApp(App)
 
 app.config.globalProperties.$bus = new mitt()
 app.config.globalProperties.$cookies = VueCookies
 app.use(router).use(store).use(i18n)
 
+/*省略号工具.可以传递的参数包括
+maxWidth--optional 若未指定则按照初始ComputedStyle计算
+note:由于可能使用flex属性，该属性可能不会正常生效
+maxLine--optional
+transitionMode--optional
+transitionTime--optional
+transition仅针对高度进行过渡。
+*/
+app.directive('ellipsis', {
+  mounted(el, binding) {
+    let isWrap = true
+    let Wrappable = true
+    //由于外盒子可能为flex,因此需要单独设置内盒子
+    const content = document.createElement(el.tagName)
+    //此处targetStyle仍具有约束性
+    const setComputedStyle = (targetStyleProperty, computedStyleProperty) => {
+      content.style[targetStyleProperty] = window.getComputedStyle(content)[computedStyleProperty]
+      console.log(content.style[targetStyleProperty])
+    }
+    //传递文字样式,设置过渡,设置DOM结构和最大宽度
+    const transitionTime = binding.value.transitionTime ? binding.value.transitionTime : '0.5s'
+    const transitionMicros = parseFloat(transitionTime) * 1000
+    {
+      const transition = `max-height ${transitionTime} ${binding.value.transitionMode ? binding.value.transitionMode : 'linear'}`
+      const computedStyles = window.getComputedStyle(el)
+      content.style.fontFamily = computedStyles.fontFamily;
+      content.style.fontSize = computedStyles.fontSize;
+      content.style.color = computedStyles.color;
+      content.style.fontWeight = computedStyles.fontWeight;
+      content.style.textDecoration = computedStyles.textDecoration;
+      content.style.transition = transition
+      content.innerHTML = el.innerHTML
+      el.innerHTML = ''
+      el.appendChild(content)
+      if (binding.value.maxWidth) {
+        content.style.maxWidth = binding.value.maxWidth
+      }
+      else {
+        setComputedStyle('max-width', 'width')
+      }
+    }
+    const wrapText = () => {
+      Wrappable = false
+      content.style.overflow = 'hidden'
+      content.style.textOverflow = 'ellipsis'
+      content.style.cursor = 'pointer'
+      if (binding.value.maxLine && binding.value.maxLine > 1) {
+        content.style.display = '-webkit-box'
+        content.style.webkitBoxOrient = 'vertical'
+        content.style.webkitLineClamp = `${binding.value.maxLine}`
+      }
+      else {
+        content.style.whiteSpace = 'nowrap'
+      }
+      setTimeout(() => Wrappable = true, transitionMicros+50)
+    }
+    const unwarpText = () => {
+      Wrappable = false
+      content.style.whiteSpace = 'normal'
+      content.style.webkitLineClamp = 'inherit'
+      setTimeout(() => Wrappable = true, transitionMicros+50);
+    }
+    content.addEventListener('click', () => {
+      if (!Wrappable) return
+      if (isWrap === false) {
+        //仅用于获取省略状态下高度
+        wrapText()
+        setComputedStyle('max-height', 'height')
+        unwarpText()
+        setTimeout(wrapText, transitionMicros)//延迟切换为省略状态
+      }
+      else {
+        unwarpText()
+        //重新计算高度
+        content.style.maxHeight = content.scrollHeight + 'px'
+      }
+      isWrap = !isWrap
+    })
+    wrapText()
+    setComputedStyle('max-height', 'height')
+  }
+})
+//悬浮框工具
 app.directive('tooltip', {
   mounted(el, binding) {
     const tooltip = document.createElement('div')
@@ -26,7 +110,7 @@ app.directive('tooltip', {
     } else {
       tooltip.style.whiteSpace = 'nowrap'
     }
-    
+
 
     tooltip.style.display = 'none'
     tooltip.style.padding = '5px'
@@ -43,12 +127,12 @@ app.directive('tooltip', {
 
     if (el.style.position !== 'fixed' || el.style.position !== 'absolute' || el.style.position !== 'sticky') {
       el.style.position = 'relative'
-    } 
+    }
     el.appendChild(tooltip)
     el.addEventListener('mouseenter', (e) => {
       el.style.zIndex = '9998'
-      tooltip.style.left = `${ e.clientX - el.getBoundingClientRect().left }px`
-      tooltip.style.top = `${ e.clientY - el.getBoundingClientRect().top }px`
+      tooltip.style.left = `${e.clientX - el.getBoundingClientRect().left}px`
+      tooltip.style.top = `${e.clientY - el.getBoundingClientRect().top}px`
       tooltip.className = 'tooltip-appear'
       tooltip.style.display = 'block'
     })
