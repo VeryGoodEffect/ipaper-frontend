@@ -1,17 +1,23 @@
 <template>
   <PopoutModal :show="show" @close="handleClose">
     <div class="container">
-      <h3>登录<span>：探索更丰富的功能</span></h3>
+      <h3>注册<span>：加入 iPaper</span></h3>
       <input type="text" class="basic-input" placeholder="邮箱" v-model="email">
+      <span>邮箱可用于登录和找回密码。</span>
+      <input type="text" class="basic-input" placeholder="用户名" v-model="username">
       <input 
         type="password" class="basic-input" placeholder="密码" 
         v-model="password"
-        @keyup.enter="login"
       >
-      <span>忘记密码？通过邮箱以<a>找回</a>。</span>
+      <input 
+        type="password" class="basic-input" placeholder="确认密码" 
+        v-model="confirmedPassword"
+        @keyup.enter="register"
+      >
+      
       <div class="btn-box">
-        <button class="basic-btn-outline">注册</button>
-        <button class="basic-btn" @click="login">登录</button>
+        <button class="basic-btn-outline">登录</button>
+        <button class="basic-btn" @click="register">注册</button>
       </div>
     </div>
   </PopoutModal>
@@ -21,12 +27,14 @@
 import PopoutModal from '../popout-modal/PopoutModal.vue'
 
 export default {
-  name: 'LoginModal',
+  name: 'RegisterModal',
   emits: ['close'],
   data() {
     return {
       email: '',
-      password: ''
+      username: '',
+      password: '',
+      confirmedPassword: ''
     }
   },
   props: {
@@ -42,8 +50,11 @@ export default {
     handleClose() {
       this.$emit('close')
     },
-    login() {
-      alert('邮箱：' + this.email + "，密码：" + this.password)
+    register() {
+      alert('邮箱：' + this.username + 
+            '，用户名：' + this.password + 
+            '，密码：' + this.password + 
+            '，确认密码：' + this.comfirmedPassword)
     }
   }
 }
@@ -65,12 +76,12 @@ export default {
 .container>h3 {
   display: flex;
   justify-content: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .container>h3,
 .container>h3 * {
-  font-size: 40px;
+  font-size: 35px;
   font-weight: bold;
 }
 
@@ -87,16 +98,18 @@ export default {
 }
 
 .container>input:first-of-type {
-  margin-bottom: 40px;
-}
-.container>input:last-of-type {
   margin-bottom: 5px;
+}
+.container>input:nth-of-type(2),
+.container>input:nth-of-type(3),
+.container>input:nth-of-type(4) {
+  margin-bottom: 40px;
 }
 
 .container>span {
   width: 70%;
   font-size: 16px;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
 }
 
 .btn-box {
@@ -128,8 +141,14 @@ export default {
     padding-left: 10px;
   }
 
-  .container>input:first-of-type {
+  .container>input:nth-of-type(2),
+  .container>input:nth-of-type(3),
+  .container>input:nth-of-type(4) {
     margin-bottom: 20px;
+  }
+
+  .container>span {
+    margin-bottom: 15px;
   }
 
   .container>input,

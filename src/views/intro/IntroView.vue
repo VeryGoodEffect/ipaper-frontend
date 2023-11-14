@@ -1,5 +1,5 @@
 <template>
-  <LoadingBar :progress="progress"></LoadingBar>
+  <!-- <LoadingBar :progress="progress"></LoadingBar> -->
   <header>
     <section>
       <div class="logo"></div>
@@ -7,12 +7,12 @@
     </section>
     <section>
       <button class="basic-btn" @click="loginModalShouldShow = true">登录</button>
-      <button class="basic-btn-outline">注册</button>
+      <button class="basic-btn-outline" @click="registerModalShouldShow = true">注册</button>
       <div class="dropdown-icon">
         <ul>
           <li @click="loginModalShouldShow = true">登录</li>
-          <li>注册</li>
-        </ul>
+          <li @click="registerModalShouldShow = true">注册</li>
+        </ul>   
       </div>
     </section>
   </header>
@@ -30,22 +30,26 @@
     </div>
   </main>
   <LoginModal :show="loginModalShouldShow" @close="loginModalShouldShow = false"/>
+  <RegisterModal :show="registerModalShouldShow" @close="registerModalShouldShow = false"/>
 
 </template>
 
 <script>
 import LoginModal from '../../components/modals/LoginModal.vue'
+import RegisterModal from '../../components/modals/RegisterModal.vue'
 
 import LoadingBar from '../../components/loading-bar/LoadingBar.vue';
 export default {
   name: 'IntroView',
   components: {
-    LoginModal
+    LoginModal,
+    RegisterModal
   },
   data() {
     return {
       searchKeyword: '', // 搜索关键字
-      loginModalShouldShow: false
+      loginModalShouldShow: false,
+      registerModalShouldShow: false
     }
   },
   methods: {

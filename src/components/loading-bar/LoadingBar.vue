@@ -159,7 +159,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container {
     border-radius: 50%;
     margin: 0 auto;
