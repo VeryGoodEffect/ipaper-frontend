@@ -1,4 +1,5 @@
 <template>
+  <LoadingBar :progress="progress"></LoadingBar>
   <header>
     <section>
       <div class="logo"></div>
@@ -35,6 +36,7 @@
 <script>
 import LoginModal from '../../components/modals/LoginModal.vue'
 
+import LoadingBar from '../../components/loading-bar/LoadingBar.vue';
 export default {
   name: 'IntroView',
   components: {
@@ -67,20 +69,22 @@ header {
   padding: 0 10px;
 }
 
-header > section {
+header>section {
   display: flex;
   align-items: center;
 }
 
-header h1, header h1 span {
+header h1,
+header h1 span {
   font-size: 30px;
   font-weight: bold;
   color: var(--theme-color);
 }
+
 header h1 {
   margin-left: 20px;
 }
-  
+
 .logo {
   width: 60px;
   height: 60px;
@@ -101,7 +105,7 @@ main {
   align-items: center;
 }
 
-main > div {
+main>div {
   display: flex;
   max-width: 850px;
   flex-wrap: wrap;
@@ -138,6 +142,7 @@ main h2 {
   border-radius: 5px;
   display: none;
 }
+
 .dropdown-icon ul li {
   width: 80px;
   display: flex;
@@ -150,9 +155,11 @@ main h2 {
   border-radius: 5px;
   transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
 .dropdown-icon ul li:first-child {
   margin-bottom: 10px;
 }
+
 .dropdown-icon ul li:hover {
   scale: 1.05;
 }
@@ -161,9 +168,11 @@ main h2 {
   .dropdown-icon {
     display: block;
   }
+
   .dropdown-icon:hover ul {
     display: block;
   }
+
   header button {
     display: none;
   }
@@ -174,6 +183,7 @@ main h2 {
     width: 40px;
     height: 40px;
   }
+
   main h2 {
     font-size: 60px;
   }
@@ -183,6 +193,7 @@ main h2 {
   main h2 {
     font-size: 40px;
   }
+
   header h1 span {
     display: none;
   }
@@ -197,7 +208,7 @@ main h2 {
   right: 15px;
   z-index: 10;
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  fill: #666; 
+  fill: #666;
 }
 
 .icon:hover {
