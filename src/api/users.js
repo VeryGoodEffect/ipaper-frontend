@@ -18,7 +18,7 @@ export class Application {
         })
     }
 
-    static async updateUserAll(id, data) {
+    static async updateUser(id, data) {
         return service(url.users + id + "/", {
             method: "put",
             data
@@ -70,14 +70,14 @@ export class Application {
         })
     }
 
-    static async updateUserSettingsAll(data) {
+    static async updateUserSettings(data) {
         return service(url.settings, {
             method: "put",
             data
         })
     }
 
-    static async updateUserSettingsPartical(data) {
+    static async updateUserSettingsPartial(data) {
         return service(url.settings, {
             method: "patch",
             data

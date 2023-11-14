@@ -1,8 +1,8 @@
 import service from "../http";
 const url = {
-    applications: "applications/",
-    audited: "applications/audited/",
-    submitted: "applications/submitted/"
+    applications: "/applications/",
+    audited: "/applications/audited/",
+    submitted: "/applications/submitted/"
 }
 
 export class Application {
