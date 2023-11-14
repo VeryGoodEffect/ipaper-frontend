@@ -4,11 +4,12 @@ import router from './router'
 import store from './store'
 import mitt from 'mitt'
 import VueCookies from 'vue-cookies'
+import i18n from './language'
 const app = createApp(App)
 
 app.config.globalProperties.$bus = new mitt()
 app.config.globalProperties.$cookies = VueCookies
-app.use(router).use(store)
+app.use(router).use(store).use(i18n)
 
 app.directive('tooltip', {
   mounted(el, binding) {
