@@ -6,8 +6,9 @@
       <h1>iPaper<span> 学术成果分享平台</span></h1>
     </section>
     <section>
-      <button class="basic-btn" @click="loginModalShouldShow = true">登录</button>
-      <button class="basic-btn-outline">注册</button>
+      <button @click=translate()>{{ $t('language') }}</button>
+      <button class="basic-btn" @click="loginModalShouldShow = true">{{ $t('login') }}</button>
+      <button class="basic-btn-outline">{{ $t('register') }}</button>
       <div class="dropdown-icon">
         <ul>
           <li @click="loginModalShouldShow = true">登录</li>
@@ -35,12 +36,14 @@
 
 <script>
 import LoginModal from '../../components/modals/LoginModal.vue'
-
 import LoadingBar from '../../components/loading-bar/LoadingBar.vue';
+import i18n from '../../language'
+
 export default {
   name: 'IntroView',
   components: {
-    LoginModal
+    LoginModal,
+    i18n
   },
   data() {
     return {
@@ -53,6 +56,14 @@ export default {
       if (this.searchKeyword != '') {
         alert('搜索关键字：' + this.searchKeyword)
         this.searchKeyword = ''
+      }
+    },
+    translate() {
+      if(this.$i18n.locale == 'zh') {
+        this.$i18n.locale = 'en'
+      }
+      else {
+        this.$i18n.locale = 'zh'
       }
     }
   }
