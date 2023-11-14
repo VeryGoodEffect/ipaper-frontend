@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div v-if="visible" ref="canvasContainer" class="container" :style="{
-            'opacity': progress === 100 ? '0' : '1'
+            'opacity': progress >= 100 ? '0' : '1'
         }">
         </div>
         <div class="progress">{{ progress }}%</div>
@@ -12,7 +12,7 @@
 import * as THREE from 'three';
 import { render } from 'vue';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-
+import * as GUI from 'dat.gui'
 
 export default {
     mounted() {
@@ -20,14 +20,24 @@ export default {
     },
     methods: {
         initThree() {
+            //可视化参数
+            const gui = new GUI.GUI()
+            const options = {
+                option1: this.localProgress,
+                option2: "abc"
+            }
+            gui.add(options, "option1")
+            gui.add(options, "option2")
+            gui.domElement.style.right = '0px'
+            gui.domElement.style.width = "200px"
             // 获取容器元素
             const container = this.$refs.canvasContainer;
             // 创建场景
             const scene = new THREE.Scene();
             // scene.add(new THREE.AxesHelper(10)); // 添加坐标轴辅助线
             // 创建相机
-            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.z = 10
+            const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 20
             scene.add(camera);
             // 创建渲染器
             const renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -35,6 +45,21 @@ export default {
             renderer.setSize(container.clientWidth, container.clientHeight);
             container.appendChild(renderer.domElement);
 
+            //获取当前颜色
+            let getCurrentColor = (progress) => {
+                //初始化颜色
+                const colorString = getComputedStyle(document.documentElement).getPropertyValue('--theme-color')
+                const colorArray = colorString.match(/\d+(\.\d+)?/g).map(Number)
+                //前三个数字分别为RGB
+                const RGBAverage = (colorArray[0] + colorArray[1] + colorArray[2]) / 3
+                const k1 = progress / 100
+                const k2 = 1 - k1
+                const currentColorArray =
+                    [colorArray[0] * k1 + RGBAverage * k2,
+                    colorArray[1] * k1 + RGBAverage * k2,
+                    colorArray[2] * k1 + RGBAverage * k2]
+                return new THREE.Color(currentColorArray[0] / 255, currentColorArray[1] / 255, currentColorArray[2] / 255)
+            }
             class animateScene {
                 scene = undefined
                 elements = []
@@ -85,24 +110,9 @@ export default {
                     ele.rotation.y += ele.userData.rotationAxis.y * ele.userData.rotationSpeed
                     ele.rotation.z += ele.userData.rotationAxis.z * ele.userData.rotationSpeed
                 }
-                //获取当前颜色
-                getCurrentColor = (progress) => {
-                    //初始化颜色
-                    const colorString = getComputedStyle(document.documentElement).getPropertyValue('--theme-color')
-                    const colorArray = colorString.match(/\d+(\.\d+)?/g).map(Number)
-                    //前三个数字分别为RGB
-                    const RGBAverage = (colorArray[0] + colorArray[1] + colorArray[2]) / 3
-                    const k1 = progress / 100
-                    const k2 = 1 - k1
-                    const currentColorArray =
-                        [colorArray[0] * k1 + RGBAverage * k2,
-                        colorArray[1] * k1 + RGBAverage * k2,
-                        colorArray[2] * k1 + RGBAverage * k2]
-                    return new THREE.Color(currentColorArray[0] / 255, currentColorArray[1] / 255, currentColorArray[2] / 255)
-                }
                 //更新当前状态,要传入当前的进度
                 update = (progress) => {
-                    const color = this.getCurrentColor(progress)
+                    const color = getCurrentColor(progress)
                     this.elements.forEach((ele) => {
                         if (ele.name !== 'center_ball') {
                             this.updateWavingAnimation(ele)
@@ -116,6 +126,7 @@ export default {
                         const rate = base + percentage
                         if (progress < 100) {
                             this.scene.scale.set(rate, rate, rate)
+                            this.scene.rotation.y += 0.01
                         }
                         else {
                             this.scene.scale.x += 0.1
@@ -130,14 +141,22 @@ export default {
             let test = new animateScene()
             // 渲染循环
             let update = () => {
-                test.update(this.progress)
+                let currentColor = getCurrentColor(this.localProgress)
+                test.update(this.localProgress)
                 //渲染摄像机
                 renderer.render(scene, camera);
                 //请求渲染动画帧
                 requestAnimationFrame(update);
+                //更改背景颜色
+                container.style.backgroundColor = `rgba(${currentColor.r*255},${currentColor.g*255},${currentColor.b*255},${this.localProgress/100})`
             }
             update()
         },
+    },
+    data() {
+        return {
+            localProgress: 0
+        }
     },
     props: {
         visible: {
@@ -155,19 +174,35 @@ export default {
                 return false
             }
         }
+    },
+    watch: {
+        progress() {
+            let transitioner = () => {
+                console.log(this.localProgress)
+                if (this.localProgress < this.progress) {
+                    this.localProgress += (this.progress - this.localProgress) / 100
+                }
+                else {
+                    clearInterval(transitioner)
+                }
+            }
+            setInterval(transitioner, 1)
+        }
     }
+
 }
 </script>
 
 <style scoped>
 .container {
-    border-radius: 50%;
+    /* border-radius: 50%; */
     margin: 0 auto;
-    height: 300px;
-    aspect-ratio: 1;
+    height: 800px;
+    width: 100%;
+    /* aspect-ratio: 1; */
     overflow: hidden;
     transition: all ease-out 0.3s;
-    border: var(--theme-color) solid 10px;
+    /* border: var(--theme-color) solid 10px; */
 }
 
 .progress {
