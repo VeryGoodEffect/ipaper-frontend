@@ -1,5 +1,5 @@
 <template>
-  <LoadingBar style="position: fixed;width: 1000px;z-index: -1;" :progress="progress"></LoadingBar>
+  <!-- <LoadingBar style="position: fixed;width: 1000px;z-index: -1;" :progress="progress"></LoadingBar> -->
   <header>
     <section>
       <div class="logo"></div>
@@ -23,8 +23,8 @@
   </header>
   <main>
     <div>
-      <h2>一些吹牛的文案</h2>
-      <h2 v-ellipsis="{ maxLine: 1, maxWidth: '2000px', transitionTime: '1s' }">
+      <h2>{{ $t('frontpage_intro') }}</h2>
+      <!-- <h2 v-ellipsis="{ maxLine: 1, maxWidth: '2000px', transitionTime: '1s' }">
         最大宽度2000px 最大行数1 过渡时间1秒
         Lorem ipsum dolor sit amet consectetur illum omnis sunt in, quam eaque tempore ex consequuntur tempora. Totam quis
         minima sit natus eius quos aut soluta optio temporibus exercitationem? Blanditiis expedita tempore sit molestiae,
@@ -32,8 +32,8 @@
         Autem neque sed earum commodi quidem doloribus? Ducimus, consequuntur tenetur placeat quidem voluptas minus est
         rem velit sint voluptatibus hic consequatur, in fugit quas voluptate consectetur autem aspernatur. Tempore,
         repellendus cumque aspernatur ea aliquam dicta!
-      </h2>
-      <h3 v-ellipsis="{ maxLine: 3, transitionMode: 'ease-in-out' }">
+      </h2> -->
+      <!-- <h3 v-ellipsis="{ maxLine: 3, transitionMode: 'ease-in-out' }">
         最大宽度默认 最大行数3 过渡函数ease-in-out flex子元素最大宽度失效Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore corporis
         dolor distinctio enim nisi magni nesciunt ea, vitae assumenda atque illum maiores nobis ipsam, quae eos officia?
         Perferendis dignissimos enim, ducimus fuga ab voluptatibus fugit ex dicta a provident illum, aliquid alias
@@ -78,7 +78,7 @@
         fugiat earum? Molestias expedita dolore blanditiis odit, asperiores maiores nam sequi odio modi! Quo alias, rem
         recusandae nisi assumenda cumque consequuntur voluptatem labore esse maiores inventore! Nulla obcaecati itaque
         doloribus vel similique officiis modi illum ad sed minima alias animi consequuntur dolores, possimus labore
-      </h3>
+      </h3> -->
       <div class="huge-input-wrapper">
         <input 
           class="basic-input huge-input" type="text" :placeholder="$t('huge_input_placeholder')"
