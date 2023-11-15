@@ -124,6 +124,7 @@ export default {
     LoginModal,
     RegisterModal,
     RetrievePasswordModal,
+    LoadingBar,
     i18n
   },
   data() {
