@@ -1,31 +1,16 @@
 <template>
   <PopoutModal :show="show" @close="handleClose">
     <div class="container">
-      <h3>{{ $t('register_text') }}<span>{{ $t('register_prompt') }}</span></h3>
+      <h3>{{ $t('retrieve_password_text') }}</h3>
       <input 
         type="text" class="basic-input" 
         :placeholder="$t('email_text')" v-model="email"
       >
-      <span>{{ $t('email_usage_prompt') }}</span>
-      <input 
-        type="text" class="basic-input" 
-        :placeholder="$t('username_text')" v-model="username"
-      >
-      <input 
-        type="password" class="basic-input" 
-        :placeholder="$t('password_text')" 
-        v-model="password"
-      >
-      <input 
-        type="password" class="basic-input" 
-        :placeholder="$t('confirm_password_text')" 
-        v-model="confirmedPassword"
-        @keyup.enter="register"
-      >
+      <span>{{ $t('retrieve_password_message') }}</span>
       
       <div class="btn-box">
-        <button class="basic-btn-outline" @click="handleJumpToLogin">{{ $t('login_text') }}</button>
-        <button class="basic-btn" @click="register">{{ $t('register_text') }}</button>
+        <button class="basic-btn-outline" @click="handleClose">{{ $t('cancel_text') }}</button>
+        <button class="basic-btn" @click="resetPassword">{{ $t('confirm_text') }}</button>
       </div>
     </div>
   </PopoutModal>
@@ -36,14 +21,11 @@ import PopoutModal from '../popout-modal/PopoutModal.vue'
 import i18n from '../../language'
 
 export default {
-  name: 'RegisterModal',
-  emits: ['close', 'jumpToLogin'],
+  name: 'RetrievePasswordModal',
+  emits: ['close'],
   data() {
     return {
       email: '',
-      username: '',
-      password: '',
-      confirmedPassword: ''
     }
   },
   props: {
@@ -60,15 +42,8 @@ export default {
     handleClose() {
       this.$emit('close')
     },
-    handleJumpToLogin() {
-      this.handleClose()
-      this.$emit('jumpToLogin')
-    },
-    register() {
-      alert('邮箱：' + this.email + 
-            '，用户名：' + this.password + 
-            '，密码：' + this.password + 
-            '，确认密码：' + this.comfirmedPassword)
+    resetPassword() {
+      alert('邮箱：' + this.email)
     }
   }
 }
@@ -145,10 +120,6 @@ export default {
     margin-bottom: 30px
   }
 
-  .container>h3 span {
-    display: none;
-  }
-
   .container>input {
     height: 40px;
     font-size: 20px;
@@ -177,10 +148,6 @@ export default {
     font-size: 20px;
   }
 
-  .container>span,
-  .container>span>a {
-    font-size: 14px;
-  }
 }
 
 </style>

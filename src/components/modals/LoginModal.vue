@@ -1,17 +1,20 @@
 <template>
   <PopoutModal :show="show" @close="handleClose">
     <div class="container">
-      <h3>登录<span>：探索更丰富的功能</span></h3>
-      <input type="text" class="basic-input" placeholder="邮箱" v-model="email">
+      <h3>{{ $t('login_text') }}<span>{{ $t('login_prompt') }}</span></h3>
+      <input
+        type="text" class="basic-input" 
+        :placeholder="$t('email_text')" v-model="email">
       <input 
-        type="password" class="basic-input" placeholder="密码" 
+        type="password" class="basic-input" 
+        :placeholder="$t('password_text')" 
         v-model="password"
         @keyup.enter="login"
       >
-      <span>忘记密码？通过邮箱以<a>找回</a>。</span>
+      <span>{{ $t('retrieve_password_prompt_1') }}<a @click="handleJumpToRetrievePassword">{{ $t('retrieve_password_prompt_2') }}</a></span>
       <div class="btn-box">
-        <button class="basic-btn-outline">注册</button>
-        <button class="basic-btn" @click="login">登录</button>
+        <button class="basic-btn-outline" @click="handleJumpToRegister">{{ $t('register_text') }}</button>
+        <button class="basic-btn" @click="login">{{ $t('login_text') }}</button>
       </div>
     </div>
   </PopoutModal>
@@ -19,10 +22,11 @@
 
 <script>
 import PopoutModal from '../popout-modal/PopoutModal.vue'
+import i18n from '../../language'
 
 export default {
   name: 'LoginModal',
-  emits: ['close'],
+  emits: ['close', 'jumpToRigister', 'jumpToRetrievePassword'],
   data() {
     return {
       email: '',
@@ -36,11 +40,20 @@ export default {
     }
   },
   components: {
-    PopoutModal
+    PopoutModal,
+    i18n
   },
   methods: {
     handleClose() {
       this.$emit('close')
+    },
+    handleJumpToRegister() {
+      this.handleClose()
+      this.$emit('jumpToRigister')
+    },
+    handleJumpToRetrievePassword() {
+      this.handleClose()
+      this.$emit('jumpToRetrievePassword')
     },
     login() {
       alert('邮箱：' + this.email + "，密码：" + this.password)

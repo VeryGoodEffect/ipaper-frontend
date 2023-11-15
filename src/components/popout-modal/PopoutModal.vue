@@ -41,7 +41,7 @@ export default {
 .modal {
   position: absolute;
   min-width: 600px;
-  min-height: 400px;
+  min-height: 250px;
   background: var(--theme-mode-like);
   box-shadow: 1px 1px 5px grey;
   border-radius: 15px;
@@ -74,7 +74,7 @@ export default {
 @media screen and (max-width: 768px) {
   .modal {
     min-width: 60vw;
-    min-height: 320px;
+    min-height: 180px;
     padding: 15px 10px;
   }
   .close-icon {
