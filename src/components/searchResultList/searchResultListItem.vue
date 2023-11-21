@@ -1,5 +1,5 @@
 <template>
-    <div class="out-border">
+    <div :class="['out-border', { 'out-border-full': isExpanded }]">
         <h3 class="title">
             {{ infoItem.title }}
         </h3>
@@ -66,6 +66,11 @@ export default {
     border: 1px solid red;
     width: 700px;
     height: 130px;
+}
+.out-border-full {
+  border: 1px solid red;
+    width: 700px;
+    height: unset;
 }
 .title {
     font-size: 20px;

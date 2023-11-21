@@ -12,7 +12,12 @@
           searchBar
         </div>
         <pagination class="pagination">
-
+          <searchItem :infoItem="infoItem"></searchItem>
+          <searchItem :infoItem="infoItem"></searchItem>
+          <searchItem :infoItem="infoItem"></searchItem>
+          <searchItem :infoItem="infoItem"></searchItem>
+          <searchItem :infoItem="infoItem"></searchItem>
+          <searchItem :infoItem="infoItem"></searchItem>
         </pagination>
       </div>
     </div>
