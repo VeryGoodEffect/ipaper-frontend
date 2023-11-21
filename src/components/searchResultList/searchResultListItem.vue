@@ -1,12 +1,12 @@
 <template>
     <div class="out-border">
         <h3 class="title">
-            {{ info.title }}
+            {{ infoItem.title }}
         </h3>
         <div class="author">
-            {{ info.author }}
+            {{ infoItem.author }}
         </div>
-        <p v-html="highlightedText(keyword)" 
+        <p v-html="highlightedText(infoItem.keyword)" 
         :class="['excerpt', { 'full': isExpanded }]" @click="toggleTextContainer">
         </p>
         <div class="info">
@@ -17,7 +17,7 @@
             收藏
             </div>
             <div class="time-cited">
-            被引用次数：{{ info.time_cited }}
+            被引用次数：{{ infoItem.timeCited }}
             </div>
             <div class="related">
                 相关文章
@@ -33,23 +33,14 @@
 
 
 export default {
-    props: {
-        // info: {type: Object, default: {}},
-    },
+  props: ['infoItem'],
     data() {
       return {
-        info: {
-            title: "低碳经济: 人类经济发展方式的新变革",
-            author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
-            excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
-            time_cited: 537,
-        },
-        keyword: '低碳',
         isExpanded: false,
       }
     },
     mounted() {
-       
+       console.log(this.infoItem)
     },
     methods: {
         toggleTextContainer() {
@@ -58,10 +49,10 @@ export default {
         },
         highlightedText(str) {
             if (!str) {
-                return this.info.excerpt;
+                return this.infoItem.excerpt;
             }
             const regex = new RegExp(str, 'gi');
-            return this.info.excerpt.replace(regex, match => `<em style="color: rgb(255,82,88); font-size: 16px;">${match}</em>`);
+            return this.infoItem.excerpt.replace(regex, match => `<em style="color: rgb(255,82,88); font-size: 16px;">${match}</em>`);
         }
     },
     computed: {
@@ -73,11 +64,17 @@ export default {
 <style scoped>
 .out-border {
     border: 1px solid red;
-    width: 855px;
+    width: 700px;
     height: 130px;
 }
 .title {
     font-size: 20px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1; 
+    line-clamp: 1;
 }
 .author {
     padding-left: 20px;
