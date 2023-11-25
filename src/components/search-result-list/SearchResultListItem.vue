@@ -52,7 +52,7 @@ export default {
                 return this.infoItem.excerpt;
             }
             const regex = new RegExp(str, 'gi');
-            return this.infoItem.excerpt.replace(regex, match => `<em style="color: rgb(255,82,88); font-size: 16px;">${match}</em>`);
+            return this.infoItem.excerpt.replace(regex, match => `<em style="color: var(--theme-color); font-size: 16px; font-weight: bold;">${match}</em>`);
         }
     },
     computed: {
