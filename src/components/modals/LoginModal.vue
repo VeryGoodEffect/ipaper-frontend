@@ -14,8 +14,7 @@
       <span>{{ $t('retrieve_password_prompt_1') }}<a @click="handleJumpToRetrievePassword">{{ $t('retrieve_password_prompt_2') }}</a></span>
       <div class="btn-box">
         <button class="basic-btn-outline" @click="handleJumpToRegister">{{ $t('register_text') }}</button>
-        <!-- <button class="basic-btn" @click="login">{{ $t('login_text') }}</button> -->
-        <button class="basic-btn" @click="handle">{{ 测试 }}</button>
+        <button class="basic-btn" @click="login">{{ $t('login_text') }}</button>
       </div>
     </div>
   </PopoutModal>
