@@ -126,7 +126,7 @@ export default {
 
 @media screen and (max-width: 768px) {
   .container>h3 {
-    font-size: 35px;
+    font-size: 25px;
     font-weight: bold;
     margin-bottom: 30px
   }

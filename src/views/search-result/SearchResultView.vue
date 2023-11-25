@@ -2,7 +2,6 @@
     <div class="navBar">
       navBar
     </div>
-    <!-- <searchItem :infoItem="infoItem"></searchItem> -->
     <div class="mainArea">
       <div class="condArea">
         Filter Criteria
@@ -11,26 +10,26 @@
         <div class="searchBar">
           searchBar
         </div>
-        <pagination class="pagination">
-          <searchItem :infoItem="infoItem"></searchItem>
-          <searchItem :infoItem="infoItem"></searchItem>
-          <searchItem :infoItem="infoItem"></searchItem>
-          <searchItem :infoItem="infoItem"></searchItem>
-          <searchItem :infoItem="infoItem"></searchItem>
-          <searchItem :infoItem="infoItem"></searchItem>
-        </pagination>
+        <Pagination class="pagination">
+          <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+          <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+          <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+          <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+          <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+          <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+        </Pagination>
       </div>
     </div>
     
 </template>
   
   <script>
-  import searchItem from '../../components/searchResultList/searchResultListItem.vue';
-  import pagination from '../../components/pagination/Pagination.vue';
+  import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
+  import Pagination from '../../components/pagination/Pagination.vue'
   export default {
     components: {
-        searchItem,
-        pagination
+        SearchResultListItem,
+        Pagination
     },
     data() {
       return { 
@@ -48,7 +47,13 @@
   }
   </script>
   
-  <style scoped>
+<style scoped>
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+}
+
 .navBar {
   height: 80px;
   border: 2px solid red;

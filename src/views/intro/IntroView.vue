@@ -143,12 +143,20 @@ export default {
       }
     },
     translate() {
-      if (this.$i18n.locale == 'zh') {
-        this.$i18n.locale = 'en'
-      }
-      else {
-        this.$i18n.locale = 'zh'
-      }
+      document.documentElement.classList.add('document-fade-out')
+      setTimeout(() => {
+        document.documentElement.classList.remove('document-fade-out')
+        if (this.$i18n.locale == 'zh') {
+          this.$i18n.locale = 'en'
+        }
+        else {
+          this.$i18n.locale = 'zh'
+        }
+        document.documentElement.classList.add('document-fade-in')
+        setTimeout(() => {
+          document.documentElement.classList.remove('document-fade-in')
+        }, 610)
+      }, 200)
     }
   }
 }
