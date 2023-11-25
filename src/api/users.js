@@ -5,9 +5,9 @@ const url = {
     settings: "/users/settings/"
 }
 
-export class Application {
+export class User {
     static async getUserList() {
-        return service(url.login, {
+        return service(url.users, {
             method: "get"
         })
     }

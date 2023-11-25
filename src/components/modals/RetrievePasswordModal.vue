@@ -19,6 +19,7 @@
 <script>
 import PopoutModal from '../popout-modal/PopoutModal.vue'
 import i18n from '../../language'
+import { Account } from '../../api/accounts.js'
 
 export default {
   name: 'RetrievePasswordModal',
@@ -43,7 +44,17 @@ export default {
       this.$emit('close')
     },
     resetPassword() {
-      alert('邮箱：' + this.email)
+      let resetPasswordForm = {
+        email: this.email
+      }
+      Account.sendPasswordResetEmail(resetPasswordForm).then(
+        (response) => {
+          alert("请查看邮箱链接")
+        },
+        (error) => {
+          alert(error.data)
+        }
+      )
     }
   }
 }

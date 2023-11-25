@@ -14,7 +14,8 @@
       <span>{{ $t('retrieve_password_prompt_1') }}<a @click="handleJumpToRetrievePassword">{{ $t('retrieve_password_prompt_2') }}</a></span>
       <div class="btn-box">
         <button class="basic-btn-outline" @click="handleJumpToRegister">{{ $t('register_text') }}</button>
-        <button class="basic-btn" @click="login">{{ $t('login_text') }}</button>
+        <!-- <button class="basic-btn" @click="login">{{ $t('login_text') }}</button> -->
+        <button class="basic-btn" @click="handle">{{ 测试 }}</button>
       </div>
     </div>
   </PopoutModal>
@@ -23,6 +24,8 @@
 <script>
 import PopoutModal from '../popout-modal/PopoutModal.vue'
 import i18n from '../../language'
+import { Account } from '../../api/accounts.js'
+import { User } from '../../api/users.js'
 
 export default {
   name: 'LoginModal',
@@ -56,7 +59,32 @@ export default {
       this.$emit('jumpToRetrievePassword')
     },
     login() {
-      alert('邮箱：' + this.email + "，密码：" + this.password)
+      let loginForm = {
+        email: "mengqiaoyuanhe0311@163.com",
+        password: "11111111"
+      }
+      Account.login(loginForm).then(
+        (response) => {
+          alert(loginForm)
+        },
+        (error) => {
+          alert(error.data)
+        }
+      )
+    },
+    handle() {
+      let form = {
+         followed: 1
+      }
+      this.login()
+      User.getUserSettings().then(
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          alert('222')
+        }
+      )
     }
   }
 }
