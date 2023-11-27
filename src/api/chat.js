@@ -11,7 +11,7 @@ export class Chat {
         })
     }
 
-    static async getConversationsList() {
+    static async getAllConversations() {
         return service(url.conversations, {
             method: "get"
         })

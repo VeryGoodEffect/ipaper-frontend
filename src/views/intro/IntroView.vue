@@ -132,7 +132,7 @@ export default {
       searchKeyword: '', // 搜索关键字
       loginModalShouldShow: false,
       registerModalShouldShow: false,
-      retrievePasswordModalShouldShow: false
+      retrievePasswordModalShouldShow: false,
     }
   },
   methods: {
