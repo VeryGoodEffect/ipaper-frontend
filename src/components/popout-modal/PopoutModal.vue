@@ -45,7 +45,7 @@ export default {
   background: var(--theme-mode-like);
   box-shadow: 1px 1px 5px grey;
   border-radius: 15px;
-  padding: 20px 30px;
+  padding: 25px 30px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

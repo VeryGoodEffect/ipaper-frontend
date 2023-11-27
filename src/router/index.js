@@ -10,7 +10,7 @@ const router = createRouter({
       component: IntroView
     },
     {
-      path: '/searchresult',
+      path: '/search_result',
       component: SearchResultView
     }
   ]
