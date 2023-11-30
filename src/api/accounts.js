@@ -4,8 +4,8 @@ const url = {
     login: "/accounts/login/",
     logout: "/accounts/logout/",
     passwordChange: "/accounts/password_change/",
-    passwordResetConfirm: "/accounts/password_reset_confirm/",
     passwordReset: "/accounts/password_reset/",
+    sendPasswordResetEmail: "/accounts/send_password_reset_email/",
     register: "/accounts/register/"
 }
 
@@ -30,14 +30,15 @@ export class Account {
         })
     }
 
-    static async passwordResetConfirm() {
-        return service(url.passwordResetConfirm, {
-            method: "get"
+    static async passwordReset(data) {
+        return service(url.passwordReset, {
+            method: "patch",
+            data
         })
     }
 
-    static async passwordReset(data) {
-        return service(url.passwordReset, {
+    static async sendPasswordResetEmail(data) {
+        return service(url.sendPasswordResetEmail, {
             method: "post",
             data
         })

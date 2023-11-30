@@ -16,7 +16,7 @@ export class Messages {
         })
     }
 
-    static async getReceivedMessagesList() {
+    static async getAllReceivedMessages() {
         return service(url.messagesReceived, {
             method: "get"
         })
@@ -60,7 +60,7 @@ export class Messages {
         })
     }
 
-    static async getSentMessagesList() {
+    static async getAllSentMessages() {
         return service(url.messagesSent, {
             method: "get"
         })

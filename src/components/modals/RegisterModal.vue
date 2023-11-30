@@ -34,6 +34,7 @@
 <script>
 import PopoutModal from '../popout-modal/PopoutModal.vue'
 import i18n from '../../language'
+import { Account } from '../../api/accounts.js'
 
 export default {
   name: 'RegisterModal',
@@ -65,10 +66,20 @@ export default {
       this.$emit('jumpToLogin')
     },
     register() {
-      alert('邮箱：' + this.email + 
-            '，用户名：' + this.password + 
-            '，密码：' + this.password + 
-            '，确认密码：' + this.comfirmedPassword)
+      let registerForm = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        password_confirm: this.confirmedPassword,
+      }
+      Account.register(registerForm).then(
+        (response) => {
+          alert(registerForm)
+        },
+        (error) => {
+          alert("Error in register")
+        }
+      )
     }
   }
 }

@@ -114,7 +114,7 @@ import LoginModal from '../../components/modals/LoginModal.vue'
 import RegisterModal from '../../components/modals/RegisterModal.vue'
 import RetrievePasswordModal from '../../components/modals/RetrievePasswordModal.vue'
 
-import LoadingBar from '../../components/loading-bar/LoadingBar.vue';
+import LoadingBar from '../../components/loading-bar/LoadingBar.vue'
 import i18n from '../../language'
 
 
@@ -132,7 +132,7 @@ export default {
       searchKeyword: '', // 搜索关键字
       loginModalShouldShow: false,
       registerModalShouldShow: false,
-      retrievePasswordModalShouldShow: false
+      retrievePasswordModalShouldShow: false,
     }
   },
   methods: {
