@@ -56,6 +56,8 @@ import LoginModal from '../modals/LoginModal.vue'
 import RegisterModal from '../modals/RegisterModal.vue'
 import RetrievePasswordModal from '../modals/RetrievePasswordModal.vue'
 
+import { Account } from '../../api/accounts.js'
+
 import i18n from '../../language'
 export default {
   name: 'NavBar',
@@ -98,7 +100,14 @@ export default {
       this.$router.push('personal_homepage')
     },
     handleLogout() {
-      alert('logout')
+      Account.logout().then(
+        (response) => {
+          alert("登出成功！")
+        },
+        (error) => {
+          alert("登出失败！")
+        }
+      )
       this.setIsLoggedIn(false)
     }
   }
