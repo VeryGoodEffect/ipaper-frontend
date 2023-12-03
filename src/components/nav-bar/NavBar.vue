@@ -82,7 +82,20 @@ export default {
   watch: {
     isLoggedIn(newValue) {
       if (newValue === true) {
-        let userId = this.$cookies.get('user_id')
+        this.getUserIdAndSayHello()
+      }
+    }
+  },
+  mounted() {
+    console.log(this.$cookies.get('user_id'))
+    this.getUserIdAndSayHello()
+  },
+  methods: {
+    ...mapMutations(['setIsLoggedIn']),
+    getUserIdAndSayHello() {
+      let userId = this.$cookies.get('user_id')
+      if (userId) {
+        this.setIsLoggedIn(true)
         User.getUser(userId).then(
           (response) => {
             this.currentUsername = response.data.username
@@ -91,11 +104,8 @@ export default {
             console.log(error)
           }
         )
-      }
-    }
-  },
-  methods: {
-    ...mapMutations(['setIsLoggedIn']),
+      } 
+    },
     translate() {
       document.documentElement.classList.add('document-fade-out')
       setTimeout(() => {
