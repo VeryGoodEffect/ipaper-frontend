@@ -19,6 +19,10 @@ const router = createRouter({
     {
       path: '/personal_homepage',
       component: PersonalHomepageView
+    },
+    {
+      path: '/search',
+      component: SearchView
     }
 
   ]

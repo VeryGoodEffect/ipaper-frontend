@@ -108,7 +108,7 @@ export default {
 <style scoped>
 header {
   height: 80px;
-  background: rgba(255, 255, 255, .2);
+  background: rgba(100, 100, 100, .2);
   display: flex;
   justify-content: space-between;
   align-items: center;

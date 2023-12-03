@@ -27,5 +27,7 @@ export default {
     retrieve_password_message: 'Click confirm and check the reset link in your email',
 
     favourites: 'Favourites',
-    create_favourites: 'New'
+    create_favourites: 'New',
+
+    ipaper_scholar_text: 'iPaper Scholar'
 }
