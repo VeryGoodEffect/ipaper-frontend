@@ -3,6 +3,7 @@ import IntroView from '../views/intro/IntroView.vue'
 import SearchResultView from '../views/search-result/SearchResultView.vue'
 import PersonInfoView from '../views/admin/PersonInfoView.vue'
 import SearchView from '../views/search/SearchView.vue'
+import PersonalHomepageView from '../views/personal-homepage/PersonalHomepageView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,12 +17,8 @@ const router = createRouter({
       component: SearchResultView
     },
     {
-      path: '/person_info',
-      component: PersonInfoView
-    },
-    {
-      path: '/search',
-      component: SearchView
+      path: '/personalHomepage',
+      component: PersonalHomepageView
     }
 
   ]
