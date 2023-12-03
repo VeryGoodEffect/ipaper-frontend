@@ -64,33 +64,19 @@ export default {
     },
     login() {
       let loginForm = {
-        email: "mengqiaoyuanhe0311@163.com",
-        password: "11111111"
+        email: this.email,
+        password: this.password
       }
       Account.login(loginForm).then(
         (response) => {
-          alert(loginForm)
+          alert("登录成功！")
         },
         (error) => {
-          alert(error.data)
+          alert("登录失败！")
         }
       )
       this.setIsLoggedIn(true)
     },
-    handle() {
-      let form = {
-         followed: 1
-      }
-      this.login()
-      User.getUserSettings().then(
-        (response) => {
-          console.log(response.data);
-        },
-        (error) => {
-          alert('222')
-        }
-      )
-    }
   }
 }
 </script>
