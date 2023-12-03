@@ -26,6 +26,8 @@ export default {
     retrieve_password_text: 'Retrieve password',
     retrieve_password_message: 'Click confirm and check the reset link in your email',
 
+    cancel_follow: 'Cancel',
+    follow: 'Follow',
     favourites: 'Favourites',
     create_favourites: 'New',
 

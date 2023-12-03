@@ -26,6 +26,9 @@ export default {
     retrieve_password_text: '找回密码',
     retrieve_password_message: '点击确认，随后去邮箱查收重置链接',
 
+    cancel_follow: '取消关注',
+    follow: '关注',
+
     favourites: '收藏夹',
     create_favourites: '新建收藏夹',
 
