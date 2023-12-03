@@ -78,6 +78,13 @@ export default {
   computed: {
     ...mapState(['isLoggedIn'])
   },
+  watch: {
+    isLoggedIn(newValue) {
+      if (newValue === true) {
+        
+      }
+    }
+  },
   methods: {
     ...mapMutations(['setIsLoggedIn']),
     translate() {
