@@ -4,6 +4,8 @@ export default {
     frontpage_intro: 'Blow my own trumpet~',
 
     login_text: 'Login',
+    logout_text: 'Logout',
+    personal_homepage_text: 'Homepage',
     register_text: 'Register',
     language: 'English',
     huge_input_placeholder: 'Search anything and more',

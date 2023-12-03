@@ -22,9 +22,13 @@
 
 <script>
 import PopoutModal from '../popout-modal/PopoutModal.vue'
+
 import i18n from '../../language'
+
 import { Account } from '../../api/accounts.js'
 import { User } from '../../api/users.js'
+
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'LoginModal',
@@ -46,6 +50,7 @@ export default {
     i18n
   },
   methods: {
+    ...mapMutations(['setIsLoggedIn']),
     handleClose() {
       this.$emit('close')
     },
@@ -70,6 +75,7 @@ export default {
           alert(error.data)
         }
       )
+      this.setIsLoggedIn(true)
     },
     handle() {
       let form = {

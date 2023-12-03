@@ -1,9 +1,9 @@
 :root {
-  --theme-mode: #000;
-  --theme-mode-like: #111;
-  --theme-mode-contrast: #444;
-  --theme-mode-high-contrast: #aaa;
-  --default-text-color: #fff;
+  --theme-mode: #fff;
+  --theme-mode-like: #eee;
+  --theme-mode-contrast: #ccc;
+  --theme-mode-high-contrast: #555;
+  --default-text-color: #000;
   --theme-color: rgba(3,122,255, 1);
   --theme-color-80: rgba(3,122,255, .8);
   --theme-color-60: rgba(3,122,255, .6);
