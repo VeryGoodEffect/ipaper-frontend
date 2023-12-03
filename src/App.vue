@@ -19,6 +19,7 @@
     @click="sendMsg"
   >
   </div> -->
+  <NavBar/>
   <RouterView />
   <div style="position: fixed; bottom: 30px; left: 30px">
     <ColorSetter />
@@ -32,6 +33,7 @@
 import { ref, getCurrentInstance, watch } from 'vue'
 import PopoutMessage from './components/popout-message/PopoutMessage.vue'
 import ColorSetter from './components/color/ColorSetter.vue'
+import NavBar from './components/nav-bar/NavBar.vue'
 
 // import FollowListVue from './components/follow-list/followList.vue'
 

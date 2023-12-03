@@ -21,7 +21,7 @@
       </template>
       <template v-else>
         <a class="homepage-link">
-          <div>{{ currentUsername }}</div>
+          <div>{{ $t('hello_message') + currentUsername }}</div>
           <ul class="dropdown-list">
             <li @click="jumpToPersonalHomepage">{{ $t('personal_homepage_text') }}</li>
             <li @click="handleLogout">{{ $t('logout_text') }}</li>
@@ -57,6 +57,7 @@ import RegisterModal from '../modals/RegisterModal.vue'
 import RetrievePasswordModal from '../modals/RetrievePasswordModal.vue'
 
 import { Account } from '../../api/accounts.js'
+import { User } from '../../api/users.js'
 
 import i18n from '../../language'
 export default {
@@ -72,7 +73,7 @@ export default {
       loginModalShouldShow: false,
       registerModalShouldShow: false,
       retrievePasswordModalShouldShow: false,
-      currentUsername: '当前登录用户你好吗和'
+      currentUsername: ''
     }
   },
   computed: {
@@ -81,7 +82,15 @@ export default {
   watch: {
     isLoggedIn(newValue) {
       if (newValue === true) {
-        
+        let userId = this.$cookies.get('user_id')
+        User.getUser(userId).then(
+          (response) => {
+            this.currentUsername = response.data.username
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
       }
     }
   },
@@ -274,7 +283,7 @@ header svg {
     height: 40px;
   }
   .homepage-link div {
-    max-width: 100px;
+    max-width: 150px;
   }
 }
 </style>

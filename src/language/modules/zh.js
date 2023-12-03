@@ -5,6 +5,7 @@ export default {
 
     login_text: '登录',
     logout_text: '登出',
+    hello_message: '你好，',
     personal_homepage_text: '个人主页',
     register_text: '注册',
     language: '中文',

@@ -1,9 +1,8 @@
 <template>
-  <NavBar/>
   <main class="container">
     <section class="search-panel">
       <h2>
-        {{ $t('ipaper_scholar_text')}}
+        {{ $t('ipaper_scholar_text') }}
       </h2>
       <div class="search-area">
         <input type="text" class="basic-input search-input" />
@@ -18,13 +17,11 @@
   </main>
 </template>
 <script>
-import NavBar from '../../components/nav-bar/NavBar.vue'
 import i18n from '../../language'
 
 export default {
   name: 'SearchView',
   components: {
-      NavBar,
       i18n
   }
 }

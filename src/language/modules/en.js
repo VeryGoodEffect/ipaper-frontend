@@ -5,6 +5,7 @@ export default {
 
     login_text: 'Login',
     logout_text: 'Logout',
+    hello_message: 'Welcome, ',
     personal_homepage_text: 'Homepage',
     register_text: 'Register',
     language: 'English',
