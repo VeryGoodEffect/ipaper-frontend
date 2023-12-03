@@ -27,6 +27,7 @@
   import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
   import Pagination from '../../components/pagination/Pagination.vue'
   export default {
+    name: 'SearchResultView',
     components: {
         SearchResultListItem,
         Pagination
