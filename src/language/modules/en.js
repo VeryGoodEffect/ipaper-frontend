@@ -22,5 +22,8 @@ export default {
     cancel_text: 'Cancel',
     confirm_text: 'Confirm',
     retrieve_password_text: 'Retrieve password',
-    retrieve_password_message: 'Click confirm and check the reset link in your email'
+    retrieve_password_message: 'Click confirm and check the reset link in your email',
+
+    cancel_follow: 'Cancel',
+    follow: 'Follow',
 }

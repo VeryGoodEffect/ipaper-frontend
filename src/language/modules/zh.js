@@ -22,6 +22,9 @@ export default {
     cancel_text: '取消',
     confirm_text: '确认',
     retrieve_password_text: '找回密码',
-    retrieve_password_message: '点击确认，随后去邮箱查收重置链接'
+    retrieve_password_message: '点击确认，随后去邮箱查收重置链接',
+
+    cancel_follow: '取消关注',
+    follow: '关注',
 
 }
