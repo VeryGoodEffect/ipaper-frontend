@@ -25,7 +25,7 @@
     <ColorSetter />
   </div>
   <PopoutMessage :show="showMessage" :title="messageTitle" :content="messageContent" />
-  <FollowListVue />
+  <!-- <FollowListVue /> -->
 </template> 
 
 <script setup>

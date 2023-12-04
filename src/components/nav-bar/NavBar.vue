@@ -129,12 +129,12 @@ export default {
       Account.logout().then(
         (response) => {
           alert("登出成功！")
+          this.setIsLoggedIn(false)
         },
         (error) => {
           alert("登出失败！")
         }
       )
-      this.setIsLoggedIn(false)
     }
   }
 }

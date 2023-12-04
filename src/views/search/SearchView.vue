@@ -13,20 +13,24 @@
     </section>
     <section class="recommendation">
       <h3>为你推荐</h3>
+      <ArticleRecommendation/>
     </section>
   </main>
 </template>
 <script>
+import ArticleRecommendation from '../../components/recommendation/ArticleRecommendation.vue'
+
 import i18n from '../../language'
 
 export default {
   name: 'SearchView',
   components: {
-      i18n
+    ArticleRecommendation,
+    i18n
   }
 }
 </script>
-<style>
+<style scoped>
 .container {
   width: 80%;
   /* height: calc(100vh - 80px); */
@@ -45,7 +49,7 @@ export default {
 .search-area {
   display: flex;
   justify-content: center;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .search-input {

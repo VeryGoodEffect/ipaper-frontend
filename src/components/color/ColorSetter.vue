@@ -36,12 +36,14 @@ export default {
         document.documentElement.style.setProperty('--theme-mode-like', '#eee')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#ccc')
         document.documentElement.style.setProperty('--theme-mode-high-contrast', '#555')
+        document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#222')
         document.documentElement.style.setProperty('--default-text-color', '#000')
       } else {
         document.documentElement.style.setProperty('--theme-mode', '#000')
         document.documentElement.style.setProperty('--theme-mode-like', '#111')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#444')
         document.documentElement.style.setProperty('--theme-mode-high-contrast', '#aaa')
+        document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#c8c8c8')
         document.documentElement.style.setProperty('--default-text-color', '#fff')
       }
     },

@@ -21,6 +21,8 @@ export default {
     email_usage_prompt: 'Using email to login and retrieve password',
     username_text: 'Username',
     confirm_password_text: 'Re-enter password',
+    register_success: 'Register success',
+    check_email_hint: 'A confirmation email has been sent to your email.',
 
     cancel_text: 'Cancel',
     confirm_text: 'Confirm',

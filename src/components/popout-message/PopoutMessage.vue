@@ -35,11 +35,11 @@ export default {
 
 <style scoped>
 .popout-message {
-  max-width: 400px;
+  max-width: 500px;
   padding: 10px 10px;
-  background-color: white;
+  background-color: var(--theme-mode-like);
   border-radius: 10px;
-  box-shadow: 1px 1px 10px grey;
+  box-shadow: 1px 1px 3px var(--theme-mode-high-contrast);
   position: fixed;
   top: 5%;
   left: 50%;
@@ -48,19 +48,19 @@ export default {
 }
 
 .popout-message-title {
-  max-width: 360px;
-  font-size: 20px;
+  max-width: 480px;
+  font-size: 24px;
   font-weight: bold;
   text-align: center;
-  color: rgba(199, 29, 35, 1);
+  color: var(--theme-color);
   /* padding-bottom: 10px; */
 }
 
 .popout-message-content {
-  max-width: 360px;
-  font-size: 16px;
+  max-width: 480px;
+  font-size: 18px;
   text-align: center;
-  color: grey;
+  color: var(--theme-mode-high-contrast);
   word-break: break-all;
 }
 

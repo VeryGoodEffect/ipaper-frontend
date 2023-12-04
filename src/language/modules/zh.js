@@ -21,6 +21,8 @@ export default {
     email_usage_prompt: '邮箱可用于登录和找回密码',
     username_text: '用户名',
     confirm_password_text: '确认密码',
+    register_success: '注册成功',
+    check_email_hint: '一则确认邮件已发送至你的邮箱。',
 
     cancel_text: '取消',
     confirm_text: '确认',
