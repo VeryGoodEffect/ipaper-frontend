@@ -25,5 +25,6 @@ export default {
     retrieve_password_message: '点击确认，随后去邮箱查收重置链接',
 
     favourites: '收藏夹',
-    create_favourites: '新建收藏夹'
+    create_favourites: '新建收藏夹',
+    move_favourites: '移动到',
 }

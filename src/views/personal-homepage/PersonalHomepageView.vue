@@ -4,7 +4,18 @@
     </div>
     <Transition name="fade">
       <div class="model" v-if="moveVisible">
-
+        <div class="inner-box">
+          <h3 class="move-title">
+            {{ $t('move_favourites') }}
+          </h3>
+          <Pagination class="pagination">
+            <div class="favourites" v-for="(info, index) in favouritesInfo">
+              <Favourites :favourites="favouritesInfo[index]" 
+              ref="favouritesRefs"> </Favourites>
+            </div>
+          </Pagination>
+        </div>
+        
       </div>
     </Transition>
     <div class="main-part">
@@ -118,15 +129,22 @@
       handleMove() {
         this.moveVisible = true
       },
+      handleMoveClick(index) {
+        this.moveVisible = false
+      }
     },
   }
   window.addEventListener('scroll', function() {
-      var container = document.querySelector('.model');
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      var containerHeight = container.offsetHeight;
+      var container = document.querySelector('.model')
+
+      if (container === null || getComputedStyle(container).display === 'none') {
+        return; 
+      }
+
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop
       var windowHeight = window.innerHeight;
 
-      var topPosition = scrollTop + (windowHeight / 2);
+      var topPosition = scrollTop + (windowHeight / 2)
       container.style.top = topPosition + 'px';
     });
   </script>
@@ -285,6 +303,12 @@
   min-height: 400px;
   border-radius: 20px;
   position: absolute;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+  justify-content: center;
 }
 
 .fade-enter-from,
@@ -301,6 +325,17 @@ opacity: 1;
 .fade-leave-active {
 
 transition: opacity 0.5s linear 0s;
+}
+
+.inner-box {
+  width: 70%;
+  border: 2px solid red;
+}
+.move-title {
+  color: black;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 30px;
 }
 
 
