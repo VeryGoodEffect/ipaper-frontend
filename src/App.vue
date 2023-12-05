@@ -21,6 +21,11 @@
   </div> -->
   <NavBar/>
   <RouterView />
+
+  <div style="position: fixed; bottom: 300px; left: 300px">
+    <MulSearch />
+  </div>
+
   <div style="position: fixed; bottom: 30px; left: 30px">
     <ColorSetter />
   </div>

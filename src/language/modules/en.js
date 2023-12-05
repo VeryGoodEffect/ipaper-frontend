@@ -33,6 +33,18 @@ export default {
     follow: 'Follow',
     favourites: 'Favourites',
     create_favourites: 'New',
+    move_favourites: 'Move to',
 
+    authenticate_text: 'Authenticate',
+    authenticate_prompt: ': to perfect your identity',
+    auditor_text: 'Select an auditor',
+    openalexId_text: 'Openalex id',
+    realName_text: 'Real name',
+    institution_text: 'Working institution',
+    position_text: 'Your region',
+    concepts_text: 'Your working concepts',
+    workEmail_text: 'Working email',
+    content_text: 'Anything else',
+    
     ipaper_scholar_text: 'iPaper Scholar'
 }

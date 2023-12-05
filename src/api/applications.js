@@ -7,7 +7,7 @@ const url = {
 
 export class Application {
     static async applications(data) {
-        return service(url.login, {
+        return service(url.applications, {
             method: "post",
             data
         })
