@@ -32,6 +32,18 @@ export default {
 
     favourites: '收藏夹',
     create_favourites: '新建收藏夹',
+    move_favourites: '移动到',
+
+    authenticate_text: '认证身份',
+    authenticate_prompt: '：建立你的专家信息门户',
+    auditor_text: '选择认证的管理员',
+    openalexId_text: 'openalex id',
+    realName_text: '真实姓名',
+    institution_text: '工作机构',
+    position_text: '地区',
+    concepts_text: '科研领域',
+    workEmail_text: '工作邮箱',
+    content_text: '备注',
 
     ipaper_scholar_text: 'iPaper 学术搜索',
 }

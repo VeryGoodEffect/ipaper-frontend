@@ -37,6 +37,11 @@
 
 export default {
   props: ['favourites'],
+  emits: {
+    deleteFavourites: null,
+    cancelCreation: null,
+    moveFavourites: null
+  },
     data() {
       return {
         showContextMenu: false,
@@ -105,11 +110,10 @@ export default {
 window.addEventListener('scroll', function() {
       var container = document.querySelector('.menu');
       var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      var containerHeight = container.offsetHeight;
       var windowHeight = window.innerHeight;
 
       var topPosition = scrollTop + (windowHeight / 2);
-      container.style.top = topPosition + 'px';
+      // container.style.top = topPosition + 'px';
     });
 </script>
 
