@@ -27,5 +27,17 @@ export default {
     retrieve_password_message: '点击确认，随后去邮箱查收重置链接',
 
     favourites: '收藏夹',
-    create_favourites: '新建收藏夹'
+    create_favourites: '新建收藏夹',
+
+    authenticate_text: '认证身份',
+    authenticate_prompt: '：建立你的专家信息门户',
+    auditor_text: '选择认证的管理员',
+    openalexId_text: 'openalex id',
+    realName_text: '真实姓名',
+    institution_text: '工作机构',
+    position_text: '地区',
+    concepts_text: '科研领域',
+    workEmail_text: '工作邮箱',
+    content_text: '备注'
+
 }
