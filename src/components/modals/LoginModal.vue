@@ -70,12 +70,14 @@ export default {
       Account.login(loginForm).then(
         (response) => {
           alert("登录成功！")
+          this.setIsLoggedIn(true)
+          this.handleClose()
         },
         (error) => {
           alert("登录失败！")
         }
       )
-      this.setIsLoggedIn(true)
+      
     },
   }
 }

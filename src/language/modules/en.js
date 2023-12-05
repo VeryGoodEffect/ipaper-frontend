@@ -5,6 +5,7 @@ export default {
 
     login_text: 'Login',
     logout_text: 'Logout',
+    hello_message: 'Welcome, ',
     personal_homepage_text: 'Homepage',
     register_text: 'Register',
     language: 'English',
@@ -26,6 +27,8 @@ export default {
     retrieve_password_text: 'Retrieve password',
     retrieve_password_message: 'Click confirm and check the reset link in your email',
 
+    cancel_follow: 'Cancel',
+    follow: 'Follow',
     favourites: 'Favourites',
     create_favourites: 'New',
 
@@ -38,5 +41,7 @@ export default {
     position_text: 'Your region',
     concepts_text: 'Your working concepts',
     workEmail_text: 'Working email',
-    content_text: 'Anything else'
+    content_text: 'Anything else',
+    
+    ipaper_scholar_text: 'iPaper Scholar'
 }

@@ -5,6 +5,7 @@ export default {
 
     login_text: '登录',
     logout_text: '登出',
+    hello_message: '你好，',
     personal_homepage_text: '个人主页',
     register_text: '注册',
     language: '中文',
@@ -26,6 +27,9 @@ export default {
     retrieve_password_text: '找回密码',
     retrieve_password_message: '点击确认，随后去邮箱查收重置链接',
 
+    cancel_follow: '取消关注',
+    follow: '关注',
+
     favourites: '收藏夹',
     create_favourites: '新建收藏夹',
 
@@ -38,6 +42,7 @@ export default {
     position_text: '地区',
     concepts_text: '科研领域',
     workEmail_text: '工作邮箱',
-    content_text: '备注'
+    content_text: '备注',
 
+    ipaper_scholar_text: 'iPaper 学术搜索',
 }

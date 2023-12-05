@@ -1,6 +1,5 @@
 <template>
   <!-- <LoadingBar style="position: fixed;width: 1000px;z-index: -1;" :progress="progress"></LoadingBar> -->
-  <NavBar/>
   <main>
     <div>
       <h2>{{ $t('frontpage_intro') }}</h2>
@@ -72,14 +71,12 @@
 </template>
 
 <script>
-import NavBar from '../../components/nav-bar/NavBar.vue'
 import LoadingBar from '../../components/loading-bar/LoadingBar.vue'
 import i18n from '../../language'
 
 export default {
   name: 'IntroView',
   components: {
-    NavBar,
     LoadingBar,
     i18n
   },
