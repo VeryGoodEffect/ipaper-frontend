@@ -19,7 +19,13 @@
     @click="sendMsg"
   >
   </div> -->
+  
   <RouterView />
+
+  <div style="position: fixed; bottom: 300px; left: 300px">
+    <MulSearch />
+  </div>
+
   <div style="position: fixed; bottom: 30px; left: 30px">
     <ColorSetter />
   </div>
@@ -32,6 +38,7 @@ import { ref, getCurrentInstance } from 'vue'
 import PopoutMessage from './components/popout-message/PopoutMessage.vue'
 import ColorSetter from './components/color/ColorSetter.vue'
 
+import MulSearch from './components/search-property/MulSearch.vue'
 
 
 let showMessage = ref(false)  // 展示消息
