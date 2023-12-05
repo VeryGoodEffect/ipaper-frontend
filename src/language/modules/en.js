@@ -46,5 +46,6 @@ export default {
     workEmail_text: 'Working email',
     content_text: 'Anything else',
     
-    ipaper_scholar_text: 'iPaper Scholar'
+    ipaper_scholar_text: 'iPaper Scholar',
+    recommend_for_you: 'Recommendation'
 }

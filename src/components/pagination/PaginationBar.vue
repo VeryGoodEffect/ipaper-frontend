@@ -96,7 +96,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* Add your CSS styles for the pagination component here */
 button {
   background: #222;

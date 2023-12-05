@@ -8,13 +8,13 @@
 
       <div class="search-area">
 
-      <AsideBar v-show="show_property_search"></AsideBar>
-      <hr class="vertical-line"  style="height: 100px; 
+      <!-- <AsideBar v-show="show_property_search"></AsideBar> -->
+      <!-- <hr class="vertical-line"  style="height: 100px; 
                                           border: none; 
                                           border-left: 2px solid #8a2be2;
                                           margin: 0 20px; 
                                           background-image: linear-gradient(to bottom, #32a852, #32a8d8, #3248a8, #6a32a8); 
-                                          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); ">
+                                          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); "> -->
 
         <input type="text" class="basic-input search-input" />
         <button class="basic-btn search-btn">
@@ -25,7 +25,7 @@
       </div>
     </section>
     <section class="recommendation">
-      <h3>为你推荐</h3>
+      <h3>{{ $t('recommend_for_you')}}</h3>
       <ArticleRecommendation/>
     </section>
 
@@ -109,7 +109,7 @@ export default {
 
 @media screen and (max-width: 450px) {
   .search-panel h2 {
-    font-size: 30px;
+    font-size: 40px;
   }
 
   .recommendation {
@@ -130,14 +130,6 @@ export default {
   .property-selector {
     width: 100%;
     margin-bottom: 10px;
-  }
-
-  .search-input {
-    width: 100%;
-  }
-
-  .search-area {
-    flex-direction: column;
   }
 }
 

@@ -3,32 +3,30 @@
       <div ref="name">
         {{ favourites.name }}
       </div>  
-        <template v-if="favourites.isCreating" class="creation-block">
+        <!-- <template v-if="favourites.isCreating" class="creation-block">
           <div class="creation-block"> 
             <input type="text" ref="nameInput" v-model="favourites.name" class="nameInput">
             <div class="button-row">
               <div class="check-button" @click.stop="cancelCreation">
-                <!-- <CrossIcon size="15px"/> -->
                 取消 
               </div>
               <div class="check-button" @click.stop="updateCreation">
-                <!-- <CheckIcon size="15px -->
                 创建
               </div>
             </div>
             
           </div>
             
-        </template>
+        </template> -->
     </div>
   
     <div 
         class="menu" 
-        v-if="showContextMenu"
+        v-if="favourites.showContextMenu"
         :style="{ left: x + 'px', top: y + 'px'}"
       >
-        <button @click="triggerMove">移动</button>
-        <button @click="triggerDelete">删除</button>
+        <button class="basic-btn block-btn" @click="triggerMove">移动</button>
+        <button class="basic-btn block-btn" @click="triggerDelete">删除</button>
     </div>
 </template>
 
@@ -36,22 +34,24 @@
 
 
 export default {
+  name: 'FavouriteListItem',
   props: ['favourites'],
   emits: {
     deleteFavourites: null,
     cancelCreation: null,
-    moveFavourites: null
+    moveFavourites: null,
+    IWantToShow: null
   },
     data() {
       return {
-        showContextMenu: false,
+        // showContextMenu: false,
         x: 0,
         y: 0,
         moveVisible: false,
       }
     },
     mounted() {
-      window.addEventListener('click', this.hideMenu)
+      // window.addEventListener('click', this.hideMenu)
       // if (this.type !== 'normal') {
       //   this.$nextTick(() => {
       //     this.$refs.deleted.style.cursor = 'default'
@@ -60,12 +60,13 @@ export default {
       // this.$bus.on('renameFailRequest', this.handleRenameFailDisplay)
     },
     beforeUnmount() {
-      window.removeEventListener('click', this.hideMenu)
+      // window.removeEventListener('click', this.hideMenu)
     },
     methods: {
-      handleRightClick() {
+      handleRightClick(event) {
         // console.log("111")
-        this.showContextMenu = true
+        // this.showContextMenu = true
+        this.$emit('IWantToShow')
         const scrollX = window.pageXOffset || document.documentElement.scrollLeft
         const scrollY = window.pageYOffset || document.documentElement.scrollTop
         this.x = event.clientX + scrollX
@@ -100,21 +101,13 @@ export default {
       },
       triggerMove() {
         this.$emit('moveFavourites')
-
       }
     },
     computed: {
     
   }
 }
-window.addEventListener('scroll', function() {
-      var container = document.querySelector('.menu');
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      var windowHeight = window.innerHeight;
 
-      var topPosition = scrollTop + (windowHeight / 2);
-      // container.style.top = topPosition + 'px';
-    });
 </script>
 
 <style scoped>
@@ -130,6 +123,7 @@ window.addEventListener('scroll', function() {
         align-items: center;
         color: rgb(255, 255, 255);
         cursor: pointer;
+        margin-top: 10px;
     }
     .favorites-main-part:hover{
         /* border: 2px solid blue; */
@@ -145,17 +139,25 @@ window.addEventListener('scroll', function() {
         cursor: pointer;
     }
   .menu {
-  width: 80px;
+  /* width: 80px; */
   /* height: 90px; */
   padding: 10px;
-  background: white;
+  background: var(--theme-mode-like);
   /* border: 2px solid rgba(199, 29, 35, 1); */
   box-shadow: 1px 1px 10px grey;
   border-radius: 5px;
   position: absolute;
 }
 
-.menu button {
+.menu button:first-child {
+  margin-bottom: 10px;
+}
+
+.block-btn {
+  display: block;
+}
+
+/* .menu button {
   display: block;
   width: 80px;
   height: 40px;
@@ -164,9 +166,9 @@ window.addEventListener('scroll', function() {
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
+} */
 
-.menu button:hover {
+/* .menu button:hover {
   background: rgba(199, 29, 35, 1);
   color: white;
 }
@@ -174,7 +176,10 @@ window.addEventListener('scroll', function() {
 .menu button:nth-child(2) {
   margin-top: 10px;
   margin-bottom: 10px;
-}
+} */
+
+
+
 .nameInput {
   background-color: rgb(3,122,255);
   color: white;

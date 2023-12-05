@@ -1,19 +1,14 @@
 <template>
-    <div class="navBar">
-      navBar
-    </div>
     <Transition name="fade">
       <div class="model" v-if="moveVisible">
         <div class="inner-box">
           <h3 class="move-title">
             {{ $t('move_favourites') }}
           </h3>
-          <Pagination class="pagination">
-            <div class="favourites" v-for="(info, index) in favouritesInfo">
-              <Favourites :favourites="favouritesInfo[index]" 
+          <!-- <Pagination class="pagination">
+              <Favourites v-for="(info, index) in favouritesInfo" :key="index" :favourites="favouritesInfo[index]" 
               ref="favouritesRefs"> </Favourites>
-            </div>
-          </Pagination>
+          </Pagination> -->
         </div>
         
       </div>
@@ -50,15 +45,7 @@
                   {{ $t('create_favourites') }}
                 </div>  
               </div>
-                <Pagination class="pagination">
-                  <div class="favourites" v-for="(info, index) in favouritesInfo">
-                    <Favourites :favourites="favouritesInfo[index]" 
-                    @deleteFavourites="handleDelete(index)"
-                    @cancelCreation="handleCancelCreation"
-                    @moveFavourites="handleMove"
-                    ref="favouritesRefs"> </Favourites>
-                  </div>
-                </Pagination>
+              <FavouriteList />
             </div>
         </div>
 
@@ -68,13 +55,15 @@
 </template>
   
   <script>
-  import Favourites from '../../components/favorites/Favourites.vue'
+  import FavouriteListItem from '../../components/favorites/FavouriteListItem.vue'
   import Pagination from '../../components/pagination/Pagination.vue'
   import i18n from '../../language'
+import FavouriteList from '../../components/favorites/FavouriteList.vue'
   export default {
     components: {
-      Favourites,
+      FavouriteListItem,
       Pagination,
+      FavouriteList,
       i18n
     },
     data() {
@@ -260,11 +249,7 @@
     width: 450px;
     font-size: 30px;
 }
-.pagination {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+
 .favourites {
   margin-bottom: 10px;
 }

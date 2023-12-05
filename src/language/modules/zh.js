@@ -48,4 +48,5 @@ export default {
     content_text: '备注',
 
     ipaper_scholar_text: 'iPaper 学术搜索',
+    recommend_for_you: '为你推荐'
 }
