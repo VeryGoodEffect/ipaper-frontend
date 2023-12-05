@@ -22,9 +22,13 @@
 
 <script>
 import PopoutModal from '../popout-modal/PopoutModal.vue'
+
 import i18n from '../../language'
+
 import { Account } from '../../api/accounts.js'
 import { User } from '../../api/users.js'
+
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'LoginModal',
@@ -46,6 +50,7 @@ export default {
     i18n
   },
   methods: {
+    ...mapMutations(['setIsLoggedIn']),
     handleClose() {
       this.$emit('close')
     },
@@ -59,32 +64,21 @@ export default {
     },
     login() {
       let loginForm = {
-        email: "mengqiaoyuanhe0311@163.com",
-        password: "11111111"
+        email: this.email,
+        password: this.password
       }
       Account.login(loginForm).then(
         (response) => {
-          alert(loginForm)
+          alert("登录成功！")
+          this.setIsLoggedIn(true)
+          this.handleClose()
         },
         (error) => {
-          alert(error.data)
+          alert("登录失败！")
         }
       )
+      
     },
-    handle() {
-      let form = {
-         followed: 1
-      }
-      this.login()
-      User.getUserSettings().then(
-        (response) => {
-          console.log(response.data);
-        },
-        (error) => {
-          alert('222')
-        }
-      )
-    }
   }
 }
 </script>

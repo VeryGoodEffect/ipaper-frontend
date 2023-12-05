@@ -17,7 +17,7 @@ const router = createRouter({
       component: SearchResultView
     },
     {
-      path: '/personalHomepage',
+      path: '/personal_homepage',
       component: PersonalHomepageView
     },
     {

@@ -4,6 +4,9 @@ export default {
     frontpage_intro: '非常好的平台',
 
     login_text: '登录',
+    logout_text: '登出',
+    hello_message: '你好，',
+    personal_homepage_text: '个人主页',
     register_text: '注册',
     language: '中文',
     huge_input_placeholder: '文献、期刊、作者以及更多',
@@ -24,6 +27,11 @@ export default {
     retrieve_password_text: '找回密码',
     retrieve_password_message: '点击确认，随后去邮箱查收重置链接',
 
+    cancel_follow: '取消关注',
+    follow: '关注',
+
     favourites: '收藏夹',
-    create_favourites: '新建收藏夹'
+    create_favourites: '新建收藏夹',
+
+    ipaper_scholar_text: 'iPaper 学术搜索',
 }

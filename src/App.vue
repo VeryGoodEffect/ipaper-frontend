@@ -19,7 +19,7 @@
     @click="sendMsg"
   >
   </div> -->
-  
+  <NavBar/>
   <RouterView />
 
   <div style="position: fixed; bottom: 300px; left: 300px">
@@ -30,16 +30,17 @@
     <ColorSetter />
   </div>
   <PopoutMessage :show="showMessage" :title="messageTitle" :content="messageContent" />
+  <FollowListVue />
 </template> 
 
 <script setup>
 
-import { ref, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance, watch } from 'vue'
 import PopoutMessage from './components/popout-message/PopoutMessage.vue'
 import ColorSetter from './components/color/ColorSetter.vue'
+import NavBar from './components/nav-bar/NavBar.vue'
 
-import MulSearch from './components/search-property/MulSearch.vue'
-
+// import FollowListVue from './components/follow-list/followList.vue'
 
 let showMessage = ref(false)  // 展示消息
 let messageTitle = ref('')    // 消息标题
