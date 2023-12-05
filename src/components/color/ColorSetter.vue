@@ -32,7 +32,7 @@ export default {
     changeColorMode() {
       let mode = getComputedStyle(document.documentElement).getPropertyValue('--theme-mode')
       if (mode === '#000') {
-        document.documentElement.style.setProperty('--theme-mode', '#fff')
+        document.documentElement.style.setProperty('--theme-mode', '#f3f3f3')
         document.documentElement.style.setProperty('--theme-mode-like', '#eee')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#ccc')
         document.documentElement.style.setProperty('--theme-mode-high-contrast', '#555')
