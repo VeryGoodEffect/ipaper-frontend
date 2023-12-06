@@ -47,5 +47,9 @@ export default {
     content_text: 'Anything else',
     
     ipaper_scholar_text: 'iPaper Scholar',
-    recommend_for_you: 'Recommendation'
+    recommend_for_you: 'Recommendation',
+
+    pagination_current_page_1: "Page",
+    pagination_current_page_2: "",
+    pagination_jump:"Jump"
 }

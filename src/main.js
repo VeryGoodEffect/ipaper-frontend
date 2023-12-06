@@ -18,12 +18,15 @@ note:由于可能使用flex属性，该属性可能不会正常生效
 maxLine--optional
 transitionMode--optional
 transitionTime--optional
+wrappable--optional
 transition仅针对高度进行过渡。
 */
 app.directive('ellipsis', {
   mounted(el, binding) {
     let isWrap = true
-    let Wrappable = true
+    console.log(binding.value)
+    let Wrappable = binding.value.wrappable!==undefined ? binding.value.wrappable : true
+    console.log(Wrappable)
     //由于外盒子可能为flex,因此需要单独设置内盒子
     const content = document.createElement(el.tagName)
     //此处targetStyle仍具有约束性
@@ -37,12 +40,13 @@ app.directive('ellipsis', {
     {
       const transition = `max-height ${transitionTime} ${binding.value.transitionMode ? binding.value.transitionMode : 'linear'}`
       const computedStyles = window.getComputedStyle(el)
-      content.style.fontFamily = computedStyles.fontFamily;
-      content.style.fontSize = computedStyles.fontSize;
-      content.style.color = computedStyles.color;
-      content.style.fontWeight = computedStyles.fontWeight;
-      content.style.textDecoration = computedStyles.textDecoration;
+      content.style.fontFamily = computedStyles.fontFamily
+      content.style.fontSize = computedStyles.fontSize
+      content.style.color = computedStyles.color
+      content.style.fontWeight = computedStyles.fontWeight
+      content.style.textDecoration = computedStyles.textDecoration
       content.style.transition = transition
+      content.style.cursor = Wrappable?'pointer':'default'
       content.innerHTML = el.innerHTML
       el.innerHTML = ''
       el.appendChild(content)
@@ -57,7 +61,6 @@ app.directive('ellipsis', {
       Wrappable = false
       content.style.overflow = 'hidden'
       content.style.textOverflow = 'ellipsis'
-      content.style.cursor = 'pointer'
       if (binding.value.maxLine && binding.value.maxLine > 1) {
         content.style.display = '-webkit-box'
         content.style.webkitBoxOrient = 'vertical'
@@ -66,13 +69,15 @@ app.directive('ellipsis', {
       else {
         content.style.whiteSpace = 'nowrap'
       }
-      setTimeout(() => Wrappable = true, transitionMicros+50)
+      if (binding.value.wrappable) {
+        setTimeout(() => Wrappable = true, transitionMicros + 50)
+      }
     }
     const unwarpText = () => {
       Wrappable = false
       content.style.whiteSpace = 'normal'
       content.style.webkitLineClamp = 'inherit'
-      setTimeout(() => Wrappable = true, transitionMicros+50);
+      setTimeout(() => Wrappable = true, transitionMicros + 50);
     }
     content.addEventListener('click', () => {
       if (!Wrappable) return
