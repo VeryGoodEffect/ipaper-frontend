@@ -3,7 +3,7 @@
   <main>
     <div>
       <h2>{{ $t('frontpage_intro') }}</h2>
-      <h2 v-ellipsis="{ maxLine: 1, maxWidth: '2000px', transitionTime: '1s',wrappable:false }">
+      <!-- <h2 v-ellipsis="{ maxLine: 1, maxWidth: '2000px', transitionTime: '1s',wrappable:true }">
         最大宽度2000px 最大行数1 过渡时间1秒
         Lorem ipsum dolor sit amet consectetur illum omnis sunt in, quam eaque tempore ex consequuntur tempora. Totam quis
         minima sit natus eius quos aut soluta optio temporibus exercitationem? Blanditiis expedita tempore sit molestiae,
@@ -11,7 +11,7 @@
         Autem neque sed earum commodi quidem doloribus? Ducimus, consequuntur tenetur placeat quidem voluptas minus est
         rem velit sint voluptatibus hic consequatur, in fugit quas voluptate consectetur autem aspernatur. Tempore,
         repellendus cumque aspernatur ea aliquam dicta!
-      </h2>
+      </h2> -->
       <!-- <h3 v-ellipsis="{ maxLine: 3, transitionMode: 'ease-in-out' }">
         最大宽度默认 最大行数3 过渡函数ease-in-out flex子元素最大宽度失效Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore corporis
         dolor distinctio enim nisi magni nesciunt ea, vitae assumenda atque illum maiores nobis ipsam, quae eos officia?
