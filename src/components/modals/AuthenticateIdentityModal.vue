@@ -1,10 +1,10 @@
 <template>
     <PopoutModal :show="show" @close="handleClose">
       <div class="container">
-        <h3>{{ $t('authentcate_text') }}<span>{{ $t('authentcate_prompt') }}</span></h3>
+        <h3>{{ $t('authenticate_text') }}<span>{{ $t('authenticate_prompt') }}</span></h3>
         <input
           type="text" class="basic-input" 
-          :placeholder="$t('autitor_text')" v-model="auditor">
+          :placeholder="$t('auditor_text')" v-model="auditor">
         <input 
           type="password" class="basic-input" 
           :placeholder="$t('openalexId_text')" v-model="openalexId">
@@ -39,12 +39,12 @@
   
   import i18n from '../../language'
   
-  import { Applicaton } from '../../api/applications.js'
+  import { Application } from '../../api/applications.js'
   
   import { mapMutations } from 'vuex'
   
   export default {
-    name: 'AuthenticateIdentity',
+    name: 'AuthenticateIdentityModal',
     emits: ['close'],
     data() {
       return {
@@ -84,7 +84,7 @@
           work_email: this.workEmail,
           content: this.content
         }
-        Applicaton.applications(form).then(
+        Application.applications(form).then(
           (response) => {
             alert('提交认证成功！')
           },
