@@ -92,7 +92,6 @@ export default {
         this.searchKeyword = ''
       }
     },
-    
   }
 }
 </script>

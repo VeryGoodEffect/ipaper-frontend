@@ -5,7 +5,6 @@
       <li v-for="(color, index) in colors" :key="index">
         <button @click="changeThemeColor(color)"></button>
       </li>
-
     </ul>
   </div>
   
@@ -96,6 +95,7 @@ ul {
   border-radius: 5px;
   padding: 0 5px;
   width: 200px;
+  height: 30px;
   display: none;
   justify-content: space-evenly;
   align-items: center;

@@ -2,7 +2,7 @@
   <ul>
     <li v-for="(article, index) in articles" :key="index">
       <h3>{{ article.title }}</h3>
-      <p class="abstract" v-ellipsis="{ maxLine: 3, maxWidth: '100%'}">
+      <p class="abstract" v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: false}">
         {{ article.abstract }}
       </p>
       <span class="author">

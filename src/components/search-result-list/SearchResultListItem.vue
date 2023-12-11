@@ -1,12 +1,10 @@
 <template>
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
-        <h3 class="title">
-            {{ infoItem.title }}
-        </h3>
+        <h3 class="title" v-html="highlightedText(infoItem.keyword, infoItem.title)"></h3>
         <div class="author">
             {{ infoItem.author }}
         </div>
-        <p v-html="highlightedText(infoItem.keyword)" 
+        <p v-html="highlightedText(infoItem.keyword, infoItem.excerpt)" 
         :class="['excerpt', { 'full': isExpanded }]" @click="toggleTextContainer">
         </p>
         <div class="info">
@@ -47,12 +45,12 @@ export default {
             this.isExpanded = !this.isExpanded;
             console.log("clicked");
         },
-        highlightedText(str) {
-            if (!str) {
-                return this.infoItem.excerpt;
+        highlightedText(matcher, str) {
+            if (!matcher) {
+                return str;
             }
-            const regex = new RegExp(str, 'gi');
-            return this.infoItem.excerpt.replace(regex, match => `<em style="color: var(--theme-color); font-size: 16px; font-weight: bold;">${match}</em>`);
+            const regex = new RegExp(matcher, 'gi');
+            return str.replace(regex, match => `<em style="color: var(--theme-color); font-size: inherit; font-weight: bold;">${match}</em>`);
         }
     },
     computed: {
@@ -63,17 +61,19 @@ export default {
 
 <style scoped>
 .out-border {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 700px;
     height: 130px;
 }
 .out-border-full {
-  border: 1px solid red;
+  /* border: 1px solid red; */
     width: 700px;
     height: unset;
 }
 .title {
     font-size: 20px;
+    color: var(--theme-mode-very-high-contrast);
+    font-weight: bold;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -82,9 +82,10 @@ export default {
     line-clamp: 1;
 }
 .author {
-    padding-left: 20px;
+    /* padding-left: 20px; */
     font-size: 14px;
-    color: rgb(98,186,70);
+    color: var(--theme-mode-very-high-contrast);
+    /* color: rgb(98,186,70); */
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -93,7 +94,7 @@ export default {
     line-clamp: 1;
 }
 .excerpt {
-    font-size: 16px;
+    font-size: 14px;
     /* width: 855px; */
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -102,12 +103,9 @@ export default {
     -webkit-line-clamp: 2;
     line-clamp: 2;
 }
-em {
-    font-size: 16px !important;
-    color: brown !important;
-}
+
 .excerpt.full {
-  -webkit-line-clamp: unset; /* 取消行数限制 */
+  -webkit-line-clamp: unset; 
   line-clamp: unset;
 }
 .info {
