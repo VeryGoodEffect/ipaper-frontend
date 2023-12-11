@@ -12,6 +12,7 @@
         
         <button class="basic-btn" @click="loginModalShouldShow = true">{{ $t('login_text') }}</button>
         <button class="basic-btn-outline" @click="registerModalShouldShow = true">{{ $t('register_text') }}</button>
+        <button class="basic-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>
         <div class="dropdown-icon">
           <ul class="dropdown-list">
             <li @click="loginModalShouldShow = true">{{ $t('login_text') }}</li>
@@ -47,6 +48,12 @@
     :show="retrievePasswordModalShouldShow" 
     @close="retrievePasswordModalShouldShow = false"
   />
+
+  <AuthenticateIdentityModal
+    :show="authenticateModalShouldShow"
+    @close="authenticateModalShouldShow = false"
+  />
+  
 </template>
 
 <script>
@@ -55,6 +62,7 @@ import { mapState, mapMutations } from 'vuex'
 import LoginModal from '../modals/LoginModal.vue'
 import RegisterModal from '../modals/RegisterModal.vue'
 import RetrievePasswordModal from '../modals/RetrievePasswordModal.vue'
+import AuthenticateIdentityModal from '../modals/AuthenticateIdentityModal.vue'
 
 import { Account } from '../../api/accounts.js'
 import { User } from '../../api/users.js'
@@ -66,6 +74,7 @@ export default {
     LoginModal,
     RegisterModal,
     RetrievePasswordModal,
+    AuthenticateIdentityModal,
     i18n
   },
   data() {
@@ -73,6 +82,7 @@ export default {
       loginModalShouldShow: false,
       registerModalShouldShow: false,
       retrievePasswordModalShouldShow: false,
+      authenticateModalShouldShow: false,
       currentUsername: ''
     }
   },
@@ -129,12 +139,12 @@ export default {
       Account.logout().then(
         (response) => {
           alert("登出成功！")
+          this.setIsLoggedIn(false)
         },
         (error) => {
           alert("登出失败！")
         }
       )
-      this.setIsLoggedIn(false)
     }
   }
 }
@@ -142,8 +152,8 @@ export default {
 
 <style scoped>
 header {
-  height: 80px;
-  background: rgba(100, 100, 100, .2);
+  height: 60px;
+  /* background: rgba(100, 100, 100, .2); */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -157,18 +167,18 @@ header>section {
 
 header h1,
 header h1 span {
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 25px;
+  /* font-weight: bold; */
   color: var(--theme-color);
 }
 
 header h1 {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   background: green;
   border-radius: 50%;
   flex: none;
@@ -179,8 +189,8 @@ header button {
 }
 
 .dropdown-icon {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: url('../../components/svg/menu.svg');
   background-size: cover;
   display: none;
@@ -192,7 +202,7 @@ header button {
 .dropdown-list {
   position: absolute;
   top: calc(100%);
-  right: 10px;
+  right: -10px;
   padding: 10px;
   background: var(--theme-mode-like);
   border-radius: 5px;
@@ -205,7 +215,7 @@ header button {
   justify-content: center;
   background: var(--theme-mode-contrast);
   color: var(--theme-mode-high-contrast);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   padding: 5px;
   border-radius: 5px;
@@ -221,8 +231,8 @@ header button {
 }
 
 .icon {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-size: cover;
   cursor: pointer;
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -244,7 +254,7 @@ header svg {
 }
 
 .homepage-link div {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--theme-color);
   white-space: nowrap;
   overflow: hidden;
@@ -258,7 +268,7 @@ header svg {
 @media screen and (max-width: 1000px) {
   header h1,
   header h1 span {
-    font-size: 25px;
+    font-size: 20px;
   }
 }
 

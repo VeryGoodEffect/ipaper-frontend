@@ -21,6 +21,8 @@ export default {
     email_usage_prompt: 'Using email to login and retrieve password',
     username_text: 'Username',
     confirm_password_text: 'Re-enter password',
+    register_success: 'Register success',
+    check_email_hint: 'A confirmation email has been sent to your email.',
 
     cancel_text: 'Cancel',
     confirm_text: 'Confirm',
@@ -32,16 +34,28 @@ export default {
     favourites: 'Favourites',
     create_favourites: 'New',
     move_favourites: 'Move to',
+    favourites_return: 'Back',
+
+    personal_follow_list: 'Follow List',
+
+    personal_info_nick_name: 'Nick Name',
+    personal_info_real_name: 'Real Name',
+    personal_info_region: 'Region',
+    personal_info_work_concepts: 'Working Concepts',
+    personal_info_email: 'Email',
+
+    rename: 'rename',
+    delete: 'delete',
 
     authenticate_text: 'Authenticate',
     authenticate_prompt: ': to perfect your identity',
     auditor_text: 'Select an auditor',
     openalexId_text: 'Openalex id',
     realName_text: 'Real name',
-    institution_text: 'Working institution',
-    position_text: 'Your region',
-    concepts_text: 'Your working concepts',
-    workEmail_text: 'Working email',
+    institution_text: 'Work institution',
+    position_text: 'Duty',
+    concepts_text: 'Work concepts',
+    workEmail_text: 'Work email',
     content_text: 'Anything else',
     
     ipaper_scholar_text: 'iPaper Scholar',
@@ -61,4 +75,11 @@ export default {
     advanced_search_publish_keyword_isTitle: 'is the word title',
     advanced_search_publish_keyword_isTitle_yes: 'yes',
     advanced_search_publish_keyword_isTitle_no: 'no',
+    ipaper_scholar_text: 'iPaper Scholar',
+    recommend_for_you: 'Recommendation',
+
+    pagination_current_page_1: "Page",
+    pagination_current_page_2: "",
+    pagination_per_page: 'items / page',
+    pagination_jump:"Jump"
 }

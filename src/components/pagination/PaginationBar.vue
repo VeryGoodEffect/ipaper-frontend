@@ -29,26 +29,27 @@
     <button @click="lastPage">
       &gt;&gt;
     </button>
-    <div>
-      <span> 第 </span>
-      <input type="number" v-model="jumpPage" @keydown.enter="jumpToPage" min="1" :max="totalPages"
-        placeholder="Go to Page">
-      <span> / {{ totalPages }} 页 </span>
-      <button @click="jumpToPage"> 跳转 </button>
-
-      <select :value="itemsPerPage" @change="$emit('item-per-page-change', Number($event.target.value))">
-        <option :value="5">5</option>
-        <option :value="10">10</option>
-        <option :value="20">20</option>
-        <option :value="50">50</option>
-      </select>
-      <span>条 / 页</span>
-    </div>
+    <div class="flatten"> {{ $t('pagination_current_page_1') }} </div>
+    <input v-model="jumpPage" @input="handleJumpNumberInput" @keydown.enter="jumpToPage" min="1" :max="totalPages" placeholder="Go to Page"
+      class="jump_page_number flatten">
+    <div class="flatten"> / {{ totalPages }} {{ $t('pagination_current_page_2') }} </div>
+    <button @click="jumpToPage"> {{ $t('pagination_jump') }} </button>
+    <select class="flatten" :value="itemsPerPage" @change="$emit('item-per-page-change', Number($event.target.value))">
+      <option :value="5">5</option>
+      <option :value="10">10</option>
+      <option :value="20">20</option>
+      <option :value="50">50</option>
+    </select>
+    <div class="flatten">{{ $t('pagination_per_page') }}</div>
   </div>
 </template>
 
 <script>
+import i18n from '../../language'
 export default {
+  components: {
+    i18n
+  },
   data() {
     return {
       jumpPage: 1,
@@ -91,31 +92,76 @@ export default {
     jumpToPage() {
       if (this.jumpPage > 0 && this.jumpPage <= this.totalPages)
         this.$emit('page-change', this.jumpPage)
+    },
+    handleJumpNumberInput() {
+      if (!/^[1-9]\d*$/.test(this.jumpPage)) {
+        this.jumpPage=this.currentPage
+      }
+      else {
+        this.jumpPage=parseInt(this.jumpPage)
+      }
     }
   },
 }
 </script>
 
-<style>
-/* Add your CSS styles for the pagination component here */
-button {
-  background: #222;
-  margin: 10px 5px;
+<style scoped>
+.pagination {
+  font-weight: 700;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
 }
 
+.pagination div {
+  color: var(--theme-color);
+}
+
+button {
+  background: var(--theme-mode-like);
+  color: var(--theme-color);
+  font-weight: 700;
+  margin: 10px 5px;
+}
+button:hover{
+  background: var(--theme-mode-contrast);
+}
 button.active {
-  background: #777;
+  background: var(--theme-color);
+  color: rgb(243, 243, 243);
 }
 
 button.disabled {
-  background: #000;
-  color: #444;
+  background: rgba(#777, 0.3);
+  color: var(--theme-color-50);
   cursor: not-allowed;
 }
 
 select {
-  background: #222;
+  background: var(--theme-mode);
+  color: var(--theme-color);
   border-radius: 5px;
   cursor: pointer;
 }
+
+select option {
+  color: var(--theme-color);
+  transition: all linear 0.5s;
+}
+
+.jump_page_number {
+  color: var(--theme-color);
+  background: var(--theme-mode-like);
+  border: 1px solid var(--theme-mode-contrast) ;
+  border-radius: 5px;
+  padding: 5px;
+  max-width: 100px;
+}
+
+.flatten {
+  display: ruby;
+  margin: auto 10px;
+}
+
+
 </style>

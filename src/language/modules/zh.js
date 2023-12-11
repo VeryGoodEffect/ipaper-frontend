@@ -21,6 +21,8 @@ export default {
     email_usage_prompt: '邮箱可用于登录和找回密码',
     username_text: '用户名',
     confirm_password_text: '确认密码',
+    register_success: '注册成功',
+    check_email_hint: '一则确认邮件已发送至你的邮箱。',
 
     cancel_text: '取消',
     confirm_text: '确认',
@@ -33,14 +35,26 @@ export default {
     favourites: '收藏夹',
     create_favourites: '新建收藏夹',
     move_favourites: '移动到',
+    favourites_return: '返回',
+
+    personal_follow_list: '关注列表',
+
+    personal_info_nick_name: '昵称',
+    personal_info_real_name: '真实姓名',
+    personal_info_region: '地区',
+    personal_info_work_concepts: '工作机构',
+    personal_info_email: '邮箱',
+
+    rename: '重命名',
+    delete: '删除',
 
     authenticate_text: '认证身份',
     authenticate_prompt: '：建立你的专家信息门户',
-    auditor_text: '选择认证的管理员',
-    openalexId_text: 'openalex id',
+    auditor_text: '选择认证的管理员（不输入表示默认）',
+    openalexId_text: '输入openalex的Id',
     realName_text: '真实姓名',
     institution_text: '工作机构',
-    position_text: '地区',
+    position_text: '职务',
     concepts_text: '科研领域',
     workEmail_text: '工作邮箱',
     content_text: '备注',
@@ -62,4 +76,10 @@ export default {
     advanced_search_publish_keyword_isTitle: '是否是title',
     advanced_search_publish_keyword_isTitle_yes: '是',
     advanced_search_publish_keyword_isTitle_no: '否',
+    recommend_for_you: '为你推荐',
+
+    pagination_current_page_1: '第',
+    pagination_current_page_2: '页',
+    pagination_per_page:'条 / 页',
+    pagination_jump:'跳转'
 }

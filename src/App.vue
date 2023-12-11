@@ -19,6 +19,7 @@
     @click="sendMsg"
   >
   </div> -->
+
   <NavBar/>
 
   <!-- <SandBoxLoading/> -->
@@ -32,7 +33,7 @@
     <ColorSetter />
   </div>
   <PopoutMessage :show="showMessage" :title="messageTitle" :content="messageContent" />
-  <FollowListVue />
+  <!-- <FollowListVue /> -->
 </template> 
 
 <script setup>

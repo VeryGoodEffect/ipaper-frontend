@@ -5,7 +5,6 @@
       <li v-for="(color, index) in colors" :key="index">
         <button @click="changeThemeColor(color)"></button>
       </li>
-
     </ul>
   </div>
   
@@ -36,12 +35,14 @@ export default {
         document.documentElement.style.setProperty('--theme-mode-like', '#eee')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#ccc')
         document.documentElement.style.setProperty('--theme-mode-high-contrast', '#555')
+        document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#222')
         document.documentElement.style.setProperty('--default-text-color', '#000')
       } else {
         document.documentElement.style.setProperty('--theme-mode', '#000')
         document.documentElement.style.setProperty('--theme-mode-like', '#111')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#444')
         document.documentElement.style.setProperty('--theme-mode-high-contrast', '#aaa')
+        document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#c8c8c8')
         document.documentElement.style.setProperty('--default-text-color', '#fff')
       }
     },
@@ -94,6 +95,7 @@ ul {
   border-radius: 5px;
   padding: 0 5px;
   width: 200px;
+  height: 30px;
   display: none;
   justify-content: space-evenly;
   align-items: center;

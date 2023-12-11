@@ -1,80 +1,78 @@
 <template>
-    <div class="navBar">
-      navBar
-    </div>
     <Transition name="fade">
       <div class="model" v-if="moveVisible">
         <div class="inner-box">
           <h3 class="move-title">
             {{ $t('move_favourites') }}
           </h3>
-          <Pagination class="pagination">
-            <div class="favourites" v-for="(info, index) in favouritesInfo">
-              <Favourites :favourites="favouritesInfo[index]" 
+          <!-- <Pagination class="pagination">
+              <Favourites v-for="(info, index) in favouritesInfo" :key="index" :favourites="favouritesInfo[index]" 
               ref="favouritesRefs"> </Favourites>
-            </div>
-          </Pagination>
+          </Pagination> -->
         </div>
         
       </div>
     </Transition>
+      
     <div class="main-part">
-        <div class="title-part">
-            <div class="title">
-                Homepage
-            </div>
-            <div class="color-setting">
-                Color Setting
-            </div>
-        </div>
+      <div class="return-part" @click="returnToMainPage">
+        <svg t="1701847227942" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="886" width="200" height="200"><path d="M578.2016 113.7664a51.2 51.2 0 0 1 76.3904 67.9424l-3.9936 4.4544-325.888 325.7856 325.888 325.888a51.2 51.2 0 0 1 3.9936 67.9424l-3.9936 4.4544a51.2 51.2 0 0 1-67.9424 3.9936l-4.4544-3.9936-362.0352-361.984a51.2 51.2 0 0 1-3.9936-67.9936l3.9936-4.4544 361.984-362.0352z" fill="#909399" p-id="887"></path></svg>
+        <div class="return-text">{{ $t('favourites_return') }}</div>
+      </div>
+      <div class="info-tag-list">
         <div class="personal-info">
             <div class="personal-image">
-                Personal Image
+              <img src="https://img0.baidu.com/it/u=3451423443,2749950479&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="Personal Image">
             </div>
             <div class="personal-info-text">
-                Personal Info
+              <p class="personal-info-text-item">{{ $t('personal_info_nick_name') }}: {{ this.personalInfo.nickName }}</p>
+              <p class="personal-info-text-item">{{ $t('personal_info_real_name') }}: {{ this.personalInfo.realName }}</p>
+              <p class="personal-info-text-item">{{ $t('personal_info_region') }}: {{ this.personalInfo.region }}</p>
+              <p class="personal-info-text-item">{{ $t('personal_info_work_concepts') }}: {{ this.personalInfo.workingConcepts }}</p>
+              <p class="personal-info-text-item">{{ $t('personal_info_email') }}: {{ this.personalInfo.email }}</p>
             </div>            
         </div>
-        <div class="personal-tag">
-          Interest Tags
-        </div>
-        <div class="list">
-            <div class="follow-list">
-            Follow List
-            </div>
-
-            <div class="favorites-list">
-              <div class="favourites-header">
-                <h4 class="favourites-title">{{ $t('favourites') }}</h4>
-                <div class="favourites-creation" @click="handleCreate">
-                  {{ $t('create_favourites') }}
-                </div>  
+        <div class="tag-and-list">
+          <div class="list">
+            <div class="favourites-header">
+              <div class="favourites-subscribe-tab">
+                
+                <h4 :class="[{'follow-title': !favouritesVisible}, { 'favourites-title': favouritesVisible }]" @click="favouritesVisible = true">{{ $t('favourites') }}</h4>
+                <h4 :class="[{'favourites-title': !favouritesVisible}, { 'follow-title': favouritesVisible }]" @click="favouritesVisible = false">{{ $t('personal_follow_list') }}</h4>
               </div>
-                <Pagination class="pagination">
-                  <div class="favourites" v-for="(info, index) in favouritesInfo">
-                    <Favourites :favourites="favouritesInfo[index]" 
-                    @deleteFavourites="handleDelete(index)"
-                    @cancelCreation="handleCancelCreation"
-                    @moveFavourites="handleMove"
-                    ref="favouritesRefs"> </Favourites>
-                  </div>
-                </Pagination>
+              <div class="favourites-creation" @click="isCreating = true" v-if="favouritesVisible">
+                {{ $t('create_favourites') }}
+              </div>  
             </div>
+            <div class="favorites-list" v-if="favouritesVisible">
+              <FavouriteList 
+              @cancelCreation="cancelCreation"
+              @updateCreation="updateCreation"
+              :isCreating="isCreating"
+              :favouritesInfo="favouritesInfo" />
+            </div>
+            <div class="favorites-list" v-else>
+              关注列表
+            </div>
+          </div>
+          <div class="personal-tag">
+            Interest Tags
+          </div>
         </div>
-
-
+      </div>
+        
         
     </div>
 </template>
   
   <script>
-  import Favourites from '../../components/favorites/Favourites.vue'
-  import Pagination from '../../components/pagination/Pagination.vue'
+  import FavouriteListItem from '../../components/favorites/FavouriteListItem.vue'
   import i18n from '../../language'
+  import FavouriteList from '../../components/favorites/FavouriteList.vue'
   export default {
     components: {
-      Favourites,
-      Pagination,
+      FavouriteListItem,
+      FavouriteList,
       i18n
     },
     data() {
@@ -86,51 +84,73 @@
             timeCited: 57,
             keyword: "经济",
         },
-        favouritesInfo: [{
-          name: "感兴趣的内容",
-          isCreating: false
-        },{
-          name: "我的收藏",
-          isCreating: false
-        }, {
-          name: "量子力学",
-          isCreating: false
-        }, {
-          name: "有机化学",
-          isCreating: false
-        }, {
-          name: "Diffusion model",
-          isCreating: false
-        }, {
-          name: "CV",
-          isCreating: false
-        },],
+        personalInfo: {
+          nickName: 'Xenon',
+          realName: '暂未设置',
+          region: '中国',
+          workingConcepts: '北京航空航天大学',
+          email: '21373272@buaa.edu.cn'
+        },
+        isCreating: false,
         moveVisible: false,
+        favouritesVisible: true,
+        favouritesInfo: [
+          {
+            name: "感兴趣的内容",
+            showContextMenu: false
+          },
+          {
+            name: "我的收藏",
+            showContextMenu: false
+          }, 
+          {
+            name: "我的收藏",
+            showContextMenu: false
+          },  
+          {
+            name: "我的收藏",
+            showContextMenu: false
+          }, 
+          {
+            name: "量子力学",
+            showContextMenu: false
+          }, 
+          {
+            name: "有机化学",
+            showContextMenu: false
+          }, 
+          {
+            name: "Diffusion model",
+            showContextMenu: false
+          }, 
+          {
+            name: "CV",
+            showContextMenu: false
+          }
+        ],
       }
     },
     
     
     methods: {
-      handleDelete(index) {
-        this.favouritesInfo.splice(index, 1)
-        // 调用接口
-      },
-      handleCreate() {
-        this.favouritesInfo.unshift({
-          name: '',
-          isCreating: true
-        })
-        this.$refs.favouritesRefs[0].handleCreation()
-        // console.log("222")
-      },
-      handleCancelCreation() {
-        this.favouritesInfo.splice(0, 1)
-      },
       handleMove() {
         this.moveVisible = true
       },
       handleMoveClick(index) {
         this.moveVisible = false
+      },
+      cancelCreation() {
+        this.isCreating = false;
+      },
+      updateCreation(name) {
+        this.isCreating = false;
+        this.favouritesInfo.unshift({
+          name: name,
+            showContextMenu: false
+        })
+      },
+      returnToMainPage() {
+        this.$router.push('/'); 
       }
     },
   }
@@ -156,17 +176,27 @@
   overflow: hidden;
 }
 
-.navBar {
-  height: 80px;
-  border: 2px solid red;
-
+.return-part {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
+  width: 80px;
+  cursor: pointer;
+  height: 35px;
 }
+.icon {
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  cursor: pointer;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  fill: #666;
+}
+.return-text {
+  font-size: 20px;
+  /* color: #666; */
+  margin-top: 2px;
+}
+
 .main-part {
-  border: 2px solid red;
   min-height: 800px;
   width: 80%;
   min-width: 500px;
@@ -180,7 +210,6 @@
     flex-wrap: wrap;
 }
 .title {
-    border: 2px solid red;
     display: flex;
     width: 300px;
     height: 80px;
@@ -188,95 +217,103 @@
     align-items: center;
     font-size: 30px;
 }
-.color-setting {
-    border: 2px solid red;
-    display: flex;
-    width: 300px;
-    height: 80px;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    margin-right: 50px;
+.info-tag-list {
+  display: flex;
 }
-.personal-info {
-    display: flex;
-    flex-wrap: wrap;
-}
+/* .personal-info {
+} */
 .personal-image {
-    border: 2px solid red;
-    height: 350px;
-    width: 500px;
-    margin-left: 70px;
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
+  height: 200px;
+  width: 200px;
+  margin-left: 50px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 .personal-info-text {
-    border: 2px solid red;
-    height: 250px;
-    width: 500px;
-    margin-left: 8%;
-    margin-top: 100px;   
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-
-    order: 1;
+  min-height: 400px;
+  width: 300px;
+  margin-top: 20px;   
+  font-size: 30px;
+}
+.personal-info-text-item {
+  margin-bottom: 5px;
+  margin-left: 20px;
+}
+.tag-and-list {
+  margin-left: 5%;
+  width: 60%;
 }
 .personal-tag {
-    border: 2px solid red;
     min-height: 100px;
-    width: 60%;
-    margin-left: 20%;   
-    margin-top: 50px;
+    border: 2px solid red;
+    /* width: 50%;  */
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 30px;
-
-    order: 1;
 }
 .list {
-    margin-top: 50px;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-.follow-list {
-    border: 2px solid red;
-    height: 600px;
-    width: 450px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-}
-.favorites-list {
-    border: 2px solid red;
-    min-height: 600px;
-    width: 450px;
-    font-size: 30px;
-}
-.pagination {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.favourites {
-  margin-bottom: 10px;
-}
+  margin-top: 0;
 
+  /* display: flex; */
+  /* justify-content: space-around;
+  flex-wrap: wrap; */
+  /* width: 50%; */
+  height: 300px;
+}
+/* .favorites-list {
+} */
+.favourites-subscribe-tab {
+  display: flex;
+}
 .favourites-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 .favourites-title {
-  font-size: 26px;
-  margin-left: 60px;
+  height: 35px;
+  font-size: 20px;
+  /* margin-left: 60px; */
+  background-color: rgb(3,122,255);
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 0 0 10px 10px;
+  cursor: pointer;
+}
+.favourites-title:hover {
+  height: 35px;
+  font-size: 20px;
+  /* margin-left: 60px; */
+  background-color: rgb(45, 141, 250);
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 0 0 10px 10px;
+  cursor: pointer;
+}
+.follow-title {
+  height: 35px;
+  font-size: 20px;
+  /* margin-left: 60px; */
+  background-color: rgb(202, 202, 202);
+  color: rgb(0, 0, 0);
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 0 0 10px 10px;
+  cursor: pointer;
+}
+.follow-title:hover {
+  height: 35px;
+  font-size: 20px;
+  /* margin-left: 60px; */
+  background-color: rgb(228, 227, 227);
+  color: rgb(0, 0, 0);
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 0 0 10px 10px;
+  cursor: pointer;
 }
 .favourites-creation {
   background-color: rgb(98,186,70);
@@ -286,12 +323,14 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  margin-right: 70px;
+  /* margin-right: 70px; */
   cursor: pointer;
+  color: white;
 }
 
 .favourites-creation:hover {
   background-color: rgb(131, 192, 113);
+  color: white;
 }
 
 .model {
@@ -329,7 +368,6 @@ transition: opacity 0.5s linear 0s;
 
 .inner-box {
   width: 70%;
-  border: 2px solid red;
 }
 .move-title {
   color: black;
@@ -344,64 +382,48 @@ transition: opacity 0.5s linear 0s;
   .personal-info {
     justify-content: center;
   }
-  .personal-info-text {
-    margin-left: 0px;
-  }
-  .personal-image {
-    margin-left: 0px;
-  }
 }
 
-@media screen and (max-width: 1350px) {
-  .personal-info-text {
-    margin-left: 0px;
-  }
-}
-
-@media screen and (max-width: 1250px) {
-  .personal-info-text {
-    margin-top: 40px;
-  }
-
-  .personal-tag {
-    width: 70%;
-    margin-left: 15%;
-  }
-}
-
-@media screen and (max-width: 1100px) {
-  .favorites-list {
-    margin-top: 40px;
-  }
-}
-
-@media screen and (max-width: 950px) {
-  .title-part {
-    justify-content: center;
-    margin-left: 0px;
-  }
-  .color-setting {
-    margin-right: 0px;
-  }
-  .personal-image {
-    margin-left: 0px;
-  }
-}
 
 @media screen and (max-width: 900px) {
-  .title-part {
-    justify-content: center;
-    margin-left: 0px;
+  .personal-image {
+    margin-left: 30px;
   }
 
+}
+
+@media screen and (max-width: 768px) {
+  .main-part {
+    width: 100%;
+    margin-left: 0;
+  }
+  .info-tag-list {
+    display: block;
+  }
+  .personal-info-text {
+    width: 80%;
+    min-height: 300px;
+  }
   .personal-image {
     margin-left: 0px;
-  }
 }
-@media screen and (max-width: 750px) {
-  .color-setting {
-    margin-top: 20px;
-    margin-right: 0px;
+  .personal-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .tag-and-list {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .list {
+    width: 80%;
+  }
+  .personal-tag {
+    width: 80%;
   }
 }
 @media screen and (max-width: 700px) {

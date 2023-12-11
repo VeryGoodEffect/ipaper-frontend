@@ -72,6 +72,9 @@ export default {
           alert("登录成功！")
           this.setIsLoggedIn(true)
           this.handleClose()
+          if (this.$route.path === '/') {
+            this.$router.push('search')
+          }
         },
         (error) => {
           alert("登录失败！")

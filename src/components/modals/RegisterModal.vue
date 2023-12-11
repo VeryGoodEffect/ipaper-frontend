@@ -72,14 +72,19 @@ export default {
         password: this.password,
         password_confirm: this.confirmedPassword,
       }
-      Account.register(registerForm).then(
-        (response) => {
-          alert(registerForm)
-        },
-        (error) => {
-          alert("Error in register")
-        }
-      )
+      this.handleClose()
+      this.$bus.emit('message', { title: this.$t('register_success'), content: this.$t('check_email_hint'), time: 1500 })
+      setTimeout(() => {
+        this.handleJumpToLogin()
+      }, 3000)
+      // Account.register(registerForm).then(
+      //   (response) => {
+          
+      //   },
+      //   (error) => {
+      //     alert("Error in register")
+      //   }
+      // )
     }
   }
 }
