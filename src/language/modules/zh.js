@@ -35,6 +35,18 @@ export default {
     favourites: '收藏夹',
     create_favourites: '新建收藏夹',
     move_favourites: '移动到',
+    favourites_return: '返回',
+
+    personal_follow_list: '关注列表',
+
+    personal_info_nick_name: '昵称',
+    personal_info_real_name: '真实姓名',
+    personal_info_region: '地区',
+    personal_info_work_concepts: '工作机构',
+    personal_info_email: '邮箱',
+
+    rename: '重命名',
+    delete: '删除',
 
     authenticate_text: '认证身份',
     authenticate_prompt: '：建立你的专家信息门户',

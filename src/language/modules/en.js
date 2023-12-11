@@ -34,6 +34,18 @@ export default {
     favourites: 'Favourites',
     create_favourites: 'New',
     move_favourites: 'Move to',
+    favourites_return: 'Back',
+
+    personal_follow_list: 'Follow List',
+
+    personal_info_nick_name: 'Nick Name',
+    personal_info_real_name: 'Real Name',
+    personal_info_region: 'Region',
+    personal_info_work_concepts: 'Working Concepts',
+    personal_info_email: 'Email',
+
+    rename: 'rename',
+    delete: 'delete',
 
     authenticate_text: 'Authenticate',
     authenticate_prompt: ': to perfect your identity',

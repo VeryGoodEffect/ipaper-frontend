@@ -1,64 +1,41 @@
 <template>
   <!-- <button>Create</button> -->
-  <Pagination class="pagination">
       <!-- <CreateFav v-if=isCreating /> -->
       <!-- 
         - input
         - button: check cross
         - emit
        -->
-      <FavouriteListItem 
-        v-for="(info, index) in favouritesInfo" :key="index"
-        :favourites="favouritesInfo[index]" 
-        @IWantToShow="letItShow(index)"
-      />
-  </Pagination>
+  <div class="favourite-list-list">
+    <CreateFavourite
+    v-if="isCreating"
+    @cancelCreation="cancelCreation"
+    @updateCreation="updateCreation"></CreateFavourite>
+    <FavouriteListItem 
+      v-for="(info, index) in favouritesInfo" :key="index"
+      :favourites="favouritesInfo[index]" 
+      @IWantToShow="letItShow(index)"
+      @deleteFavourites="handleDelete(index)"
+    />
+  </div>
 </template>
 
 <script>
+import CreateFavourite from './CreateFavourite.vue'
 import FavouriteListItem from './FavouriteListItem.vue'
-import Pagination from '../pagination/Pagination.vue'
 export default {
   name: 'FavouriteList',
+  props: ['isCreating', 'favouritesInfo'],
   components: {
     FavouriteListItem,
-    Pagination,
+    CreateFavourite,
+  },
+  emits: {
+    cancelCreation: null,
+    updateCreation: null,
   },
   data() {
     return {
-      favouritesInfo: [
-        {
-          name: "感兴趣的内容",
-          isCreating: false,
-          showContextMenu: false
-        },
-        {
-          name: "我的收藏",
-          isCreating: false,
-          showContextMenu: false
-        }, 
-        {
-          name: "量子力学",
-          isCreating: false,
-          showContextMenu: false
-        }, 
-        {
-          name: "有机化学",
-          isCreating: false,
-          showContextMenu: false
-        }, 
-        {
-          name: "Diffusion model",
-          isCreating: false,
-          showContextMenu: false
-        }, 
-        {
-          name: "CV",
-          isCreating: false,
-          showContextMenu: false
-        }
-      ],
-      
       
     }
   },
@@ -70,6 +47,7 @@ export default {
   },
   methods: {
     handleDelete(index) {
+      console.log("111")
       this.favouritesInfo.splice(index, 1)
       // 调用接口
     },
@@ -85,15 +63,23 @@ export default {
       for (let i = 0 ; i < this.favouritesInfo.length; i++) {
         this.favouritesInfo[i].showContextMenu = false
       }
+    },
+    cancelCreation() {
+      this.$emit('cancelCreation')
+    },
+    updateCreation(name) {
+      this.$emit('updateCreation', name)
     }
   }
 }
 </script>
 
 <style scoped>
-.pagination {
+.favourite-list-list {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  overflow-x: auto;
 }
+/* .list-item {
+  margin-right: 10px;
+} */
 </style>
