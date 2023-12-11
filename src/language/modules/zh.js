@@ -62,7 +62,8 @@ export default {
     ipaper_scholar_text: 'iPaper 学术搜索',
     recommend_for_you: '为你推荐',
 
-    pagination_current_page_1: "第",
-    pagination_current_page_2: "页",
-    pagination_jump:"跳转"
+    pagination_current_page_1: '第',
+    pagination_current_page_2: '页',
+    pagination_per_page:'条 / 页',
+    pagination_jump:'跳转'
 }

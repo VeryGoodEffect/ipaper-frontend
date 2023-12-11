@@ -6,7 +6,7 @@
       </slot>
     </div>
     <!-- Pagination Component -->
-    <pagination-bar :itemsPerPage="itemsPerPage" :current-page="currentPage" :total-pages="totalPages"
+    <pagination-bar :items-per-page="itemsPerPage" :current-page="currentPage" :total-pages="totalPages"
       @page-change="changePage" @item-per-page-change="changeItemsPerPage" />
   </div>
 </template>

@@ -63,5 +63,6 @@ export default {
 
     pagination_current_page_1: "Page",
     pagination_current_page_2: "",
+    pagination_per_page: 'items / page',
     pagination_jump:"Jump"
 }
