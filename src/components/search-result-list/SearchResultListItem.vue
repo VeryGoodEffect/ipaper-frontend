@@ -50,7 +50,7 @@ export default {
                 return str;
             }
             const regex = new RegExp(matcher, 'gi');
-            return str.replace(regex, match => `<em style="color: var(--theme-color); font-size: inherit; font-weight: bold;">${match}</em>`);
+            return str.replace(regex, match => `<em style="color: var(--theme-color); font-size: inherit;">${match}</em>`);
         }
     },
     computed: {
@@ -73,7 +73,6 @@ export default {
 .title {
     font-size: 20px;
     color: var(--theme-mode-very-high-contrast);
-    font-weight: bold;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -95,6 +94,7 @@ export default {
 }
 .excerpt {
     font-size: 14px;
+    color: var(--theme-mode-high-contrast);
     /* width: 855px; */
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -115,7 +115,7 @@ export default {
 }
 .download {
     margin-right: 10px;
-    color: rgb(3,122,255);
+    color: rgb(26,14,171);
     font-size: 15px;
 }
 .collect {
