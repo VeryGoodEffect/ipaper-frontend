@@ -1,327 +1,157 @@
 <template>
-        <div class="wrap">
-            <div class="nav">
-                <!--按钮-->
-                <!-- <div class="btn">
-                    <div class="btn-item"></div>
-                    <div class="btn-item"></div>
-                    <div class="btn-item"></div>
-                </div> -->
-                <!--头像-->
-                <!-- <div class="icon">
-                    <div class="icon-img"><img src="../assets/pig.jpg" alt="" /></div>
-                    <div class="icon-con">
-                        <p>非常好问卷</p>
-                        <h2>爱来自Pig</h2>
-                    </div>
-                </div> -->
-                <div class="line"></div>
-                <!-- <div class="title">
-                    <p>Menu </p>
-                </div> -->
-                <div @click="createNewQ" class="menu">
-                    <div class="item">
-                        <div class="light"></div>
-                        <div class="licon"><span class="iconfont icon-wenjian"></span></div>
-                        <div class="con" style="font-size: 20px;">我从哪里来</div>
-                        <div class="ricon"><span class="iconfont icon-shezhi"></span></div>
-                    </div>
-                    <!-- <div @click="$refs.fileInput.click()"  class="item">
-                        <div class="light"></div>
-                        <div class="licon"><span class="iconfont icon-qipao1"></span></div>
-                        <div class="con" style="font-size: 20px;">从模板创建</div>
-                        <input ref="fileInput" type="file" @change="onFileChange" style="display: none">
-                        <div class="ricon"></div>
-                    </div>
-                    <div @click="triggerParentEvent(0)" class="item">
-                        <div class="light"></div>
-                        <div class="licon"><span class="iconfont icon-qipao1"></span></div>
-                        <div class="con"  style="font-size: 20px;">已创建问卷</div>
-                        <div class="ricon"></div>
-                    </div>
-                    <div @click="triggerParentEvent(1)" class="item">
-                        <div class="light"></div>
-                        <div class="licon">
-                            <span class="iconfont icon-xiaolian"></span>
-                        </div>
-                        <div class="con"  style="font-size: 20px;">已填写问卷</div>
-                        <div class="ricon"><span class="iconfont icon-caidan1"></span></div>
-                    </div>
-                    <div @click="triggerParentEvent(2)" class="item">
-                        <div class="light"></div>
-                        <div class="licon">
-                            <span class="iconfont icon-shexiang"></span>
-                        </div>
-                        <div class="con"  style="font-size: 20px;">垃圾箱</div>
-                        <div class="ricon"></div>
-                    </div> -->
-                </div>
+  <div>
+    <div class="sidebar" :class="{ closed: !isSidebarOpen }">
+      <nav>
+        <ul>
+          <li><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path d="M368 415.86V72a24.07 24.07 0 0 0-24-24H72a24.07 24.07 0 0 0-24 24v352a40.12 40.12 0 0 0 40 40h328" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"></path><path d="M416 464h0a48 48 0 0 1-48-48V128h72a24 24 0 0 1 24 24v264a48 48 0 0 1-48 48z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M240 128h64"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M240 192h64"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M112 256h192"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M112 320h192"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M112 384h192"></path><path d="M176 208h-64a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z" fill="currentColor"></path></svg> 
+            文獻檢索</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path d="M448.08 256.08c0-106-86-192-192-192s-192 86-192 192s86 192 192 192s192-85.97 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path d="M300.81 358.29c-20.83 7.42-34.05 9.59-54.19 9.59c-61.17 0-106.39-50.07-101-111.84S205 144.21 266.14 144.21c68.92 0 106.79 45.55 101.47 106.55c-4 45.54-32.8 58.66-47.89 56c-14.2-2.55-25.92-15.52-23.75-40.35l5.62-44.66c-7.58-9.17-28.11-18-49.93-14.54C231.77 210.3 209 228 206.56 256s14.49 50.84 39.93 50.84s47.86-18.39 50.69-50.84" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"></path></svg>
+             知識元檢索</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path d="M216.08 192v143.85a40.08 40.08 0 0 0 80.15 0l.13-188.55a67.94 67.94 0 1 0-135.87 0v189.82a95.51 95.51 0 1 0 191 0V159.74" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"></path></svg>
+             引文檢索</li>
+          <li @click="handleClick1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" style="" ><path d="M256 64C150.13 64 64 150.13 64 256s86.13 192 192 192s192-86.13 192-192S361.87 64 256 64zm80 294.63l-54.15-54.15a88.08 88.08 0 1 1 22.63-22.63L358.63 336z" fill="currentColor"></path><circle cx="232" cy="232" r="56" fill="currentColor"></circle></svg>
+            高級搜索</li>
+        </ul>
+      </nav>
+    </div>
 
-            </div>
-        </div>
+    <div class="toggle-button" @click="toggleSidebar">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+        class="icon"
+      >
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="48"
+          d="M88 152h336"
+        ></path>
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="48"
+          d="M88 256h336"
+        ></path>
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="48"
+          d="M88 360h336"
+        ></path>
+      </svg>
+    </div>
+
+    <AdvancedSearchModal 
+    :show="is_advanced_search" 
+    @close=" is_advanced_search = false" 
+    @jumpToRigister="registerModalShouldShow = true"
+    @jumpToRetrievePassword="retrievePasswordModalShouldShow = true">
+    </AdvancedSearchModal>
+
+  </div>
+
 </template>
-
+  
 <script>
+import PopoutModalVue from "../popout-modal/PopoutModal.vue";
+import AdvancedSearchModal from "../../components/modals/AdvancedSearchModal.vue";
 export default {
-    data() {
-        return {
-            menuState: 0
-        }
-    },
-    methods: {
-        async createNewQ() {
-            const data = {
-                "uid": this.$store.state.curUserID
-            }
-            console.log(data)
-            // this.triggerParentEvent(0)
-
-
-            await this.$api.questionnaire.postQuestionnaire_Create(data);
-            this.$emit('childEvent', 0)
-
-        },
-        triggerParentEvent(state) {
-            console.log("state:" + state)
-            this.menuState = state
-            this.$emit('childEvent', this.menuState)
-        },
-        onFileChange(event) {
-            const file = event.target.files[0];
-            this.$emit('file-selected', file);
-        }
+  components:{
+    AdvancedSearchModal
+  },
+  data() {
+    return {
+      is_advanced_search: false,
+      isSidebarOpen: true,
+    };
+  },
+  
+  methods: {
+    toggleSidebar() {
+      this.isSidebarOpen = !this.isSidebarOpen;
     },
 
-}
+    handleClick1(){
+      this.is_advanced_search = true
+        console.log("???")
+    }
+  },
+};
 </script>
+  
+  <style scoped>
+.sidebar {
+  width: 250px;
+  background: #eee;
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  height: 100%;
+  top: 80px;
+  left: 0;
+  bottom: 0;
+  overflow: auto;
+}
 
-<style scoped>
-* {
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd; /* 条目之间的分隔线 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+.sidebar nav ul li svg{
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: rgba(255, 255, 255, 0.6);
+    margin-right: 10px; 
+    width: 40px; height: 40px;
 }
 
-.wrap {
-    /* width: 100%; */
-    height: 7vh;
-    /* background: url(img/bg.jpg) center no-repeat; */
-    transform: scale(0.8);
+.sidebar nav ul li:hover {
+  background-color: #e0e0e0; /* 鼠标悬停的背景色 */
 }
 
-.nav {
-    border-radius: 20px;
-    box-sizing: border-box;
-    color: rgba(255, 255, 255, 0.6);
-    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "Microsoft YaHei UI", 微软雅黑, sans-serif;
-    font-size: 12px;
-    height: 18vh;
-    /* margin: 0 180px -119px 15px; */
-    overflow: hidden;
-    padding: 0;
-    top: 15%;
-    transition: all .5s;
-    width: 80px;
-    background: var(--theme-mode-contrast);
-    /* background-color: var()); */
-    /* background-image: conic-gradient(from 90deg at 370% 67%, #65103E 0%, rgba(200, 152, 152, 0) 100%), linear-gradient(160deg, #183765 0%, #110E4F 29.9%, #3B124F 50.5%, #72134F 72.6%, #0E1B48 98.2%); */
+.sidebar.closed {
+  transform: translateX(-100%);
 }
 
-.nav:hover {
-    width: 280px;
+.toggle-button {
+  position: fixed;
+  top: 80px;
+  left: 250px;
+  /* transform: translateY(-50%);  */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 100;
+  transition: transform 0.3s ease-in-out;
 }
 
-.btn {
-    width: 60px;
-    height: 10px;
-    display: flex;
-    justify-content: space-around;
-    margin-left: 25px;
-    margin-top: 25px;
+.toggle-button .icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+  stroke-width: 48;
+  height: 32px; /* 设置 SVG 图标的高度 */
+  width: 32px; /* 设置 SVG 图标的宽度 */
 }
 
-.btn-item {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+.closed ~ .toggle-button {
+    transform: translateX(-250px);
 }
-
-.btn-item:nth-child(1) {
-    background: #eb5a56;
-}
-
-.btn-item:nth-child(2) {
-    background: #f8bc33;
-}
-
-.btn-item:nth-child(3) {
-    background: #62cb44;
-}
-
-.icon {
-    width: 250px;
-    height: 60px;
-    margin-left: 25px;
-    margin-top: 20px;
-    display: flex;
-}
-
-.icon-img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    overflow: hidden;
-}
-
-.icon-img img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.icon-con {
-    height: 60px;
-    margin-left: 25px;
-}
-
-.icon-con p {
-    padding-top: 5px;
-}
-
-.icon-con h2 {
-    font-weight: 400;
-}
-
-.line {
-    width: 60px;
-    height: 1px;
-    background: rgba(245, 253, 255, 0.5);
-    margin: 20px 25px;
-    transition: 0.5s;
-}
-
-.nav:hover .line {
-    width: 230px;
-}
-
-.title {
-    width: 100%;
-    height: 30px;
-    /* text-align: center; */
-}
-
-.title p {
-    font-size: 14px;
-    text-align: center;
-}
-
-.menu {
-    width: 230px;
-    margin-left: 25px;
-    height: 100%;
-}
-
-.item {
-    display: flex;
-    position: relative;
-    height: 90px;
-    transition: 0.5s;
-    border-radius: 6px;
-}
-
-.item:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.licon {
-    width: 60px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.con {
-    align-items: center;
-    box-sizing: border-box;
-    color: rgba(255, 255, 255, 0.6);
-    display: flex;
-    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "Microsoft YaHei UI", 微软雅黑, sans-serif;
-    font-size: 12px;
-    height: 50px;
-    justify-content: center;
-    font-size: 30px;
-    font-weight: bold;
-    color: var(--theme-color);
-}
-
-.nav:hover .con {
-    width: 160px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-}
-
-.ricon {
-    width: 0px;
-    height: 50px;
-    transition: 0.5s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    opacity: 0;
-}
-
-.nav:hover .ricon {
-    width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-}
-
-.iconfont {
-    font-size: 26px;
-}
-
-.ricon .iconfont {
-    font-size: 20px;
-    color: #62cb44;
-}
-
-.light {
-    width: 6px;
-    height: 100%;
-    background: var(--theme-color);
-    position: absolute;
-    left: -25px;
-    transition: 0.5s;
-    /* border-top-right-radius: px;
-    border-bottom-right-radius: 4px; */
-    opacity: 0;
-}
-
-.item:hover .light {
-    opacity: 1;
-}
-
-.serve {
-    width: 60px;
-    /*    background: rgba(98, 203, 68, 0.5);*/
-    background: rgba(0, 0, 0, 0.7);
-    margin-left: 25px;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: 0.5s;
-}
-
-.nav:hover .serve {
-    width: 230px;
-}
-
 </style>
+  
