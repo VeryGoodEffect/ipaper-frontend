@@ -12,6 +12,7 @@
         
         <button class="basic-btn" @click="loginModalShouldShow = true">{{ $t('login_text') }}</button>
         <button class="basic-btn-outline" @click="registerModalShouldShow = true">{{ $t('register_text') }}</button>
+        <button class="basic-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>
         <div class="dropdown-icon">
           <ul class="dropdown-list">
             <li @click="loginModalShouldShow = true">{{ $t('login_text') }}</li>
@@ -47,6 +48,12 @@
     :show="retrievePasswordModalShouldShow" 
     @close="retrievePasswordModalShouldShow = false"
   />
+
+  <AuthenticateIdentityModal
+    :show="authenticateModalShouldShow"
+    @close="authenticateModalShouldShow = false"
+  />
+  
 </template>
 
 <script>
@@ -55,6 +62,7 @@ import { mapState, mapMutations } from 'vuex'
 import LoginModal from '../modals/LoginModal.vue'
 import RegisterModal from '../modals/RegisterModal.vue'
 import RetrievePasswordModal from '../modals/RetrievePasswordModal.vue'
+import AuthenticateIdentityModal from '../modals/AuthenticateIdentityModal.vue'
 
 import { Account } from '../../api/accounts.js'
 import { User } from '../../api/users.js'
@@ -66,6 +74,7 @@ export default {
     LoginModal,
     RegisterModal,
     RetrievePasswordModal,
+    AuthenticateIdentityModal,
     i18n
   },
   data() {
@@ -73,6 +82,7 @@ export default {
       loginModalShouldShow: false,
       registerModalShouldShow: false,
       retrievePasswordModalShouldShow: false,
+      authenticateModalShouldShow: false,
       currentUsername: ''
     }
   },
