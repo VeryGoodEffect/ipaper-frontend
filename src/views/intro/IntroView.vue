@@ -3,7 +3,7 @@
   <main>
     <div>
       <h2>{{ $t('frontpage_intro') }}</h2>
-      <!-- <h2 v-ellipsis="{ maxLine: 1, maxWidth: '2000px', transitionTime: '1s' }">
+      <!-- <h2 v-ellipsis="{ maxLine: 1, maxWidth: '2000px', transitionTime: '1s',wrappable:true }">
         最大宽度2000px 最大行数1 过渡时间1秒
         Lorem ipsum dolor sit amet consectetur illum omnis sunt in, quam eaque tempore ex consequuntur tempora. Totam quis
         minima sit natus eius quos aut soluta optio temporibus exercitationem? Blanditiis expedita tempore sit molestiae,

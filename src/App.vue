@@ -19,6 +19,7 @@
     @click="sendMsg"
   >
   </div> -->
+
   <NavBar/>
   <RouterView />
 

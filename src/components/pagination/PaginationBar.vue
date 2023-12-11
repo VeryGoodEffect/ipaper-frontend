@@ -30,11 +30,11 @@
       &gt;&gt;
     </button>
     <div>
-      <span> 第 </span>
+      <span> {{ $t('pagination_current_page_1') }} </span>
       <input type="number" v-model="jumpPage" @keydown.enter="jumpToPage" min="1" :max="totalPages"
         placeholder="Go to Page">
-      <span> / {{ totalPages }} 页 </span>
-      <button @click="jumpToPage"> 跳转 </button>
+      <span> / {{ totalPages }} {{ $t('pagination_current_page_2') }} </span>
+      <button @click="jumpToPage"> {{$t('pagination_jump')}} </button>
 
       <select :value="itemsPerPage" @change="$emit('item-per-page-change', Number($event.target.value))">
         <option :value="5">5</option>
@@ -48,7 +48,11 @@
 </template>
 
 <script>
+import i18n from '../../language'
 export default {
+  components: {
+    i18n
+  },
   data() {
     return {
       jumpPage: 1,
@@ -97,25 +101,45 @@ export default {
 </script>
 
 <style scoped>
-/* Add your CSS styles for the pagination component here */
+.pagination {
+  font-weight: 700;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination span{
+  color:var(--theme-color);
+}
+
 button {
-  background: #222;
+  background: rgba(#777, 0.7);
+  color: var(--theme-color);
+  font-weight: 700;
   margin: 10px 5px;
 }
 
 button.active {
-  background: #777;
+  background: var(--theme-color);
+  color: rgb(243, 243, 243);
 }
 
 button.disabled {
-  background: #000;
-  color: #444;
+  background: rgba(#777, 0.3);
+  color: var(--theme-color-50);
   cursor: not-allowed;
 }
 
 select {
-  background: #222;
+  background: var(--theme-mode);
+  color: var(--theme-color);
   border-radius: 5px;
   cursor: pointer;
 }
+
+select option{
+  color: var(--theme-color);
+  transition: all linear 0.5s;
+}
+
 </style>
