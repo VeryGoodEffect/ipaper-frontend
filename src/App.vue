@@ -44,7 +44,7 @@ import ColorSetter from './components/color/ColorSetter.vue'
 import NavBar from './components/nav-bar/NavBar.vue'
 import {showLoading,hideLoading} from "./components/Loading/index"
 import SandBoxLoading from "./components/Loading/SandboxLoading.vue"
-// import FollowListVue from './components/follow-list/followList.vue'
+
 
 let showMessage = ref(false)  // 展示消息
 let messageTitle = ref('')    // 消息标题

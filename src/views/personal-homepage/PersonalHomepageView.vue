@@ -80,8 +80,8 @@
               :isCreating="isCreating"
               :favouritesInfo="favouritesInfo" />
             </div>
-            <div class="favorites-list" v-else>
-              关注列表
+            <div class="follow-list" v-else>
+              <FollowListVue/>
             </div>
           </div>
           <div class="personal-tag">
@@ -99,10 +99,12 @@
   import i18n from '../../language'
   import FavouriteList from '../../components/favorites/FavouriteList.vue'
   import { User } from '../../api/users.js'
+  import FollowListVue from '../../components/follow-list/followList.vue'
   export default {
     components: {
       FavouriteListItem,
       FavouriteList,
+      FollowListVue,
       i18n
     },
     data() {
@@ -423,9 +425,12 @@ em {
   flex-wrap: wrap; */
   /* width: 50%; */
   min-height: 300px;
+  
 }
-/* .favorites-list {
-} */
+.follow-list {
+  overflow-y: auto;
+  height: 550px; 
+}
 .favourites-subscribe-tab {
   display: flex;
 }

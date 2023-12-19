@@ -1,6 +1,5 @@
 <template>
-  <div class="follow-list-area">
-    <PaginationVue>
+  <!-- <div class="follow-list-area"> -->
     <div v-for="(follower, idx) in followers" :key="idx">
       <div class="item-card">
         <div>
@@ -18,16 +17,11 @@
           </button>
       </div>
     </div>
-    </PaginationVue>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
-import PaginationVue from "../pagination/Pagination.vue"
 export default {
-  components: {
-    PaginationVue
-  },
   data() {
     return {
       followers: [
@@ -54,6 +48,32 @@ export default {
           name: '用户4',
           profile: '个人简介',
           isFollowed: false,
+        },
+        {
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
         }
       ]
     }
@@ -70,19 +90,18 @@ export default {
 </script>
 
 <style scoped>
-.follow-list-area {
+/* .follow-list-area {
   display: flex;
   justify-content: center;
-}
+} */
 .item-card {
-  width: 1000px;
   height: 120px; 
   border-radius: 5px;
   background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
+  margin: 0 0 15px 0;
 }
 .item-image {
   width: 70px;
@@ -95,7 +114,8 @@ export default {
 }
 .item-text {
   position: relative;
-  width: 70%;
+  width: 60%;
+  margin: 0 10px;
 }
 .follower-profile {
   display: -webkit-box;
