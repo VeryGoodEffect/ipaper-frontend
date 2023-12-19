@@ -43,7 +43,10 @@
       </section>
       <section class="recommendation">
         <h3>为你推荐</h3>
-        <ArticleRecommendation/>
+        <button @click="showHotspotRecommend = true">学术热点</button>
+        <button @click="showHotspotRecommend = false">猜你想看</button>
+        <ArticleRecommendation :show="showHotspotRecommend"/>
+        <InterestRecommendation :show="!showHotspotRecommend"/>
       </section>
       <!-- <MulSearch /> -->
     </main>
@@ -54,7 +57,8 @@
 <script>
 import i18n from "../../language";
 import AsideBar from "../../components/search-property/AsideBar.vue";
-import ArticleRecommendation from '../../components/recommendation/ArticleRecommendation.vue'
+import ArticleRecommendation from '../../components/recommendation/ArticleRecommendation.vue';
+import InterestRecommendation from '../../components/recommendation/InterestRecommendation.vue';
 // import AdvancedSearchModal from "../../components/modals/AdvancedSearchModal.vue";
 // import MulSearch from '../../components/search-property/MulSearch.vue';
 export default {
@@ -62,13 +66,15 @@ export default {
   components: {
     i18n,
     AsideBar,
-    ArticleRecommendation
+    ArticleRecommendation,
+    InterestRecommendation
     // AdvancedSearchModal
   },
   data() {
     return {
       show_property_search: false,
-      is_advanced_search: true
+      is_advanced_search: true,
+      showHotspotRecommend: true
     };
   },
   methods:{
