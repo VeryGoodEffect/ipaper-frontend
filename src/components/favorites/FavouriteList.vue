@@ -79,6 +79,9 @@ export default {
   display: flex;
   overflow-x: auto;
 }
+.favourite-list-list::-webkit-scrollbar {
+  display: none;
+}
 /* .list-item {
   margin-right: 10px;
 } */

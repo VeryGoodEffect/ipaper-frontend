@@ -34,7 +34,7 @@ export default {
         document.documentElement.style.setProperty('--theme-mode', '#f3f3f3')
         document.documentElement.style.setProperty('--theme-mode-like', '#eee')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#ccc')
-        document.documentElement.style.setProperty('--theme-mode-high-contrast', '#555')
+        document.documentElement.style.setProperty('--theme-mode-high-contrast', '#777')
         document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#222')
         document.documentElement.style.setProperty('--default-text-color', '#111')
       } else {
