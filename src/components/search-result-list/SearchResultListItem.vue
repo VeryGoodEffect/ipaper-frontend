@@ -47,7 +47,7 @@ export default {
       }
     },
     mounted() {
-       console.log(this.infoItem)
+      //  console.log(this.infoItem)
     },
     methods: {
         toggleTextContainer() {
