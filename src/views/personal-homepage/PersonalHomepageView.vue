@@ -66,14 +66,14 @@
             <div class="favourites-header">
               <div class="favourites-subscribe-tab">
                 
-                <h4 :class="[{'follow-title': !favouritesVisible}, { 'favourites-title': favouritesVisible }]" @click="favouritesVisible = true">{{ $t('favourites') }}</h4>
-                <h4 :class="[{'favourites-title': !favouritesVisible}, { 'follow-title': favouritesVisible }]" @click="favouritesVisible = false">{{ $t('personal_follow_list') }}</h4>
+                <h4 :class="[{'tab-not-selected': !isFavourite}, { 'tab-selected': isFavourite }]" @click="isFavourite = true">{{ $t('favourites') }}</h4>
+                <h4 :class="[{'tab-selected': !isFavourite}, { 'tab-not-selected': isFavourite }]" @click="isFavourite = false">{{ $t('personal_follow_list') }}</h4>
               </div>
-              <div class="favourites-creation" @click="isCreating = true" v-if="favouritesVisible">
+              <div class="favourites-creation" @click="isCreating = true" v-if="isFavourite">
                 {{ $t('create_favourites') }}
               </div>  
             </div>
-            <div class="favorites-list" v-if="favouritesVisible">
+            <div class="favorites-list" v-if="isFavourite">
               <FavouriteList 
               @cancelCreation="cancelCreation"
               @updateCreation="updateCreation"
@@ -131,7 +131,7 @@
         },
         isCreating: false,
         moveVisible: false,
-        favouritesVisible: true,
+        isFavourite: true,
         favouritesInfo: [
           {
             name: "感兴趣的内容",
@@ -268,6 +268,7 @@ em {
 
 }
 .personal-info {
+  /* border: 1px solid red; */
   width: 300px;
   display: flex;
   flex-wrap: wrap;
@@ -377,7 +378,7 @@ em {
   justify-content: space-between;
   margin-bottom: 20px;
 }
-.favourites-title {
+.tab-selected {
   height: 35px;
   font-size: 20px;
   /* margin-left: 60px; */
@@ -388,7 +389,7 @@ em {
   border-radius: 0 0 10px 10px;
   cursor: pointer;
 }
-.favourites-title:hover {
+.tab-selected:hover {
   height: 35px;
   font-size: 20px;
   /* margin-left: 60px; */
@@ -399,7 +400,7 @@ em {
   border-radius: 0 0 10px 10px;
   cursor: pointer;
 }
-.follow-title {
+.tab-not-selected {
   height: 35px;
   font-size: 20px;
   /* margin-left: 60px; */
@@ -410,7 +411,7 @@ em {
   border-radius: 0 0 10px 10px;
   cursor: pointer;
 }
-.follow-title:hover {
+.tab-not-selected:hover {
   height: 35px;
   font-size: 20px;
   /* margin-left: 60px; */
@@ -493,7 +494,7 @@ transition: opacity 0.5s linear 0s;
 
 @media screen and (max-width: 900px) {
   .personal-image {
-    margin-left: 30px;
+    /* margin-left: 30px; */
   }
 
 }
@@ -501,10 +502,18 @@ transition: opacity 0.5s linear 0s;
 @media screen and (max-width: 768px) {
   .main-part {
     width: 100%;
+    /* border: 1px solid red; */
     margin-left: 0;
+  }
+  .personal-info {
+    width: 80%;
+    margin-left: 10%;
+    /* border: 1px solid red; */
+    margin-bottom: 30px;
   }
   .info-tag-list {
     display: block;
+    width: 100%;
   }
   .personal-info-text {
     width: 80%;
