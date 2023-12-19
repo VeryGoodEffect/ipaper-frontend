@@ -1,11 +1,11 @@
 <template>
-  <div style="position: relative;">
-    <div class="aside">
+  <div>
+    <!-- <div class="aside"> -->
         <!-- <svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2048 2048"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 152h336"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 256h336"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 360h336"></path></svg>      -->
-      <AsideBar  style="top: 0; margin: 0; padding: 0"></AsideBar>
-    </div>
+      <!-- <AsideBar  style="top: 0; margin: 0; padding: 0"></AsideBar> -->
+    <!-- </div> -->
 
-    <main class="container" style="margin-left: 200px; /* 留出 aside 的宽度 */">
+    <main class="container">
       <section class="search-panel">
         <h2>
           {{ $t("ipaper_scholar_text") }}
@@ -43,6 +43,7 @@
       </section>
       <section class="recommendation">
         <h3>为你推荐</h3>
+        <ArticleRecommendation/>
       </section>
       <!-- <MulSearch /> -->
     </main>
@@ -53,6 +54,7 @@
 <script>
 import i18n from "../../language";
 import AsideBar from "../../components/search-property/AsideBar.vue";
+import ArticleRecommendation from '../../components/recommendation/ArticleRecommendation.vue'
 // import AdvancedSearchModal from "../../components/modals/AdvancedSearchModal.vue";
 // import MulSearch from '../../components/search-property/MulSearch.vue';
 export default {
@@ -60,6 +62,7 @@ export default {
   components: {
     i18n,
     AsideBar,
+    ArticleRecommendation
     // AdvancedSearchModal
   },
   data() {
@@ -76,6 +79,10 @@ export default {
 };
 </script>
 <style scoped>
+* {
+  max-width: 100%;
+  /* overflow: hidden; */
+}
 .container {
   width: 80%;
   /* height: calc(100vh - 80px); */

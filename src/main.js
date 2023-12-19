@@ -41,10 +41,10 @@ app.directive('ellipsis', {
       const transition = `max-height ${transitionTime} ${binding.value.transitionMode ? binding.value.transitionMode : 'linear'}`
       const computedStyles = window.getComputedStyle(el)
       content.style.fontFamily = computedStyles.fontFamily
-      content.style.fontSize = computedStyles.fontSize
-      content.style.color = computedStyles.color
-      content.style.fontWeight = computedStyles.fontWeight
-      content.style.textDecoration = computedStyles.textDecoration
+      content.style.fontSize = 'inherit'
+      content.style.color = 'inherit'
+      content.style.fontWeight = 'inherit'
+      content.style.textDecoration = 'inherit'
       content.style.transition = transition
       content.style.cursor = Wrappable?'pointer':'default'
       content.innerHTML = el.innerHTML

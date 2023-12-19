@@ -40,9 +40,12 @@ export default {
 
     personal_info_nick_name: 'Nick Name',
     personal_info_real_name: 'Real Name',
-    personal_info_region: 'Region',
-    personal_info_work_concepts: 'Working Concepts',
+    personal_info_region: 'Country/Region',
+    personal_info_institution: 'Institution',
     personal_info_email: 'Email',
+    personal_info_gender: 'Gender',
+    personal_info_url: 'URL',
+    personal_info_major: 'Major',
 
     rename: 'rename',
     delete: 'delete',

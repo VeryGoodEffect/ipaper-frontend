@@ -41,9 +41,12 @@ export default {
 
     personal_info_nick_name: '昵称',
     personal_info_real_name: '真实姓名',
-    personal_info_region: '地区',
-    personal_info_work_concepts: '工作机构',
+    personal_info_region: '国家/地区',
+    personal_info_institution: '机构',
     personal_info_email: '邮箱',
+    personal_info_gender: '性别',
+    personal_info_url: 'URL',
+    personal_info_major: '专业',
 
     rename: '重命名',
     delete: '删除',

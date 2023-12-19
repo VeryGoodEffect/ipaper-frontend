@@ -150,7 +150,7 @@ export default {
 
 @media screen and (max-width: 768px) {
   .container>h3 {
-    font-size: 35px;
+    font-size: 25px;
     font-weight: bold;
     margin-bottom: 30px
   }
@@ -161,7 +161,7 @@ export default {
 
   .container>input {
     height: 40px;
-    font-size: 20px;
+    font-size: 18px;
     padding-left: 10px;
   }
 
@@ -176,9 +176,9 @@ export default {
   }
 
   .btn-box button {
-    width: 100px;
-    height: 40px;
-    font-size: 20px;
+    width: 80px;
+    height: 30px;
+    font-size: 16px;
   }
 
   .container>span,
