@@ -209,7 +209,7 @@
 * {
   box-sizing: border-box;
   max-width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 em {
@@ -242,6 +242,7 @@ em {
   /* min-width: 500px; */
   display: flex;
   justify-content: center;
+  margin-top: 30px;
   /* margin-left: 10%; */
 }
 .title-part {
@@ -383,7 +384,7 @@ em {
   color: white;
   padding-left: 10px;
   padding-right: 10px;
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px;
   cursor: pointer;
 }
 .favourites-title:hover {
