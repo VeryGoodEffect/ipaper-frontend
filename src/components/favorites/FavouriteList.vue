@@ -6,7 +6,7 @@
         - button: check cross
         - emit
        -->
-  <div class="favourite-list-list">
+  <div class="favourite-list" ref="container">
     <CreateFavourite
     v-if="isCreating"
     @cancelCreation="cancelCreation"
@@ -41,9 +41,11 @@ export default {
   },
   mounted() {
     window.addEventListener('click', this.closeAllContextMenu)
+    this.$refs.container.addEventListener('wheel', this.changeScrollOrient)
   },
   beforeUnmount() {
     window.removeEventListener('click', this.closeAllContextMenu)
+    this.$refs.container.removeEventListener('wheel', this.changeScrollOrient)
   },
   methods: {
     handleDelete(index) {
@@ -69,17 +71,23 @@ export default {
     },
     updateCreation(name) {
       this.$emit('updateCreation', name)
+    },
+    changeScrollOrient(e) {
+      if (e.deltaX === 0 && Math.abs(e.deltaY) > 80) {
+        e.preventDefault()
+        this.$refs.container.scrollLeft += e.deltaY * 2
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-.favourite-list-list {
+.favourite-list {
   display: flex;
   overflow-x: auto;
 }
-.favourite-list-list::-webkit-scrollbar {
+.favourite-list::-webkit-scrollbar {
   display: none;
 }
 /* .list-item {
