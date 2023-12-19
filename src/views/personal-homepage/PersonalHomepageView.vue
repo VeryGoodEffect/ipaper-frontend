@@ -80,7 +80,7 @@
               :isCreating="isCreating"
               :favouritesInfo="favouritesInfo" />
             </div>
-            <div class="favorites-list" v-else>
+            <div class="follow-list" v-else>
               <FollowListVue/>
             </div>
           </div>
@@ -366,10 +366,13 @@ em {
   /* justify-content: space-around;
   flex-wrap: wrap; */
   /* width: 50%; */
-  height: 300px;
+  min-height: 300px;
+  
 }
-/* .favorites-list {
-} */
+.follow-list {
+  overflow-y: auto;
+  height: 550px; 
+}
 .favourites-subscribe-tab {
   display: flex;
 }

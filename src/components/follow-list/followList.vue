@@ -1,6 +1,5 @@
 <template>
   <!-- <div class="follow-list-area"> -->
-    <PaginationVue>
     <div v-for="(follower, idx) in followers" :key="idx">
       <div class="item-card">
         <div>
@@ -18,16 +17,11 @@
           </button>
       </div>
     </div>
-    </PaginationVue>
   <!-- </div> -->
 </template>
 
 <script>
-import PaginationVue from "../pagination/Pagination.vue"
 export default {
-  components: {
-    PaginationVue
-  },
   data() {
     return {
       followers: [
@@ -50,6 +44,32 @@ export default {
           isFollowed: false,
         },
         {
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },
+        {
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
           id: 4,
           name: '用户4',
           profile: '个人简介',
@@ -81,7 +101,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
+  margin: 0 0 15px 0;
 }
 .item-image {
   width: 70px;
