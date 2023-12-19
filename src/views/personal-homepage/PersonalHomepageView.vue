@@ -19,7 +19,7 @@
       <div class="info-tag-list">
         <div class="personal-info">
             <div class="personal-image">
-              <img src="https://img0.baidu.com/it/u=3451423443,2749950479&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="Personal Image">
+              <img :src="personalInfo.avatarUrl" alt="Personal Image">
             </div>
             <div class="personal-info-text">
               <p class="personal-info-text-nickname">
@@ -98,6 +98,7 @@
   import FavouriteListItem from '../../components/favorites/FavouriteListItem.vue'
   import i18n from '../../language'
   import FavouriteList from '../../components/favorites/FavouriteList.vue'
+  import { User } from '../../api/users.js'
   export default {
     components: {
       FavouriteListItem,
@@ -114,6 +115,8 @@
             keyword: "经济",
         },
         personalInfo: {
+          id: '',
+          avatarUrl: 'https://img0.baidu.com/it/u=3451423443,2749950479&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
           nickName: 'Xenon',
           realName: '暂未设置',
           region: '中国',
@@ -167,8 +170,63 @@
       }
     },
     
-    
+    created() {
+      this.getUserInfo()
+    },
     methods: {
+      getUserInfo() {
+        console.log(this.$cookies.get('user_id'))
+        let userId = this.$cookies.get('user_id')
+        if (userId) {
+          User.getUser(userId).then(
+            (response) => {
+              // console.log(response)
+              // console.log(response.data.username)
+              this.personalInfo.id = userId
+              this.personalInfo.nickName = response.data.username
+              if(response.data.real_name === '' || response.data.real_name === null) {
+                this.personalInfo.realName = '暂未设置'
+              }
+              else {
+                this.personalInfo.realName = response.data.real_name
+              }
+              this.personalInfo.region = response.data.region
+              if(response.data.gender === '' || response.data.gender === null) {
+                this.personalInfo.gender = '保密'
+              }
+              else {
+                this.personalInfo.gender = response.data.gender
+              }
+              if(response.data.institution === '' || response.data.institution === null) {
+                this.personalInfo.institution = '暂未设置'
+              }
+              else {
+                this.personalInfo.institution = response.data.institution
+              }
+              this.personalInfo.email = response.data.email
+              this.personalInfo.urls = response.data.websites
+              this.personalInfo.avatarUrl = 'api/users/' + userId + '/avatar/'
+              console.log(this.personalInfo.avatarUrl)
+            },
+            (error) => {
+              console.log(error)
+            }
+          )
+          let data = {
+            width: 250,
+            height: 250
+          }
+          // User.getUserAvatar(userId, data).then(
+          //   (response) => {
+          //     console.log('111')
+          //     console.log(response)
+          //   },
+          //   (error) => {
+          //     console.log(error)
+          //   }
+          // )
+        } 
+      },
       handleMove() {
         this.moveVisible = true
       },
@@ -364,7 +422,7 @@ em {
   /* justify-content: space-around;
   flex-wrap: wrap; */
   /* width: 50%; */
-  height: 300px;
+  min-height: 300px;
 }
 /* .favorites-list {
 } */
