@@ -66,8 +66,18 @@
             <div class="favourites-header">
               <div class="favourites-subscribe-tab">
                 
-                <h4 :class="[{'tab-not-selected': !isFavourite}, { 'tab-selected': isFavourite }]" @click="isFavourite = true">{{ $t('favourites') }}</h4>
-                <h4 :class="[{'tab-selected': !isFavourite}, { 'tab-not-selected': isFavourite }]" @click="isFavourite = false">{{ $t('personal_follow_list') }}</h4>
+                <h4 
+                  :class="[{'tab tab-not-selected': !isFavourite}, { 'tab tab-selected': isFavourite }]" 
+                  @click="isFavourite = true"
+                >
+                  {{ $t('favourites') }}
+                </h4>
+                <h4 
+                  :class="[{'tab tab-selected': !isFavourite}, { 'tab tab-not-selected': isFavourite }]" 
+                  @click="isFavourite = false"
+                >
+                  {{ $t('personal_follow_list') }}
+                </h4>
               </div>
               <div class="favourites-creation" @click="isCreating = true" v-if="isFavourite">
                 {{ $t('create_favourites') }}
@@ -209,7 +219,6 @@
 * {
   box-sizing: border-box;
   max-width: 100%;
-  /* overflow: hidden; */
 }
 
 em {
@@ -273,7 +282,7 @@ em {
   flex-wrap: wrap;
   justify-content: center;
 }
-.personal-image {
+.personal-image img {
   height: 250px;
   width: 250px;
   border-radius: 50%;
@@ -377,50 +386,36 @@ em {
   justify-content: space-between;
   margin-bottom: 20px;
 }
-.tab-selected {
-  height: 35px;
-  font-size: 20px;
-  /* margin-left: 60px; */
-  background-color: rgb(3,122,255);
+
+.tab {
+  height: 40px;
+  font-size: 18px;
   color: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 5px;
   cursor: pointer;
+}
+.tab:last-of-type {
+  margin-left: 20px;
+}
+.tab-selected {
+  background-color: var(--theme-color);
+  font-weight: bold;
 }
 .tab-selected:hover {
-  height: 35px;
-  font-size: 20px;
-  /* margin-left: 60px; */
-  background-color: rgb(45, 141, 250);
-  color: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 0 0 10px 10px;
-  cursor: pointer;
+  background-color: var(--theme-color-80);
 }
 .tab-not-selected {
-  height: 35px;
-  font-size: 20px;
-  /* margin-left: 60px; */
-  background-color: rgb(202, 202, 202);
-  color: rgb(0, 0, 0);
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 0 0 10px 10px;
-  cursor: pointer;
+  color: var(--default-text-color);
+  background-color: var(--theme-mode-contrast);
 }
 .tab-not-selected:hover {
-  height: 35px;
-  font-size: 20px;
-  /* margin-left: 60px; */
-  background-color: rgb(228, 227, 227);
-  color: rgb(0, 0, 0);
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 0 0 10px 10px;
-  cursor: pointer;
+  background-color: var(--theme-mode-high-contrast);
 }
+
 .favourites-creation {
   background-color: rgb(98,186,70);
   width: 120px;

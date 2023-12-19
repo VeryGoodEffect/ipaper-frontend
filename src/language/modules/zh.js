@@ -34,6 +34,7 @@ export default {
 
     favourites: '收藏夹',
     create_favourites: '新建收藏夹',
+    favourites_name: '收藏夹名称',
     move_favourites: '移动到',
     favourites_return: '返回',
 
