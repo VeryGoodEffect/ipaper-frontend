@@ -5,9 +5,6 @@
         <input
           type="text" class="basic-input" 
           :placeholder="$t('auditor_text')" v-model="auditor">
-        <input 
-          type="password" class="basic-input" 
-          :placeholder="$t('openalexId_text')" v-model="openalexId">
         <input
         type="text" class="basic-input" 
         :placeholder="$t('realName_text')" v-model="realName">
@@ -49,7 +46,6 @@
     data() {
       return {
         auditor: '',
-        openalexId: '',
         realName: '',
         institution: '',
         position: '',
@@ -76,7 +72,6 @@
       handleAuthenticate() {
         let form = {
           auditor: this.auditor,
-          openalex_id: this.openalexId,
           real_name: this.realName,
           institution: this.institution,
           position: this.position,
