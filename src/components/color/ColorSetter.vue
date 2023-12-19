@@ -33,13 +33,15 @@ export default {
       if (mode === '#181818') {
         document.documentElement.style.setProperty('--theme-mode', '#f3f3f3')
         document.documentElement.style.setProperty('--theme-mode-like', '#eee')
+        document.documentElement.style.setProperty('--theme-mode-slight-contrast', '#e3e3e3')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#ccc')
-        document.documentElement.style.setProperty('--theme-mode-high-contrast', '#555')
+        document.documentElement.style.setProperty('--theme-mode-high-contrast', '#777')
         document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#222')
         document.documentElement.style.setProperty('--default-text-color', '#111')
       } else {
         document.documentElement.style.setProperty('--theme-mode', '#181818')
         document.documentElement.style.setProperty('--theme-mode-like', '#222')
+        document.documentElement.style.setProperty('--theme-mode-slight-contrast', '#333')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#444')
         document.documentElement.style.setProperty('--theme-mode-high-contrast', '#bbb')
         document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#c8c8c8')

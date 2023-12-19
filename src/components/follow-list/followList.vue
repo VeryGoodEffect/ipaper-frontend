@@ -1,33 +1,24 @@
 <template>
   <div class="follow-list-area">
-    <PaginationVue>
-    <div v-for="(follower, idx) in followers" :key="idx">
-      <div class="item-card">
+      <div class="item-card" v-for="(follower, idx) in followers" :key="idx">
         <div>
           <img class="item-image" />
         </div>
         <div class="item-text">
-          <div class="follower-name">{{ follower.name }}</div>
-          <div class="follower-profile">{{ follower.profile }}</div>
+          <h4 class="follower-name">{{ follower.name }}</h4>
         </div>
-          <button class="item-button" v-if="follower.isFollowed" @click="follow(follower)">
+          <button class="item-button basic-btn" v-if="follower.isFollowed" @click="follow(follower)">
             {{ $t('cancel_follow') }}
           </button>
-          <button class="item-button" v-else @click="unFollow(follower)">
+          <button class="item-button basic-btn-outline" v-else @click="unFollow(follower)">
             {{ $t('follow') }}
           </button>
       </div>
-    </div>
-    </PaginationVue>
   </div>
 </template>
 
 <script>
-import PaginationVue from "../pagination/Pagination.vue"
 export default {
-  components: {
-    PaginationVue
-  },
   data() {
     return {
       followers: [
@@ -54,6 +45,32 @@ export default {
           name: '用户4',
           profile: '个人简介',
           isFollowed: false,
+        },
+        {
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
+        },{
+          id: 4,
+          name: '用户4',
+          profile: '个人简介',
+          isFollowed: false,
         }
       ]
     }
@@ -70,39 +87,52 @@ export default {
 </script>
 
 <style scoped>
-.follow-list-area {
+/* .follow-list-area {
   display: flex;
   justify-content: center;
+} */
+
+.follow-list-area {
+  padding: 20px;
+  overflow-y: auto;
+  height: 550px; 
+  background: var(--theme-mode-like);
 }
+
 .item-card {
-  width: 1000px;
-  height: 120px; 
+  height: 80px; 
   border-radius: 5px;
-  background-color: white;
+  background-color: var(--theme-mode-slight-contrast);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
+  margin-bottom: 15px;
 }
+.item-card:last-child {
+  margin-bottom: 0;
+}
+
 .item-image {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   margin-left: 20px;
 }
 .item-button {
+  width: 80px;
+  height: 40px;
+  font-size: 16px;
   margin-right: 20px;
 }
 .item-text {
   position: relative;
-  width: 70%;
+  width: 65%;
 }
-.follower-profile {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
+
+.item-text h4:hover {
+  text-decoration: underline;
 }
+
 </style>
 
 

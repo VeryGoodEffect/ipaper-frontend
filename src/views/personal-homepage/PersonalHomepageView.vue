@@ -19,7 +19,7 @@
       <div class="info-tag-list">
         <div class="personal-info">
             <div class="personal-image">
-              <img src="https://img0.baidu.com/it/u=3451423443,2749950479&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="Personal Image">
+              <img :src="personalInfo.avatarUrl" alt="Personal Image">
             </div>
             <div class="personal-info-text">
               <p class="personal-info-text-nickname">
@@ -34,11 +34,11 @@
                 <em>{{ $t('personal_info_region') }}</em>&nbsp;&nbsp;
                 {{ personalInfo.region }}
               </p>
-              <p class="personal-info-text-gender">
+              <p class="personal-info-text-gender" v-if="personalInfo.gender.length !== 0">
                 <em>{{ $t('personal_info_gender') }}</em>&nbsp;&nbsp;
                 {{ personalInfo.gender }}
               </p>
-              <p class="personal-info-text-institution">
+              <p class="personal-info-text-institution" v-if="personalInfo.institution !== null">
                 <em>{{ $t('personal_info_institution') }}</em>&nbsp;&nbsp;
                 {{ personalInfo.institution }}
               </p>
@@ -50,7 +50,7 @@
                 <em>{{ $t('personal_info_email') }}</em>&nbsp;&nbsp;
                 {{ personalInfo.email }}
               </p>
-              <p class="personal-info-text-url">
+              <p class="personal-info-text-url" v-if="personalInfo.urls.length !== 0"> 
                 <em>{{ $t('personal_info_url') }}</em>
                 <ul class="personal-info-text-url-list">
                   <li v-for="(url, index) in personalInfo.urls" :key="index">
@@ -66,22 +66,32 @@
             <div class="favourites-header">
               <div class="favourites-subscribe-tab">
                 
-                <h4 :class="[{'follow-title': !favouritesVisible}, { 'favourites-title': favouritesVisible }]" @click="favouritesVisible = true">{{ $t('favourites') }}</h4>
-                <h4 :class="[{'favourites-title': !favouritesVisible}, { 'follow-title': favouritesVisible }]" @click="favouritesVisible = false">{{ $t('personal_follow_list') }}</h4>
+                <h4 
+                  :class="[{'tab tab-not-selected': !isFavourite}, { 'tab tab-selected': isFavourite }]" 
+                  @click="isFavourite = true"
+                >
+                  {{ $t('favourites') }}
+                </h4>
+                <h4 
+                  :class="[{'tab tab-selected': !isFavourite}, { 'tab tab-not-selected': isFavourite }]" 
+                  @click="isFavourite = false"
+                >
+                  {{ $t('personal_follow_list') }}
+                </h4>
               </div>
-              <div class="favourites-creation" @click="isCreating = true" v-if="favouritesVisible">
+              <div class="favourites-creation" @click="isCreating = true" v-if="isFavourite">
                 {{ $t('create_favourites') }}
               </div>  
             </div>
-            <div class="favorites-list" v-if="favouritesVisible">
+            <div class="favorites-list" v-if="isFavourite">
               <FavouriteList 
               @cancelCreation="cancelCreation"
               @updateCreation="updateCreation"
               :isCreating="isCreating"
               :favouritesInfo="favouritesInfo" />
             </div>
-            <div class="favorites-list" v-else>
-              关注列表
+            <div class="follow-list" v-else>
+              <FollowList/>
             </div>
           </div>
           <div class="personal-tag">
@@ -98,10 +108,13 @@
   import FavouriteListItem from '../../components/favorites/FavouriteListItem.vue'
   import i18n from '../../language'
   import FavouriteList from '../../components/favorites/FavouriteList.vue'
+  import { User } from '../../api/users.js'
+  import FollowList from '../../components/follow-list/FollowList.vue'
   export default {
     components: {
       FavouriteListItem,
       FavouriteList,
+      FollowList,
       i18n
     },
     data() {
@@ -114,22 +127,20 @@
             keyword: "经济",
         },
         personalInfo: {
-          nickName: 'Xenon',
-          realName: '暂未设置',
-          region: '中国',
-          institution: '北京航空航天大学',
-          email: '21373272@buaa.edu.cn',
-          gender: '男',
-          urls: [
-            'https://www.baidu.com',
-            'https://github.com',
-            'https://buaa.edu.cn'
-          ],
-          major: '中国语言文学'
+          id: '',
+          avatarUrl: '',
+          nickName: '',
+          realName: '',
+          region: '',
+          institution: '',
+          email: '',
+          gender: '',
+          urls: [],
+          major: ''
         },
         isCreating: false,
         moveVisible: false,
-        favouritesVisible: true,
+        isFavourite: true,
         favouritesInfo: [
           {
             name: "感兴趣的内容",
@@ -167,8 +178,48 @@
       }
     },
     
-    
+    created() {
+      this.getUserInfo()
+    },
     methods: {
+      getUserInfo() {
+        console.log(this.$cookies.get('user_id'))
+        let userId = this.$cookies.get('user_id')
+        if (userId) {
+          User.getUser(userId).then(
+            (response) => {
+              console.log(response)
+              // console.log(response.data.username)
+              this.personalInfo.id = userId
+              this.personalInfo.nickName = response.data.username
+              this.personalInfo.realName = response.data.real_name
+              this.personalInfo.region = response.data.region
+              this.personalInfo.gender = response.data.gender
+              this.personalInfo.institution = response.data.institution
+              this.personalInfo.email = response.data.email
+              this.personalInfo.urls = response.data.websites
+              this.personalInfo.avatarUrl = 'api/users/' + userId + '/avatar/'
+              console.log(this.personalInfo.avatarUrl)
+            },
+            (error) => {
+              console.log(error)
+            }
+          )
+          // let data = {
+          //   width: 250,
+          //   height: 250
+          // }
+          // User.getUserAvatar(userId, data).then(
+          //   (response) => {
+          //     console.log('111')
+          //     console.log(response)
+          //   },
+          //   (error) => {
+          //     console.log(error)
+          //   }
+          // )
+        } 
+      },
       handleMove() {
         this.moveVisible = true
       },
@@ -209,7 +260,6 @@
 * {
   box-sizing: border-box;
   max-width: 100%;
-  overflow: hidden;
 }
 
 em {
@@ -242,12 +292,13 @@ em {
   /* min-width: 500px; */
   display: flex;
   justify-content: center;
+  margin-top: 30px;
   /* margin-left: 10%; */
 }
 .title-part {
     display: flex;
-    margin-top: 50px;
-    margin-left: 80px;
+    /* margin-top: 50px; */
+    /* margin-left: 80px; */
     justify-content: space-around;
     flex-wrap: wrap;
 }
@@ -266,12 +317,14 @@ em {
 
 }
 .personal-info {
+  /* border: 1px solid red; */
   width: 300px;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   justify-content: center;
 }
-.personal-image {
+.personal-image img {
   height: 250px;
   width: 250px;
   border-radius: 50%;
@@ -363,10 +416,10 @@ em {
   /* justify-content: space-around;
   flex-wrap: wrap; */
   /* width: 50%; */
-  height: 300px;
+  min-height: 300px;
+  
 }
-/* .favorites-list {
-} */
+
 .favourites-subscribe-tab {
   display: flex;
 }
@@ -375,50 +428,36 @@ em {
   justify-content: space-between;
   margin-bottom: 20px;
 }
-.favourites-title {
-  height: 35px;
-  font-size: 20px;
-  /* margin-left: 60px; */
-  background-color: rgb(3,122,255);
+
+.tab {
+  height: 40px;
+  font-size: 18px;
   color: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 0 0 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 5px;
   cursor: pointer;
 }
-.favourites-title:hover {
-  height: 35px;
-  font-size: 20px;
-  /* margin-left: 60px; */
-  background-color: rgb(45, 141, 250);
-  color: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 0 0 10px 10px;
-  cursor: pointer;
+.tab:last-of-type {
+  margin-left: 20px;
 }
-.follow-title {
-  height: 35px;
-  font-size: 20px;
-  /* margin-left: 60px; */
-  background-color: rgb(202, 202, 202);
-  color: rgb(0, 0, 0);
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 0 0 10px 10px;
-  cursor: pointer;
+.tab-selected {
+  background-color: var(--theme-color);
+  font-weight: bold;
 }
-.follow-title:hover {
-  height: 35px;
-  font-size: 20px;
-  /* margin-left: 60px; */
-  background-color: rgb(228, 227, 227);
-  color: rgb(0, 0, 0);
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 0 0 10px 10px;
-  cursor: pointer;
+.tab-selected:hover {
+  background-color: var(--theme-color-80);
 }
+.tab-not-selected {
+  color: var(--default-text-color);
+  background-color: var(--theme-mode-contrast);
+}
+.tab-not-selected:hover {
+  background-color: var(--theme-mode-high-contrast);
+}
+
 .favourites-creation {
   background-color: rgb(98,186,70);
   width: 120px;
@@ -491,7 +530,7 @@ transition: opacity 0.5s linear 0s;
 
 @media screen and (max-width: 900px) {
   .personal-image {
-    margin-left: 30px;
+    /* margin-left: 30px; */
   }
 
 }
@@ -499,10 +538,18 @@ transition: opacity 0.5s linear 0s;
 @media screen and (max-width: 768px) {
   .main-part {
     width: 100%;
+    /* border: 1px solid red; */
     margin-left: 0;
+  }
+  .personal-info {
+    width: 80%;
+    margin-left: 10%;
+    /* border: 1px solid red; */
+    margin-bottom: 30px;
   }
   .info-tag-list {
     display: block;
+    width: 100%;
   }
   .personal-info-text {
     width: 80%;

@@ -32,6 +32,7 @@ export default {
     cancel_follow: 'Cancel',
     follow: 'Follow',
     favourites: 'Favourites',
+    favourites_name: 'Favourites list name',
     create_favourites: 'New',
     move_favourites: 'Move to',
     favourites_return: 'Back',
