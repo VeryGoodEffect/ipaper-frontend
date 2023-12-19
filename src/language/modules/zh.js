@@ -84,5 +84,8 @@ export default {
     pagination_current_page_1: '第',
     pagination_current_page_2: '页',
     pagination_per_page:'条 / 页',
-    pagination_jump:'跳转'
+    pagination_jump:'跳转',
+
+    search_result_cited_times: "被引用次数：",
+    search_result_related_work: "相关文章",
 }
