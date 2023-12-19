@@ -1,5 +1,5 @@
 <template>
-  <div class="follow-list-area">
+  <!-- <div class="follow-list-area"> -->
     <PaginationVue>
     <div v-for="(follower, idx) in followers" :key="idx">
       <div class="item-card">
@@ -19,7 +19,7 @@
       </div>
     </div>
     </PaginationVue>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -70,12 +70,11 @@ export default {
 </script>
 
 <style scoped>
-.follow-list-area {
+/* .follow-list-area {
   display: flex;
   justify-content: center;
-}
+} */
 .item-card {
-  width: 1000px;
   height: 120px; 
   border-radius: 5px;
   background-color: white;
@@ -95,7 +94,8 @@ export default {
 }
 .item-text {
   position: relative;
-  width: 70%;
+  width: 60%;
+  margin: 0 10px;
 }
 .follower-profile {
   display: -webkit-box;

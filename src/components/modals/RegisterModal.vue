@@ -77,14 +77,14 @@ export default {
       setTimeout(() => {
         this.handleJumpToLogin()
       }, 3000)
-      // Account.register(registerForm).then(
-      //   (response) => {
+      Account.register(registerForm).then(
+        (response) => {
           
-      //   },
-      //   (error) => {
-      //     alert("Error in register")
-      //   }
-      // )
+        },
+        (error) => {
+          alert("Error in register")
+        }
+      )
     }
   }
 }

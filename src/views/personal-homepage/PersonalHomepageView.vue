@@ -81,7 +81,7 @@
               :favouritesInfo="favouritesInfo" />
             </div>
             <div class="favorites-list" v-else>
-              关注列表
+              <FollowListVue/>
             </div>
           </div>
           <div class="personal-tag">
@@ -98,10 +98,12 @@
   import FavouriteListItem from '../../components/favorites/FavouriteListItem.vue'
   import i18n from '../../language'
   import FavouriteList from '../../components/favorites/FavouriteList.vue'
+  import FollowListVue from '../../components/follow-list/followList.vue'
   export default {
     components: {
       FavouriteListItem,
       FavouriteList,
+      FollowListVue,
       i18n
     },
     data() {
