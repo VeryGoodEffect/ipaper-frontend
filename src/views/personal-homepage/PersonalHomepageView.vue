@@ -1,18 +1,18 @@
 <template>
-    <Transition name="fade">
+    <!-- <Transition name="fade">
       <div class="model" v-if="moveVisible">
         <div class="inner-box">
           <h3 class="move-title">
             {{ $t('move_favourites') }}
           </h3>
-          <!-- <Pagination class="pagination">
+          <Pagination class="pagination">
               <Favourites v-for="(info, index) in favouritesInfo" :key="index" :favourites="favouritesInfo[index]" 
               ref="favouritesRefs"> </Favourites>
-          </Pagination> -->
+          </Pagination>
         </div>
         
       </div>
-    </Transition>
+    </Transition> -->
       
     <div class="main-part">
       <div class="return-part" @click="returnToMainPage">
@@ -59,10 +59,10 @@
             Interest Tags
           </div>
         </div>
-      </div>
-        
-        
+      </div>  
     </div>
+
+    
 </template>
   
   <script>

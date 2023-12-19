@@ -81,5 +81,8 @@ export default {
     pagination_current_page_1: "Page",
     pagination_current_page_2: "",
     pagination_per_page: 'items / page',
-    pagination_jump:"Jump"
+    pagination_jump:"Jump",
+
+    search_result_cited_times: "Time Cited:",
+    search_result_related_work: "Related Work",
 }
