@@ -91,7 +91,7 @@
               :favouritesInfo="favouritesInfo" />
             </div>
             <div class="follow-list" v-else>
-              <FollowListVue/>
+              <FollowList/>
             </div>
           </div>
           <div class="personal-tag">
@@ -109,12 +109,12 @@
   import i18n from '../../language'
   import FavouriteList from '../../components/favorites/FavouriteList.vue'
   import { User } from '../../api/users.js'
-  import FollowListVue from '../../components/follow-list/followList.vue'
+  import FollowList from '../../components/follow-list/FollowList.vue'
   export default {
     components: {
       FavouriteListItem,
       FavouriteList,
-      FollowListVue,
+      FollowList,
       i18n
     },
     data() {
@@ -316,8 +316,8 @@ em {
 }
 .title-part {
     display: flex;
-    margin-top: 50px;
-    margin-left: 80px;
+    /* margin-top: 50px; */
+    /* margin-left: 80px; */
     justify-content: space-around;
     flex-wrap: wrap;
 }
@@ -340,6 +340,7 @@ em {
   width: 300px;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   justify-content: center;
 }
 .personal-image img {
@@ -437,10 +438,7 @@ em {
   min-height: 300px;
   
 }
-.follow-list {
-  overflow-y: auto;
-  height: 550px; 
-}
+
 .favourites-subscribe-tab {
   display: flex;
 }
