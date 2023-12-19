@@ -34,11 +34,11 @@
                 <em>{{ $t('personal_info_region') }}</em>&nbsp;&nbsp;
                 {{ personalInfo.region }}
               </p>
-              <p class="personal-info-text-gender">
+              <p class="personal-info-text-gender" v-if="personalInfo.gender.length !== 0">
                 <em>{{ $t('personal_info_gender') }}</em>&nbsp;&nbsp;
                 {{ personalInfo.gender }}
               </p>
-              <p class="personal-info-text-institution">
+              <p class="personal-info-text-institution" v-if="personalInfo.institution !== null">
                 <em>{{ $t('personal_info_institution') }}</em>&nbsp;&nbsp;
                 {{ personalInfo.institution }}
               </p>
@@ -50,7 +50,7 @@
                 <em>{{ $t('personal_info_email') }}</em>&nbsp;&nbsp;
                 {{ personalInfo.email }}
               </p>
-              <p class="personal-info-text-url">
+              <p class="personal-info-text-url" v-if="personalInfo.urls.length !== 0"> 
                 <em>{{ $t('personal_info_url') }}</em>
                 <ul class="personal-info-text-url-list">
                   <li v-for="(url, index) in personalInfo.urls" :key="index">
@@ -182,29 +182,14 @@
         if (userId) {
           User.getUser(userId).then(
             (response) => {
-              // console.log(response)
+              console.log(response)
               // console.log(response.data.username)
               this.personalInfo.id = userId
               this.personalInfo.nickName = response.data.username
-              if(response.data.real_name === '' || response.data.real_name === null) {
-                this.personalInfo.realName = '暂未设置'
-              }
-              else {
-                this.personalInfo.realName = response.data.real_name
-              }
+              this.personalInfo.realName = response.data.real_name
               this.personalInfo.region = response.data.region
-              if(response.data.gender === '' || response.data.gender === null) {
-                this.personalInfo.gender = '保密'
-              }
-              else {
-                this.personalInfo.gender = response.data.gender
-              }
-              if(response.data.institution === '' || response.data.institution === null) {
-                this.personalInfo.institution = '暂未设置'
-              }
-              else {
-                this.personalInfo.institution = response.data.institution
-              }
+              this.personalInfo.gender = response.data.gender
+              this.personalInfo.institution = response.data.institution
               this.personalInfo.email = response.data.email
               this.personalInfo.urls = response.data.websites
               this.personalInfo.avatarUrl = 'api/users/' + userId + '/avatar/'
@@ -214,10 +199,10 @@
               console.log(error)
             }
           )
-          let data = {
-            width: 250,
-            height: 250
-          }
+          // let data = {
+          //   width: 250,
+          //   height: 250
+          // }
           // User.getUserAvatar(userId, data).then(
           //   (response) => {
           //     console.log('111')
