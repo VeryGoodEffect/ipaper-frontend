@@ -52,15 +52,11 @@
       <span>{{ $t("advanced_search_publish_keyword_isTitle") }}</span>
       <input
         type="checkbox"
-        class="basic-input"
-        :placeholder="$t('advanced_search_publish_keyword_isTitle_yes')"
         v-model="is_key_title" 
         @keyup.enter="logSearchParams"
       />
       <input
         type="checkbox"
-        class="basic-input"
-        :placeholder="$t('advanced_search_publish_keyword_isTitle_no')"
         v-model="is_key_title_inverted" 
         @keyup.enter="logSearchParams"
       />

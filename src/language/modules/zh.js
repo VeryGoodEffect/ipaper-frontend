@@ -89,4 +89,10 @@ export default {
 
     search_result_cited_times: "被引用次数：",
     search_result_related_work: "相关文章",
+
+    paper_detail_abstract: "摘要：",
+    paper_detail_keywords: "关键词：",
+    paper_detail_tag: "标签：",
+    paper_detail_source: "专辑：",
+    paper_detail_doi: "DOI：",
 }

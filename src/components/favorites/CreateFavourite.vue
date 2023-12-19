@@ -12,24 +12,10 @@
       <div class="creation-block"> 
         <input :placeholder="$t('favourites_name')" type="text" ref="nameInput" v-model="name" class="name-input" >
         <div class="complete-creation" @click="updateCreation">
-        <svg t="1702972632873" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4535" id="mx_n_1702972632874" width="200" height="200"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474c-6.1-7.7-15.3-12.2-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1 0.4-12.8-6.3-12.8z" p-id="4536"></path></svg>
+        <svg 
+        t="1702972632873" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4535" id="mx_n_1702972632874" width="200" height="200"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474c-6.1-7.7-15.3-12.2-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1 0.4-12.8-6.3-12.8z" p-id="4536"></path></svg>
         </div>
       </div>
-        <!-- <template v-if="favourites.isCreating" class="creation-block">
-          <div class="creation-block"> 
-            <input type="text" ref="nameInput" v-model="favourites.name" class="nameInput">
-            <div class="button-row">
-              <div class="check-button" @click.stop="cancelCreation">
-                取消 
-              </div>
-              <div class="check-button" @click.stop="updateCreation">
-                创建
-              </div>
-            </div>
-            
-          </div>
-            
-        </template> -->
     </div>
 </template>
 
@@ -45,37 +31,25 @@ export default {
     moveFavourites: null,
     IWantToShow: null
   },
-    data() {
-      return {
-        name: '',
-      }
+  data() {
+    return {
+      name: '',
+    }
+  },
+  methods: {
+    cancelCreation() {
+      this.name = ''
+      this.$emit('cancelCreation')
+      // this.$refs.container.style.cursor = 'pointer'
     },
-    mounted() {
-      // window.addEventListener('click', this.hideMenu)
-      // if (this.type !== 'normal') {
-      //   this.$nextTick(() => {
-      //     this.$refs.deleted.style.cursor = 'default'
-      //   })
-      // }
-      // this.$bus.on('renameFailRequest', this.handleRenameFailDisplay)
+    updateCreation() {
+      this.$emit('updateCreation', this.name)
+      this.name = ''
+      // 调用接口
     },
-    beforeUnmount() {
-      // window.removeEventListener('click', this.hideMenu)
-    },
-    methods: {
-      cancelCreation() {
-        this.name = ''
-        this.$emit('cancelCreation')
-        // this.$refs.container.style.cursor = 'pointer'
-      },
-      updateCreation() {
-        this.$emit('updateCreation', this.name)
-        this.name = ''
-        // 调用接口
-      },
-    },
-    computed: {
-    
+  },
+  mounted() {
+    this.$refs.nameInput.focus()
   }
 }
 
@@ -88,7 +62,7 @@ export default {
         width: 300px;
         height: 150px;
         border-radius: 10px;
-        background-color: var(--theme-color-60);
+        background-color: var(--theme-color);
         font-size: 20px;
         text-align: center;
         margin-top: 10px;
@@ -145,13 +119,13 @@ export default {
 }
 
 .name-input:focus {
-  outline: 1px solid var(--theme-mode);
+  outline: 2px solid var(--theme-mode);
 }
 
 .name-input::placeholder {
   font-size: 14px;
   font-weight: bold;
-  color: var(--theme-mode-like);
+  color: var(--theme-mode-slight-contrast);
 }
 
 .creation-block {
