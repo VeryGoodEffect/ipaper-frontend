@@ -128,19 +128,15 @@
         },
         personalInfo: {
           id: '',
-          avatarUrl: 'https://img0.baidu.com/it/u=3451423443,2749950479&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
-          nickName: 'Xenon',
-          realName: '暂未设置',
-          region: '中国',
-          institution: '北京航空航天大学',
-          email: '21373272@buaa.edu.cn',
-          gender: '男',
-          urls: [
-            'https://www.baidu.com',
-            'https://github.com',
-            'https://buaa.edu.cn'
-          ],
-          major: '中国语言文学'
+          avatarUrl: '',
+          nickName: '',
+          realName: '',
+          region: '',
+          institution: '',
+          email: '',
+          gender: '',
+          urls: [],
+          major: ''
         },
         isCreating: false,
         moveVisible: false,
