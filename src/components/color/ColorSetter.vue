@@ -30,20 +30,20 @@ export default {
   methods: {
     changeColorMode() {
       let mode = getComputedStyle(document.documentElement).getPropertyValue('--theme-mode')
-      if (mode === '#000') {
+      if (mode === '#181818') {
         document.documentElement.style.setProperty('--theme-mode', '#f3f3f3')
         document.documentElement.style.setProperty('--theme-mode-like', '#eee')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#ccc')
         document.documentElement.style.setProperty('--theme-mode-high-contrast', '#555')
         document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#222')
-        document.documentElement.style.setProperty('--default-text-color', '#000')
+        document.documentElement.style.setProperty('--default-text-color', '#111')
       } else {
-        document.documentElement.style.setProperty('--theme-mode', '#000')
-        document.documentElement.style.setProperty('--theme-mode-like', '#111')
+        document.documentElement.style.setProperty('--theme-mode', '#181818')
+        document.documentElement.style.setProperty('--theme-mode-like', '#222')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#444')
-        document.documentElement.style.setProperty('--theme-mode-high-contrast', '#aaa')
+        document.documentElement.style.setProperty('--theme-mode-high-contrast', '#bbb')
         document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#c8c8c8')
-        document.documentElement.style.setProperty('--default-text-color', '#fff')
+        document.documentElement.style.setProperty('--default-text-color', '#eaeaea')
       }
     },
     changeThemeColor(color) {

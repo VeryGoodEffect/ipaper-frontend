@@ -1,35 +1,64 @@
 <template>
-    <Transition name="fade">
+    <!-- <Transition name="fade">
       <div class="model" v-if="moveVisible">
         <div class="inner-box">
           <h3 class="move-title">
             {{ $t('move_favourites') }}
           </h3>
-          <!-- <Pagination class="pagination">
-              <Favourites v-for="(info, index) in favouritesInfo" :key="index" :favourites="favouritesInfo[index]" 
-              ref="favouritesRefs"> </Favourites>
-          </Pagination> -->
         </div>
         
       </div>
-    </Transition>
+    </Transition> -->
       
     <div class="main-part">
-      <div class="return-part" @click="returnToMainPage">
+      <!-- <div class="return-part" @click="returnToMainPage">
         <svg t="1701847227942" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="886" width="200" height="200"><path d="M578.2016 113.7664a51.2 51.2 0 0 1 76.3904 67.9424l-3.9936 4.4544-325.888 325.7856 325.888 325.888a51.2 51.2 0 0 1 3.9936 67.9424l-3.9936 4.4544a51.2 51.2 0 0 1-67.9424 3.9936l-4.4544-3.9936-362.0352-361.984a51.2 51.2 0 0 1-3.9936-67.9936l3.9936-4.4544 361.984-362.0352z" fill="#909399" p-id="887"></path></svg>
         <div class="return-text">{{ $t('favourites_return') }}</div>
-      </div>
+      </div> -->
+
       <div class="info-tag-list">
         <div class="personal-info">
             <div class="personal-image">
               <img src="https://img0.baidu.com/it/u=3451423443,2749950479&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="Personal Image">
             </div>
             <div class="personal-info-text">
-              <p class="personal-info-text-item">{{ $t('personal_info_nick_name') }}: {{ this.personalInfo.nickName }}</p>
-              <p class="personal-info-text-item">{{ $t('personal_info_real_name') }}: {{ this.personalInfo.realName }}</p>
-              <p class="personal-info-text-item">{{ $t('personal_info_region') }}: {{ this.personalInfo.region }}</p>
-              <p class="personal-info-text-item">{{ $t('personal_info_work_concepts') }}: {{ this.personalInfo.workingConcepts }}</p>
-              <p class="personal-info-text-item">{{ $t('personal_info_email') }}: {{ this.personalInfo.email }}</p>
+              <p class="personal-info-text-nickname">
+                <!-- {{ $t('personal_info_nick_name') }}:  -->
+                {{ personalInfo.nickName }}
+              </p>
+              <p class="personal-info-text-real-name">
+                <!-- {{ $t('personal_info_real_name') }}:  -->
+                {{ personalInfo.realName }}
+              </p>
+              <p class="personal-info-text-region">
+                <em>{{ $t('personal_info_region') }}</em>&nbsp;&nbsp;
+                {{ personalInfo.region }}
+              </p>
+              <p class="personal-info-text-gender">
+                <em>{{ $t('personal_info_gender') }}</em>&nbsp;&nbsp;
+                {{ personalInfo.gender }}
+              </p>
+              <p class="personal-info-text-institution">
+                <em>{{ $t('personal_info_institution') }}</em>&nbsp;&nbsp;
+                {{ personalInfo.institution }}
+              </p>
+              <p class="personal-info-text-major">
+                <em>{{ $t('personal_info_major') }}</em>&nbsp;&nbsp;
+                {{ personalInfo.major }}
+              </p>
+              <p class="personal-info-text-email">
+                <em>{{ $t('personal_info_email') }}</em>&nbsp;&nbsp;
+                {{ personalInfo.email }}
+              </p>
+              <p class="personal-info-text-url">
+                <em>{{ $t('personal_info_url') }}</em>
+                <ul class="personal-info-text-url-list">
+                  <li v-for="(url, index) in personalInfo.urls" :key="index">
+                    &nbsp;&nbsp;&nbsp;<svg t="1702890339983" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4227"><path d="M377.6 473.6C377.6 448 384 422.4 403.2 403.2l70.4-70.4 57.6-57.6c19.2-19.2 38.4-25.6 64-25.6 25.6 0 44.8 6.4 64 25.6 38.4 38.4 38.4 89.6 0 128l-128 128C512 550.4 492.8 556.8 467.2 556.8L416 608C428.8 614.4 448 620.8 467.2 620.8 512 620.8 544 601.6 576 576l128-128c57.6-57.6 57.6-153.6 0-211.2-57.6-57.6-153.6-57.6-211.2 0l-128 128C320 403.2 307.2 467.2 326.4 524.8L377.6 473.6z"  p-id="4228"></path><path d="M646.4 550.4c0 25.6-6.4 51.2-25.6 70.4l-128 128c-19.2 19.2-38.4 25.6-64 25.6-25.6 0-44.8-6.4-64-25.6-38.4-38.4-38.4-89.6 0-128l128-128c19.2-19.2 44.8-25.6 70.4-25.6l51.2-51.2C588.8 409.6 576 403.2 556.8 403.2 512 403.2 473.6 422.4 448 448L320 576c-57.6 57.6-57.6 153.6 0 211.2 57.6 57.6 153.6 57.6 211.2 0l128-128c44.8-44.8 57.6-108.8 32-160L646.4 550.4z"  p-id="4229"></path></svg>
+                    <a :href="url" target="_blank">{{ url }}</a>
+                  </li>
+                </ul>
+              </p>
             </div>            
         </div>
         <div class="tag-and-list">
@@ -88,8 +117,15 @@
           nickName: 'Xenon',
           realName: '暂未设置',
           region: '中国',
-          workingConcepts: '北京航空航天大学',
-          email: '21373272@buaa.edu.cn'
+          institution: '北京航空航天大学',
+          email: '21373272@buaa.edu.cn',
+          gender: '男',
+          urls: [
+            'https://www.baidu.com',
+            'https://github.com',
+            'https://buaa.edu.cn'
+          ],
+          major: '中国语言文学'
         },
         isCreating: false,
         moveVisible: false,
@@ -140,10 +176,10 @@
         this.moveVisible = false
       },
       cancelCreation() {
-        this.isCreating = false;
+        this.isCreating = false
       },
       updateCreation(name) {
-        this.isCreating = false;
+        this.isCreating = false
         this.favouritesInfo.unshift({
           name: name,
             showContextMenu: false
@@ -165,7 +201,7 @@
       var windowHeight = window.innerHeight;
 
       var topPosition = scrollTop + (windowHeight / 2)
-      container.style.top = topPosition + 'px';
+      container.style.top = topPosition + 'px'
     });
   </script>
   
@@ -174,6 +210,10 @@
   box-sizing: border-box;
   max-width: 100%;
   overflow: hidden;
+}
+
+em {
+  font-weight: bold;
 }
 
 .return-part {
@@ -197,16 +237,18 @@
 }
 
 .main-part {
-  min-height: 800px;
-  width: 80%;
-  min-width: 500px;
-  margin-left: 10%;
+  /* min-height: 800px; */
+  width: 100%;
+  /* min-width: 500px; */
+  display: flex;
+  justify-content: center;
+  /* margin-left: 10%; */
 }
 .title-part {
     display: flex;
     margin-top: 50px;
     margin-left: 80px;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
 .title {
@@ -219,28 +261,90 @@
 }
 .info-tag-list {
   display: flex;
+  width: 80%;
+  justify-content: space-around;
+
 }
-/* .personal-info {
-} */
+.personal-info {
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .personal-image {
-  height: 200px;
-  width: 200px;
-  margin-left: 50px;
+  height: 250px;
+  width: 250px;
   border-radius: 50%;
-  overflow: hidden;
 }
 .personal-info-text {
-  min-height: 400px;
+  /* min-height: 400px; */
   width: 300px;
-  margin-top: 20px;   
-  font-size: 30px;
+  margin-top: 10px;   
 }
-.personal-info-text-item {
+
+.personal-info-text p:not(:nth-child(1), :nth-child(2)) {
+  background: var(--theme-mode-like);
+  padding-left: 20px;
+  padding-top: 15px;
+}
+
+.personal-info-text p:nth-child(3) {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.personal-info-text p:last-child {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding-bottom: 15px;
+}
+
+.personal-info-text * {
+  color: var(--default-text-color);
+}
+
+.personal-info-text-nickname {
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.personal-info-text-real-name {
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.personal-info-text-url-list li {
+  margin-left: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.personal-info-text-url-list li svg {
+  width: 30px;
+  height: 30px;
+  fill: var(--default-text-color);
+}
+
+.personal-info-text-url-list li:last-child {
+  margin-bottom: 0;
+}
+
+.personal-info-text-url-list li:hover * {
+  font-size: 17px;
+  font-weight: bold;
+  color: var(--theme-color);
+  fill: var(--theme-color);
+}
+
+
+/* .personal-info-text-item {
   margin-bottom: 5px;
   margin-left: 20px;
-}
+} */
 .tag-and-list {
-  margin-left: 5%;
   width: 60%;
 }
 .personal-tag {

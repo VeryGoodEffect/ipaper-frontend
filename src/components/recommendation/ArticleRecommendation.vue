@@ -115,7 +115,7 @@ li {
 }
 
 li h3 {
-  color: var(--theme-mode-very-high-contrast);
+  color: var(--defaut-text-color);
   font-size: 22px;
   font-weight: bold;
   cursor: pointer;
@@ -126,14 +126,14 @@ li:hover h3 {
 }
 
 .abstract {
-  color: var(--theme-mode-high-contrast);
+  color: var(--theme-mode-very-high-contrast);
   font-size: 14px;
 }
 
 .author, .journal {
   font-size: 14px;
   font-weight: bold;
-  color: var(--theme-mode-very-high-contrast);
+  color: var(--defaut-text-color);
 }
 
 .journal {
