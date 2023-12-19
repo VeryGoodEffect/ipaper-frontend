@@ -32,9 +32,11 @@ export class User {
         })
     }
     
-    static async getUserAvatar(id) {
+    static async getUserAvatar(id, data) {
+        // 加了一个data
         return service(url.users + id + "/avatar/", {
-            method: "get"
+            method: "get",
+            data
         })
     }
 
