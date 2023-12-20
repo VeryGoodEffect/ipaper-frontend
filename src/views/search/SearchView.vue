@@ -100,6 +100,7 @@ export default {
       // default.search
 
       // for filter content
+      search_content: "",
       // search_content_filter: "",
 
       // exp https://api.openalex.org/works?filter=concepts.id:{机器学习ID},from_publication_date:2021-01-01&search=深度学习
