@@ -363,7 +363,8 @@ export default {
         // this.filter = "publication_year:2023-"
       } else if (type == 2) {
         // 2023
-        this.filter = "publication_year:2023-";
+        
+        this.filter = ",publication_year:2023-";
       } else if (type == 3) {
         // 2022
         this.filter = "publication_year:2022-";
@@ -411,6 +412,53 @@ export default {
       );
     },
 
+    advsearch(data) {
+      alert("data sent to advsearch");
+      // queryParts = [];
+
+      //!暂时先置空吧
+      this.search_filter = "";
+
+      /**
+       * author: this.author,
+        publication: this.publication,
+        start_time: this.start_time,
+        end_time: this.end_time,
+        keyword: this.keyword,
+        is_key_title: this.is_key_title
+       */
+      if (data.author) {
+        this.filter += `authorships.author.display_name.search:${encodeURIComponent(
+          data.author
+        )},`;
+      }
+      // if (data.publication) {
+      //   this.search_filter += `primary_location.display_name.search:${encodeURIComponent(
+      //     data.publication
+      //   )},`;
+      // }
+      if (data.start_time && data.end_time) {
+        this.filter += `publication_year:${data.start_time}-${data.end_time},`;
+      }
+      if (data.keyword) {
+        const field = data.is_key_title ? "title.search" : "abstract.search";
+        this.filter += `${field}:${encodeURIComponent(data.keyword)},`;
+      }
+
+      console.log(this.filter);
+      this.searchmethod();
+
+      /***
+       * 
+       *       author: "",
+      publication: "",
+      start_time: "",
+      end_time: "",
+      keyword: "",
+      is_key_title: true
+       */
+    },
+
     /***
        * 
        *    filter : this.search_filter,
@@ -421,7 +469,7 @@ export default {
             cursor : ""
        */
     searchmethod() {
-      this.searchdata.filter = this.filter;
+      this.searchdata.filter = this.filter.replace(/,$/, '');;
       this.searchdata.search = this.search;
       this.searchdata.sort = this.sort;
       this.searchdata.perpage = this.perpage;
@@ -517,7 +565,7 @@ export default {
      */
     console.log(searchdata);
 
-    
+    searchdata.filter = searchdata.filter.replace(/,$/, '');
     // #region search
     if (this.search_type == 1) {
       alert("searchtype:!!!!!"+this.search_type)

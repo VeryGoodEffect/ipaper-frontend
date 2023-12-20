@@ -161,7 +161,6 @@ export default {
         const field = data.is_key_title ? "title.search" : "abstract.search";
         this.search_filter += `${field}:${encodeURIComponent(data.keyword)},`;
       }
-      this.search_filter = this.search_filter.replace(/,$/, '');
 
       console.log(this.search_filter);
       this.search();

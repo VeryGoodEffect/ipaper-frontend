@@ -1,6 +1,6 @@
 <template>
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
-        <h3 class="title">
+        <h3 @click="jumpDetailView" class="title">
             {{ scholarInfo.title }}
         </h3>
         <h3 class="profile">
@@ -26,8 +26,10 @@ export default {
        console.log(this.infoItem)
     },
     methods: {
-      jumpScholarDetail(){
-        
+      jumpDetailView(){
+        this.$router.push({
+          path: "/institution_detail"
+        })
       }
     },
     computed: {

@@ -1,10 +1,10 @@
 <template>
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
-        <h3 class="title">
-            {{ scholarInfo.name }}
+        <h3 @click="jumpDetailView" class="title">
+            {{ JounalListItemInfo.title }}
         </h3>
         <h3 class="profile">
-            {{ scholarInfo.profile }}
+            {{ JounalListItemInfo.profile }}
         </h3>
     </div>
 </template>
@@ -26,6 +26,11 @@ export default {
        console.log(this.infoItem)
     },
     methods: {
+      jumpDetailView(){
+        this.$router.push({
+          path: "/institution_detail"
+        })
+      }
     },
     computed: {
     
