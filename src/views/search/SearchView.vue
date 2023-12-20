@@ -21,7 +21,7 @@
                                           background-image: linear-gradient(to bottom, #32a852, #32a8d8, #3248a8, #6a32a8); 
                                           box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); "> -->
 
-          <input v-model="search_content" type="text" class="basic-input search-input" />
+          <input v-model="search_search" type="text" class="basic-input search-input" />
           <button @click="search" class="basic-btn search-btn">
             <svg
               t="1699356103686"
@@ -75,6 +75,8 @@ export default {
   data() {
     // https://api.openalex.org/authors?filter=display_name.search:einstein
     // https://api.openalex.org/works?filter=type:book
+    // https://api.openalex.org/authors?filter=display_name.search:tupolev
+    // https://api.openalex.org/authors?filter=display_name.search:john%20smith
 
     /** 在OpenAlex中，您可以使用多种过滤器搜索属性来精确地缩小搜索结果。这些过滤器通过在查询中使用filter参数来应用。以下是一些关键的过滤器搜索属性及其功能：
         具体字段搜索：您可以在特定字段上执行搜索，方法是在您想要过滤的属性后面加上.search。例如，可以在标题字段上使用title.search来搜索特定的标题内容。
@@ -90,6 +92,8 @@ export default {
       show_property_search: false,
       is_advanced_search: true,
       showHotspotRecommend: true,
+
+
       // for filter type
       // abstract.search
       // display_name.search
@@ -99,12 +103,14 @@ export default {
       search_filter: "",
       // for filter content
       search_content: "",
+      // search_content_filter: "",
+
       // exp https://api.openalex.org/works?filter=concepts.id:{机器学习ID},from_publication_date:2021-01-01&search=深度学习
       search_search: "",
       search_sort: "",
       search_perpage: 10,
       search_page: 1,
-      cur_search_cursor: ""
+      cur_search_cursor: "",
     };
   },
   methods:{
@@ -113,18 +119,12 @@ export default {
     },
     search(){
       alert("????");
-      let searchdata = {
-        filter : this.search_filter + this.search_content,
-        search : this.search_search,
-        sort : this.search_sort,
-        per_page : this.search_perpage,
-        page : this.search_page,
-        cursor : ""
-      }
+
+
       this.$router.push({
           path: '/search_result',
           query:{
-            filter : this.search_filter + this.search_content,
+            filter : this.search_filter,
             search : this.search_search,
             sort : this.search_sort,
             per_page : this.search_perpage,
@@ -145,14 +145,15 @@ export default {
     setSearchType(type){
       if(type == 1){
           alert("abstract.search")
-        this.search_filter = "abstract.search"
       }else if(type == 2){
         alert("fulltext.search")
-        this.search_filter = "fulltext.search"
       }else if(type == 3){
-        alert("type:display_name.search:")
-        this.search_filter = "type:display_name.search:"
+        alert("display_name.search:")
         console.log(this.search_filter)
+      }
+      // Author search
+      else if(type == 4){
+        alert("search author")
       }
     }
   }

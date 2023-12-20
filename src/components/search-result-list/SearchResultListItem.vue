@@ -18,7 +18,7 @@
               {{ $t('search_result_cited_times') }}{{ infoItem.timeCited }}
             </div>
             <div class="related">
-                {{ $t('search_result_related_work') }}
+                {{ $t('search_result_related_work') }}{{  infoItem.related_times}}
             </div>
             <div class="more">
               <svg t="1702362669780" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1832" id="mx_n_1702362669781" width="200" height="200"><path d="M480 800h64a48 48 0 0 1 48 48v64A48 48 0 0 1 544 960h-64a48 48 0 0 1-48-48v-64A48 48 0 0 1 480 800z m0-368h64a48 48 0 0 1 48 48v64a48 48 0 0 1-48 48h-64a48 48 0 0 1-48-48v-64a48 48 0 0 1 48-48zM480 64h64a48 48 0 0 1 48 48v64A48 48 0 0 1 544 224h-64a48 48 0 0 1-48-48v-64A48 48 0 0 1 480 64z" p-id="1833" fill="#1A0EAB"></path></svg>
@@ -55,7 +55,7 @@ export default {
             console.log("clicked");
         },
         highlightedText(matcher, str) {
-            if (!matcher) {
+            if (!matcher || !str) {
                 return str;
             }
             const regex = new RegExp(matcher, 'gi');
@@ -89,6 +89,7 @@ export default {
     text-overflow: ellipsis;
     -webkit-line-clamp: 1; 
     line-clamp: 1;
+    cursor: pointer;
 }
 .author {
     /* padding-left: 20px; */

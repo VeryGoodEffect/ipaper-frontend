@@ -1,149 +1,182 @@
 <template>
-    <!-- <Transition name="fade">
-      <div class="model" v-if="moveVisible">
-        <div class="inner-box">
-          <h3 class="move-title">
-            {{ $t('move_favourites') }}
-          </h3>
-        </div>
-        
-      </div>
-    </Transition> -->
-      
     <div class="main-part">
-      <!-- <div class="return-part" @click="returnToMainPage">
-        <svg t="1701847227942" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="886" width="200" height="200"><path d="M578.2016 113.7664a51.2 51.2 0 0 1 76.3904 67.9424l-3.9936 4.4544-325.888 325.7856 325.888 325.888a51.2 51.2 0 0 1 3.9936 67.9424l-3.9936 4.4544a51.2 51.2 0 0 1-67.9424 3.9936l-4.4544-3.9936-362.0352-361.984a51.2 51.2 0 0 1-3.9936-67.9936l3.9936-4.4544 361.984-362.0352z" fill="#909399" p-id="887"></path></svg>
-        <div class="return-text">{{ $t('favourites_return') }}</div>
-      </div> -->
-
       <div class="info-tag-list">
         <div class="personal-info">
-            <div class="personal-image">
-              <img :src="personalInfo.avatarUrl" alt="Personal Image">
-            </div>
+            <!-- <div class="personal-image">
+              <img :src="authorInfo.avatarUrl" alt="Personal Image">
+            </div> -->
             <div class="personal-info-text">
               <p class="personal-info-text-nickname">
                 <!-- {{ $t('personal_info_nick_name') }}:  -->
-                {{ personalInfo.nickName }}
+                <a :href="authorInfo.orcid">{{ authorInfo.nickName }}</a>
               </p>
-              <p class="personal-info-text-real-name">
-                <!-- {{ $t('personal_info_real_name') }}:  -->
-                {{ personalInfo.realName }}
-              </p>
+              <div>
+                  <div class="follow is-follow" @click="isFollowing = true" v-if="!isFollowing">
+                      {{ $t('scholar_portal_follow') }}
+                  </div>  
+                  <div class="follow un-follow" @click="isFollowing = false" v-else>
+                      {{ $t('scholar_portal_unfollow') }}
+                  </div> 
+              </div>
               <p class="personal-info-text-region">
                 <em>{{ $t('personal_info_region') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.region }}
+                {{ authorInfo.region }}
               </p>
-              <p class="personal-info-text-gender" v-if="personalInfo.gender.length !== 0">
-                <em>{{ $t('personal_info_gender') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.gender }}
-              </p>
-              <p class="personal-info-text-institution" v-if="personalInfo.institution !== null">
+              <p class="personal-info-text-institution" v-if="authorInfo.institution.name !== null">
                 <em>{{ $t('personal_info_institution') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.institution }}
+                {{ authorInfo.institution.name }}
               </p>
               <!-- <p class="personal-info-text-major">
                 <em>{{ $t('personal_info_major') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.major }}
+                {{ authorInfo.major }}
               </p> -->
-              <p class="personal-info-text-email">
+              <p class="personal-info-text-email" v-if="authorInfo.email !== null && authorInfo.email !== ''">
                 <em>{{ $t('personal_info_email') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.email }}
+                {{ authorInfo.email }}
               </p>
-              <p class="personal-info-text-url" v-if="personalInfo.urls.length !== 0"> 
+              <p class="personal-info-text-institution">
+                <em>{{ $t('scholar_portal_total_publications') }}</em>&nbsp;&nbsp;
+                {{ authorInfo.totalWork }}
+              </p>
+              <p class="personal-info-text-institution">
+                <em>{{ $t('scholar_portal_total_citations') }}</em>&nbsp;&nbsp;
+                {{ authorInfo.totalCitations }}
+              </p>
+              <p class="personal-info-text-institution">
+                <em>{{ $t('scholar_portal_this_year_citations') }}</em>&nbsp;&nbsp;
+                {{ authorInfo.yearCitations }}
+              </p>
+              <p class="personal-info-text-url" v-if="authorInfo.urls.length !== 0"> 
                 <em>{{ $t('personal_info_url') }}</em>
                 <ul class="personal-info-text-url-list">
-                  <li v-for="(url, index) in personalInfo.urls" :key="index">
+                  <li v-for="(url, index) in authorInfo.urls" :key="index">
                     &nbsp;&nbsp;&nbsp;<svg t="1702890339983" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4227"><path d="M377.6 473.6C377.6 448 384 422.4 403.2 403.2l70.4-70.4 57.6-57.6c19.2-19.2 38.4-25.6 64-25.6 25.6 0 44.8 6.4 64 25.6 38.4 38.4 38.4 89.6 0 128l-128 128C512 550.4 492.8 556.8 467.2 556.8L416 608C428.8 614.4 448 620.8 467.2 620.8 512 620.8 544 601.6 576 576l128-128c57.6-57.6 57.6-153.6 0-211.2-57.6-57.6-153.6-57.6-211.2 0l-128 128C320 403.2 307.2 467.2 326.4 524.8L377.6 473.6z"  p-id="4228"></path><path d="M646.4 550.4c0 25.6-6.4 51.2-25.6 70.4l-128 128c-19.2 19.2-38.4 25.6-64 25.6-25.6 0-44.8-6.4-64-25.6-38.4-38.4-38.4-89.6 0-128l128-128c19.2-19.2 44.8-25.6 70.4-25.6l51.2-51.2C588.8 409.6 576 403.2 556.8 403.2 512 403.2 473.6 422.4 448 448L320 576c-57.6 57.6-57.6 153.6 0 211.2 57.6 57.6 153.6 57.6 211.2 0l128-128c44.8-44.8 57.6-108.8 32-160L646.4 550.4z"  p-id="4229"></path></svg>
                     <a :href="url" target="_blank">{{ url }}</a>
                   </li>
                 </ul>
               </p>
-            </div>            
+            </div> 
+            <div class="focus-area">
+              <h3>{{ $t('scholar_portal_focus_areas') }}</h3>
+              <div class="tag-container">
+                <p v-for="(tag, index) in interestTag" :key="index" class="tag-item">
+                  {{ tag.name }}
+                </p>
+              </div>
+            </div> 
         </div>
         <div class="tag-and-list">
           <div class="list">
             <div class="favourites-header">
               <div class="favourites-subscribe-tab">
-                
-                <h4 
-                  :class="[{'tab tab-not-selected': !isFavourite}, { 'tab tab-selected': isFavourite }]" 
-                  @click="isFavourite = true"
-                >
-                  {{ $t('favourites') }}
-                </h4>
-                <h4 
-                  :class="[{'tab tab-selected': !isFavourite}, { 'tab tab-not-selected': isFavourite }]" 
-                  @click="isFavourite = false"
-                >
-                  {{ $t('personal_follow_list') }}
-                </h4>
+                <h3>{{ $t('scholar_portal_articles') }}</h3>
               </div>
-              <div class="favourites-creation" @click="isCreating = true" v-if="isFavourite">
-                {{ $t('create_favourites') }}
-              </div>  
             </div>
-            <div class="favorites-list" v-if="isFavourite">
-              <FavouriteList 
-              @cancelCreation="cancelCreation"
-              @updateCreation="updateCreation"
-              :isCreating="isCreating"
-              :favouritesInfo="favouritesInfo" />
-            </div>
-            <div class="follow-list" v-else>
-              <FollowList
-              :userID="personalInfo.id"/>
+            <div class="favorites-list">
+                <Pagination class="pagination">
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                </Pagination>
             </div>
           </div>
-          <div class="personal-tag">
-            <h3>{{ $t('personal_interest_tags') }}</h3>
-            <div class="tag-container">
-              <p v-for="(tag, index) in interestTag" :key="index" class="tag-item">
-                {{ tag.name }}
-              </p>
-            </div>
-          </div>
+          
         </div>
       </div>  
     </div>
-
+    <div class="relation-network">
+      <h3>{{ $t('scholar_portal_net') }}</h3>
+      <RelationGraphDemo></RelationGraphDemo>
+    </div>
     
 </template>
   
   <script>
+  import RelationGraphDemo from '../../components/relation-graph/RelationGraph.vue'
+  import InstitutionListItem from '../../components/list-item/InstitutionListItem.vue'
+  import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
+  import Pagination from '../../components/pagination/Pagination.vue'
   import FavouriteListItem from '../../components/favorites/FavouriteListItem.vue'
   import i18n from '../../language'
   import FavouriteList from '../../components/favorites/FavouriteList.vue'
-  import { User } from '../../api/users.js'
+  import { Search } from '../../api/search.js'
   import FollowList from '../../components/follow-list/FollowList.vue'
   export default {
     components: {
       FavouriteListItem,
       FavouriteList,
       FollowList,
+      SearchResultListItem,
+      Pagination,
+      InstitutionListItem,
+      RelationGraphDemo,
       i18n
     },
     data() {
       return { 
-        infoItem: {
-            title: "低碳经济: 人类经济发展方式的新变革",
-            author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
-            excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
-            timeCited: 57,
-            keyword: "经济",
-        },
-        personalInfo: {
+        isFollowing: false,
+        isArticle: true,
+        isFocusArea: false,
+        isRelationNetwork: false,
+        authorInfo: {
           id: '',
-          avatarUrl: '',
+          orcid: '',
+          worksApiUrl: '',
           nickName: '',
           realName: '',
           region: '',
-          institution: '',
+          institution: {
+            id: '',
+            ror: '',
+            name: '',
+          },
           email: '',
           gender: '',
           urls: [],
-          major: ''
+          major: '',
+          totalCitations: 0,
+          totalWork: 0,
+          yearCitations: 0,
+
         },
+        infoItem: {
+            title: "低碳经济: 人类经济发展方式的新变革",
+            author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
+            excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
+            timeCited: 57,
+            keyword: "经济"
+        },
+        institutionInfo: [
+          {
+            name: 'google',
+            profile: '这是google的简介',
+            link: ''
+          },
+          {
+            name: '北京航空航天大学',
+            profile: '这是google的简介',
+            link: ''
+          },{
+            name: '北航附中',
+            profile: '这是google的简介',
+            link: ''
+          },{
+            name: '北航附小',
+            profile: '这是google的简介',
+            link: '这是google的简介'
+          },{
+            name: 'Huawei',
+            profile: '这是google的简介',
+            link: ''
+          },{
+            name: 'google',
+            profile: '这是google的简介',
+            link: ''
+          },
+        ],
         isCreating: false,
         moveVisible: false,
         isFavourite: true,
@@ -184,19 +217,23 @@
         interestTag: [
           {
             name: '量子力学',
-            link: ''
+            wikidata: '',
+            id: '',
           },
           {
             name: '扩散模型',
-            link: ''
+            wikidata: '',
+            id: '',
           },
           {
             name: '语义分割',
-            link: ''
+            wikidata: '',
+            id: '',
           },
           {
             name: '全景视觉',
-            link: ''
+            link: '',
+            id: '',
           },
           
         ]
@@ -204,41 +241,34 @@
     },
     
     created() {
-      this.getUserInfo()
+      this.getAuthorInfo()
     },
     methods: {
-      getUserInfo() {
-        console.log(this.$cookies.get('user_id'))
-        let userId = this.$cookies.get('user_id')
-        if (userId) {
-          User.getUser(userId).then(
+      getAuthorInfo() {
+        //get author id
+        let authorID = 'A5040654425'
+        if (authorID) {
+          Search.searchAuthorInfo(authorID).then(
             (response) => {
               console.log(response)
               // console.log(response.data.username)
-              this.personalInfo.id = userId
-              this.personalInfo.nickName = response.data.username
-              this.personalInfo.realName = response.data.real_name
-              this.personalInfo.region = response.data.region
-              this.personalInfo.gender = response.data.gender
-              this.personalInfo.institution = response.data.institution
-              this.personalInfo.email = response.data.email
-              this.personalInfo.urls = response.data.websites
-              this.personalInfo.avatarUrl = 'api/users/' + userId + '/avatar/'
-              console.log(this.personalInfo.avatarUrl)
-            },
-            (error) => {
-              console.log(error)
-            }
-          )
+              this.authorInfo.nickName = response.data.display_name
+              this.isFollowing = response.data.is_followed
+              this.authorInfo.region = response.data.last_known_institution.country_code
+              this.authorInfo.institution.id = response.data.last_known_institution.id
+              this.authorInfo.institution.ror = response.data.last_known_institution.ror
+              this.authorInfo.institution.name = response.data.last_known_institution.display_name
+              this.authorInfo.works_api_url = response.data.works_api_url
+              this.authorInfo.totalWork = response.data.works_count
+              this.authorInfo.totalCitations = response.data.cited_by_count
+              this.authorInfo.yearCitations = response.data.counts_by_year[0].cited_by_count
 
-          User.getFavoriteList(0).then(
-            (response) => {
-              console.log(response)
-              // console.log(response.data.username)
-              for (var i = 0; i < response.data.length; i++) {
-                this.favouritesInfo.push({
-                  name: response.data[i].name,
-                  id: response.data[i].id
+              this.interestTag.splice(0, this.interestTag.length)
+              for(let i = 0; i < response.data.x_concepts.length; i++) {
+                this.interestTag.push({
+                  id: response.data.x_concepts[i].id,
+                  name: response.data.x_concepts[i].display_name,
+                  wikidata: response.data.x_concepts[i].wikidata
                 })
               }
             },
@@ -246,20 +276,6 @@
               console.log(error)
             }
           )
-          // favouritesInfo
-          // let data = {
-          //   width: 250,
-          //   height: 250
-          // }
-          // User.getUserAvatar(userId, data).then(
-          //   (response) => {
-          //     console.log('111')
-          //     console.log(response)
-          //   },
-          //   (error) => {
-          //     console.log(error)
-          //   }
-          // )
         } 
       },
       handleMove() {
@@ -291,7 +307,22 @@
         })
       },
       returnToMainPage() {
-        this.$router.push('/'); 
+        this.$router.push('/')
+      },
+      selectArticle() {
+        this.isArticle = true
+        this.isFocusArea = false
+        this.isRelationNetwork = false
+      },
+      selectFocusArea() {
+        this.isArticle = false
+        this.isFocusArea = true
+        this.isRelationNetwork = false
+      },
+      selectRelationNetwork() {
+        this.isArticle = false
+        this.isFocusArea = false
+        this.isRelationNetwork = true
       }
     },
   }
@@ -395,7 +426,7 @@ em {
   padding-top: 15px;
 }
 
-.personal-info-text p:nth-child(3) {
+.personal-info-text p:nth-child(4) {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
@@ -410,7 +441,7 @@ em {
 }
 
 .personal-info-text-nickname {
-  font-size: 25px;
+  font-size: 30px;
   text-align: center;
   font-weight: bold;
 }
@@ -454,15 +485,16 @@ em {
 .tag-and-list {
   width: 60%;
 }
-.personal-tag {
+.focus-area {
     min-height: 100px;
     width: 100%;
     /* border: 2px solid red; */
     /* width: 50%;  */
 }
-.personal-tag h3{
+.focus-area h3{
   font-size: 25px;
   font-weight: bold;
+  margin-top: 20px;
 }
 .tag-container {
   display: flex;
@@ -493,10 +525,44 @@ em {
 .favourites-subscribe-tab {
   display: flex;
 }
+.favourites-subscribe-tab h3 {
+  font-size: 25px;
+  font-weight: bold;
+}
 .favourites-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.follow {
+  height: 40px;
+  font-size: 18px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.follow:last-of-type {
+    margin-top: 10px;
+  /* margin-left: 20px; */
+}
+.is-follow {
+  background-color: var(--theme-color);
+  font-weight: bold;
+}
+.is-follow:hover {
+  background-color: var(--theme-color-80);
+}
+.un-follow {
+  color: var(--default-text-color);
+  background-color: var(--theme-mode-contrast);
+}
+.un-follow:hover {
+  background-color: var(--theme-mode-high-contrast);
 }
 
 .tab {
@@ -510,7 +576,10 @@ em {
   border-radius: 5px;
   cursor: pointer;
 }
-.tab:last-of-type {
+/* .tab {
+  margin-left: 20px;
+} */
+.tab + .tab  {
   margin-left: 20px;
 }
 .tab-selected {
@@ -589,7 +658,16 @@ transition: opacity 0.5s linear 0s;
   margin-bottom: 30px;
 }
 
+.relation-network {
+  width: 80%;
+  margin-left: 10%;
+}
 
+.relation-network h3 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
 @media screen and (max-width: 1450px) {
   .personal-info {
@@ -643,7 +721,7 @@ transition: opacity 0.5s linear 0s;
   .list {
     width: 80%;
   }
-  .personal-tag {
+  .focus-area {
     width: 80%;
   }
 }
