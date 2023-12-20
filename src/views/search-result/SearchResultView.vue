@@ -1,5 +1,6 @@
 <template>
   <div class="main-area">
+    <!-- <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar> -->
     <div class="cond-area" style="display: vertical; position: sticky; top: 0">
       <div
         class="cond-in-1"
@@ -73,10 +74,10 @@
           text-align: center;
         "
       >
-        <ul>
-          <li style="cursor: pointer">类型不限</li>
-          <li style="cursor: pointer">时间不限</li>
-          <li style="cursor: pointer">时间不限</li>
+        <ul v-for="(option, index) in options" :key="index" >
+          <input type="radio" :value="option.value" v-model="selectedOption">
+          <label>{{ option.text }}</label>
+          
         </ul>
       </div>
       <hr />
@@ -178,26 +179,23 @@
   
   <script>
 import SearchResultListItem from "../../components/search-result-list/SearchResultListItem.vue";
-// import InstitutionListItem from "../../components/list-item/InstitutionListItem.vue";
-// import JournalListItemVue from "../../components/list-item/JournalListItem.vue";
-// import ScholarListItemVue from "../../components/list-item/ScholarListItem.vue";
 import Pagination from "../../components/pagination/Pagination.vue";
 import i18n from "../../language";
 import { Search } from "../../api/search.js";
-// import JournalListItemVue from "../../components/list-item/JournalListItem.vue";
-// import ScholarListItemVue from "../../components/list-item/ScholarListItem.vue";
+import AsideBar from "../../components/search-property/AsideBar.vue";
 import InstitutionListItem from "../../components/list-item/InstitutionListItem.vue";
 import JournalListItem from "../../components/list-item/JournalListItem.vue";
 import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 export default {
   name: "SearchResultView",
   components: {
-    SearchResultListItem, 
+    SearchResultListItem,
     Pagination,
     i18n,
     InstitutionListItem,
     JournalListItem,
     ScholarListItem,
+    AsideBar,
   },
   data() {
     return {
@@ -230,6 +228,27 @@ export default {
       show_range: true,
 
       search_type: 0,
+
+
+      //  type search
+      selectedOption: null, // 这里存储选中的选项
+      options: [
+        { text: 'Article', value: 'article' },
+        { text: 'Book', value: 'book' },
+        { text: 'Letter', value: 'letter' },
+      ],
+
+
+
+      // ! 这里面都用于高级
+      filters: [{ attribute: '', value: '' }],
+      attributes: [
+        { text: '标题', value: 'title' },
+        { text: '作者', value: 'author' },
+        { text: '年份', value: 'year' },
+        // 更多属性...
+      ],
+      generatedQuery: '',
     };
   },
   methods: {
@@ -289,6 +308,55 @@ export default {
         });
       }
     },
+
+    // #region AsideBar
+    showAsideBar() {
+      this.show_property_search = !this.show_property_search;
+    },
+
+    setSearchType(type) {
+      if (type == 0) {
+        // display_name.search:
+        // this.search_filter = "display_name.search:"
+        this.search_filter = "";
+        this.search_type = 1;
+      } else if (type == 1) {
+        alert("abstract.search:");
+        this.search_filter = "abstract.search:";
+        this.search_type = 1;
+      } else if (type == 2) {
+        alert("fulltext.search:");
+        this.search_filter = "fulltext.search:";
+        this.search_type = 1;
+      } else if (type == 3) {
+        alert("display_name.search:");
+        this.search_filter = "display_name.search:";
+        this.search_type = 1;
+      }
+      // Author search
+      else if (type == 4) {
+        alert("search author");
+        this.search_type = 2;
+      }
+
+      // 期刊
+      else if (type == 5) {
+        this.search_type = 3;
+      }
+      // 机构
+      else if (type == 6) {
+        this.search_type = 4;
+      }
+    },
+
+    setWorkType(){
+      if(this.selectedOption!=null){
+        console.log(this.selectedOption)
+
+      }
+    },
+    // #endregion
+
     //! 在我重新筛选或者搜索的时候都算是搜索
     setFilterTime(type) {
       if (type == 1) {
@@ -362,14 +430,64 @@ export default {
       console.log(JSON.parse(JSON.stringify(this.searchdata)));
       JSON.parse(JSON.stringify(this.searchdata));
 
-      Search.searchWorks(JSON.parse(JSON.stringify(this.searchdata))).then(
-        (res) => {
-          console.log(res.data.results);
-          this.resultlist = res.data.results;
-          this.resultlistToInfoItems();
-        },
-        (err) => {}
-      );
+      // #region search
+      if (this.search_type == 1) {
+        Search.searchWorks(this.searchdata).then(
+          (res) => {
+            console.log(res.data.results);
+            this.resultlist = res.data.results;
+            this.resultlistToInfoItems();
+          },
+          (err) => {}
+        );
+      }
+      // author
+      else if (this.search_type == 2) {
+        Search.searchAuthor(this.searchdata).then(
+          (res) => {
+            console.log(res.data.results);
+            this.resultlist = res.data.results;
+            this.resultlistToInfoItems();
+          },
+          (err) => {}
+        );
+      }
+      // 期刊
+      else if (this.search_type == 3) {
+        Search.searchConcepts(this.searchdata).then(
+          (res) => {
+            console.log(res.data.results);
+            this.resultlist = res.data.results;
+            this.resultlistToInfoItems();
+          },
+          (err) => {}
+        );
+      }
+      // 机构
+      else if (this.search_type == 4) {
+        Search.searchInstitutions(this.searchdata).then(
+          (res) => {
+            console.log(res.data.results);
+            this.resultlist = res.data.results;
+            this.resultlistToInfoItems();
+          },
+          (err) => {}
+        );
+      }
+    },
+
+
+
+    addFilter() {
+      this.filters.push({ attribute: '', value: '' });
+    },
+    removeFilter(index) {
+      this.filters.splice(index, 1);
+    },
+    generateQuery() {
+      this.generatedQuery = this.filters
+        .map(filter => `filter=${filter.attribute}:${encodeURIComponent(filter.value)}`)
+        .join('&');
     },
   },
 
@@ -399,15 +517,19 @@ export default {
      */
     console.log(searchdata);
 
+    
     // #region search
     if (this.search_type == 1) {
+      alert("searchtype:!!!!!"+this.search_type)
       Search.searchWorks(searchdata).then(
         (res) => {
           console.log(res.data.results);
           this.resultlist = res.data.results;
           this.resultlistToInfoItems();
         },
-        (err) => {}
+        (err) => {alert(err)
+        console.assert(err)
+        console.log(err)}
       );
     }
     // author
@@ -418,7 +540,7 @@ export default {
           this.resultlist = res.data.results;
           this.resultlistToInfoItems();
         },
-        (err) => {}
+        (err) => {alert(err)}
       );
     }
     // 期刊
@@ -429,7 +551,7 @@ export default {
           this.resultlist = res.data.results;
           this.resultlistToInfoItems();
         },
-        (err) => {}
+        (err) => {alert(err)}
       );
     }
     // 机构
@@ -440,7 +562,7 @@ export default {
           this.resultlist = res.data.results;
           this.resultlistToInfoItems();
         },
-        (err) => {}
+        (err) => {alert(err)}
       );
     }
     // #endregion

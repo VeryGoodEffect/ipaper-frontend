@@ -33,17 +33,13 @@
           </div>
         </div>
         <div class="paper-content">
-          <div class="paper-abstract">
+          <div  class="paper-abstract">
             {{ $t("paper_detail_abstract") }}
             {{ this.abstract }}
-            <vue-latex :expression="this.abstract"></vue-latex>
 
-            <vue-latex
-              :expression="'${mathit{N}}_{mathrm{atoms}}^{2}'"
-            ></vue-latex>
-            <vue-latex
-              :expression="'\\mathit{N}{\\mathrm{atoms}}^{2}'"
-            ></vue-latex>
+            
+            <vue-latex :displayMode="true"  :expression="this.displayAbstract"></vue-latex>
+            <!-- <p v-html=this.displayAbstract></p> -->
           </div>
           <div class="paper-keywords">
             {{ $t("paper_detail_keywords") }}
@@ -67,8 +63,8 @@
 
 <script>
 import { Search } from "../../api/search";
-// import katex from 'katex';
-// import 'katex/dist/katex.css'
+import katex from 'katex';
+import 'katex/dist/katex.css'
 import { VueLatex } from "vatex";
 
 export default {
@@ -115,10 +111,10 @@ export default {
     },
     formatAbstract() {
       // 转换LaTeX公式的特殊字符
-      this.abstract = this.abstract
-        .replace(/\\textcopyright\{\}/g, "©")
-        .replace(/\$\$(.+?)\$\$/g, (match, p1) => `\\[${p1}\\]`)
-        .replace(/\$(.+?)\$/g, (match, p1) => `\\(${p1}\\)`);
+
+      var regex = /\$/g;
+      this.abstract = this.abstract.replace(regex, "");
+      
     },
 
     // renderFormula() {
@@ -138,6 +134,16 @@ export default {
     },
     downloadPaper() {},
   },
+
+  computed:{
+    displayAbstract(){
+      var regex = /\$/g;
+      this.abstract = this.abstract.replace(regex, " ");
+      // return katex.renderToString(this.abstract);
+      return this.abstract
+    }
+  }
+  
 };
 </script>
 

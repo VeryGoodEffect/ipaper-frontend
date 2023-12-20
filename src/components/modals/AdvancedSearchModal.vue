@@ -9,7 +9,6 @@
           class="basic-input"
           :placeholder="$t('advanced_search_author_example')"
           v-model="author"
-          @keyup.enter="sendMsg"
       />
       <span>{{ $t("advanced_search_publication") }}</span>
       <input
@@ -17,7 +16,6 @@
           class="basic-input"
           :placeholder="$t('advanced_search_publication_example')"
           v-model="publication"
-          @keyup.enter="sendMsg"
       />
       <span>{{ $t("advanced_search_publish_time") }}</span>
       <span style="position: relative">
@@ -27,7 +25,6 @@
           style="width: 30%; min-width: 30%"
           :placeholder="1997"
           v-model="start_time" 
-          @keyup.enter="sendMsg"
           />
           
         <input
@@ -36,13 +33,8 @@
           style="width: 30%; min-width: 30%; left: 70%"
           :placeholder="1998"
           v-model="end_time" 
-          @keyup.enter="sendMsg"
       /></span>
 
-      <!--     advanced_search_publish_keyword: '该文章的关键词',
-    advanced_search_publish_keyword_isTitle: '是否是title',
-    advanced_search_publish_keyword_isTitle_yes: '是',
-    advanced_search_publish_keyword_isTitle_no: '否', -->
       <span>{{ $t("advanced_search_publish_keyword") }}</span>
       <input type="password"
         class="basic-input"
@@ -53,13 +45,9 @@
       <input
         type="checkbox"
         v-model="is_key_title" 
-        @keyup.enter="logSearchParams"
       />
-      <input
-        type="checkbox"
-        v-model="is_key_title_inverted" 
-        @keyup.enter="logSearchParams"
-      />
+
+      <button @click="sendMsg">Search</button>
 
       <!-- <div class="btn-box">
         <button class="basic-btn-outline" @click="handleJumpToLogin">
@@ -76,11 +64,10 @@
   <script>
 import PopoutModal from "../popout-modal/PopoutModal.vue";
 import i18n from "../../language";
-import { Account } from "../../api/accounts.js";
 
 export default {
   name: "AdvancedSearch",
-  emits: ["close", "jumpToLogin"],
+  emits: ["close", "jumpToLogin","senddata"],
   data() {
     return {
       author: "",

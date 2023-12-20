@@ -34,7 +34,7 @@ export class Search {
         })
     }
 
-    static async searchWorks() {
+    static async searchWorks(data) {
         return service(url.searchWorks, {
             method: "get",
             params: data
