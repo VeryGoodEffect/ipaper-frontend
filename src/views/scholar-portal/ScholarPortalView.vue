@@ -24,7 +24,7 @@
               </p>
               <p class="personal-info-text-institution" v-if="authorInfo.institution.name !== null">
                 <em>{{ $t('personal_info_institution') }}</em>&nbsp;&nbsp;
-                {{ authorInfo.institution.name }}
+                <a :href="authorInfo.institution.ror">{{ authorInfo.institution.name }}</a>
               </p>
               <!-- <p class="personal-info-text-major">
                 <em>{{ $t('personal_info_major') }}</em>&nbsp;&nbsp;
@@ -59,9 +59,9 @@
             <div class="focus-area">
               <h3>{{ $t('scholar_portal_focus_areas') }}</h3>
               <div class="tag-container">
-                <p v-for="(tag, index) in interestTag" :key="index" class="tag-item">
+                <a v-for="(tag, index) in interestTag" :key="index" class="tag-item" :href="tag.wikidata">
                   {{ tag.name }}
-                </p>
+                </a>
               </div>
             </div> 
         </div>
@@ -103,6 +103,8 @@
   import i18n from '../../language'
   import FavouriteList from '../../components/favorites/FavouriteList.vue'
   import { Search } from '../../api/search.js'
+  import { History } from '../../api/history.js'
+  // import { Article } from '../../api/article.js'
   import FollowList from '../../components/follow-list/FollowList.vue'
   export default {
     components: {
@@ -253,6 +255,7 @@
               console.log(response)
               // console.log(response.data.username)
               this.authorInfo.nickName = response.data.display_name
+              this.authorInfo.orcid = response.data.orcid
               this.isFollowing = response.data.is_followed
               this.authorInfo.region = response.data.last_known_institution.country_code
               this.authorInfo.institution.id = response.data.last_known_institution.id
@@ -262,6 +265,7 @@
               this.authorInfo.totalWork = response.data.works_count
               this.authorInfo.totalCitations = response.data.cited_by_count
               this.authorInfo.yearCitations = response.data.counts_by_year[0].cited_by_count
+              
 
               this.interestTag.splice(0, this.interestTag.length)
               for(let i = 0; i < response.data.x_concepts.length; i++) {
@@ -271,12 +275,45 @@
                   wikidata: response.data.x_concepts[i].wikidata
                 })
               }
+              this.getAuthorArticle()
+              this.getRelationMap()
             },
             (error) => {
               console.log(error)
             }
           )
         } 
+      },
+      getAuthorArticle() {
+        console.log(this.authorInfo.works_api_url)
+        var startIndex = this.authorInfo.works_api_url.indexOf('filter='); // 获取"/api/"的起始位置
+        var filter = this.authorInfo.works_api_url.substring(startIndex + 7); // 删除起始位置及之前的内容
+        console.log(filter)
+        let data = {
+          filter: filter
+        }
+        Search.searchWorks(data).then(
+            (response) => {
+              console.log(111)
+              console.log(response)
+              // console.log(response.data.username)
+            },
+            (error) => {
+              console.log(error)
+            }
+          )
+      },
+      getRelationMap() {
+        History.getRelationMap(this.authorInfo.id).then(
+            (response) => {
+              console.log(111222)
+              console.log(response)
+              // console.log(response.data.username)
+            },
+            (error) => {
+              console.log(error)
+            }
+          )
       },
       handleMove() {
         this.moveVisible = true
@@ -426,7 +463,7 @@ em {
   padding-top: 15px;
 }
 
-.personal-info-text p:nth-child(4) {
+.personal-info-text p:nth-child(3) {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
@@ -441,6 +478,11 @@ em {
 }
 
 .personal-info-text-nickname {
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+.personal-info-text-nickname a {
   font-size: 30px;
   text-align: center;
   font-weight: bold;
@@ -545,6 +587,7 @@ em {
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 .follow:last-of-type {
     margin-top: 10px;

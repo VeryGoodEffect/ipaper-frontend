@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- <div class="aside"> -->
-        <!-- <svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2048 2048"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 152h336"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 256h336"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 360h336"></path></svg>      -->
-      
+    <!-- <svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2048 2048"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 152h336"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 256h336"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 360h336"></path></svg>      -->
+
     <!-- </div> -->
-    <AsideBar @setSearchType="setSearchType"></AsideBar>
+    <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar>
 
     <main class="container">
       <section class="search-panel">
@@ -12,7 +12,7 @@
           {{ $t("ipaper_scholar_text") }}
         </h2>
 
-        <div  class="search-area">
+        <div class="search-area">
           <!-- <AsideBar v-show="show_property_search"></AsideBar> -->
           <!-- <hr class="vertical-line"  style="height: 100px; 
                                           border: none; 
@@ -21,7 +21,11 @@
                                           background-image: linear-gradient(to bottom, #32a852, #32a8d8, #3248a8, #6a32a8); 
                                           box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); "> -->
 
-          <input v-model="search_search" type="text" class="basic-input search-input" />
+          <input
+            v-model="search_search"
+            type="text"
+            class="basic-input search-input"
+          />
           <button @click="search" class="basic-btn search-btn">
             <svg
               t="1699356103686"
@@ -46,20 +50,18 @@
         <h3>为你推荐</h3>
         <button @click="showHotspotRecommend = true">学术热点</button>
         <button @click="showHotspotRecommend = false">猜你想看</button>
-        <ArticleRecommendation :show="showHotspotRecommend"/>
-        <InterestRecommendation :show="!showHotspotRecommend"/>
+        <ArticleRecommendation :show="showHotspotRecommend" />
+        <InterestRecommendation :show="!showHotspotRecommend" />
       </section>
       <!-- <MulSearch /> -->
     </main>
-    
-
   </div>
 </template>
 <script>
 import i18n from "../../language";
 import AsideBar from "../../components/search-property/AsideBar.vue";
-import ArticleRecommendation from '../../components/recommendation/ArticleRecommendation.vue';
-import InterestRecommendation from '../../components/recommendation/InterestRecommendation.vue';
+import ArticleRecommendation from "../../components/recommendation/ArticleRecommendation.vue";
+import InterestRecommendation from "../../components/recommendation/InterestRecommendation.vue";
 
 // import AdvancedSearchModal from "../../components/modals/AdvancedSearchModal.vue";
 // import MulSearch from '../../components/search-property/MulSearch.vue';
@@ -69,14 +71,11 @@ export default {
     i18n,
     AsideBar,
     ArticleRecommendation,
-    InterestRecommendation
+    InterestRecommendation,
     // AdvancedSearchModal
   },
   data() {
-    // https://api.openalex.org/authors?filter=display_name.search:einstein
-    // https://api.openalex.org/works?filter=type:book
-    // https://api.openalex.org/authors?filter=display_name.search:tupolev
-    // https://api.openalex.org/authors?filter=display_name.search:john%20smith
+
 
     /** 在OpenAlex中，您可以使用多种过滤器搜索属性来精确地缩小搜索结果。这些过滤器通过在查询中使用filter参数来应用。以下是一些关键的过滤器搜索属性及其功能：
         具体字段搜索：您可以在特定字段上执行搜索，方法是在您想要过滤的属性后面加上.search。例如，可以在标题字段上使用title.search来搜索特定的标题内容。
@@ -93,71 +92,134 @@ export default {
       is_advanced_search: true,
       showHotspotRecommend: true,
 
-
       // for filter type
       // abstract.search
       // display_name.search
       // fulltext.search
       // title.search
       // default.search
-      search_filter: "",
+
       // for filter content
+      search_content: "",
       // search_content_filter: "",
 
       // exp https://api.openalex.org/works?filter=concepts.id:{机器学习ID},from_publication_date:2021-01-01&search=深度学习
 
-
+      search_filter: "",
       search_search: "",
       search_sort: "",
       search_perpage: 10,
       search_page: 1,
       cur_search_cursor: "",
+
+      search_type: 1,
     };
   },
-  methods:{
-    showAsideBar(){
+  methods: {
+    showAsideBar() {
       this.show_property_search = !this.show_property_search;
     },
-    search(){
+    search() {
       alert("????");
-
-
+      const query = {
+          filter: this.search_filter,
+          search: this.search_search,
+          sort: this.search_sort,
+          per_page: this.search_perpage,
+          page: this.search_page,
+          cursor: "",
+          search_type: this.search_type,
+      }
+      if(query.filter != ""){
+        query.filter = this.search_filter + this.search_search
+        query.search = ""
+      }
       this.$router.push({
-          path: '/search_result',
-          query:{
-            filter : this.search_filter,
-            search : this.search_search,
-            sort : this.search_sort,
-            per_page : this.search_perpage,
-            page : this.search_page,
-            cursor : ""
-          }
-      })
-      
-      // Search.searchWorks(searchdata).then(res=>{
-      //   alert("搜索成了")
-      //   console.log(res.data)
-
-      // },(error)=>{
-      //   alert("搜索失败！")
-      // })
-
+        path: "/search_result",
+        // type: this.search_type,
+        query: query,
+      });
     },
-    setSearchType(type){
-      if(type == 1){
-          alert("abstract.search")
-      }else if(type == 2){
-        alert("fulltext.search")
-      }else if(type == 3){
-        alert("display_name.search:")
-        console.log(this.search_filter)
+    buildQuery() {},
+    advsearch(data) {
+      let queryParts = [];
+
+      if (this.author) {
+        queryParts.push(
+          `authorships.author.display_name.search:${encodeURIComponent(
+            this.author
+          )}`
+        );
+      }
+      if (this.publication) {
+        queryParts.push(
+          `host_venue.display_name.search:${encodeURIComponent(
+            this.publication
+          )}`
+        );
+      }
+      if (this.start_time && this.end_time) {
+        queryParts.push(
+          `publication_year:[${this.start_time} TO ${this.end_time}]`
+        );
+      }
+      if (this.keyword) {
+        const field = this.is_key_title ? "title.search" : "abstract.search";
+        queryParts.push(`${field}:${encodeURIComponent(this.keyword)}`);
+      }
+
+      return queryParts.join(",");
+
+      /***
+       * 
+       *       author: "",
+      publication: "",
+      start_time: "",
+      end_time: "",
+      keyword: "",
+      is_key_title: true
+       */
+    },
+        // https://api.openalex.org/authors?filter=display_name.search:einstein
+    // https://api.openalex.org/works?filter=type:book
+    // https://api.openalex.org/authors?filter=display_name.search:tupolev
+    // https://api.openalex.org/authors?filter=display_name.search:john%20smith
+    setSearchType(type) {
+      if(type == 0){
+        // display_name.search:
+        // this.search_filter = "display_name.search:"
+        this.search_filter = ""
+        this.search_type = 1
+      }
+      else if (type == 1) {
+        alert("abstract.search:");
+        this.search_filter = "abstract.search:"
+        this.search_type = 1;
+      } else if (type == 2) {
+        alert("fulltext.search:");
+        this.search_filter = "fulltext.search:"
+        this.search_type = 1;
+      } else if (type == 3) {
+        alert("display_name.search:");
+        this.search_filter = "display_name.search:"
+        this.search_type = 1;
       }
       // Author search
-      else if(type == 4){
-        alert("search author")
+      else if (type == 4) {
+        alert("search author");
+        this.search_type = 2;
       }
-    }
-  }
+
+      // 期刊
+      else if (type == 5) {
+        this.search_type = 3;
+      }
+      // 机构
+      else if (type == 6) {
+        this.search_type = 4;
+      }
+    },
+  },
 };
 </script>
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
         <h3 class="title">
-            {{ scholarInfo.name }}
+            {{ scholarInfo.title }}
         </h3>
         <h3 class="profile">
             {{ scholarInfo.profile }}
@@ -26,6 +26,9 @@ export default {
        console.log(this.infoItem)
     },
     methods: {
+      jumpScholarDetail(){
+        
+      }
     },
     computed: {
     

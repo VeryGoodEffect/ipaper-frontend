@@ -135,12 +135,8 @@ export default {
 };
 </script>
   
-  <style >
+<style>
 .my-graph {
   background: transparent !important;
 }
 </style>
-  
-  <style scoped>
-</style>
-  

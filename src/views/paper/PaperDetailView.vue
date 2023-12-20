@@ -31,8 +31,16 @@
         </div>
         <div class="paper-content">
           <div class="paper-abstract">
-            {{ $t('paper_detail_abstract') }}
+            {{ $t("paper_detail_abstract") }}
             {{ this.abstract }}
+            <vue-latex :expression="this.abstract"></vue-latex>
+
+            <vue-latex
+              :expression="'${mathit{N}}_{mathrm{atoms}}^{2}'"
+            ></vue-latex>
+            <vue-latex
+              :expression="'\\mathit{N}{\\mathrm{atoms}}^{2}'"
+            ></vue-latex>
           </div>
           <div class="paper-keywords" v-if="keywords.length != 0">
             {{ $t('paper_detail_keywords') }}
@@ -66,16 +74,23 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
-import { Search } from '../../api/search'
 import { useRouter } from 'vue-router'
+import { Search } from "../../api/search";
+// import katex from 'katex';
+// import 'katex/dist/katex.css'
+import { VueLatex } from "vatex";
+
 export default {
+  components: {
+    VueLatex,
+  },
   data() {
     return {
-      title: '暂无标题',
+      title: "暂无标题",
       authorships: [],
       institution: '暂无机构',
       abstract: '',
@@ -88,7 +103,7 @@ export default {
     }
   },
   created() {
-    this.getPaperDetail()
+    this.getPaperDetail();
   },
   methods: {
     getPaperDetail() {
@@ -119,19 +134,15 @@ export default {
         )
       }
     },
-    collectPaper() {
-
-    },
-    citePaper() {
-
-    },
+    collectPaper() {},
+    citePaper() {},
     sharePaper() {
       var text = window.location.href;
-      const type = 'text/plain';
+      const type = "text/plain";
       const blob = new Blob([text], { type });
       const data = [new ClipboardItem({ [type]: blob })];
       navigator.clipboard.write(data);
-      alert('已复制到剪切板');
+      alert("已复制到剪切板");
     },
     downloadPaper() {
     },
@@ -170,15 +181,15 @@ export default {
   width: 1000px;
 }
 .paper-title {
-  text-align:center;
+  text-align: center;
 }
 .paper-author {
-  text-align:center;
+  text-align: center;
 }
 .paper-institution {
-  text-align:center;
+  text-align: center;
 }
 .button {
-  margin:0 10px;
+  margin: 0 10px;
 }
 </style>

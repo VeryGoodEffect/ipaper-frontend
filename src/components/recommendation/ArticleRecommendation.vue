@@ -2,15 +2,18 @@
   <div v-if="show">
     <ul>
       <li v-for="(article, index) in articles" :key="index">
-        <h3>{{ article.title }}</h3>
+        <h3 @click="jumpToPaperPage">{{ article.title }}</h3>
         <p class="abstract" v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: false}">
           {{ article.abstract }}
         </p>
         <span v-for="(author, index) in article.authorships" :key="index" class="author">
           {{ author.author.display_name }}&nbsp&nbsp
         </span>
-        <p class="journal">
+        <p v-if="article.primary_location != null && article.primary_location.source != null" class="journal">
           From: {{ article.primary_location.source.display_name }}
+        </p>
+        <p v-else class="journal">
+            暂无出处
         </p>
       </li>
     </ul>
@@ -39,6 +42,11 @@ export default {
         }
       )
   },
+  methods: {
+    jumpToPaperPage() {
+
+    }
+  }
 }
 </script>
 

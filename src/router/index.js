@@ -4,6 +4,7 @@ import SearchResultView from '../views/search-result/SearchResultView.vue'
 import PersonInfoView from '../views/admin/PersonInfoView.vue'
 import SearchView from '../views/search/SearchView.vue'
 import PersonalHomepageView from '../views/personal-homepage/PersonalHomepageView.vue'
+import MessageView from '../views/message/MessageView.vue'
 import PaperDetailView from '../views/paper/PaperDetailView.vue'
 import ScholarPortalView from '../views/scholar-portal/ScholarPortalView.vue'
 import InstitutionView from '../views/institution/InstitutionView.vue'
@@ -31,6 +32,10 @@ const router = createRouter({
     {
       path: '/search',
       component: SearchView
+    },
+    {
+      path: '/message',
+      component: MessageView
     },
     {
       path: '/paper_detail',

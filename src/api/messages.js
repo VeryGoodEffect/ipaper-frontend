@@ -35,20 +35,20 @@ export class Messages {
         })
     }
 
-    static async updateReceivedMessagePartial(id, data) {
+    static async setMessageReadById(id, data) {
         return service(url.messagesReceived + id + "/", {
             method: "patch",
             data
         })
     }
 
-    static async deleteReceivedMessage(id) {
+    static async deleteMessageById(id) {
         return service(url.messagesReceived + id + "/", {
             method: "delete"
         })
     }
 
-    static async deleteReceivedAllMessages() {
+    static async deleteAllReadMessages() {
         return service(url.deleteAllRead, {
             method: "detele"
         })

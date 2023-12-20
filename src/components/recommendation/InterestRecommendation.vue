@@ -9,8 +9,11 @@
           <span v-for="(author, index) in article.authorships" :key="index" class="author">
             {{ author.author.display_name }}&nbsp&nbsp
           </span>
-          <p class="journal">
-            <!-- From: {{ article.primary_location.source.display_name }} -->
+          <p v-if="article.primary_location != null && article.primary_location.source != null" class="journal">
+                From: {{ article.primary_location.source.display_name }}
+          </p>
+          <p v-else class="journal">
+            暂无出处
           </p>
         </li>
       </ul>
