@@ -83,9 +83,9 @@
                   {{ $t('personal_follow_list') }}
                 </h4>
               </div>
-              <div class="favourites-creation" @click="isCreating = true" v-if="isFavourite">
+              <button class="favourites-creation" @click="isCreating = true" v-if="isFavourite">
                 {{ $t('create_favourites') }}
-              </div>  
+              </button>  
             </div>
             <div class="favorites-list" v-if="isFavourite">
               <FavouriteList 

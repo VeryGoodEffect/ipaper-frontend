@@ -51,6 +51,8 @@ export default {
 
     rename: 'rename',
     delete: 'delete',
+    move_favorite: 'Move',
+    choose_favorite: 'Choose a favourite',
 
     authenticate_text: 'Authenticate',
     authenticate_prompt: ': to perfect your identity',

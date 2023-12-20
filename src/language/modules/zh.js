@@ -52,6 +52,9 @@ export default {
 
     rename: '重命名',
     delete: '删除',
+    move_favorite: '移动',
+    choose_favorite: '选择收藏夹',
+
 
     authenticate_text: '认证身份',
     authenticate_prompt: '：建立你的专家信息门户',
