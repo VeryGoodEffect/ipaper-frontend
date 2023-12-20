@@ -13,6 +13,13 @@ export class Search {
         })
     }
 
+    static async searchAuthorInfo(id) {
+        return service(url.searchAuthors + "/" + id + "/", {
+            method: "get"
+        })
+    }
+
+
     static async searchConcepts() {
         return service(url.searchConcepts, {
             method: "get"

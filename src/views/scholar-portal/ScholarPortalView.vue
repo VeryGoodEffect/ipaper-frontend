@@ -3,12 +3,12 @@
       <div class="info-tag-list">
         <div class="personal-info">
             <!-- <div class="personal-image">
-              <img :src="personalInfo.avatarUrl" alt="Personal Image">
+              <img :src="authorInfo.avatarUrl" alt="Personal Image">
             </div> -->
             <div class="personal-info-text">
               <p class="personal-info-text-nickname">
                 <!-- {{ $t('personal_info_nick_name') }}:  -->
-                {{ personalInfo.nickName }}
+                <a :href="authorInfo.orcid">{{ authorInfo.nickName }}</a>
               </p>
               <div>
                   <div class="follow is-follow" @click="isFollowing = true" v-if="!isFollowing">
@@ -18,46 +18,38 @@
                       {{ $t('scholar_portal_unfollow') }}
                   </div> 
               </div>
-              <p class="personal-info-text-real-name">
-                <!-- {{ $t('personal_info_real_name') }}:  -->
-                {{ personalInfo.realName }}
-              </p>
               <p class="personal-info-text-region">
                 <em>{{ $t('personal_info_region') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.region }}
+                {{ authorInfo.region }}
               </p>
-              <p class="personal-info-text-gender" v-if="personalInfo.gender.length !== 0">
-                <em>{{ $t('personal_info_gender') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.gender }}
-              </p>
-              <p class="personal-info-text-institution" v-if="personalInfo.institution !== null">
+              <p class="personal-info-text-institution" v-if="authorInfo.institution.name !== null">
                 <em>{{ $t('personal_info_institution') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.institution }}
+                {{ authorInfo.institution.name }}
               </p>
               <!-- <p class="personal-info-text-major">
                 <em>{{ $t('personal_info_major') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.major }}
+                {{ authorInfo.major }}
               </p> -->
-              <p class="personal-info-text-email">
+              <p class="personal-info-text-email" v-if="authorInfo.email !== null && authorInfo.email !== ''">
                 <em>{{ $t('personal_info_email') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.email }}
+                {{ authorInfo.email }}
               </p>
               <p class="personal-info-text-institution">
                 <em>{{ $t('scholar_portal_total_publications') }}</em>&nbsp;&nbsp;
-                157
+                {{ authorInfo.totalWork }}
               </p>
               <p class="personal-info-text-institution">
                 <em>{{ $t('scholar_portal_total_citations') }}</em>&nbsp;&nbsp;
-                10000230
+                {{ authorInfo.totalCitations }}
               </p>
               <p class="personal-info-text-institution">
                 <em>{{ $t('scholar_portal_this_year_citations') }}</em>&nbsp;&nbsp;
-                100213
+                {{ authorInfo.yearCitations }}
               </p>
-              <p class="personal-info-text-url" v-if="personalInfo.urls.length !== 0"> 
+              <p class="personal-info-text-url" v-if="authorInfo.urls.length !== 0"> 
                 <em>{{ $t('personal_info_url') }}</em>
                 <ul class="personal-info-text-url-list">
-                  <li v-for="(url, index) in personalInfo.urls" :key="index">
+                  <li v-for="(url, index) in authorInfo.urls" :key="index">
                     &nbsp;&nbsp;&nbsp;<svg t="1702890339983" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4227"><path d="M377.6 473.6C377.6 448 384 422.4 403.2 403.2l70.4-70.4 57.6-57.6c19.2-19.2 38.4-25.6 64-25.6 25.6 0 44.8 6.4 64 25.6 38.4 38.4 38.4 89.6 0 128l-128 128C512 550.4 492.8 556.8 467.2 556.8L416 608C428.8 614.4 448 620.8 467.2 620.8 512 620.8 544 601.6 576 576l128-128c57.6-57.6 57.6-153.6 0-211.2-57.6-57.6-153.6-57.6-211.2 0l-128 128C320 403.2 307.2 467.2 326.4 524.8L377.6 473.6z"  p-id="4228"></path><path d="M646.4 550.4c0 25.6-6.4 51.2-25.6 70.4l-128 128c-19.2 19.2-38.4 25.6-64 25.6-25.6 0-44.8-6.4-64-25.6-38.4-38.4-38.4-89.6 0-128l128-128c19.2-19.2 44.8-25.6 70.4-25.6l51.2-51.2C588.8 409.6 576 403.2 556.8 403.2 512 403.2 473.6 422.4 448 448L320 576c-57.6 57.6-57.6 153.6 0 211.2 57.6 57.6 153.6 57.6 211.2 0l128-128c44.8-44.8 57.6-108.8 32-160L646.4 550.4z"  p-id="4229"></path></svg>
                     <a :href="url" target="_blank">{{ url }}</a>
                   </li>
@@ -97,23 +89,20 @@
     </div>
     <div class="relation-network">
       <h3>{{ $t('scholar_portal_net') }}</h3>
-      <Pagination class="pagination">
-          <InstitutionListItem 
-          v-for="(institution, index) in institutionInfo" :key="index"
-          :institutionInfo="institution"></InstitutionListItem>
-      </Pagination>
+      <RelationGraphDemo></RelationGraphDemo>
     </div>
     
 </template>
   
   <script>
+  import RelationGraphDemo from '../../components/relation-graph/RelationGraph.vue'
   import InstitutionListItem from '../../components/list-item/InstitutionListItem.vue'
   import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
   import Pagination from '../../components/pagination/Pagination.vue'
   import FavouriteListItem from '../../components/favorites/FavouriteListItem.vue'
   import i18n from '../../language'
   import FavouriteList from '../../components/favorites/FavouriteList.vue'
-  import { User } from '../../api/users.js'
+  import { Search } from '../../api/search.js'
   import FollowList from '../../components/follow-list/FollowList.vue'
   export default {
     components: {
@@ -123,6 +112,7 @@
       SearchResultListItem,
       Pagination,
       InstitutionListItem,
+      RelationGraphDemo,
       i18n
     },
     data() {
@@ -131,17 +121,26 @@
         isArticle: true,
         isFocusArea: false,
         isRelationNetwork: false,
-        personalInfo: {
+        authorInfo: {
           id: '',
-          avatarUrl: '',
+          orcid: '',
+          worksApiUrl: '',
           nickName: '',
           realName: '',
           region: '',
-          institution: '',
+          institution: {
+            id: '',
+            ror: '',
+            name: '',
+          },
           email: '',
           gender: '',
           urls: [],
-          major: ''
+          major: '',
+          totalCitations: 0,
+          totalWork: 0,
+          yearCitations: 0,
+
         },
         infoItem: {
             title: "低碳经济: 人类经济发展方式的新变革",
@@ -218,19 +217,23 @@
         interestTag: [
           {
             name: '量子力学',
-            link: ''
+            wikidata: '',
+            id: '',
           },
           {
             name: '扩散模型',
-            link: ''
+            wikidata: '',
+            id: '',
           },
           {
             name: '语义分割',
-            link: ''
+            wikidata: '',
+            id: '',
           },
           {
             name: '全景视觉',
-            link: ''
+            link: '',
+            id: '',
           },
           
         ]
@@ -238,41 +241,34 @@
     },
     
     created() {
-      this.getUserInfo()
+      this.getAuthorInfo()
     },
     methods: {
-      getUserInfo() {
-        console.log(this.$cookies.get('user_id'))
-        let userId = this.$cookies.get('user_id')
-        if (userId) {
-          User.getUser(userId).then(
+      getAuthorInfo() {
+        //get author id
+        let authorID = 'A5040654425'
+        if (authorID) {
+          Search.searchAuthorInfo(authorID).then(
             (response) => {
               console.log(response)
               // console.log(response.data.username)
-              this.personalInfo.id = userId
-              this.personalInfo.nickName = response.data.username
-              this.personalInfo.realName = response.data.real_name
-              this.personalInfo.region = response.data.region
-              this.personalInfo.gender = response.data.gender
-              this.personalInfo.institution = response.data.institution
-              this.personalInfo.email = response.data.email
-              this.personalInfo.urls = response.data.websites
-              this.personalInfo.avatarUrl = 'api/users/' + userId + '/avatar/'
-              console.log(this.personalInfo.avatarUrl)
-            },
-            (error) => {
-              console.log(error)
-            }
-          )
+              this.authorInfo.nickName = response.data.display_name
+              this.isFollowing = response.data.is_followed
+              this.authorInfo.region = response.data.last_known_institution.country_code
+              this.authorInfo.institution.id = response.data.last_known_institution.id
+              this.authorInfo.institution.ror = response.data.last_known_institution.ror
+              this.authorInfo.institution.name = response.data.last_known_institution.display_name
+              this.authorInfo.works_api_url = response.data.works_api_url
+              this.authorInfo.totalWork = response.data.works_count
+              this.authorInfo.totalCitations = response.data.cited_by_count
+              this.authorInfo.yearCitations = response.data.counts_by_year[0].cited_by_count
 
-          User.getFavoriteList(0).then(
-            (response) => {
-              console.log(response)
-              // console.log(response.data.username)
-              for (var i = 0; i < response.data.length; i++) {
-                this.favouritesInfo.push({
-                  name: response.data[i].name,
-                  id: response.data[i].id
+              this.interestTag.splice(0, this.interestTag.length)
+              for(let i = 0; i < response.data.x_concepts.length; i++) {
+                this.interestTag.push({
+                  id: response.data.x_concepts[i].id,
+                  name: response.data.x_concepts[i].display_name,
+                  wikidata: response.data.x_concepts[i].wikidata
                 })
               }
             },
@@ -424,7 +420,7 @@ em {
   margin-top: 10px;   
 }
 
-.personal-info-text p:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
+.personal-info-text p:not(:nth-child(1), :nth-child(2)) {
   background: var(--theme-mode-like);
   padding-left: 20px;
   padding-top: 15px;
@@ -670,6 +666,7 @@ transition: opacity 0.5s linear 0s;
 .relation-network h3 {
   font-size: 25px;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 @media screen and (max-width: 1450px) {
