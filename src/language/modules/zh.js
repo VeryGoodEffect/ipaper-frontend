@@ -101,4 +101,9 @@ export default {
     scholar_portal_net: "关系网络",
 
     
+    paper_detail_abstract: "摘要：",
+    paper_detail_keywords: "关键词：",
+    paper_detail_tag: "标签：",
+    paper_detail_source: "专辑：",
+    paper_detail_doi: "DOI：",
 }
