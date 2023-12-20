@@ -5,12 +5,12 @@
           <img class="item-image" />
         </div>
         <div class="item-text">
-          <h4 class="follower-name">{{ follower.name }}</h4>
+          <h4 class="follower-name">{{ follower.display_name }}</h4>
         </div>
-          <button class="item-button basic-btn" v-if="follower.isFollowed" @click="follow(follower)">
+          <button class="item-button basic-btn" v-if="follower.is_followed" @click="unFollow(follower)">
             {{ $t('cancel_follow') }}
           </button>
-          <button class="item-button basic-btn-outline" v-else @click="unFollow(follower)">
+          <button class="item-button basic-btn-outline" v-else @click="follow(follower)">
             {{ $t('follow') }}
           </button>
       </div>
@@ -25,56 +25,56 @@ export default {
   data() {
     return {
       followers: [
-        {
-          id: 1,
-          name: '用户1',
-          profile: '个人简介',
-          isFollowed: false,
-        },
-        {
-          id: 2,
-          name: '用户2',
-          profile: '个人简介',
-          isFollowed: false,
-        },
-        {
-          id: 3,
-          name: '用户3',
-          profile: '个人简介',
-          isFollowed: false,
-        },
-        {
-          id: 4,
-          name: '用户4',
-          profile: '个人简介',
-          isFollowed: false,
-        },
-        {
-          id: 4,
-          name: '用户4',
-          profile: '个人简介',
-          isFollowed: false,
-        },{
-          id: 4,
-          name: '用户4',
-          profile: '个人简介',
-          isFollowed: false,
-        },{
-          id: 4,
-          name: '用户4',
-          profile: '个人简介',
-          isFollowed: false,
-        },{
-          id: 4,
-          name: '用户4',
-          profile: '个人简介',
-          isFollowed: false,
-        },{
-          id: 4,
-          name: '用户4',
-          profile: '个人简介',
-          isFollowed: false,
-        }
+        // {
+        //   id: 1,
+        //   name: '用户1',
+        //   profile: '个人简介',
+        //   isFollowed: false,
+        // },
+        // {
+        //   id: 2,
+        //   name: '用户2',
+        //   profile: '个人简介',
+        //   isFollowed: false,
+        // },
+        // {
+        //   id: 3,
+        //   name: '用户3',
+        //   profile: '个人简介',
+        //   isFollowed: false,
+        // },
+        // {
+        //   id: 4,
+        //   name: '用户4',
+        //   profile: '个人简介',
+        //   isFollowed: false,
+        // },
+        // {
+        //   id: 4,
+        //   name: '用户4',
+        //   profile: '个人简介',
+        //   isFollowed: false,
+        // },{
+        //   id: 4,
+        //   name: '用户4',
+        //   profile: '个人简介',
+        //   isFollowed: false,
+        // },{
+        //   id: 4,
+        //   name: '用户4',
+        //   profile: '个人简介',
+        //   isFollowed: false,
+        // },{
+        //   id: 4,
+        //   name: '用户4',
+        //   profile: '个人简介',
+        //   isFollowed: false,
+        // },{
+        //   id: 4,
+        //   name: '用户4',
+        //   profile: '个人简介',
+        //   isFollowed: false,
+        // }
       ]
     }
   },
@@ -85,17 +85,18 @@ export default {
     getFollowers() {
       // console.log(this.userID)
       // console.log(222)
-      User.getUserFollowers(this.userID).then(
+      User.getUserFollowing(this.userID).then(
         (response) => {
-          console.log(response)
-          for (let i = 0 ; i < this.response.data.results.length; i++) {
-            this.followers.push({
-              id: this.response.data.results[i].id,
-              name: this.response.data.results[i].username,
-              profile: '个人简介',
-              isFollowed: true
-            })
-          }
+          this.followers = response.data
+          // console.log(this.followers)
+          // for (let i = 0 ; i < response.data.count; i++) {
+          //   this.followers.push({
+          //     id: response.data.results[i].id,
+          //     name: response.data.results[i].display_name,
+          //     profile: '个人简介',
+          //     isFollowed: true
+          //   })
+          // }
         },
         (error) => {
           console.log(error)
@@ -103,11 +104,12 @@ export default {
       )
     },
     follow(follower) {
-      follower.isFollowed = !follower.isFollowed;
+      follower.is_followed = !follower.is_followed;
+      User.followUser({followed:follower.id})
     },
     unFollow(follower) {
-      follower.isFollowed = !follower.isFollowed;
-      
+      follower.is_followed = !follower.is_followed;
+      User.cancelFollowUser({followed:follower.id})
     }
   }
 }

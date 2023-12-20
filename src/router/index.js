@@ -7,6 +7,8 @@ import PersonalHomepageView from '../views/personal-homepage/PersonalHomepageVie
 import MessageView from '../views/message/MessageView.vue'
 import PaperDetailView from '../views/paper/PaperDetailView.vue'
 import ScholarPortalView from '../views/scholar-portal/ScholarPortalView.vue'
+import InstitutionView from '../views/institution/InstitutionView.vue'
+import TagDetailView from '../views/tags/TagDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,8 +40,15 @@ const router = createRouter({
     {
       path: '/paper_detail',
       component: PaperDetailView
+    },
+    {
+      path: '/institution_detail',
+      component: InstitutionView
+    },
+    {
+      path: '/tag_detail',
+      component: TagDetailView
     }
-
   ]
 })
 

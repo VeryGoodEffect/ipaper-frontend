@@ -50,7 +50,7 @@ export class Messages {
 
     static async deleteAllReadMessages() {
         return service(url.deleteAllRead, {
-            method: "detele"
+            method: "delete"
         })
     }
 
