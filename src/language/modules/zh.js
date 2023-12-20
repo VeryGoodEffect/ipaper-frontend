@@ -100,10 +100,22 @@ export default {
     scholar_portal_focus_areas: "关注领域",
     scholar_portal_net: "关系网络",
 
-    
     paper_detail_abstract: "摘要：",
     paper_detail_keywords: "关键词：",
     paper_detail_tag: "标签：",
     paper_detail_source: "专辑：",
     paper_detail_doi: "DOI：",
+    public_date: "发表日期：",
+
+    institution_main_scholar: "机构主要作者",
+    institution_main_tag: "重点领域",
+    institution_main_papers: "机构文献",
+    institution_URL: "官网链接",
+    institution_relevant_institution: "相关机构",
+
+    tag_detail_wiki: "维基百科：",
+    tag_detail_paper: "相关文献：",
+    tag_detail_author: "相关作者：",
+    tag_detail_institution: "相关机构：",
+    tag_detail_tags: "相关领域：",
 }
