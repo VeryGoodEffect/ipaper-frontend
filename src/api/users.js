@@ -25,7 +25,7 @@ export class User {
         })
     }
 
-    static async updateUserPartial(id, data) {
+    static async changePersonalInfo(id, data) {
         return service(url.users + id + "/", {
             method: "patch",
             data

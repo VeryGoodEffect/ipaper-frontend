@@ -21,7 +21,12 @@
             <div class="personal-image">
               <img :src="personalInfo.avatarUrl" alt="Personal Image">
             </div>
-            <div class="personal-info-text">
+            <button @click="changePersonalInfo">修改个人信息</button> 
+            <!-- 变成输入框 -->
+            <button @click="submitChangePersonalInfo">确认修改</button>
+            <!-- 好像修改个人信息时修改的字段比较少，并且有些我们也没有展示 -->
+
+            <div class="personal-info-text" >
               <p class="personal-info-text-nickname">
                 <!-- {{ $t('personal_info_nick_name') }}:  -->
                 {{ personalInfo.nickName }}
@@ -65,7 +70,6 @@
           <div class="list">
             <div class="favourites-header">
               <div class="favourites-subscribe-tab">
-                
                 <h4 
                   :class="[{'tab tab-not-selected': !isFavourite}, { 'tab tab-selected': isFavourite }]" 
                   @click="isFavourite = true"
@@ -144,43 +148,12 @@
           urls: [],
           major: ''
         },
+        savePersonalInfo: {},
+        isChangeing: false,
         isCreating: false,
         moveVisible: false,
         isFavourite: true,
-        favouritesInfo: [
-          // {
-          //   name: "感兴趣的内容",
-          //   showContextMenu: false
-          // },
-          // {
-          //   name: "我的收藏",
-          //   showContextMenu: false
-          // }, 
-          // {
-          //   name: "我的收藏",
-          //   showContextMenu: false
-          // },  
-          // {
-          //   name: "我的收藏",
-          //   showContextMenu: false
-          // }, 
-          // {
-          //   name: "量子力学",
-          //   showContextMenu: false
-          // }, 
-          // {
-          //   name: "有机化学",
-          //   showContextMenu: false
-          // }, 
-          // {
-          //   name: "Diffusion model",
-          //   showContextMenu: false
-          // }, 
-          // {
-          //   name: "CV",
-          //   showContextMenu: false
-          // }
-        ],
+        favouritesInfo: [],
         interestTag: [
           {
             name: '量子力学',
@@ -230,7 +203,6 @@
               console.log(error)
             }
           )
-
           User.getFavoriteList(0).then(
             (response) => {
               console.log(response)
@@ -246,21 +218,32 @@
               console.log(error)
             }
           )
-          // favouritesInfo
-          // let data = {
-          //   width: 250,
-          //   height: 250
-          // }
-          // User.getUserAvatar(userId, data).then(
-          //   (response) => {
-          //     console.log('111')
-          //     console.log(response)
-          //   },
-          //   (error) => {
-          //     console.log(error)
-          //   }
-          // )
         } 
+      },
+      changePersonalInfo() {
+        this.isChangeing = true
+        this.savePersonalInfo = this.personaInfo
+      },
+      submitChangePersonalInfo() {
+        let userId = this.$cookies.get('user_id')
+        let data = {
+          username: this.personalInfo.nickName,
+          gender: this.personalInfo.gender,
+          institution: this.personalInfo.institution,
+          websites: this.personalInfo.urls
+        }
+        if (userId) {
+          User.changePersonalInfo(userId, data).then(
+            response => {
+              this.savePersonalInfo = this.personaInfo
+              alert('修改成功')
+            },
+            error => {
+              this.personaInfo = this.savePersonalInfo
+              alert(error.message)
+            }
+          )
+        }
       },
       handleMove() {
         this.moveVisible = true
@@ -292,7 +275,7 @@
       },
       returnToMainPage() {
         this.$router.push('/'); 
-      }
+      },
     },
   }
   window.addEventListener('scroll', function() {
