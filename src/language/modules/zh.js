@@ -58,14 +58,14 @@ export default {
 
     authenticate_text: '认证身份',
     authenticate_prompt: '：建立你的专家信息门户',
-    auditor_text: '选择认证的管理员（不输入表示默认）',
+    auditor_text: '选择认证的管理员（可选）',
     openalexId_text: '输入openalex的Id',
     realName_text: '真实姓名',
     institution_text: '工作机构',
     position_text: '职务',
     concepts_text: '科研领域',
     workEmail_text: '工作邮箱',
-    content_text: '备注',
+    content_text: '备注（可选）',
 
     ipaper_scholar_text: 'iPaper 学术搜索',
 
