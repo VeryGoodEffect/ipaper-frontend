@@ -1,6 +1,7 @@
 <template>
     <div>
-        <button @click="setMessageRead">已读</button>
+        <button v-if="!msg.is_read" @click="setMessageRead">设为已读</button>
+        <button v-else>已读</button>
         <button @click="deleteMessage">删除</button>
         <div>
             {{ msg.sender.username }}
@@ -26,16 +27,8 @@ export default {
     props: ['msg'],
     methods: {
         setMessageRead() {
-            Messages.setMessageReadById(this.msg.id, {is_read: true}).then(
-                response => {
-                    alert('成功设置为已读')
-                    // 这里应该有一个反应
-                    this.msg.is_read = true
-                },
-                error => {
-                    alert('设置为已读失败')
-                }
-            )
+            this.$bus.emit('sendSetMessageReadByIdRequest', this.msg)
+            this.msg.is_read = true
         },
         deleteMessage() {
             this.$bus.emit('sendDeleteMessageRequest', this.msg)

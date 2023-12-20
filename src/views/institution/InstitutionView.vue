@@ -2,89 +2,117 @@
   <div class="institution-area">
     <div class="area">
       <div>
-        <span class="name">机构名称</span>
-        <span class="country">中国</span>
+        <span class="name">{{ institutionName }}</span>
+        <span class="country">({{ institutionCountry }})</span>
       </div>
       <div class="author-list">
-          机构主要作者
-          <div v-for="(author, idx) in authors" :key="idx" @click="gotoAuthor(author)">
-            {{ author.name }}
+          {{ $t('institution_main_scholar') }}
+          <div v-for="(author, idx) in institutionAuthors" :key="idx" @click="gotoAuthor(author)">
+            {{ author.display_name }} 
             ({{ author.works_count }})
-            <span v-for="(tag, idx) in author.tags" :key="idx" class="author-tag-item" @click="gotoTag(tag)">
-              {{ tag }}
+            <span v-for="(tag, idx) in author.x_concepts" :key="idx" class="author-tag-item" @click="gotoTag(tag)">
+              {{ tag.display_name }}
             </span>
           </div>
       </div>
       <div >
         <div class="tags">
-        机构重点领域
+        {{ $t('institution_main_tag') }}
         </div>
         <div>
-          <span v-for="(tag, idx) in tags" :key="idx" class="tag-item" @click="gotoTag(tag)">
-            {{ tag }}
+          <span v-for="(tag, idx) in institutionTags" :key="idx" class="tag-item" @click="gotoTag(tag)">
+            {{ tag.display_name }}
           </span>
         </div>
       </div>
       <div class="papers">
-        机构文献
+        {{ $t('institution_main_papers') }}
         <SearchResultListItem v-for="(info,index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
       </div>
       <div>
         引用情况（考虑图表？）
       </div>
-      <div>
-        相关机构
+      <div v-if="relevantInstitution != ''">
+        {{ $t('institution_relevant_institution') }}
+        <span v-for="(institution, idx) in relevantInstitution" :key="idx">
+          {{ institution.display_name }}
+        </span>
       </div>
       <div>
-        官网链接
+        {{ $t('institution_URL') }}
+        <a :href="institutionURL" target="_blank">
+          {{ this.institutionURL }}
+        </a>
       </div>
     </div>
   </div>
 </template>
 <script>
 import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
+import { Search } from '../../api/search'
+
 export default {
   components: { 
     SearchResultListItem
   },
   data() {
     return {
-      resultlist: null,
-        infoItems: [
-          {
-            title: "低碳经济: 人类经济发展方式的新变革",
-            author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
-            excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
-            timeCited: 57,
-            keyword: "经济"
-          }
-      ],
-      tags: [
-        "农业", "医学", "软件工程"
-      ],
-      authors: [
+      institutionName: '',
+      institutionCountry: '',
+      institutionTags: [],
+      authorURL: '',
+      institutionURL: '',
+      relevantInstitution: [],
+      institutionAuthors: [],
+      paperURL: '',
+      infoItems: [
         {
-          id: 1,
-          name: '吕云翔',
-          works_count: '10',
-          tags: ["软件工程", "科学"]
-        },
-        {
-          id: 2,
-          name: '小明',
-          works_count: '20',
-          tags: ["软件工程", "科学", "7777"]
-        },
-        {
-          id: 3,
-          name: 'aaaa',
-          works_count: '100',
-          tags: ["科学", "7777"]
+          title: "低碳经济: 人类经济发展方式的新变革",
+          author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
+          excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
+          timeCited: 57,
+          keyword: "经济"
         }
-      ]
+      ],
     }
   },
+  created() {
+    this.getInstitutionDetail()
+  },
   methods: {
+    getInstitutionDetail() {
+      // let institutionId = this.$route.params.institutionId
+      let institutionId = 'I1294671590'
+      if (institutionId) {
+        Search.institutionRetrieve(institutionId).then(
+          (response) => {
+            this.institutionName = response.data.display_name
+            this.institutionCountry = response.data.country_code
+            this.authorURL = response.data.authors_api_url
+            this.getAuthors(this.authorURL)
+            this.institutionURL = response.data.homepage_url
+            this.relevantInstitution = response.data.associated_institutions
+            this.institutionTags = response.data.x_concepts
+            this.paperURL = response.data.works_api_url
+            this.getPapers(this.paperURL)
+          }
+        )
+      }
+    },
+    getAuthors(url) {
+      Search.getEntities(url).then(
+        (response) => {
+          this.institutionAuthors = response.data.results
+        }
+      )
+    },
+    getPapers(url) {
+      Search.getEntities(url).then(
+        (response) => {
+          console.log(response.data)
+        }
+      )
+    },
     gotoTag(tag) {
     //路由跳转到领域详情页 
     },
