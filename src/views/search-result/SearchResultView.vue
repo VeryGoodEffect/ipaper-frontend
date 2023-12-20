@@ -1,6 +1,6 @@
 <template>
   <div class="main-area">
-    <div class="cond-area" style="display: vertical">
+    <div class="cond-area" style="display: vertical; position: sticky; top: 0">
       <div
         class="cond-in-1"
         style="
@@ -24,6 +24,7 @@
           </li>
         </ul>
       </div>
+      <hr />
       <div
         class="cond-in-2"
         style="
@@ -40,6 +41,7 @@
           <li style="cursor: pointer">日期排序</li>
         </ul>
       </div>
+      <hr />
       <div
         class="cond-in-3"
         style="
@@ -59,6 +61,7 @@
         </ul>
       </div>
 
+      <hr />
       <div
         class="cond-in-4"
         style="
@@ -76,7 +79,7 @@
           <li style="cursor: pointer">时间不限</li>
         </ul>
       </div>
-
+      <hr />
       <div
         class="cond-in-5"
         style="
@@ -89,11 +92,12 @@
         "
       >
         <ul>
-          <li style="cursor: pointer">类型不限</li>
-          <li style="cursor: pointer">时间不限</li>
+          <li style="cursor: pointer"><input type="checkbox" />包含专利</li>
+          <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
           <li style="cursor: pointer">时间不限</li>
         </ul>
       </div>
+      <!-- <hr> -->
     </div>
     <div>
       <div class="search-bar">
@@ -117,17 +121,56 @@
           </svg>
         </button>
       </div>
-      <Pagination class="pagination" :defaultItemsPerPage="5">
+      <!-- works -->
+      <Pagination
+        v-if="search_type == 1"
+        class="pagination"
+        :defaultItemsPerPage="5"
+      >
         <SearchResultListItem
           v-for="(info, index) in infoItems"
           :key="index"
           :infoItem="info"
         ></SearchResultListItem>
-        <!-- <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
-          <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
-          <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
-          <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
-          <SearchResultListItem :infoItem="infoItem"></SearchResultListItem> -->
+      </Pagination>
+      <!-- author -->
+      <Pagination
+        v-if="search_type == 2"
+        class="pagination"
+        :defaultItemsPerPage="5"
+      >
+        <scholar-list-item
+          v-for="(info, index) in infoItems"
+          :key="index"
+          :scholarInfo="info"
+        >
+        </scholar-list-item>
+      </Pagination>
+      <!-- 期刊 -->
+      <Pagination
+        v-if="search_type == 3"
+        class="pagination"
+        :defaultItemsPerPage="5"
+      >
+        <journal-list-item
+          v-for="(info, index) in infoItems"
+          :key="index"
+          :JounalListItemInfo="info"
+        >
+        </journal-list-item>
+      </Pagination>
+      <!-- 机构 -->
+      <Pagination
+        v-if="search_type == 4"
+        class="pagination"
+        :defaultItemsPerPage="5"
+      >
+        <institution-list-item
+          v-for="(info, index) in infoItems"
+          :key="index"
+          :institutionInfo="info"
+        >
+        </institution-list-item>
       </Pagination>
     </div>
   </div>
@@ -135,15 +178,26 @@
   
   <script>
 import SearchResultListItem from "../../components/search-result-list/SearchResultListItem.vue";
+// import InstitutionListItem from "../../components/list-item/InstitutionListItem.vue";
+// import JournalListItemVue from "../../components/list-item/JournalListItem.vue";
+// import ScholarListItemVue from "../../components/list-item/ScholarListItem.vue";
 import Pagination from "../../components/pagination/Pagination.vue";
 import i18n from "../../language";
 import { Search } from "../../api/search.js";
+// import JournalListItemVue from "../../components/list-item/JournalListItem.vue";
+// import ScholarListItemVue from "../../components/list-item/ScholarListItem.vue";
+import InstitutionListItem from "../../components/list-item/InstitutionListItem.vue";
+import JournalListItem from "../../components/list-item/JournalListItem.vue";
+import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 export default {
   name: "SearchResultView",
   components: {
-    SearchResultListItem,
+    SearchResultListItem, 
     Pagination,
     i18n,
+    InstitutionListItem,
+    JournalListItem,
+    ScholarListItem,
   },
   data() {
     return {
@@ -174,34 +228,66 @@ export default {
       search_start_time: 2020,
       search_end_time: 2022,
       show_range: true,
+
+      search_type: 0,
     };
   },
   methods: {
     resultlistToInfoItems() {
-      this.infoItems = this.resultlist.map((item) => {
-        // console.log(item.authorships[0].author.display_name);
-        // console.log(item.abstract);
-        return {
-          // title: item,s
-          title: item.title,
-          author:
-            item.authorships[0] != null
-              ? item.authorships[0].author.display_name
-              : "unkown",
-          // author: "author",
-          excerpt: "0",
-          timeCited: item.cited_by_count,
-          keyword: "经济",
-          related_times: item.related_works_count,
-          publicationYear: item.publication_year,
-          journalName: item.host_venue
-            ? item.host_venue.display_name
-            : "unknown",
-          abstract: item.abstract,
-          url: item.url,
-          language: item.language,
-        };
-      });
+      // works
+      if (this.search_type == 1) {
+        this.infoItems = this.resultlist.map((item) => {
+          // console.log(item.authorships[0].author.display_name);
+          // console.log(item.abstract);
+          return {
+            // title: item,s
+            title: item.title,
+            author:
+              item.authorships[0] != null
+                ? item.authorships[0].author.display_name
+                : "unkown",
+            // author: "author",
+            excerpt: "0",
+            timeCited: item.cited_by_count,
+            keyword: "经济",
+            related_times: item.related_works_count,
+            publicationYear: item.publication_year,
+            journalName: item.host_venue
+              ? item.host_venue.display_name
+              : "unknown",
+            abstract: item.abstract,
+            url: item.url,
+            language: item.language,
+          };
+        });
+      }
+      // author
+      else if (this.search_type == 2) {
+        this.infoItems = this.resultlist.map((item) => {
+          return {
+            title: item.display_name,
+            profile: item.works_api_url,
+          };
+        });
+      }
+      // qikan
+      else if (this.search_type == 3) {
+        this.infoItems = this.resultlist.map((item) => {
+          return {
+            title: item.display_name_zh,
+            profile: item.homepage_url,
+          };
+        });
+      }
+      // jigou
+      else if (this.search_type == 4) {
+        this.infoItems = this.resultlist.map((item) => {
+          return {
+            title: item.display_name,
+            profile: item.homepage_url,
+          };
+        });
+      }
     },
     //! 在我重新筛选或者搜索的时候都算是搜索
     setFilterTime(type) {
@@ -210,7 +296,6 @@ export default {
       } else if (type == 2) {
         // 2023
         this.filter = "publication_year:2023-";
-        
       } else if (type == 3) {
         // 2022
         this.filter = "publication_year:2022-";
@@ -223,8 +308,8 @@ export default {
           "-" +
           this.search_end_time;
       }
-      this.searchdata.filter = this.filter
-      console.log(JSON.parse(JSON.stringify(this.searchdata)))
+      this.searchdata.filter = this.filter;
+      console.log(JSON.parse(JSON.stringify(this.searchdata)));
       JSON.parse(JSON.stringify(this.searchdata));
       Search.searchWorks(JSON.parse(JSON.stringify(this.searchdata))).then(
         (res) => {
@@ -236,17 +321,17 @@ export default {
       );
     },
 
-    setLanguage(type){
-      if(type == 1){
-        this.filter = ""
-      }else if(type == 2){
-        this.filter = "language:zh-cn"
-      }else if(type == 3){
-        this.filter = "language:en"
+    setLanguage(type) {
+      if (type == 1) {
+        this.filter = "";
+      } else if (type == 2) {
+        this.filter = "language:zh-cn";
+      } else if (type == 3) {
+        this.filter = "language:en";
       }
 
-      this.searchdata.filter = this.filter
-      console.log(JSON.parse(JSON.stringify(this.searchdata)))
+      this.searchdata.filter = this.filter;
+      console.log(JSON.parse(JSON.stringify(this.searchdata)));
       JSON.parse(JSON.stringify(this.searchdata));
       Search.searchWorks(JSON.parse(JSON.stringify(this.searchdata))).then(
         (res) => {
@@ -258,7 +343,7 @@ export default {
       );
     },
 
-          /***
+    /***
        * 
        *    filter : this.search_filter,
             search : this.search_search,
@@ -268,14 +353,15 @@ export default {
             cursor : ""
        */
     searchmethod() {
-      this.searchdata.filter = this.filter
-      this.searchdata.search = this.search
-      this.searchdata.sort = this.sort
-      this.searchdata.perpage = this.perpage 
-      this.searchdata.cursor = this.cursor
-      this.searchdata.page = this.page
-      console.log(JSON.parse(JSON.stringify(this.searchdata)))
+      this.searchdata.filter = this.filter;
+      this.searchdata.search = this.search;
+      this.searchdata.sort = this.sort;
+      this.searchdata.perpage = this.perpage;
+      this.searchdata.cursor = this.cursor;
+      this.searchdata.page = this.page;
+      console.log(JSON.parse(JSON.stringify(this.searchdata)));
       JSON.parse(JSON.stringify(this.searchdata));
+
       Search.searchWorks(JSON.parse(JSON.stringify(this.searchdata))).then(
         (res) => {
           console.log(res.data.results);
@@ -294,6 +380,14 @@ export default {
     this.sort = searchdata.sort;
     this.perpage = searchdata.perpage;
     this.cursor = searchdata.cursor;
+
+    this.search_type = searchdata.search_type;
+
+    if (this.searchdata && "search_type" in this.searchdata) {
+      delete this.searchdata["search_type"];
+    }
+    // console.log(this.$route)
+    alert(this.search_type);
     /**
      * 
      * filter : this.search_filter,
@@ -304,14 +398,53 @@ export default {
             cursor : ""
      */
     console.log(searchdata);
-    Search.searchWorks(searchdata).then(
-      (res) => {
-        console.log(res.data.results);
-        this.resultlist = res.data.results;
-        this.resultlistToInfoItems();
-      },
-      (err) => {}
-    );
+
+    // #region search
+    if (this.search_type == 1) {
+      Search.searchWorks(searchdata).then(
+        (res) => {
+          console.log(res.data.results);
+          this.resultlist = res.data.results;
+          this.resultlistToInfoItems();
+        },
+        (err) => {}
+      );
+    }
+    // author
+    else if (this.search_type == 2) {
+      Search.searchAuthor(searchdata).then(
+        (res) => {
+          console.log(res.data.results);
+          this.resultlist = res.data.results;
+          this.resultlistToInfoItems();
+        },
+        (err) => {}
+      );
+    }
+    // 期刊
+    else if (this.search_type == 3) {
+      Search.searchConcepts(searchdata).then(
+        (res) => {
+          console.log(res.data.results);
+          this.resultlist = res.data.results;
+          this.resultlistToInfoItems();
+        },
+        (err) => {}
+      );
+    }
+    // 机构
+    else if (this.search_type == 4) {
+      Search.searchInstitutions(searchdata).then(
+        (res) => {
+          console.log(res.data.results);
+          this.resultlist = res.data.results;
+          this.resultlistToInfoItems();
+        },
+        (err) => {}
+      );
+    }
+    // #endregion
+    // works
   },
 };
 </script>

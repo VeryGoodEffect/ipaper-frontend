@@ -7,9 +7,10 @@ const url = {
 }
 
 export class Search {
-    static async searchAuthor() {
+    static async searchAuthor(data) {
         return service(url.searchAuthors, {
-            method: "get"
+            method: "get",
+            params: data
         })
     }
 
@@ -26,9 +27,10 @@ export class Search {
         })
     }
 
-    static async searchInstitutions() {
+    static async searchInstitutions(data) {
         return service(url.searchInstitutions, {
             method: "get",
+            params: data
         })
     }
 

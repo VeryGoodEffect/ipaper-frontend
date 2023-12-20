@@ -88,7 +88,7 @@
       </div>  
     </div>
     <div class="relation-network">
-      <h3>{{ $t('scholar_portal_net') }}</h3>
+      <!-- <h3>{{ $t('scholar_portal_net') }}</h3> -->
       <RelationGraphDemo></RelationGraphDemo>
     </div>
     
