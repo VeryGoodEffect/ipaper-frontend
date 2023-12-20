@@ -85,4 +85,30 @@ export class User {
             data
         })
     }
+
+    static async getFavoriteList(id) {
+        return service(url.users + "/favorite/list/" + id + "/", {
+            method: "get"
+        })
+    }
+
+    static async createFavorite(id, data) {
+        return service(url.users + "/favorite/create/" + id + "/", {
+            method: "post",
+            data
+        })
+    }
+
+    static async renameFavorite(id, data) {
+        return service(url.users + "/favorite/rename/" + id + "/", {
+            method: "post",
+            data
+        })
+    }
+
+    static async deleteFavorite(id) {
+        return service(url.users + "/favorite/delete/" + id + "/", {
+            method: "delete"
+        })
+    }
 }

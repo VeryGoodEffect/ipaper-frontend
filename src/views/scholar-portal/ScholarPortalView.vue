@@ -1,31 +1,23 @@
 <template>
-    <!-- <Transition name="fade">
-      <div class="model" v-if="moveVisible">
-        <div class="inner-box">
-          <h3 class="move-title">
-            {{ $t('move_favourites') }}
-          </h3>
-        </div>
-        
-      </div>
-    </Transition> -->
-      
     <div class="main-part">
-      <!-- <div class="return-part" @click="returnToMainPage">
-        <svg t="1701847227942" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="886" width="200" height="200"><path d="M578.2016 113.7664a51.2 51.2 0 0 1 76.3904 67.9424l-3.9936 4.4544-325.888 325.7856 325.888 325.888a51.2 51.2 0 0 1 3.9936 67.9424l-3.9936 4.4544a51.2 51.2 0 0 1-67.9424 3.9936l-4.4544-3.9936-362.0352-361.984a51.2 51.2 0 0 1-3.9936-67.9936l3.9936-4.4544 361.984-362.0352z" fill="#909399" p-id="887"></path></svg>
-        <div class="return-text">{{ $t('favourites_return') }}</div>
-      </div> -->
-
       <div class="info-tag-list">
         <div class="personal-info">
-            <div class="personal-image">
+            <!-- <div class="personal-image">
               <img :src="personalInfo.avatarUrl" alt="Personal Image">
-            </div>
+            </div> -->
             <div class="personal-info-text">
               <p class="personal-info-text-nickname">
                 <!-- {{ $t('personal_info_nick_name') }}:  -->
                 {{ personalInfo.nickName }}
               </p>
+              <div>
+                  <div class="follow is-follow" @click="isFollowing = true" v-if="!isFollowing">
+                      {{ $t('scholar_portal_follow') }}
+                  </div>  
+                  <div class="follow un-follow" @click="isFollowing = false" v-else>
+                      {{ $t('scholar_portal_unfollow') }}
+                  </div> 
+              </div>
               <p class="personal-info-text-real-name">
                 <!-- {{ $t('personal_info_real_name') }}:  -->
                 {{ personalInfo.realName }}
@@ -50,6 +42,18 @@
                 <em>{{ $t('personal_info_email') }}</em>&nbsp;&nbsp;
                 {{ personalInfo.email }}
               </p>
+              <p class="personal-info-text-institution">
+                <em>{{ $t('scholar_portal_total_publications') }}</em>&nbsp;&nbsp;
+                157
+              </p>
+              <p class="personal-info-text-institution">
+                <em>{{ $t('scholar_portal_total_citations') }}</em>&nbsp;&nbsp;
+                10000230
+              </p>
+              <p class="personal-info-text-institution">
+                <em>{{ $t('scholar_portal_this_year_citations') }}</em>&nbsp;&nbsp;
+                100213
+              </p>
               <p class="personal-info-text-url" v-if="personalInfo.urls.length !== 0"> 
                 <em>{{ $t('personal_info_url') }}</em>
                 <ul class="personal-info-text-url-list">
@@ -59,58 +63,53 @@
                   </li>
                 </ul>
               </p>
-            </div>            
+            </div> 
+            <div class="focus-area">
+              <h3>{{ $t('scholar_portal_focus_areas') }}</h3>
+              <div class="tag-container">
+                <p v-for="(tag, index) in interestTag" :key="index" class="tag-item">
+                  {{ tag.name }}
+                </p>
+              </div>
+            </div> 
         </div>
         <div class="tag-and-list">
           <div class="list">
             <div class="favourites-header">
               <div class="favourites-subscribe-tab">
-                
-                <h4 
-                  :class="[{'tab tab-not-selected': !isFavourite}, { 'tab tab-selected': isFavourite }]" 
-                  @click="isFavourite = true"
-                >
-                  {{ $t('favourites') }}
-                </h4>
-                <h4 
-                  :class="[{'tab tab-selected': !isFavourite}, { 'tab tab-not-selected': isFavourite }]" 
-                  @click="isFavourite = false"
-                >
-                  {{ $t('personal_follow_list') }}
-                </h4>
+                <h3>{{ $t('scholar_portal_articles') }}</h3>
               </div>
-              <div class="favourites-creation" @click="isCreating = true" v-if="isFavourite">
-                {{ $t('create_favourites') }}
-              </div>  
             </div>
-            <div class="favorites-list" v-if="isFavourite">
-              <FavouriteList 
-              @cancelCreation="cancelCreation"
-              @updateCreation="updateCreation"
-              :isCreating="isCreating"
-              :favouritesInfo="favouritesInfo" />
-            </div>
-            <div class="follow-list" v-else>
-              <FollowList
-              :userID="personalInfo.id"/>
+            <div class="favorites-list">
+                <Pagination class="pagination">
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+                </Pagination>
             </div>
           </div>
-          <div class="personal-tag">
-            <h3>{{ $t('personal_interest_tags') }}</h3>
-            <div class="tag-container">
-              <p v-for="(tag, index) in interestTag" :key="index" class="tag-item">
-                {{ tag.name }}
-              </p>
-            </div>
-          </div>
+          
         </div>
       </div>  
     </div>
-
+    <div class="relation-network">
+      <h3>{{ $t('scholar_portal_net') }}</h3>
+      <Pagination class="pagination">
+          <InstitutionListItem 
+          v-for="(institution, index) in institutionInfo" :key="index"
+          :institutionInfo="institution"></InstitutionListItem>
+      </Pagination>
+    </div>
     
 </template>
   
   <script>
+  import InstitutionListItem from '../../components/list-item/InstitutionListItem.vue'
+  import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
+  import Pagination from '../../components/pagination/Pagination.vue'
   import FavouriteListItem from '../../components/favorites/FavouriteListItem.vue'
   import i18n from '../../language'
   import FavouriteList from '../../components/favorites/FavouriteList.vue'
@@ -121,17 +120,17 @@
       FavouriteListItem,
       FavouriteList,
       FollowList,
+      SearchResultListItem,
+      Pagination,
+      InstitutionListItem,
       i18n
     },
     data() {
       return { 
-        infoItem: {
-            title: "低碳经济: 人类经济发展方式的新变革",
-            author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
-            excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
-            timeCited: 57,
-            keyword: "经济",
-        },
+        isFollowing: false,
+        isArticle: true,
+        isFocusArea: false,
+        isRelationNetwork: false,
         personalInfo: {
           id: '',
           avatarUrl: '',
@@ -144,6 +143,41 @@
           urls: [],
           major: ''
         },
+        infoItem: {
+            title: "低碳经济: 人类经济发展方式的新变革",
+            author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
+            excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
+            timeCited: 57,
+            keyword: "经济"
+        },
+        institutionInfo: [
+          {
+            name: 'google',
+            profile: '这是google的简介',
+            link: ''
+          },
+          {
+            name: '北京航空航天大学',
+            profile: '这是google的简介',
+            link: ''
+          },{
+            name: '北航附中',
+            profile: '这是google的简介',
+            link: ''
+          },{
+            name: '北航附小',
+            profile: '这是google的简介',
+            link: '这是google的简介'
+          },{
+            name: 'Huawei',
+            profile: '这是google的简介',
+            link: ''
+          },{
+            name: 'google',
+            profile: '这是google的简介',
+            link: ''
+          },
+        ],
         isCreating: false,
         moveVisible: false,
         isFavourite: true,
@@ -246,20 +280,6 @@
               console.log(error)
             }
           )
-          // favouritesInfo
-          // let data = {
-          //   width: 250,
-          //   height: 250
-          // }
-          // User.getUserAvatar(userId, data).then(
-          //   (response) => {
-          //     console.log('111')
-          //     console.log(response)
-          //   },
-          //   (error) => {
-          //     console.log(error)
-          //   }
-          // )
         } 
       },
       handleMove() {
@@ -291,7 +311,22 @@
         })
       },
       returnToMainPage() {
-        this.$router.push('/'); 
+        this.$router.push('/')
+      },
+      selectArticle() {
+        this.isArticle = true
+        this.isFocusArea = false
+        this.isRelationNetwork = false
+      },
+      selectFocusArea() {
+        this.isArticle = false
+        this.isFocusArea = true
+        this.isRelationNetwork = false
+      },
+      selectRelationNetwork() {
+        this.isArticle = false
+        this.isFocusArea = false
+        this.isRelationNetwork = true
       }
     },
   }
@@ -389,13 +424,13 @@ em {
   margin-top: 10px;   
 }
 
-.personal-info-text p:not(:nth-child(1), :nth-child(2)) {
+.personal-info-text p:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
   background: var(--theme-mode-like);
   padding-left: 20px;
   padding-top: 15px;
 }
 
-.personal-info-text p:nth-child(3) {
+.personal-info-text p:nth-child(4) {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
@@ -410,7 +445,7 @@ em {
 }
 
 .personal-info-text-nickname {
-  font-size: 25px;
+  font-size: 30px;
   text-align: center;
   font-weight: bold;
 }
@@ -454,15 +489,16 @@ em {
 .tag-and-list {
   width: 60%;
 }
-.personal-tag {
+.focus-area {
     min-height: 100px;
     width: 100%;
     /* border: 2px solid red; */
     /* width: 50%;  */
 }
-.personal-tag h3{
+.focus-area h3{
   font-size: 25px;
   font-weight: bold;
+  margin-top: 20px;
 }
 .tag-container {
   display: flex;
@@ -493,10 +529,44 @@ em {
 .favourites-subscribe-tab {
   display: flex;
 }
+.favourites-subscribe-tab h3 {
+  font-size: 25px;
+  font-weight: bold;
+}
 .favourites-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.follow {
+  height: 40px;
+  font-size: 18px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.follow:last-of-type {
+    margin-top: 10px;
+  /* margin-left: 20px; */
+}
+.is-follow {
+  background-color: var(--theme-color);
+  font-weight: bold;
+}
+.is-follow:hover {
+  background-color: var(--theme-color-80);
+}
+.un-follow {
+  color: var(--default-text-color);
+  background-color: var(--theme-mode-contrast);
+}
+.un-follow:hover {
+  background-color: var(--theme-mode-high-contrast);
 }
 
 .tab {
@@ -510,7 +580,10 @@ em {
   border-radius: 5px;
   cursor: pointer;
 }
-.tab:last-of-type {
+/* .tab {
+  margin-left: 20px;
+} */
+.tab + .tab  {
   margin-left: 20px;
 }
 .tab-selected {
@@ -589,7 +662,15 @@ transition: opacity 0.5s linear 0s;
   margin-bottom: 30px;
 }
 
+.relation-network {
+  width: 80%;
+  margin-left: 10%;
+}
 
+.relation-network h3 {
+  font-size: 25px;
+  font-weight: bold;
+}
 
 @media screen and (max-width: 1450px) {
   .personal-info {
@@ -643,7 +724,7 @@ transition: opacity 0.5s linear 0s;
   .list {
     width: 80%;
   }
-  .personal-tag {
+  .focus-area {
     width: 80%;
   }
 }

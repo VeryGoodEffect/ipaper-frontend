@@ -4,6 +4,7 @@ import SearchResultView from '../views/search-result/SearchResultView.vue'
 import PersonInfoView from '../views/admin/PersonInfoView.vue'
 import SearchView from '../views/search/SearchView.vue'
 import PersonalHomepageView from '../views/personal-homepage/PersonalHomepageView.vue'
+import ScholarPortalView from '../views/scholar-portal/ScholarPortalView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,10 @@ const router = createRouter({
     {
       path: '/personal_homepage',
       component: PersonalHomepageView
+    },
+    {
+      path: '/scholar_portal',
+      component: ScholarPortalView
     },
     {
       path: '/search',
