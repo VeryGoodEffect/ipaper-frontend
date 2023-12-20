@@ -24,9 +24,9 @@ transition仅针对高度进行过渡。
 app.directive('ellipsis', {
   mounted(el, binding) {
     let isWrap = true
-    console.log(binding.value)
+    // console.log(binding.value)
     let Wrappable = binding.value.wrappable!==undefined ? binding.value.wrappable : true
-    console.log(Wrappable)
+    // console.log(Wrappable)
     //由于外盒子可能为flex,因此需要单独设置内盒子
     const content = document.createElement(el.tagName)
     //此处targetStyle仍具有约束性

@@ -1,79 +1,320 @@
 <template>
-    <div class="main-area">
-      <div class="cond-area">
-        Filter Criteria
+  <div class="main-area">
+    <div class="cond-area" style="display: vertical">
+      <div
+        class="cond-in-1"
+        style="
+          display: vertical;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 10%;
+          margin-bottom: 10%;
+          text-align: center;
+        "
+      >
+        <ul>
+          <li @click="setFilterTime(1)" style="cursor: pointer">时间不限</li>
+          <li @click="setFilterTime(2)" style="cursor: pointer">2023以来</li>
+          <li @click="setFilterTime(3)" style="cursor: pointer">2022以来</li>
+          <li @click="setFilterTime(4)" style="cursor: pointer">2021以来</li>
+          <li @click="setFilterTime(5)" style="cursor: pointer">自定义范围</li>
+          <li v-if="show_range" @click="setFilterTime(5)">
+            <input v-model="search_start_time" type="text" style="width: 30%" />
+            <input v-model="search_end_time" type="text" style="width: 30%" />
+          </li>
+        </ul>
       </div>
-      <div>
-        <div class="search-bar">
-          <input type="text" class="basic-input search-input" />
-          <button class="basic-btn search-btn">
-          <svg t="1699356103686" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4162" width="200" height="200"><path d="M945.066667 898.133333l-189.866667-189.866666c55.466667-64 87.466667-149.333333 87.466667-241.066667 0-204.8-168.533333-373.333333-373.333334-373.333333S96 264.533333 96 469.333333 264.533333 842.666667 469.333333 842.666667c91.733333 0 174.933333-34.133333 241.066667-87.466667l189.866667 189.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c8.533333-12.8 8.533333-34.133333-2.133333-46.933334zM469.333333 778.666667C298.666667 778.666667 160 640 160 469.333333S298.666667 160 469.333333 160 778.666667 298.666667 778.666667 469.333333 640 778.666667 469.333333 778.666667z"  p-id="4163" fill="#fff"></path></svg>
+      <div
+        class="cond-in-2"
+        style="
+          display: vertical;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 10%;
+          margin-bottom: 10%;
+          text-align: center;
+        "
+      >
+        <ul>
+          <li style="cursor: pointer">相关性排序</li>
+          <li style="cursor: pointer">日期排序</li>
+        </ul>
+      </div>
+      <div
+        class="cond-in-3"
+        style="
+          display: vertical;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 10%;
+          margin-bottom: 10%;
+          text-align: center;
+        "
+      >
+        <ul>
+          <li @click="setLanguage(1)" style="cursor: pointer">不限语言</li>
+          <li @click="setLanguage(2)" style="cursor: pointer">中文网页</li>
+          <li @click="setLanguage(3)" style="cursor: pointer">英文网页</li>
+          <!-- <li>时间不限</li> -->
+        </ul>
+      </div>
+
+      <div
+        class="cond-in-4"
+        style="
+          display: vertical;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 10%;
+          margin-bottom: 10%;
+          text-align: center;
+        "
+      >
+        <ul>
+          <li style="cursor: pointer">类型不限</li>
+          <li style="cursor: pointer">时间不限</li>
+          <li style="cursor: pointer">时间不限</li>
+        </ul>
+      </div>
+
+      <div
+        class="cond-in-5"
+        style="
+          display: vertical;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 10%;
+          margin-bottom: 10%;
+          text-align: center;
+        "
+      >
+        <ul>
+          <li style="cursor: pointer">类型不限</li>
+          <li style="cursor: pointer">时间不限</li>
+          <li style="cursor: pointer">时间不限</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="search-bar">
+        <input v-model="search" type="text" class="basic-input search-input" />
+        <button @click="searchmethod" class="basic-btn search-btn">
+          <svg
+            t="1699356103686"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="4162"
+            width="200"
+            height="200"
+          >
+            <path
+              d="M945.066667 898.133333l-189.866667-189.866666c55.466667-64 87.466667-149.333333 87.466667-241.066667 0-204.8-168.533333-373.333333-373.333334-373.333333S96 264.533333 96 469.333333 264.533333 842.666667 469.333333 842.666667c91.733333 0 174.933333-34.133333 241.066667-87.466667l189.866667 189.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c8.533333-12.8 8.533333-34.133333-2.133333-46.933334zM469.333333 778.666667C298.666667 778.666667 160 640 160 469.333333S298.666667 160 469.333333 160 778.666667 298.666667 778.666667 469.333333 640 778.666667 469.333333 778.666667z"
+              p-id="4163"
+              fill="#fff"
+            ></path>
+          </svg>
         </button>
-        </div>
-        <Pagination   class="pagination">
-          
-          <SearchResultListItem v-for="(info,index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
-          <!-- <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
+      </div>
+      <Pagination class="pagination" :defaultItemsPerPage="5">
+        <SearchResultListItem
+          v-for="(info, index) in infoItems"
+          :key="index"
+          :infoItem="info"
+        ></SearchResultListItem>
+        <!-- <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
           <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
           <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
           <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
           <SearchResultListItem :infoItem="infoItem"></SearchResultListItem> -->
-        </Pagination>
-      </div>
+      </Pagination>
     </div>
-    
+  </div>
 </template>
   
   <script>
-  import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
-  import Pagination from '../../components/pagination/Pagination.vue'
-  import i18n from '../../language'
-  import { Search } from '../../api/search.js'
-  export default {
-    name: 'SearchResultView',
-    components: {
-        SearchResultListItem,
-        Pagination,
-        i18n
-    },
-    data() {
-      return { 
-        resultlist: null,
-        infoItems: [],
-        infoItem: {
-            title: "低碳经济: 人类经济发展方式的新变革",
-            author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
-            excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
-            timeCited: 57,
-            keyword: "经济"
-        }
-      }
-    },
-    methods: {
-      resultlistToInfoItems(){
-        this.infoItems = this.resultlist.map(item =>{
-          return {
-            title: item.title,
+import SearchResultListItem from "../../components/search-result-list/SearchResultListItem.vue";
+import Pagination from "../../components/pagination/Pagination.vue";
+import i18n from "../../language";
+import { Search } from "../../api/search.js";
+export default {
+  name: "SearchResultView",
+  components: {
+    SearchResultListItem,
+    Pagination,
+    i18n,
+  },
+  data() {
+    return {
+      resultlist: null,
+      infoItems: [],
+      infoItem: {
+        title: "低碳经济: 人类经济发展方式的新变革",
+        author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
+        excerpt: "0",
+        timeCited: 57,
+        keyword: "经济",
+        publicationYear: 2008,
+        journalName: "中国工业经济",
+        abstract:
+          "This work discusses the new changes in human economic development towards a low carbon economy...",
+        url: "https://example.com/link-to-work",
+      },
+      searchdata: null,
 
-          }
-        })
-      }
-    },
+      // search
+      filter: "",
+      search: "",
+      sort: "cited_by_count:desc",
+      perpage: "10",
+      page: "1",
+      cursor: "",
 
-    mounted() {
-      const searchdata = this.$route.query;
-      console.log(searchdata)
-      Search.searchWorks(searchdata).then((res)=>{
-        console.log(res.data.results)
-        this.resultlist = res.data.results
-        this.resultlistToInfoItems()
+      search_start_time: 2020,
+      search_end_time: 2022,
+      show_range: true,
+    };
+  },
+  methods: {
+    resultlistToInfoItems() {
+      this.infoItems = this.resultlist.map((item) => {
+        // console.log(item.authorships[0].author.display_name);
+        // console.log(item.abstract);
+        return {
+          // title: item,s
+          title: item.title,
+          author:
+            item.authorships[0] != null
+              ? item.authorships[0].author.display_name
+              : "unkown",
+          // author: "author",
+          excerpt: "0",
+          timeCited: item.cited_by_count,
+          keyword: "经济",
+          related_times: item.related_works_count,
+          publicationYear: item.publication_year,
+          journalName: item.host_venue
+            ? item.host_venue.display_name
+            : "unknown",
+          abstract: item.abstract,
+          url: item.url,
+          language: item.language,
+        };
+      });
+    },
+    //! 在我重新筛选或者搜索的时候都算是搜索
+    setFilterTime(type) {
+      if (type == 1) {
+        // this.filter = "publication_year:2023-"
+      } else if (type == 2) {
+        // 2023
+        this.filter = "publication_year:2023-";
         
-      },(err)=>{
+      } else if (type == 3) {
+        // 2022
+        this.filter = "publication_year:2022-";
+      } else if (type == 4) {
+        this.filter = "publication_year:2021-";
+      } else if (type == 5) {
+        this.filter =
+          "publication_year:" +
+          this.search_start_time +
+          "-" +
+          this.search_end_time;
+      }
+      this.searchdata.filter = this.filter
+      console.log(JSON.parse(JSON.stringify(this.searchdata)))
+      JSON.parse(JSON.stringify(this.searchdata));
+      Search.searchWorks(JSON.parse(JSON.stringify(this.searchdata))).then(
+        (res) => {
+          console.log(res.data.results);
+          this.resultlist = res.data.results;
+          this.resultlistToInfoItems();
+        },
+        (err) => {}
+      );
+    },
 
-      })
-    }
-  }
-  </script>
+    setLanguage(type){
+      if(type == 1){
+        this.filter = ""
+      }else if(type == 2){
+        this.filter = "language:zh-cn"
+      }else if(type == 3){
+        this.filter = "language:en"
+      }
+
+      this.searchdata.filter = this.filter
+      console.log(JSON.parse(JSON.stringify(this.searchdata)))
+      JSON.parse(JSON.stringify(this.searchdata));
+      Search.searchWorks(JSON.parse(JSON.stringify(this.searchdata))).then(
+        (res) => {
+          console.log(res.data.results);
+          this.resultlist = res.data.results;
+          this.resultlistToInfoItems();
+        },
+        (err) => {}
+      );
+    },
+
+          /***
+       * 
+       *    filter : this.search_filter,
+            search : this.search_search,
+            sort : this.search_sort,
+            per_page : this.search_perpage,
+            page : this.search_page,
+            cursor : ""
+       */
+    searchmethod() {
+      this.searchdata.filter = this.filter
+      this.searchdata.search = this.search
+      this.searchdata.sort = this.sort
+      this.searchdata.perpage = this.perpage 
+      this.searchdata.cursor = this.cursor
+      this.searchdata.page = this.page
+      console.log(JSON.parse(JSON.stringify(this.searchdata)))
+      JSON.parse(JSON.stringify(this.searchdata));
+      Search.searchWorks(JSON.parse(JSON.stringify(this.searchdata))).then(
+        (res) => {
+          console.log(res.data.results);
+          this.resultlist = res.data.results;
+          this.resultlistToInfoItems();
+        },
+        (err) => {}
+      );
+    },
+  },
+
+  mounted() {
+    const searchdata = this.$route.query;
+    this.searchdata = searchdata;
+    this.search = searchdata.search;
+    this.sort = searchdata.sort;
+    this.perpage = searchdata.perpage;
+    this.cursor = searchdata.cursor;
+    /**
+     * 
+     * filter : this.search_filter,
+            search : this.search_search,
+            sort : this.search_sort,
+            per_page : this.search_perpage,
+            page : this.search_page,
+            cursor : ""
+     */
+    console.log(searchdata);
+    Search.searchWorks(searchdata).then(
+      (res) => {
+        console.log(res.data.results);
+        this.resultlist = res.data.results;
+        this.resultlistToInfoItems();
+      },
+      (err) => {}
+    );
+  },
+};
+</script>
   
 <style scoped>
 * {
@@ -92,7 +333,7 @@
   margin-top: 30px;
   margin-left: 30px;
 
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   font-size: 30px;
@@ -145,4 +386,4 @@
     min-height: 300px;
   }
 }
-  </style>
+</style>
