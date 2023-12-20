@@ -32,7 +32,7 @@ export class Search {
         })
     }
 
-    static async searchWorks() {
+    static async searchWorks(data) {
         return service(url.searchWorks, {
             method: "get",
             params: data
@@ -44,6 +44,7 @@ export class Search {
             method: "get"
         })
     }
+
     // static async searchWorks(endpoint,params) {
 
     // }
