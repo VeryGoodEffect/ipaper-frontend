@@ -4,6 +4,7 @@ import SearchResultView from '../views/search-result/SearchResultView.vue'
 import PersonInfoView from '../views/admin/PersonInfoView.vue'
 import SearchView from '../views/search/SearchView.vue'
 import PersonalHomepageView from '../views/personal-homepage/PersonalHomepageView.vue'
+import PaperDetailView from '../views/paper/PaperDetailView.vue'
 import ScholarPortalView from '../views/scholar-portal/ScholarPortalView.vue'
 
 const router = createRouter({
@@ -28,6 +29,10 @@ const router = createRouter({
     {
       path: '/search',
       component: SearchView
+    },
+    {
+      path: '/paper_detail',
+      component: PaperDetailView
     }
 
   ]

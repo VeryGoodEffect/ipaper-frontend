@@ -39,6 +39,11 @@ export class Search {
         })
     }
 
+    static async workRetrieve(id) {
+        return service(url.searchWorks + id + "/", {
+            method: "get"
+        })
+    }
     // static async searchWorks(endpoint,params) {
 
     // }
