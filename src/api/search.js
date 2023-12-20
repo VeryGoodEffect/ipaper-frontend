@@ -31,4 +31,10 @@ export class Search {
             data
         })
     }
+
+    static async workRetrieve(id) {
+        return service(url.searchWorks + id + "/", {
+            method: "get"
+        })
+    }
 }

@@ -89,7 +89,7 @@ export default {
     return {
       show_property_search: false,
       is_advanced_search: true,
-      showHotspotRecommend: true
+      showHotspotRecommend: true,
 
 
       // for filter type
