@@ -9,7 +9,7 @@
           class="basic-input"
           :placeholder="$t('advanced_search_author_example')"
           v-model="author"
-          @keyup.enter="logSearchParams"
+          @keyup.enter="sendMsg"
       />
       <span>{{ $t("advanced_search_publication") }}</span>
       <input
@@ -17,7 +17,7 @@
           class="basic-input"
           :placeholder="$t('advanced_search_publication_example')"
           v-model="publication"
-          @keyup.enter="logSearchParams"
+          @keyup.enter="sendMsg"
       />
       <span>{{ $t("advanced_search_publish_time") }}</span>
       <span style="position: relative">
@@ -27,7 +27,7 @@
           style="width: 30%; min-width: 30%"
           :placeholder="1997"
           v-model="start_time" 
-          @keyup.enter="logSearchParams"
+          @keyup.enter="sendMsg"
           />
           
         <input
@@ -36,7 +36,7 @@
           style="width: 30%; min-width: 30%; left: 70%"
           :placeholder="1998"
           v-model="end_time" 
-          @keyup.enter="logSearchParams"
+          @keyup.enter="sendMsg"
       /></span>
 
       <!--     advanced_search_publish_keyword: '该文章的关键词',
@@ -107,7 +107,9 @@ export default {
     },
     logSearchParams(){
       console.log(this.searchParams)
-      alert(this.searchParams)
+    },
+    sendMsg(){
+      this.$emit('senddata',this.searchParams)
     }
   
   },

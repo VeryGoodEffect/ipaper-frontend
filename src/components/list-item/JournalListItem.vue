@@ -13,7 +13,7 @@
 import i18n from '../../language'
 
 export default {
-  props: ['scholarInfo'],
+  props: ['JounalListItemInfo'],
     components: {
         i18n
     },
