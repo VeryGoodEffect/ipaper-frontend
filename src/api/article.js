@@ -23,7 +23,7 @@ export class Article {
         })
     }
 
-    static async getInterestRecommend(data) {
+    static async modifyInterest(data) {
         return service(url.interest + 'select/', {
             method: "post",
             data

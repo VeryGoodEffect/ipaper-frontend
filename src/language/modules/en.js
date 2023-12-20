@@ -38,6 +38,7 @@ export default {
     favourites_return: 'Back',
 
     personal_follow_list: 'Follow List',
+    personal_interest_tags: 'Tags of Interest',
 
     personal_info_nick_name: 'Nick Name',
     personal_info_real_name: 'Real Name',
@@ -89,4 +90,18 @@ export default {
 
     search_result_cited_times: "Time Cited:",
     search_result_related_work: "Related Work",
+
+    scholar_portal_follow: "Follow",
+    scholar_portal_unfollow: "Unfollow",
+    scholar_portal_total_publications: "Total Publications",
+    scholar_portal_total_citations: "Total Citations",
+    scholar_portal_this_year_citations: "Citations This Year",
+    scholar_portal_articles: "Articles",
+    scholar_portal_focus_areas: "Focus Areas",
+    scholar_portal_net: "Relation Network",
+    paper_detail_abstract: "abstract:",
+    paper_detail_keywords: "keywords:",
+    paper_detail_tag: "tags:",
+    paper_detail_source: "journal:",
+    paper_detail_doi: "DOI:",
 }

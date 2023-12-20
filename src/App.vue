@@ -34,6 +34,8 @@
   </div>
   <PopoutMessage :show="showMessage" :title="messageTitle" :content="messageContent" />
   <!-- <FollowListVue /> -->
+  <!-- <institution-view></institution-view> -->
+  <!-- <TagDetailView></TagDetailView> -->
 </template> 
 
 <script setup>
@@ -44,7 +46,9 @@ import ColorSetter from './components/color/ColorSetter.vue'
 import NavBar from './components/nav-bar/NavBar.vue'
 import {showLoading,hideLoading} from "./components/Loading/index"
 import SandBoxLoading from "./components/Loading/SandboxLoading.vue"
-
+// import PaperDetail from './views/paper/PaperDetailView.vue'
+// import InstitutionView from './views/institution/InstitutionView.vue'
+import TagDetailView from './views/tags/TagDetailView.vue'
 
 let showMessage = ref(false)  // 展示消息
 let messageTitle = ref('')    // 消息标题

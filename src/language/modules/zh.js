@@ -39,6 +39,7 @@ export default {
     favourites_return: '返回',
 
     personal_follow_list: '关注列表',
+    personal_interest_tags: '感兴趣的标签',
 
     personal_info_nick_name: '昵称',
     personal_info_real_name: '真实姓名',
@@ -89,4 +90,20 @@ export default {
 
     search_result_cited_times: "被引用次数：",
     search_result_related_work: "相关文章",
+
+    scholar_portal_follow: "关注",
+    scholar_portal_unfollow: "取消关注",
+    scholar_portal_total_publications: "总发文数",
+    scholar_portal_total_citations: "总引用数",
+    scholar_portal_this_year_citations: "年引用数",
+    scholar_portal_articles: "作者文献",
+    scholar_portal_focus_areas: "关注领域",
+    scholar_portal_net: "关系网络",
+
+    
+    paper_detail_abstract: "摘要：",
+    paper_detail_keywords: "关键词：",
+    paper_detail_tag: "标签：",
+    paper_detail_source: "专辑：",
+    paper_detail_doi: "DOI：",
 }

@@ -89,6 +89,7 @@ export default {
     text-overflow: ellipsis;
     -webkit-line-clamp: 1; 
     line-clamp: 1;
+    cursor: pointer;
 }
 .author {
     /* padding-left: 20px; */

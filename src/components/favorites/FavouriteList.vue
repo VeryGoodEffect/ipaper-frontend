@@ -14,21 +14,38 @@
     <FavouriteListItem 
       v-for="(info, index) in favouritesInfo" :key="index"
       :favourites="favouritesInfo[index]" 
+      @showFavoriteDetail="showFavoriteDetail(index)"
       @IWantToShow="letItShow(index)"
       @deleteFavourites="handleDelete(index)"
     />
   </div>
+
+  <PopoutModal :show="isPopout" @close="isPopout = false">
+    <h3>{{ popoutInfo.name }}</h3>
+    <div class="favourite-list" ref="container-1">
+    <FavouriteListItem 
+      v-for="(info, index) in favouritesInfo" :key="index"
+      :favourites="favouritesInfo[index]" 
+      @showFavoriteDetail="showFavoriteDetail(index)"
+      @IWantToShow="letItShow(index)"
+      @deleteFavourites="handleDelete(index)"
+    />
+  </div>
+  </PopoutModal>
 </template>
 
 <script>
+import PopoutModal from '../popout-modal/PopoutModal.vue'
 import CreateFavourite from './CreateFavourite.vue'
 import FavouriteListItem from './FavouriteListItem.vue'
+import { User } from '../../api/users.js'
 export default {
   name: 'FavouriteList',
   props: ['isCreating', 'favouritesInfo'],
   components: {
     FavouriteListItem,
     CreateFavourite,
+    PopoutModal
   },
   emits: {
     cancelCreation: null,
@@ -36,7 +53,12 @@ export default {
   },
   data() {
     return {
-      
+      isPopout: false,
+      popoutInfo: {
+        name: '',
+        id: '',
+
+      }
     }
   },
   mounted() {
@@ -50,8 +72,16 @@ export default {
   methods: {
     handleDelete(index) {
       console.log("111")
+      // console.log(this.favouritesInfo[index].id + this.favouritesInfo[index].name)
+      User.deleteFavorite(this.favouritesInfo[index].id).then(
+          (response) => {
+            console.log(response)
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
       this.favouritesInfo.splice(index, 1)
-      // 调用接口
     },
     letItShow(index) {
       this.favouritesInfo[index].showContextMenu = true
@@ -77,7 +107,11 @@ export default {
         e.preventDefault()
         this.$refs.container.scrollLeft += e.deltaY * 2
       }
-    }
+    },
+    showFavoriteDetail(index) {
+      this.popoutInfo = this.favouritesInfo[index]
+      this.isPopout = true
+    },
   }
 }
 </script>
