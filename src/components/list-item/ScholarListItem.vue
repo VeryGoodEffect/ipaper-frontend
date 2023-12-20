@@ -6,6 +6,7 @@
         <h3 class="profile">
             {{ scholarInfo.profile }}
         </h3>
+        {{ scholarInfo}}
     </div>
 </template>
 

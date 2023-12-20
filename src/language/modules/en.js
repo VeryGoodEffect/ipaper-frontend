@@ -68,18 +68,19 @@ export default {
     ipaper_scholar_text: 'iPaper Scholar',
 
     //advanced_search
+    search_text: 'Search',
     advanced_search: 'Advanced Search',
-    advanced_search_author: 'Show articles by the following author:' ,
-    advanced_search_author_example: 'example:Xgeon',
+    advanced_search_author: 'Search articles by the following author' ,
+    advanced_search_author_example: 'Example: Xgeon',
     // Show articles in the following publications:
-    advanced_search_publication: 'Show articles in the following publication:',
-    advanced_search_publication_example: 'example:Nature',
+    advanced_search_publication: 'Search articles in the following publication',
+    advanced_search_publication_example: 'Example: Nature',
     // Show articles published during the time:
-    advanced_search_publish_time: 'during',
+    advanced_search_publish_time: 'During',
 
 
-    advanced_search_publish_keyword: 'keyword of article',
-    advanced_search_publish_keyword_isTitle: 'is the word title',
+    advanced_search_publish_keyword: 'Keyword of the article',
+    advanced_search_publish_keyword_isTitle: 'Is the word title or not?',
     advanced_search_publish_keyword_isTitle_yes: 'yes',
     advanced_search_publish_keyword_isTitle_no: 'no',
     ipaper_scholar_text: 'iPaper Scholar',

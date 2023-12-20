@@ -71,17 +71,18 @@ export default {
 
 
     //advanced_search
+    search_text: '搜索',
     advanced_search: '高级检索',
-    advanced_search_author: '筛选以下作者所著的文章：',
-    advanced_search_author_example: '例如:Xgeon',
+    advanced_search_author: '搜索以下作者所著的文章',
+    advanced_search_author_example: '例如：Xgeon',
     // Show articles in the following publications:
-    advanced_search_publication: '筛选下列期刊中的文章',
-    advanced_search_publication_example: '例如:Nature',
+    advanced_search_publication: '搜索下列期刊中的文章',
+    advanced_search_publication_example: '例如：Nature',
     // Show articles published during the time:
     advanced_search_publish_time: '显示在此期间发表的文章',
     
-    advanced_search_publish_keyword: '该文章的关键词',
-    advanced_search_publish_keyword_isTitle: '是否是title',
+    advanced_search_publish_keyword: '关键词',
+    advanced_search_publish_keyword_isTitle: '是否为文章标题',
     advanced_search_publish_keyword_isTitle_yes: '是',
     advanced_search_publish_keyword_isTitle_no: '否',
     recommend_for_you: '为你推荐',
