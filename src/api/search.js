@@ -44,6 +44,23 @@ export class Search {
             method: "get"
         })
     }
+
+    static async institutionRetrieve(id) {
+        return service(url.searchInstitutions + id + "/", {
+            method: "get"
+        })
+    }
+
+    static async conceptRetrieve(id) {
+        return service(url.searchConcepts + id + "/", {
+            method: "get"
+        })
+    }
+    static async getEntities(url) {
+        return service(url, {
+            method: "get"
+        })
+    }
     // static async searchWorks(endpoint,params) {
 
     // }

@@ -99,9 +99,23 @@ export default {
     scholar_portal_articles: "Articles",
     scholar_portal_focus_areas: "Focus Areas",
     scholar_portal_net: "Relation Network",
+
     paper_detail_abstract: "abstract:",
     paper_detail_keywords: "keywords:",
     paper_detail_tag: "tags:",
     paper_detail_source: "journal:",
     paper_detail_doi: "DOI:",
+    public_date: "Date of publication:",
+
+    institution_main_scholar: "Main scholars",
+    institution_main_tag: "Main field",
+    institution_main_papers: "Institutional literature",
+    institution_URL: "Official website link",
+    institution_relevant_institution: "Relevant institutions",
+
+    tag_detail_wiki: "wiki:",
+    tag_detail_paper: "Related Literature:",
+    tag_detail_author: "Related Scholar:",
+    tag_detail_institution: "Related Agencies:",
+    tag_detail_tags: "Related Field:",
 }
