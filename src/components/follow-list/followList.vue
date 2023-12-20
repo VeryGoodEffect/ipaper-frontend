@@ -18,7 +18,10 @@
 </template>
 
 <script>
+import { User } from '../../api/users.js'
+
 export default {
+  props: ['userID'],
   data() {
     return {
       followers: [
@@ -75,12 +78,36 @@ export default {
       ]
     }
   },
+  created() {
+    this.getFollowers()
+  },
   methods: {
+    getFollowers() {
+      // console.log(this.userID)
+      // console.log(222)
+      User.getUserFollowers(this.userID).then(
+        (response) => {
+          console.log(response)
+          for (let i = 0 ; i < this.response.data.results.length; i++) {
+            this.followers.push({
+              id: this.response.data.results[i].id,
+              name: this.response.data.results[i].username,
+              profile: '个人简介',
+              isFollowed: true
+            })
+          }
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    },
     follow(follower) {
       follower.isFollowed = !follower.isFollowed;
     },
     unFollow(follower) {
       follower.isFollowed = !follower.isFollowed;
+      
     }
   }
 }
