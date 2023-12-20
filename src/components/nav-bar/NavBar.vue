@@ -20,7 +20,7 @@
           <ul class="dropdown-list">
             <li @click="loginModalShouldShow = true">{{ $t('login_text') }}</li>
             <li @click="registerModalShouldShow = true">{{ $t('register_text') }}</li>
-          </ul>   
+          </ul>
         </div>
       </template>
       <template v-else>
@@ -106,6 +106,7 @@ export default {
   },
   mounted() {
     console.log(this.$cookies.get('user_id'))
+    this.$bus.on('judgeHasUnreadMsg', this.handleJudgeHasUnreadMsg)
     this.getUserIdAndSayHello()
   },
   methods: {
