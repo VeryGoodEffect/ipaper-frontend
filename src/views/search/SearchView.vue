@@ -89,9 +89,7 @@ export default {
     return {
       show_property_search: false,
       is_advanced_search: true,
-      showHotspotRecommend: true
-
-
+      showHotspotRecommend: true,
       // for filter type
       // abstract.search
       // display_name.search
@@ -101,10 +99,7 @@ export default {
       search_filter: "",
       // for filter content
       search_content: "",
-
       // exp https://api.openalex.org/works?filter=concepts.id:{机器学习ID},from_publication_date:2021-01-01&search=深度学习
-
-
       search_search: "",
       search_sort: "",
       search_perpage: 10,

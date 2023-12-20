@@ -25,10 +25,9 @@ export class Search {
         })
     }
 
-    static async searchWorks(data) {
+    static async searchWorks() {
         return service(url.searchWorks, {
-            method: "get",
-            data
+            method: "get"
         })
     }
 }
