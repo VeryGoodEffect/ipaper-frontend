@@ -137,7 +137,7 @@ export default {
       }, 200)
     },
     jumpToPersonalHomepage() {
-      this.$router.push('personal_homepage')
+      this.$router.push('/personal_homepage')
     },
     handleLogout() {
       Account.logout().then(

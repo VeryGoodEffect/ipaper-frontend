@@ -19,11 +19,21 @@
       <div class="info-tag-list">
         <div class="personal-info">
             <div class="personal-image">
-              <img :src="personalInfo.avatarUrl" alt="Personal Image">
+              <img :src="personalInfo.avatarUrl" alt="Personal Image"
+                @mouseover="avatarIsHovered = true"
+                @mouseleave="handleMouseLeaveAvatar"
+                @click="uploadAvatar">
+              <input
+                type="file"
+                accept="image/*"
+                ref="fileInput"
+                @change="handleFileChange"
+              />
             </div>
             <button @click="changePersonalInfo">修改个人信息</button> 
             <!-- 变成输入框 -->
             <button @click="submitChangePersonalInfo">确认修改</button>
+            <button @click="cancelChangePersonalInfo">取消修改</button>
             <!-- 好像修改个人信息时修改的字段比较少，并且有些我们也没有展示 -->
 
             <div class="personal-info-text" >
@@ -143,6 +153,8 @@
             timeCited: 57,
             keyword: "经济",
         },
+        avatarFile: null,
+        avatarUrl: '',
         personalInfo: {
           id: '',
           avatarUrl: '',
@@ -156,6 +168,7 @@
           major: ''
         },
         savePersonalInfo: {},
+        avatarIsHovered: false,
         isChangeing: false,
         isCreating: false,
         moveVisible: false,
@@ -229,28 +242,34 @@
       },
       changePersonalInfo() {
         this.isChangeing = true
-        this.savePersonalInfo = this.personaInfo
+        this.cur2savePersonalInfo()
       },
+      // 或许修改头像和修改其他文字的个人信息是两个事情可以不同操作的事件？
       submitChangePersonalInfo() {
         let userId = this.$cookies.get('user_id')
-        let data = {
-          username: this.personalInfo.nickName,
-          gender: this.personalInfo.gender,
-          institution: this.personalInfo.institution,
-          websites: this.personalInfo.urls
+        // 由于这里涉及到了传输头像，就是传输文件，所以这里不能再用json传输数据，需要使用FormData
+        let data = new FormData()
+        data.append('username', this.personalInfo.nickName)
+        data.append('gender', this.personalInfo.gender)
+        data.append('institution', this.personalInfo.institution)
+        data.append('websites', this.personalInfo.urls)
+        if (this.avatarChanged) {
+          data.append('avatar', this.avatarFile)
         }
         if (userId) {
           User.changePersonalInfo(userId, data).then(
             response => {
-              this.savePersonalInfo = this.personaInfo
-              alert('修改成功')
+              this.cur2savePersonalInfo()
             },
             error => {
-              this.personaInfo = this.savePersonalInfo
+              this.save2curPersonalInfo()
               alert(error.message)
             }
           )
         }
+      },
+      cancelChangePersonalInfo() {
+        this.save2curPersonalInfo()
       },
       handleMove() {
         this.moveVisible = true
@@ -283,6 +302,33 @@
       returnToMainPage() {
         this.$router.push('/'); 
       },
+      // 下面是用来处理头像悬浮和头像上传更改
+      handleMouseLeaveAvatar() {
+        this.avatarIsHovered = false
+      },
+      uploadAvatar() {
+        this.$refs.fileInput.click()
+      },
+      handleFileChange(e) {
+        this.avatarChanged = true
+        this.avatarFile = e.target.files[0]
+        this.avatarUrl = URL.createObjectURL(this.avatarFile)
+        this.cur2savePersonalInfo()
+        this.personalInfo.avatarUrl = this.avatarUrl
+      },
+      // 为了能够恢复修改的内容以及取消修改
+      cur2savePersonalInfo() {
+        this.savePersonalInfo.avatarUrl = this.personalInfo.avatarUrl
+        this.savePersonalInfo.nickName = this.personalInfo.nickName
+        this.savePersonalInfo.gender = this.personalInfo.gender
+        this.savePersonalInfo.urls = this.personalInfo.urls
+      },
+      save2curPersonalInfo() {
+        this.personalInfo.avatarUrl = this.savePersonalInfo.avatarUrl
+        this.personalInfo.nickName = this.savePersonalInfo.nickName
+        this.personalInfo.gender = this.savePersonalInfo.gender
+        this.personalInfo.urls = this.savePersonalInfo.urls
+      }
     },
   }
   window.addEventListener('scroll', function() {
@@ -372,6 +418,11 @@ em {
   height: 250px;
   width: 250px;
   border-radius: 50%;
+}
+
+.personal-image img:hover {
+  transform: translate(-3px, -3px) scale(1.02);
+  box-shadow: 3px 3px 8px grey;
 }
 .personal-info-text {
   /* min-height: 400px; */
