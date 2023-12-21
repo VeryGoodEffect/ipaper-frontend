@@ -17,7 +17,7 @@ export default {
     retrieve_password_prompt_1: 'Forget your password? ',
     retrieve_password_prompt_2: 'Retrieve via email',
 
-    register_prompt: '：to join us',
+    register_prompt: ': to join us',
     email_usage_prompt: 'Using email to login and retrieve password',
     username_text: 'Username',
     confirm_password_text: 'Re-enter password',
@@ -62,12 +62,12 @@ export default {
     concepts_text: 'Work concepts',
     workEmail_text: 'Work email',
     content_text: 'Anything else',
-    
+    image_text: 'Upload 1 - 3 images for audition',
     ipaper_scholar_text: 'iPaper Scholar',
 
     //advanced_search
     advanced_search: 'Advanced Search',
-    advanced_search_author: 'Show articles by the following author:' ,
+    advanced_search_author: 'Show articles by the following author:',
     advanced_search_author_example: 'example:Xgeon',
     // Show articles in the following publications:
     advanced_search_publication: 'Show articles in the following publication:',
@@ -86,7 +86,7 @@ export default {
     pagination_current_page_1: "Page",
     pagination_current_page_2: "",
     pagination_per_page: 'items / page',
-    pagination_jump:"Jump",
+    pagination_jump: "Jump",
 
     search_result_cited_times: "Time Cited:",
     search_result_related_work: "Related Work",
@@ -104,4 +104,16 @@ export default {
     paper_detail_tag: "tags:",
     paper_detail_source: "journal:",
     paper_detail_doi: "DOI:",
+
+    application_type: 'Application Type',
+    not_reviewed: 'Not reviewed',
+    access: 'Approved',
+    not_access: 'Rejected',
+    audit_return: 'Back',
+    not_confirmed: 'Approved but Not Confirmed',
+    submit_time: 'Submit Time',
+    approve_audition: 'Approve',
+    disapprove_audition: 'Reject',
+    no_images: 'No Images',
+    submit_audition: 'Submit'
 }

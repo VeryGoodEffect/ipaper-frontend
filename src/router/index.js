@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import IntroView from '../views/intro/IntroView.vue'
 import SearchResultView from '../views/search-result/SearchResultView.vue'
-import PersonInfoView from '../views/admin/PersonInfoView.vue'
+import AdminView from '../views/admin/AdminView.vue'
 import SearchView from '../views/search/SearchView.vue'
 import PersonalHomepageView from '../views/personal-homepage/PersonalHomepageView.vue'
 import MessageView from '../views/message/MessageView.vue'
 import PaperDetailView from '../views/paper/PaperDetailView.vue'
 import ScholarPortalView from '../views/scholar-portal/ScholarPortalView.vue'
-
+import AuditDetailView from '../views/admin/AuditDetailView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -38,7 +38,11 @@ const router = createRouter({
     {
       path: '/paper_detail',
       component: PaperDetailView
-    }
+    },
+    {
+      path: '/admin',
+      component: AdminView
+    },
 
   ]
 })

@@ -63,6 +63,7 @@ export default {
     concepts_text: '科研领域',
     workEmail_text: '工作邮箱',
     content_text: '备注',
+    image_text:'请上传图片材料（1-3张）',
 
     ipaper_scholar_text: 'iPaper 学术搜索',
 
@@ -106,4 +107,19 @@ export default {
     paper_detail_tag: "标签：",
     paper_detail_source: "专辑：",
     paper_detail_doi: "DOI：",
+
+
+    application_type: '申请类型',
+    not_reviewed: '未审核',
+    access: '已通过',
+    not_access: '未通过',
+    audit_return: '返回',
+    not_confirmed: '已通过，未确认',
+    submit_time: '申请时间',
+    image_material: '图片材料',
+    approve_audition: '通过',
+    disapprove_audition: '不通过',
+    no_images: '没有图片材料',
+    submit_audition:'提交审核'
+
 }

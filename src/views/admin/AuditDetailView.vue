@@ -1,0 +1,371 @@
+<template>
+    <div ref="wrapper" class="wrapper">
+        <div class="detail-view" ref="detailView">
+            <div class="button-container">
+                <button class="back-button" @click="$emit('back')">{{ $t('audit_return') }}</button>
+            </div>
+            <div class="main-container">
+                <div class="details">
+                    <div class="user-name">
+                        <span>{{ $t('username_text') }}</span>
+                        <span>{{ userName }}</span>
+                    </div>
+                    <div class="real-name">
+                        <span>{{ $t('realName_text') }}</span>
+                        <span>{{ realName }}</span>
+                    </div>
+                    <div class="institution">
+                        <span>{{ $t('institution_text') }}</span>
+                        <span>{{ institution }}</span>
+                    </div>
+                    <div class="position">
+                        <span>{{ $t('position_text') }}</span>
+                        <span>{{ position }}</span>
+                    </div>
+                    <div class="concepts">
+                        <span>{{ $t('concepts_text') }}</span>
+                        <div>
+                            <span v-for="concept in concepts" :key="concept">{{ concept.display_name }}</span>
+                        </div>
+                    </div>
+                    <div class="work-email">
+                        <span>{{ $t('workEmail_text') }}</span>
+                        <span>{{ workEmail }}</span>
+                    </div>
+                    <div class="content">
+                        <span>{{ $t('content_text') }}</span>
+                        <span>{{ content }}</span>
+                    </div>
+                    <div class="image-informations">
+                        <div> {{ $t('image_material') }}</div>
+                        <div class="images-container">
+                            <a v-for="image in images" style="cursor: pointer;height: 0;" :key="image" :href=image
+                                target="_blank">
+                                <div class="image" :style="{ 'background-image': `url('${image}')` }"></div>
+                            </a>
+                            <span v-if="images.length === 0">{{ }}</span>
+                        </div>
+                    </div>
+                    <div class="submit-time">
+                        <span style="vertical-align: middle;">{{ $t('submit_time') }} </span>
+                        <span> {{ submitTime }}</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="audit-button-container">
+                <button :class="{ 'approve-button': approved === true, 'normal-button': approved !== true }"
+                    @click="handleClickApprove">{{
+                        $t('approve_audition') }}</button>
+                <button :class="{ 'reject-button': approved === false, 'normal-button': approved !== false }"
+                    @click="handleClickDisapprove">{{
+                        $t('disapprove_audition') }}</button>
+            </div>
+            <div class="audit-area">
+                <div ref="approveArea">尊嘟？
+                    <div class="submit-button-container">
+                        <button class="submit-button" @click="handleClickSubmit">{{ $t('submit_audition') }}</button>
+                    </div>
+                </div>
+                <div ref="disapproveArea">假嘟？
+                    <div class="submit-button-container">
+                        <button class="submit-button" @click="handleClickSubmit">{{ $t('submit_audition') }}</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div ref="simpleView">
+            <audit-list-item :avatar="avatar" :userName="userName" :realName="realName" :applicationType="applicationType"
+                :status="status" :submitTime="submitTime" @click="$emit('show-detail')"
+                class="simple-view"></audit-list-item>
+        </div>
+    </div>
+</template>
+
+<script>
+import AuditListItem from '../../components/list-item/AuditListItem.vue';
+import i18n from '../../language';
+export default {
+    name: 'AuditDetailView',
+    components: {
+        i18n, AuditListItem
+    },
+    data() {
+        return {
+            avatar: `/api/users/${this.id}/avatar`,
+            approved: this.status === 0 ? undefined :
+                this.status === 2 ? false : true
+        }
+    },
+    methods: {
+        resize() {
+            let wrapper = this.$refs.wrapper
+            let detailView = this.$refs.detailView
+            let simpleView = this.$refs.simpleView
+            let approveArea = this.$refs.approveArea
+            let disapproveArea = this.$refs.disapproveArea
+            console.log(this.approved)
+            switch (this.approved) {
+                case true:
+                    approveArea.style.display = 'block'
+                    disapproveArea.style.display = 'none'
+                    break
+                case false:
+                    approveArea.style.display = 'none'
+                    disapproveArea.style.display = 'block'
+                    break
+                case undefined:
+                    approveArea.style.display = 'none'
+                    disapproveArea.style.display = 'none'
+                    break
+            }
+
+            if (this.isDetail === true) {
+                detailView.style.display = 'block'
+                simpleView.style.display = 'none'
+                wrapper.style.height = detailView.scrollHeight + 'px'
+            }
+            else {
+                detailView.style.display = 'none'
+                simpleView.style.display = 'block'
+                wrapper.style.height = simpleView.scrollHeight + 'px'
+            }
+        },
+        handleClickApprove() {
+            if (this.status !== 0) {//说明已经审核过了
+                return
+            }
+            if (this.approved !== true) {
+                this.approved = true
+            } else {
+                this.approved = undefined
+            }
+        },
+        handleClickDisapprove() {
+            if (this.status !== 0) {
+                return
+            }
+            if (this.approved !== false) {
+                this.approved = false
+            } else {
+                this.approved = undefined
+            }
+        },
+        handleClickSubmit() {
+
+        }
+    },
+    props: {
+        id: {
+            type: Number,
+            required: true
+        },
+        userName: {
+            type: String,
+            default: '未提供用户名'
+        },
+        isDetail: {
+            type: Boolean,
+            required: true,
+        },
+        realName: {
+            type: String,
+            required: true,
+            default: '未提供真实姓名',
+        },
+        institution: {
+            type: String,
+            default: '未提供机构信息',
+        },
+        position: {
+            type: String,
+            default: '未提供职务信息',
+        },
+        concepts: {
+            type: Array,
+            default: '未提供科研领域信息',
+        },
+        workEmail: {
+            type: String,
+            default: '未提供工作邮箱',
+        },
+        content: {
+            type: String,
+            default: '没有备注',
+        },
+        submitTime: {
+            type: String,
+            required: true,
+            default: '提交时间'
+        },
+        status: {
+            type: Number,
+            required: true,
+            default: '审核状态'
+        },
+        applicationType: {
+            type: String,
+            default: '学者门户认证'
+        },
+        images: {
+            type: Array,
+            default: []
+        }
+    },
+    watch: {
+        isDetail() {
+            this.resize()
+        },
+        approved() {
+            this.resize()
+        }
+    },
+    mounted() {
+        this.resize()
+        // let wrapper = this.$refs.wrapper
+        // let detailView = this.$refs.detailView
+        // let simpleView = this.$refs.simpleView
+        // wrapper.style.height = simpleView.clientHeight + 'px'
+        // detailView.style.display = 'none'
+        window.addEventListener('resize', this.resize)
+
+    }
+}
+</script>
+
+<style scoped>
+.wrapper {
+    margin: 5%;
+    border: 2px var(--theme-color) solid;
+    background: var(--theme-mode-like);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all ease-out 0.25s;
+}
+
+.detail-view {
+    flex-direction: column;
+    background: var(--theme-mode-like);
+    position: relative;
+    padding: 3%;
+    padding-bottom: 1%;
+    transition: all linear 0.2s;
+}
+
+.back-button {
+    color: var(--theme-color);
+    background: var(--theme-color-10);
+}
+
+.back-button:hover {
+    background: var(--theme-color);
+    color: var(--theme-mode);
+}
+
+.normal-button {
+    background: var(--theme-color-10);
+    color: var(--theme-color);
+}
+
+.normal-button:hover {
+    background: var(--theme-color);
+    color: var(--theme-mode);
+}
+
+.approve-button {
+    background: #58d24a;
+    color: var(--theme-mode);
+}
+
+.reject-button {
+    background: #ce312d;
+    color: var(--theme-mode);
+}
+
+.submit-button-container {
+    text-align: center;
+}
+
+.submit-button {}
+
+.approve-button:hover,
+.reject-button:hover {
+    opacity: 0.5;
+}
+
+
+.user-name,
+.real-name,
+.institution,
+.position,
+.work-email {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.concepts {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.concepts>div>span {
+    background: var(--theme-color);
+    color: var(--theme-mode);
+    border-radius: 5px;
+    padding: 3px 5px;
+}
+
+
+.image {
+    border-radius: 10%;
+    border: 2px var(--theme-color) solid;
+    margin-right: 5%;
+    display: inline-block;
+    height: 100%;
+    aspect-ratio: 1;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.images-container {
+    margin-top: 20px;
+    height: 75px;
+}
+
+.details>div {
+    margin: 3% 1%;
+
+}
+
+.details>div>:nth-child(1) {
+    font-weight: 700;
+    color: var(--theme-color);
+}
+
+.details>.submit-time {
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.audit-button-container {
+    margin: 3% 0 2% 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+@keyframes entry {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+</style>
