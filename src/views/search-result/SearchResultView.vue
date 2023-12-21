@@ -303,7 +303,14 @@ export default {
         this.infoItems = this.resultlist.map((item) => {
           return {
             title: item.display_name,
-            profile: item.homepage_url,
+            // profile: item.homepage_url,
+            display_name: item.display_name,
+            display_name_zh: item.display_name_zh,
+            country_code: item.country_code,
+            works_count: item.works_count,
+            cited_by_count: item.cited_by_count,
+            ror: item.ror,
+            homepage_url: item.homepage_url
           };
         });
       }
@@ -459,7 +466,7 @@ export default {
        */
     },
 
-    /***
+       /***
        * 
        *    filter : this.search_filter,
             search : this.search_search,
@@ -553,7 +560,7 @@ export default {
       delete this.searchdata["search_type"];
     }
     // console.log(this.$route)
-    alert(this.search_type);
+    // alert(this.search_type);
     /**
      * 
      * filter : this.search_filter,
