@@ -29,6 +29,12 @@ export default {
     retrieve_password_text: 'Retrieve password',
     retrieve_password_message: 'Click confirm and check the reset link in your email',
 
+    change_password_text: 'Change Password',
+    change_password_prompt: '',
+    old_password: 'Old Password',
+    new_password: 'New Password',
+    confirm_password: 'Confirm Password',
+
     cancel_follow: 'Cancel',
     follow: 'Follow',
     favourites: 'Favourites',
