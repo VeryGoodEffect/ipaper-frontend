@@ -45,6 +45,7 @@
       </button>
     </div>
   </div>
+  <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar>
 </template>
 <script>
 import { AutoComplete } from "../../api/autocomplete.js";

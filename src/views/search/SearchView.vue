@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar>
+    <!-- <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar> -->
     <main class="container">
       <section class="search-panel">
         <h2>
