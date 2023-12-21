@@ -191,6 +191,7 @@ export default {
 .time-input {
   height: 40px;
   width: 30%;
+  min-width: 60px;
 }
 
 .wave {
@@ -246,7 +247,7 @@ input[type="checkbox"].check-input {
 
 @media screen and (max-width: 768px) {
   .container > h3 {
-    font-size: 35px;
+    font-size: 25px;
     font-weight: bold;
     margin-bottom: 30px;
   }
@@ -257,24 +258,14 @@ input[type="checkbox"].check-input {
 
   .container > input {
     height: 40px;
-    font-size: 20px;
-    padding-left: 10px;
-  }
-
-  .container > input:nth-of-type(2),
-  .container > input:nth-of-type(3),
-  .container > input:nth-of-type(4) {
-    margin-bottom: 20px;
-  }
-
-  .container > span {
-    margin-bottom: 15px;
+    font-size: 18px !important;
+    padding-left: 10px !important;
   }
 
   .container > input,
   .container > span,
   .btn-box {
-    min-width: 80%;
+    min-width: 70%;
   }
 
   .btn-box button {
@@ -287,5 +278,14 @@ input[type="checkbox"].check-input {
   .container > span > a {
     font-size: 14px;
   }
+
+  .wave {
+    font-size: 18px ;
+  }
+
+  .time-input-wrapper input {
+    font-size: 14px;
+  }
+  
 }
 </style>

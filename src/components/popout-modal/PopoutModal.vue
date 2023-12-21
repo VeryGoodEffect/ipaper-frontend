@@ -73,7 +73,7 @@ export default {
 
 @media screen and (max-width: 768px) {
   .modal {
-    min-width: 60vw;
+    min-width: 70vw;
     min-height: 180px;
     padding: 15px 10px;
   }
