@@ -3,13 +3,15 @@ const url = {
     searchAuthors: "/search/authors/",
     searchConcepts: "/search/concepts/",
     searchInstitutions: "/search/institutions/",
-    searchWorks: "/search/works/"
+    searchWorks: "/search/works/",
+    searchSources: "/search/sources",
 }
 
 export class Search {
-    static async searchAuthor() {
+    static async searchAuthor(data) {
         return service(url.searchAuthors, {
-            method: "get"
+            method: "get",
+            params: data
         })
     }
 
@@ -26,14 +28,22 @@ export class Search {
         })
     }
 
-    static async searchInstitutions() {
+    static async searchInstitutions(data) {
         return service(url.searchInstitutions, {
             method: "get",
+            params: data
         })
     }
 
-    static async searchWorks() {
+    static async searchWorks(data) {
         return service(url.searchWorks, {
+            method: "get",
+            params: data
+        })
+    }
+
+    static async searchSources(data) {
+        return service(url.searchSources, {
             method: "get",
             params: data
         })
@@ -44,44 +54,21 @@ export class Search {
             method: "get"
         })
     }
-    // static async searchWorks(endpoint,params) {
 
-    // }
+    static async institutionRetrieve(id) {
+        return service(url.searchInstitutions + id + "/", {
+            method: "get"
+        })
+    }
 
-
-    /**
-     * // api.js
-
-import axios from 'axios';
-
-const baseURL = 'https://example.com/api';
-
-const api = axios.create({
-  baseURL,
-});
-
-export const fetchData = (endpoint, params) => {
-  return api.get(endpoint, {
-    params,
-  });
-};
-     * 
-     * 
-     * 
-     * import { fetchData } from './api';
-
-const endpoint = '/data';
-const params = {
-  param1: 'value1',
-  param2: 'value2',
-};
-
-fetchData(endpoint, params)
-  .then(response => {
-    console.log(response.data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
-     */
+    static async conceptRetrieve(id) {
+        return service(url.searchConcepts + id + "/", {
+            method: "get"
+        })
+    }
+    static async getEntities(url) {
+        return service(url, {
+            method: "get"
+        })
+    }
 }

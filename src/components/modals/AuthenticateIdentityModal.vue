@@ -92,105 +92,99 @@
   }
   </script>
   
-  <style scoped>
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-  }
-  
-  .container>* {
-    min-width: 60%;
-  }
-  
+<style scoped>
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.container>* {
+  min-width: 60%;
+}
+
+.container>h3 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.container>h3,
+.container>h3 * {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.container>input {
+  width: 70%;
+  height: 50px;
+  font-size: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.container>input::placeholder {
+  color: var(--theme-mode-high-contrast);
+}
+
+.container>input {
+  margin-bottom: 20px;
+}
+
+.container>span {
+  width: 70%;
+  font-size: 16px;
+  margin-bottom: 25px;
+}
+
+.btn-box {
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-box button {
+  width: 120px;
+  height: 50px;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
   .container>h3 {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 50px;
-  }
-  
-  .container>h3,
-  .container>h3 * {
-    font-size: 40px;
+    font-size: 35px;
     font-weight: bold;
+    margin-bottom: 30px
   }
-  
+
+  .container>h3 span {
+    display: none;
+  }
+
   .container>input {
-    width: 70%;
-    height: 60px;
-    font-size: 24px;
-    padding-left: 20px;
-    padding-right: 20px;
+    height: 40px;
+    font-size: 18px;
+    padding-left: 10px;
+    padding-right: 5px;
   }
-  
-  .container>input::placeholder {
-    color: var(--theme-mode-high-contrast);
-  }
-  
-  .container>input:first-of-type {
-    margin-bottom: 40px;
-  }
-  .container>input:last-of-type {
-    margin-bottom: 5px;
-  }
-  
-  .container>span {
-    width: 70%;
-    font-size: 16px;
-    margin-bottom: 25px;
-  }
-  
+
+  .container>input,
+  .container>span,
   .btn-box {
-    width: 70%;
-    display: flex;
-    justify-content: space-around;
+    min-width: 80%;
   }
-  
+
   .btn-box button {
-    width: 120px;
-    height: 50px;
-    font-size: 24px;
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
   }
-  
-  @media screen and (max-width: 768px) {
-    .container>h3 {
-      font-size: 35px;
-      font-weight: bold;
-      margin-bottom: 30px
-    }
-  
-    .container>h3 span {
-      display: none;
-    }
-  
-    .container>input {
-      height: 40px;
-      font-size: 20px;
-      padding-left: 10px;
-    }
-  
-    .container>input:first-of-type {
-      margin-bottom: 20px;
-    }
-  
-    .container>input,
-    .container>span,
-    .btn-box {
-      min-width: 80%;
-    }
-  
-    .btn-box button {
-      width: 100px;
-      height: 40px;
-      font-size: 20px;
-    }
-  
-    .container>span,
-    .container>span>a {
-      font-size: 14px;
-    }
+
+  .container>span,
+  .container>span>a {
+    font-size: 14px;
   }
-  
-  </style>
+}
+
+</style>

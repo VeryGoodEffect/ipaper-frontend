@@ -29,6 +29,12 @@ export default {
     retrieve_password_text: '找回密码',
     retrieve_password_message: '点击确认，随后去邮箱查收重置链接',
 
+    change_password_text: '重设密码',
+    change_password_prompt: '：守护你的帐号安全',
+    old_password: '旧密码',
+    new_password: '新密码',
+    confirm_password: '确认密码',
+
     cancel_follow: '取消关注',
     follow: '关注',
 
@@ -52,37 +58,50 @@ export default {
 
     rename: '重命名',
     delete: '删除',
+    move_favorite: '移动',
+    choose_favorite: '选择收藏夹',
+
 
     authenticate_text: '认证身份',
     authenticate_prompt: '：建立你的专家信息门户',
-    auditor_text: '选择认证的管理员（不输入表示默认）',
+    auditor_text: '选择认证的管理员（可选）',
     openalexId_text: '输入openalex的Id',
     realName_text: '真实姓名',
     institution_text: '工作机构',
     position_text: '职务',
     concepts_text: '科研领域',
     workEmail_text: '工作邮箱',
-    content_text: '备注',
+    content_text: '备注（可选）',
     image_text:'请上传图片材料（1-3张）',
 
     ipaper_scholar_text: 'iPaper 学术搜索',
 
+    kerword_search: '关键词',
+    abstract_search: '摘要',
+    full_text_search: '全文',
+    title_search: '标题',
+    author_search: '作者',
+    journal_search: '期刊',
+    institution_search: '机构',
+    advanced_search_text: '高级',
 
     //advanced_search
+    search_text: '搜索',
     advanced_search: '高级检索',
-    advanced_search_author: '筛选以下作者所著的文章：',
-    advanced_search_author_example: '例如:Xgeon',
+    advanced_search_author: '搜索以下作者所著的文章',
+    advanced_search_author_example: '例如：Xgeon',
     // Show articles in the following publications:
-    advanced_search_publication: '筛选下列期刊中的文章',
-    advanced_search_publication_example: '例如:Nature',
+    advanced_search_publication: '搜索下列期刊中的文章',
+    advanced_search_publication_example: '例如：Nature',
     // Show articles published during the time:
     advanced_search_publish_time: '显示在此期间发表的文章',
     
-    advanced_search_publish_keyword: '该文章的关键词',
-    advanced_search_publish_keyword_isTitle: '是否是title',
+    advanced_search_publish_keyword: '关键词',
+    advanced_search_publish_keyword_isTitle: '是否为文章标题',
     advanced_search_publish_keyword_isTitle_yes: '是',
     advanced_search_publish_keyword_isTitle_no: '否',
     recommend_for_you: '为你推荐',
+    hotspots: '学术热点',
 
     pagination_current_page_1: '第',
     pagination_current_page_2: '页',
@@ -101,7 +120,6 @@ export default {
     scholar_portal_focus_areas: "关注领域",
     scholar_portal_net: "关系网络",
 
-    
     paper_detail_abstract: "摘要：",
     paper_detail_keywords: "关键词：",
     paper_detail_tag: "标签：",
@@ -120,6 +138,36 @@ export default {
     approve_audition: '通过',
     disapprove_audition: '不通过',
     no_images: '没有图片材料',
-    submit_audition:'提交审核'
+    submit_audition:'提交审核',
 
+    public_date: "发表日期：",
+
+    institution_main_scholar: "机构主要作者",
+    institution_main_tag: "重点领域",
+    institution_main_papers: "机构文献",
+    institution_URL: "官网链接",
+    institution_relevant_institution: "相关机构",
+
+    tag_detail_wiki: "维基百科：",
+    tag_detail_paper: "相关文献：",
+    tag_detail_author: "相关作者：",
+    tag_detail_institution: "相关机构：",
+    tag_detail_tags: "相关领域：",
+
+    institution_region: "国家/地区：",
+    institution_works_count: "学术成果数：",
+    institution_cited_by_count: "总被引用数：",
+
+    journal_type: "类型：",
+
+    message_all: '全部消息',
+    message_unread: '未读消息',
+    unread_cnt_1: '有',
+    unread_cnt_2: '封未读消息',
+    unread_cnt_3: '封未读消息',
+    set_read_all: '设为全部已读',
+    delete_read: '删除全部已读',
+    read_it: '设为已读',
+    already_read: '已读',
+    delete_it: '删除',
 }

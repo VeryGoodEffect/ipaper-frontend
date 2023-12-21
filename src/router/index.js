@@ -7,7 +7,10 @@ import PersonalHomepageView from '../views/personal-homepage/PersonalHomepageVie
 import MessageView from '../views/message/MessageView.vue'
 import PaperDetailView from '../views/paper/PaperDetailView.vue'
 import ScholarPortalView from '../views/scholar-portal/ScholarPortalView.vue'
-import AuditDetailView from '../views/admin/AuditDetailView.vue'
+import AuditDetailView from '../views/admin/AuditDetailView.vue'import InstitutionView from '../views/institution/InstitutionView.vue'
+import TagDetailView from '../views/tags/TagDetailView.vue'
+import PasswordReset from '../views/password-reset/PasswordReset.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,10 +27,6 @@ const router = createRouter({
       component: PersonalHomepageView
     },
     {
-      path: '/scholar_portal',
-      component: ScholarPortalView
-    },
-    {
       path: '/search',
       component: SearchView
     },
@@ -36,14 +35,29 @@ const router = createRouter({
       component: MessageView
     },
     {
-      path: '/paper_detail',
+      path: '/paper_detail/:id',
       component: PaperDetailView
+    },
+    {
+      path: '/scholar_portal/:id',
+      component: ScholarPortalView
+    },
+    {
+      path: '/institution_detail/:id',
+      component: InstitutionView
+    },
+    {
+      path: '/tag_detail',
+      component: TagDetailView
+    },
+    {
+      path: '/password_reset',
+      component: PasswordReset
     },
     {
       path: '/admin',
       component: AdminView
     },
-
   ]
 })
 

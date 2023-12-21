@@ -2,7 +2,7 @@
   <!-- <LoadingBar style="position: fixed;width: 1000px;z-index: -1;" :progress="progress"></LoadingBar> -->
   <main>
     <div>
-      <h2>{{ $t('frontpage_intro') }}</h2>
+      <h2>{{ $t("frontpage_intro") }}</h2>
       <!-- <h2 v-ellipsis="{ maxLine: 1, maxWidth: '2000px', transitionTime: '1s',wrappable:true }">
         最大宽度2000px 最大行数1 过渡时间1秒
         Lorem ipsum dolor sit amet consectetur illum omnis sunt in, quam eaque tempore ex consequuntur tempora. Totam quis
@@ -59,41 +59,78 @@
         doloribus vel similique officiis modi illum ad sed minima alias animi consequuntur dolores, possimus labore
       </h3> -->
       <div class="huge-input-wrapper">
-        <input 
-          class="basic-input huge-input" type="text" :placeholder="$t('huge_input_placeholder')"
-          v-model="searchKeyword" @keyup.enter="basicSearch"
+        <input
+          class="basic-input huge-input"
+          type="text"
+          :placeholder="$t('huge_input_placeholder')"
+          v-model="searchKeyword"
+          @keyup.enter="basicSearch"
         />
-        <svg @click="basicSearch"
-          t="1699356103686" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4162" width="200" height="200"><path d="M945.066667 898.133333l-189.866667-189.866666c55.466667-64 87.466667-149.333333 87.466667-241.066667 0-204.8-168.533333-373.333333-373.333334-373.333333S96 264.533333 96 469.333333 264.533333 842.666667 469.333333 842.666667c91.733333 0 174.933333-34.133333 241.066667-87.466667l189.866667 189.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c8.533333-12.8 8.533333-34.133333-2.133333-46.933334zM469.333333 778.666667C298.666667 778.666667 160 640 160 469.333333S298.666667 160 469.333333 160 778.666667 298.666667 778.666667 469.333333 640 778.666667 469.333333 778.666667z"  p-id="4163"></path></svg>
+        <svg
+          @click="basicSearch"
+          t="1699356103686"
+          class="icon search-icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="4162"
+          width="200"
+          height="200"
+        >
+          <path
+            d="M945.066667 898.133333l-189.866667-189.866666c55.466667-64 87.466667-149.333333 87.466667-241.066667 0-204.8-168.533333-373.333333-373.333334-373.333333S96 264.533333 96 469.333333 264.533333 842.666667 469.333333 842.666667c91.733333 0 174.933333-34.133333 241.066667-87.466667l189.866667 189.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c8.533333-12.8 8.533333-34.133333-2.133333-46.933334zM469.333333 778.666667C298.666667 778.666667 160 640 160 469.333333S298.666667 160 469.333333 160 778.666667 298.666667 778.666667 469.333333 640 778.666667 469.333333 778.666667z"
+            p-id="4163"
+          ></path>
+        </svg>
       </div>
     </div>
   </main>
 </template>
 
 <script>
-import LoadingBar from '../../components/loading-bar/LoadingBar.vue'
-import i18n from '../../language'
+import LoadingBar from "../../components/loading-bar/LoadingBar.vue";
+import i18n from "../../language";
 
 export default {
-  name: 'IntroView',
+  name: "IntroView",
   components: {
     LoadingBar,
-    i18n
+    i18n,
   },
   data() {
     return {
-      searchKeyword: '', // 搜索关键字
-    }
+      searchKeyword: "", // 搜索关键字
+    };
   },
   methods: {
     basicSearch() {
-      if (this.searchKeyword != '') {
-        alert('搜索关键字：' + this.searchKeyword)
-        this.searchKeyword = ''
+      if (this.searchKeyword != "") {
+        // alert('搜索关键字：' + this.searchKeyword)
+        // this.searchKeyword = ''
+        const searchdata = {
+          filter: "",
+          search: this.searchKeyword,
+          sort: "",
+          perpage: "10",
+          page: "1",
+          cursor: "",
+          search_type: 1,
+        };
+
+        let userId = this.$cookies.get("user_id");
+        if (userId == null) {
+          alert("未登录");
+        } else {
+          // console.log(userId)
+          this.$router.push({
+            path: "/search_result",
+            query: searchdata,
+          });
+        }
       }
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -105,7 +142,7 @@ main {
   align-items: center;
 }
 
-main>div {
+main > div {
   display: flex;
   max-width: 900px;
   flex-wrap: wrap;
@@ -119,7 +156,7 @@ main h2 {
   padding-bottom: 50px;
 
   transition-property: font-size;
-  transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .icon {
@@ -160,5 +197,4 @@ main h2 {
     font-size: 40px;
   }
 }
-
 </style>

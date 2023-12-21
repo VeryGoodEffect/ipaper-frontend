@@ -1,10 +1,10 @@
 <template>
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
-        <h3 class="title" v-html="highlightedText(infoItem.keyword, infoItem.title)"></h3>
+        <h3 class="title" @click="jumpArticle(infoItem.url)" v-html="highlightedText(infoItem.keyword, infoItem.title)"></h3>
         <div class="author">
             {{ infoItem.author }}
         </div>
-        <p v-html="highlightedText(infoItem.keyword, infoItem.excerpt)" class="excerpt"
+        <p v-html="highlightedText(infoItem.keyword, infoItem.abstract)" class="excerpt"
         v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: true}">
         </p>
         <div class="info">
@@ -60,6 +60,13 @@ export default {
             }
             const regex = new RegExp(matcher, 'gi');
             return str.replace(regex, match => `<em style="color: var(--theme-color); font-size: inherit;">${match}</em>`);
+        },
+        jumpArticle(url){
+          console.log("??")
+          this.$router.push({
+            path: "/paper_detail/"+this.infoItem.id,
+            url: this.url
+          })
         }
     },
     computed: {

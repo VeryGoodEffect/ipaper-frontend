@@ -4,33 +4,38 @@ const url = {
 }
 
 export class AutoComplete {
-    static async getAutoAllInfo() {
+    static async getAutoAllInfo(data) {
         return service(url.autoComplete, {
-            method: "get"
+            method: "get",
+            params: data
         })
     }
 
-    static async getAutoAuthor() {
+    static async getAutoAuthor(data) {
         return service(url.autoComplete + 'authors/', {
-            method: "get"
+            method: "get",
+            params: data
         })
     }
 
-    static async getAutoConcepts() {
+    static async getAutoConcepts(data) {
         return service(url.autoComplete + 'concepts/', {
-            method: "get"
+            method: "get",
+            params: data
         })
     }
 
-    static async getAutoInstitutions() {
+    static async getAutoInstitutions(data) {
         return service(url.autoComplete + 'institutions/', {
-            method: "get"
+            method: "get",
+            params: data
         })
     }
 
-    static async getAutoWorks() {
+    static async getAutoWorks(data) {
         return service(url.autoComplete + 'works/', {
-            method: "get"
+            method: "get",
+            params: data
         })
     }
 }
