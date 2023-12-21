@@ -7,7 +7,8 @@ import PersonalHomepageView from '../views/personal-homepage/PersonalHomepageVie
 import MessageView from '../views/message/MessageView.vue'
 import PaperDetailView from '../views/paper/PaperDetailView.vue'
 import ScholarPortalView from '../views/scholar-portal/ScholarPortalView.vue'
-import AuditDetailView from '../views/admin/AuditDetailView.vue'import InstitutionView from '../views/institution/InstitutionView.vue'
+import AuditDetailView from '../views/admin/AuditDetailView.vue'
+import InstitutionView from '../views/institution/InstitutionView.vue'
 import TagDetailView from '../views/tags/TagDetailView.vue'
 import PasswordReset from '../views/password-reset/PasswordReset.vue'
 
