@@ -286,7 +286,7 @@ export default {
         this.infoItems = this.resultlist.map((item) => {
           return {
             display_name: item.display_name,
-            country_code: item.works_api_url,
+            country_code: item.last_known_institution.country_code,
             works_count: item.works_count,
             cited_by_count: item.cited_by_count,
             id: item.id 
