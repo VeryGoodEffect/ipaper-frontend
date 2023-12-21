@@ -26,10 +26,6 @@ const router = createRouter({
       component: PersonalHomepageView
     },
     {
-      path: '/scholar_portal',
-      component: ScholarPortalView
-    },
-    {
       path: '/search',
       component: SearchView
     },
@@ -42,7 +38,11 @@ const router = createRouter({
       component: PaperDetailView
     },
     {
-      path: '/institution_detail',
+      path: '/scholar_portal/:id',
+      component: ScholarPortalView
+    },
+    {
+      path: '/institution_detail/:id',
       component: InstitutionView
     },
     {

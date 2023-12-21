@@ -74,7 +74,8 @@
                   </li>
                 </ul>
               </p>
-            </div>            
+            </div>  
+            <button class="basic-btn authenticate-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>          
         </div>
         <div class="tag-and-list">
           <div class="list">
@@ -93,9 +94,9 @@
                   {{ $t('personal_follow_list') }}
                 </h4>
               </div>
-              <div class="favourites-creation" @click="isCreating = true" v-if="isFavourite">
+              <button class="favourites-creation" @click="isCreating = true" v-if="isFavourite">
                 {{ $t('create_favourites') }}
-              </div>  
+              </button>  
             </div>
             <div class="favorites-list" v-if="isFavourite">
               <FavouriteList 
@@ -120,8 +121,11 @@
         </div>
       </div>  
     </div>
-
     
+<AuthenticateIdentityModal
+  :show="authenticateModalShouldShow"
+  @close="authenticateModalShouldShow = false"
+/>
 </template>
   
   <script>
@@ -130,15 +134,18 @@
   import FavouriteList from '../../components/favorites/FavouriteList.vue'
   import { User } from '../../api/users.js'
   import FollowList from '../../components/follow-list/FollowList.vue'
+  import AuthenticateIdentityModal from '../../components/modals/AuthenticateIdentityModal.vue'
   export default {
     components: {
       FavouriteListItem,
       FavouriteList,
       FollowList,
+      AuthenticateIdentityModal,
       i18n
     },
     data() {
       return { 
+        authenticateModalShouldShow: false,
         infoItem: {
             title: "低碳经济: 人类经济发展方式的新变革",
             author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
@@ -623,6 +630,12 @@ transition: opacity 0.5s linear 0s;
   margin-bottom: 30px;
 }
 
+
+.authenticate-btn {
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: auto;
+}
 
 
 @media screen and (max-width: 1450px) {

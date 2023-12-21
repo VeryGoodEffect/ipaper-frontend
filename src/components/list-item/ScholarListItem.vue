@@ -1,11 +1,17 @@
 <template>
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
-        <h3 class="title">
-            {{ scholarInfo.title }}
+      <h3 @click="jumpDetailView" class="title">
+          {{ scholarInfo.display_name }}
+      </h3>
+      <h3 class="profile">
+            {{ $t('institution_region') }}{{ scholarInfo.country_code }}
         </h3>
-        <h3 class="profile">
-            {{ scholarInfo.profile }}
-        </h3>
+      <h3 class="profile">
+        {{ $t('institution_works_count') }}{{ scholarInfo.works_count }}
+      </h3>
+      <h3 class="profile">
+        {{ $t('institution_cited_by_count') }}{{ scholarInfo.cited_by_count }}
+      </h3>
     </div>
 </template>
 
@@ -26,8 +32,10 @@ export default {
        console.log(this.infoItem)
     },
     methods: {
-      jumpScholarDetail(){
-        
+      jumpDetailView(){
+        this.$router.push({
+          path: "/scholar_portal/" + this.scholarInfo.id
+        })
       }
     },
     computed: {

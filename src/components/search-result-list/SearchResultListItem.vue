@@ -4,7 +4,7 @@
         <div class="author">
             {{ infoItem.author }}
         </div>
-        <p v-html="highlightedText(infoItem.keyword, infoItem.excerpt)" class="excerpt"
+        <p v-html="highlightedText(infoItem.keyword, infoItem.abstract)" class="excerpt"
         v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: true}">
         </p>
         <div class="info">

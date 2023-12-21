@@ -3,7 +3,8 @@ const url = {
     searchAuthors: "/search/authors/",
     searchConcepts: "/search/concepts/",
     searchInstitutions: "/search/institutions/",
-    searchWorks: "/search/works/"
+    searchWorks: "/search/works/",
+    searchSources: "/search/sources",
 }
 
 export class Search {
@@ -36,6 +37,13 @@ export class Search {
 
     static async searchWorks(data) {
         return service(url.searchWorks, {
+            method: "get",
+            params: data
+        })
+    }
+
+    static async searchSources(data) {
+        return service(url.searchSources, {
             method: "get",
             params: data
         })

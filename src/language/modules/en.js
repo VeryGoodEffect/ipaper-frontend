@@ -51,33 +51,36 @@ export default {
 
     rename: 'rename',
     delete: 'delete',
+    move_favorite: 'Move',
+    choose_favorite: 'Choose a favourite',
 
     authenticate_text: 'Authenticate',
     authenticate_prompt: ': to perfect your identity',
     auditor_text: 'Select an auditor',
     openalexId_text: 'Openalex id',
-    realName_text: 'Real name',
-    institution_text: 'Work institution',
-    position_text: 'Duty',
-    concepts_text: 'Work concepts',
-    workEmail_text: 'Work email',
+    realName_text: 'Real name(Required)',
+    institution_text: 'Work institution(Required)',
+    position_text: 'Duty(Required)',
+    concepts_text: 'Work concepts(Required)',
+    workEmail_text: 'Work email(Required)',
     content_text: 'Anything else',
     
     ipaper_scholar_text: 'iPaper Scholar',
 
     //advanced_search
+    search_text: 'Search',
     advanced_search: 'Advanced Search',
-    advanced_search_author: 'Show articles by the following author:' ,
-    advanced_search_author_example: 'example:Xgeon',
+    advanced_search_author: 'Search articles by the following author' ,
+    advanced_search_author_example: 'Example: Xgeon',
     // Show articles in the following publications:
-    advanced_search_publication: 'Show articles in the following publication:',
-    advanced_search_publication_example: 'example:Nature',
+    advanced_search_publication: 'Search articles in the following publication',
+    advanced_search_publication_example: 'Example: Nature',
     // Show articles published during the time:
-    advanced_search_publish_time: 'during',
+    advanced_search_publish_time: 'During',
 
 
-    advanced_search_publish_keyword: 'keyword of article',
-    advanced_search_publish_keyword_isTitle: 'is the word title',
+    advanced_search_publish_keyword: 'Keyword of the article',
+    advanced_search_publish_keyword_isTitle: 'Is the word title or not?',
     advanced_search_publish_keyword_isTitle_yes: 'yes',
     advanced_search_publish_keyword_isTitle_no: 'no',
     ipaper_scholar_text: 'iPaper Scholar',
@@ -118,4 +121,10 @@ export default {
     tag_detail_author: "Related Scholar:",
     tag_detail_institution: "Related Agencies:",
     tag_detail_tags: "Related Field:",
+
+    institution_region: "Country/Region:",
+    institution_works_count: "Total Publications:",
+    institution_cited_by_count: "Total Citations:",
+
+    journal_type: "Type:",
 }
