@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="height: calc(100vh - 60px)" class="my-graph">
+    <div style="height: 100vh" class="my-graph">
       <RelationGraph
         ref="graphRef"
         :options="graphOptions"
@@ -27,15 +27,14 @@ export default {
         allowSwitchLineShape: true,
         allowSwitchJunctionPoint: true,
         defaultLineShape: 1,
-        layouts: [
-          {
-            label: "自动布局",
-            layoutName: "force",
-            layoutClassName: "seeks-layout-force",
-          },
-        ],
         defaultJunctionPoint: "border",
-
+        layout: {
+          layoutName: 'force',
+          from: 'left',
+          maxLayoutTimes: 500,
+          force_node_repulsion: 1, // 全局设置，节点之间的斥力系数，默认为1，建议合理的取值范围:0.1 -- 10
+          force_line_elastic: 1 // 全局设置，线条的牵引系数，默认为1, 建议合理的取值范围:0.1 -- 10
+        }
         // 这里可以参考"Graph 图谱"中的参数进行设置
       },
     };
@@ -138,7 +137,7 @@ export default {
           // { from: "b3", to: "b3-7" },
         ],
       };
-      for(let i = 0; i < this.relationList.length; i++) {
+      for(let i = 0; i < this.relationList.length && i<=20; i++) {
         if(i === 0) {
           __graph_json_data.rootId = this.relationList[i].id
         }

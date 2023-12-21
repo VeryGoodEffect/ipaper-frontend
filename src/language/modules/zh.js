@@ -29,6 +29,12 @@ export default {
     retrieve_password_text: '找回密码',
     retrieve_password_message: '点击确认，随后去邮箱查收重置链接',
 
+    change_password_text: '重设密码',
+    change_password_prompt: '：守护你的帐号安全',
+    old_password: '旧密码',
+    new_password: '新密码',
+    confirm_password: '确认密码',
+
     cancel_follow: '取消关注',
     follow: '关注',
 
@@ -69,6 +75,14 @@ export default {
 
     ipaper_scholar_text: 'iPaper 学术搜索',
 
+    kerword_search: '关键词',
+    abstract_search: '摘要',
+    full_text_search: '全文',
+    title_search: '标题',
+    author_search: '作者',
+    journal_search: '期刊',
+    institution_search: '机构',
+    advanced_search_text: '高级',
 
     //advanced_search
     search_text: '搜索',
@@ -86,6 +100,7 @@ export default {
     advanced_search_publish_keyword_isTitle_yes: '是',
     advanced_search_publish_keyword_isTitle_no: '否',
     recommend_for_you: '为你推荐',
+    hotspots: '学术热点',
 
     pagination_current_page_1: '第',
     pagination_current_page_2: '页',
@@ -128,4 +143,15 @@ export default {
     institution_cited_by_count: "总被引用数：",
 
     journal_type: "类型：",
+
+    message_all: '全部消息',
+    message_unread: '未读消息',
+    unread_cnt_1: '有',
+    unread_cnt_2: '封未读消息',
+    unread_cnt_3: '封未读消息',
+    set_read_all: '设为全部已读',
+    delete_read: '删除全部已读',
+    read_it: '设为已读',
+    already_read: '已读',
+    delete_it: '删除',
 }

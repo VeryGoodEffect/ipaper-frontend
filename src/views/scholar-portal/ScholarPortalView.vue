@@ -1,7 +1,4 @@
 <template>
-      <!-- <InstitutionListItem :institutionInfo="institutionInfo"></InstitutionListItem>
-    <ScholarListItem :scholarInfo="scholarInfo"></ScholarListItem>
-    <JournalListItem :journalListItemInfo="journalListItemInfo"></JournalListItem> -->
     <div class="main-part">
       <div class="info-tag-list">
         <div class="personal-info">
@@ -14,10 +11,10 @@
                 <a :href="authorInfo.orcid">{{ authorInfo.nickName }}</a>
               </p>
               <div>
-                  <div class="follow is-follow" @click="isFollowing = true" v-if="!isFollowing">
+                  <div class="follow is-follow" @click="follow" v-if="!isFollowing">
                       {{ $t('scholar_portal_follow') }}
                   </div>  
-                  <div class="follow un-follow" @click="isFollowing = false" v-else>
+                  <div class="follow un-follow" @click="unfollow" v-else>
                       {{ $t('scholar_portal_unfollow') }}
                   </div> 
               </div>
@@ -95,8 +92,9 @@
     <div class="relation-network">
       <h3>{{ $t('scholar_portal_net') }}</h3>
       <AuthorRelationGraph :relationList="relationList"></AuthorRelationGraph>
+      
     </div>
-    
+    <!-- <EchartGraph :relationList="relationList"></EchartGraph> -->
 </template>
   
   <script>
@@ -113,6 +111,8 @@
   import { History } from '../../api/history.js'
   // import { Article } from '../../api/article.js'
   import FollowList from '../../components/follow-list/FollowList.vue'
+  // import EchartGraph from '../../components/relation-graph/EchartGraph.vue'
+import { User } from '../../api/users'
   export default {
     components: {
       FavouriteListItem,
@@ -124,6 +124,7 @@
       Pagination,
       InstitutionListItem,
       AuthorRelationGraph,
+      // EchartGraph,
       i18n
     },
     data() {
@@ -272,15 +273,15 @@
         immediate: true,
         handler(newParams) {
           this.authorInfo.id = this.$route.params.id
+          // this.getAuthorInfo()
           this.getRelationMap()
-          this.getAuthorInfo()
         }
       }
     },
     created() {
       this.authorInfo.id = this.$route.params.id
-      this.getRelationMap()
       this.getAuthorInfo()
+      // this.getRelationMap()
     },
     methods: {
       
@@ -434,7 +435,37 @@
         this.isArticle = false
         this.isFocusArea = false
         this.isRelationNetwork = true
-      }
+      },
+      follow() {
+        this.isFollowing = true
+        let data = {
+          followed: this.authorInfo.id
+        }
+        User.followUser(data).then(
+          (response) => {
+            console.log(response)
+            // console.log(response.data.username)
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
+      },
+      unfollow() {
+        this.isFollowing = false
+        let data = {
+          followed: this.authorInfo.id
+        }
+        User.cancelFollowUser(data).then(
+          (response) => {
+            console.log(response)
+            // console.log(response.data.username)
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
+      },
     },
   }
   window.addEventListener('scroll', function() {

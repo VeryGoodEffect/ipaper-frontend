@@ -1,21 +1,5 @@
 <template>
-    <!-- <Transition name="fade">
-      <div class="model" v-if="moveVisible">
-        <div class="inner-box">
-          <h3 class="move-title">
-            {{ $t('move_favourites') }}
-          </h3>
-        </div>
-        
-      </div>
-    </Transition> -->
-      
     <div class="main-part">
-      <!-- <div class="return-part" @click="returnToMainPage">
-        <svg t="1701847227942" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="886" width="200" height="200"><path d="M578.2016 113.7664a51.2 51.2 0 0 1 76.3904 67.9424l-3.9936 4.4544-325.888 325.7856 325.888 325.888a51.2 51.2 0 0 1 3.9936 67.9424l-3.9936 4.4544a51.2 51.2 0 0 1-67.9424 3.9936l-4.4544-3.9936-362.0352-361.984a51.2 51.2 0 0 1-3.9936-67.9936l3.9936-4.4544 361.984-362.0352z" fill="#909399" p-id="887"></path></svg>
-        <div class="return-text">{{ $t('favourites_return') }}</div>
-      </div> -->
-
       <div class="info-tag-list">
         <div class="personal-info">
             <div class="personal-image">
@@ -246,12 +230,27 @@
       // 或许修改头像和修改其他文字的个人信息是两个事情可以不同操作的事件？
       submitChangePersonalInfo() {
         let userId = this.$cookies.get('user_id')
-        // 由于这里涉及到了传输头像，就是传输文件，所以这里不能再用json传输数据，需要使用FormData
         let data = new FormData()
         data.append('username', this.personalInfo.nickName)
         data.append('gender', this.personalInfo.gender)
         data.append('institution', this.personalInfo.institution)
         data.append('websites', this.personalInfo.urls)
+        if (userId) {
+          User.changePersonalInfo(userId, data).then(
+            response => {
+              this.cur2savePersonalInfo()
+            },
+            error => {
+              this.save2curPersonalInfo()
+              alert(error.message)
+            }
+          )
+        }
+      },
+      changePersonalAvatar() {
+        let userId = this.$cookies.get('user_id')
+        // 由于这里涉及到了传输头像，就是传输文件，所以这里不能再用json传输数据，需要使用FormData
+        let data = new FormData()
         if (this.avatarChanged) {
           data.append('avatar', this.avatarFile)
         }
@@ -259,6 +258,7 @@
           User.changePersonalInfo(userId, data).then(
             response => {
               this.cur2savePersonalInfo()
+              alert('头像修改成功')
             },
             error => {
               this.save2curPersonalInfo()
@@ -314,6 +314,7 @@
         this.avatarUrl = URL.createObjectURL(this.avatarFile)
         this.cur2savePersonalInfo()
         this.personalInfo.avatarUrl = this.avatarUrl
+        this.changePersonalAvatar()
       },
       // 为了能够恢复修改的内容以及取消修改
       cur2savePersonalInfo() {

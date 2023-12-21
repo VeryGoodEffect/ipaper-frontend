@@ -35,7 +35,7 @@
             {{ this.abstract }}
 
             
-            <vue-latex :displayMode="true"  :expression="this.displayAbstract"></vue-latex>
+            <!-- <vue-latex :displayMode="true"  :expression="this.displayAbstract"></vue-latex> -->
             <!-- <p v-html=this.displayAbstract></p> -->
           </div>
           <div class="paper-keywords" v-if="keywords.length != 0">

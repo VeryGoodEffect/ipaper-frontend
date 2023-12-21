@@ -66,7 +66,7 @@ export default {
         jumpArticle(url){
           console.log("??")
           this.$router.push({
-            path: "/paper_detail",
+            path: "/paper_detail/"+this.infoItem.id,
             url: this.url
           })
         }
