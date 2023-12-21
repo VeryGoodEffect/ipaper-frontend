@@ -13,9 +13,10 @@ export class Application {
         })
     }
 
-    static async getAuditedList() {
+    static async getAuditedList(data) {
         return service(url.audited, {
-            method: "get"
+            method: "get",
+            params: data
         })
     }
 

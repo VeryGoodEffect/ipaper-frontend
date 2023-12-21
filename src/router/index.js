@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import IntroView from '../views/intro/IntroView.vue'
 import SearchResultView from '../views/search-result/SearchResultView.vue'
-import PersonInfoView from '../views/admin/PersonInfoView.vue'
+import AdminView from '../views/admin/AdminView.vue'
 import SearchView from '../views/search/SearchView.vue'
 import PersonalHomepageView from '../views/personal-homepage/PersonalHomepageView.vue'
 import MessageView from '../views/message/MessageView.vue'
 import PaperDetailView from '../views/paper/PaperDetailView.vue'
 import ScholarPortalView from '../views/scholar-portal/ScholarPortalView.vue'
+import AuditDetailView from '../views/admin/AuditDetailView.vue'
 import InstitutionView from '../views/institution/InstitutionView.vue'
 import TagDetailView from '../views/tags/TagDetailView.vue'
 import PasswordReset from '../views/password-reset/PasswordReset.vue'
@@ -53,7 +54,11 @@ const router = createRouter({
     {
       path: '/password_reset',
       component: PasswordReset
-    }
+    },
+    {
+      path: '/admin',
+      component: AdminView
+    },
   ]
 })
 
