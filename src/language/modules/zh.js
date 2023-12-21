@@ -135,10 +135,14 @@ export default {
     not_confirmed: '已通过，未确认',
     submit_time: '申请时间',
     image_material: '图片材料',
-    approve_audition: '通过',
-    disapprove_audition: '不通过',
+    approve_audit: '通过',
+    disapprove_audit: '不通过',
     no_images: '没有图片材料',
-    submit_audition:'提交审核',
+    submit_audit:'确认提交',
+    check_approve: '确认通过该用户的申请？',
+    check_disapprove: '请告知用户未通过审核的原因',
+    approve_submitted: '已通过该申请',
+    disapprove_submitted:'已拒绝该申请',
 
     public_date: "发表日期：",
 

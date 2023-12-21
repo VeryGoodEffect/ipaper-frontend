@@ -22,15 +22,15 @@
                         <span>{{ $t('position_text') }}</span>
                         <span>{{ position }}</span>
                     </div>
+                    <div class="work-email">
+                        <span>{{ $t('workEmail_text') }}</span>
+                        <span>{{ workEmail }}</span>
+                    </div>
                     <div class="concepts">
                         <span>{{ $t('concepts_text') }}</span>
                         <div>
                             <span v-for="concept in concepts" :key="concept">{{ concept.display_name }}</span>
                         </div>
-                    </div>
-                    <div class="work-email">
-                        <span>{{ $t('workEmail_text') }}</span>
-                        <span>{{ workEmail }}</span>
                     </div>
                     <div class="content">
                         <span>{{ $t('content_text') }}</span>
@@ -47,29 +47,42 @@
                         </div>
                     </div>
                     <div class="submit-time">
-                        <span style="vertical-align: middle;">{{ $t('submit_time') }} </span>
+                        <span>{{ $t('submit_time') }} </span>
                         <span> {{ submitTime }}</span>
                     </div>
                 </div>
 
             </div>
             <div class="audit-button-container">
-                <button :class="{ 'approve-button': approved === true, 'normal-button': approved !== true }"
-                    @click="handleClickApprove">{{
-                        $t('approve_audition') }}</button>
-                <button :class="{ 'reject-button': approved === false, 'normal-button': approved !== false }"
-                    @click="handleClickDisapprove">{{
-                        $t('disapprove_audition') }}</button>
+                <button :class="{
+                    'approve-button': approved === true,
+                    'normal-button': approved !== true,
+                    'disabled-button': status !== 0
+                }" @click="handleClickApprove">{{ $t('approve_audit') }}</button>
+                <button :class="{
+                    'reject-button': approved === false,
+                    'normal-button': approved !== false,
+                    'disabled-button': status !== 0
+                }" @click="handleClickDisapprove">{{ $t('disapprove_audit') }}</button>
             </div>
             <div class="audit-area">
-                <div ref="approveArea">尊嘟？
+                <div ref="approveArea">
+                    <div class="check-approve">{{ status === 0 ? $t('check_approve') : $t('approve_submitted') }}</div>
                     <div class="submit-button-container">
-                        <button class="submit-button" @click="handleClickSubmit">{{ $t('submit_audition') }}</button>
+                        <button class="submit-button" :class="{ 'disabled-button': status !== 0 }"
+                            @click="handleApproveSubmit">{{ $t('submit_audit') }}</button>
                     </div>
                 </div>
-                <div ref="disapproveArea">假嘟？
+                <div ref="disapproveArea">
+                    <div class="check-disapprove">{{ status === 0 ? $t('check_disapprove') : $t('disapprove_submitted') }}
+                    </div>
+                    <div class="textarea-container">
+                        <textarea draggable="false" placeholder="......" v-model="reason"
+                            :contenteditable="status === 0"></textarea>
+                    </div>
                     <div class="submit-button-container">
-                        <button class="submit-button" @click="handleClickSubmit">{{ $t('submit_audition') }}</button>
+                        <button class="submit-button" :class="{ 'disabled-button': status !== 0 }"
+                            @click="handleRejectSubmit">{{ $t('submit_audit') }}</button>
                     </div>
                 </div>
 
@@ -86,6 +99,7 @@
 <script>
 import AuditListItem from '../../components/list-item/AuditListItem.vue';
 import i18n from '../../language';
+import { Application } from '../../api/applications';
 export default {
     name: 'AuditDetailView',
     components: {
@@ -95,7 +109,8 @@ export default {
         return {
             avatar: `/api/users/${this.id}/avatar`,
             approved: this.status === 0 ? undefined :
-                this.status === 2 ? false : true
+                this.status === 2 ? false : true,
+            reason: this.rejectReason
         }
     },
     methods: {
@@ -105,7 +120,6 @@ export default {
             let simpleView = this.$refs.simpleView
             let approveArea = this.$refs.approveArea
             let disapproveArea = this.$refs.disapproveArea
-            console.log(this.approved)
             switch (this.approved) {
                 case true:
                     approveArea.style.display = 'block'
@@ -152,8 +166,32 @@ export default {
                 this.approved = undefined
             }
         },
-        handleClickSubmit() {
+        handleApproveSubmit() {
+            if (this.status !== 0) {
+                return
+            }
+            Application.approveAudited(this.id, {
+                real_name: this.realName,
+                institution: this.institution,
+                position: this.position,
+                concepts: this.concepts,
+                work_email: this.workEmail,
+                content: this.content,
+                timestamp: this.submitTime,
+            }).then(() => {
+                this.$emit('approve')
+            })
 
+        },
+        handleRejectSubmit() {
+            if (this.status !== 0) {
+                return
+            }
+            Application.failAudited(this.id, {
+                failed_reason: this.reason
+            }).then(() => {
+                this.$emit('disapprove')
+            })
         }
     },
     props: {
@@ -211,6 +249,10 @@ export default {
         images: {
             type: Array,
             default: []
+        },
+        rejectReason: {
+            type: String,
+            default: ''
         }
     },
     watch: {
@@ -223,13 +265,7 @@ export default {
     },
     mounted() {
         this.resize()
-        // let wrapper = this.$refs.wrapper
-        // let detailView = this.$refs.detailView
-        // let simpleView = this.$refs.simpleView
-        // wrapper.style.height = simpleView.clientHeight + 'px'
-        // detailView.style.display = 'none'
         window.addEventListener('resize', this.resize)
-
     }
 }
 </script>
@@ -287,22 +323,64 @@ export default {
     text-align: center;
 }
 
-.submit-button {}
+.submit-button {
+    background: var(--theme-color);
+    color: var(--theme-mode);
+}
+
+.approve-button,
+.reject-button,
+.normal-button,
+.submit-button {
+    margin: 3% 0 2% 0;
+}
 
 .approve-button:hover,
-.reject-button:hover {
+.reject-button:hover,
+.submit-button:hover {
     opacity: 0.5;
 }
 
+.disabled-button {
+    cursor: not-allowed;
+}
+
+.disabled-button:hover {
+    background: var(--theme-mode-high-contrast);
+    color: var(--theme-mode);
+}
+
+.check-approve,
+.check-disapprove {
+    margin: 5% 0;
+    text-align: center;
+}
+
+.textarea-container {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.textarea-container textarea {
+    width: 90%;
+    border-radius: 10px;
+    padding: 2% 5%;
+}
 
 .user-name,
 .real-name,
 .institution,
 .position,
+.submit-time,
 .work-email {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    word-break: break-all;
+}
+
+.submit-time {
+    margin-top: 10%;
 }
 
 .concepts {
@@ -324,7 +402,7 @@ export default {
     border: 2px var(--theme-color) solid;
     margin-right: 5%;
     display: inline-block;
-    height: 100%;
+    height: 5em;
     aspect-ratio: 1;
     background-size: cover;
     background-repeat: no-repeat;
@@ -332,28 +410,20 @@ export default {
 
 .images-container {
     margin-top: 20px;
-    height: 75px;
 }
 
 .details>div {
     margin: 3% 1%;
-
 }
 
 .details>div>:nth-child(1) {
     font-weight: 700;
     color: var(--theme-color);
+    max-width: 100%;
 }
 
-.details>.submit-time {
-    margin-top: 10%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
 
 .audit-button-container {
-    margin: 3% 0 2% 0;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;

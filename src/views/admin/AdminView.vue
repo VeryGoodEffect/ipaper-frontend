@@ -4,8 +4,8 @@
             <pagination :items-per-page="itemsPerPage" :total-pages="totalPages" :current-page="currentPage"
                 @change-page="handleChangePage" @change-item-per-page="handleChangePerPage">
                 <li v-for="data in auditDatas" :key="data.submitTime">
-                    <audit-detail-view v-bind="data" @back="data.isDetail = false"
-                        @show-detail="data.isDetail = true"></audit-detail-view>
+                    <audit-detail-view v-bind="data" @back="data.isDetail = false" @show-detail="data.isDetail = true"
+                        @approve="data.status = 3" @disapprove="data.status = 2"></audit-detail-view>
                 </li>
             </pagination>
         </ul>
@@ -80,7 +80,7 @@ export default {
                         image.push(result.image3)
                     }
                     return {
-                        id: result.applicant.id,
+                        id: result.id,
                         userName: result.applicant.username,
                         isDetail: false,
                         institution: result.institution,
@@ -92,7 +92,8 @@ export default {
                         content: result.content,
                         submitTime: result.timestamp,
                         concepts: result.concepts,
-                        images: image
+                        images: image,
+                        rejectReason: result.rejectReason
                     }
                 }, (err) => { alert(err) })
             })
