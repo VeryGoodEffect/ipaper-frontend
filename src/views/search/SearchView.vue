@@ -11,7 +11,6 @@
         <h2>
           {{ $t("ipaper_scholar_text") }}
         </h2>
-
         <div class="search-area">
           <input
             v-model="search_search"
@@ -86,9 +85,7 @@ export default {
       show_property_search: false,
       is_advanced_search: true,
       showHotspotRecommend: true,
-      // for filter content
       search_content: "",
-      // search_content_filter: "",
       // exp https://api.openalex.org/works?filter=concepts.id:{机器学习ID},from_publication_date:2021-01-01&search=深度学习
       search_filter: "",
       search_search: "",
