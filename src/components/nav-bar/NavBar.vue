@@ -158,9 +158,8 @@ export default {
 header {
   position: sticky;
   top: 0;
-  width: 100%;
+  width: 98.5%;
   height: 60px;
-  /* background: rgba(100, 100, 100, .2); */
   background: var(--theme-mode);
   display: flex;
   justify-content: space-between;

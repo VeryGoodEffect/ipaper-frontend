@@ -94,6 +94,7 @@ export default {
     advanced_search_publish_keyword_isTitle_yes: '是',
     advanced_search_publish_keyword_isTitle_no: '否',
     recommend_for_you: '为你推荐',
+    hotspots: '学术热点',
 
     pagination_current_page_1: '第',
     pagination_current_page_2: '页',

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show">
+  <div>
     <ul>
       <li v-for="(article, index) in articles" :key="index">
         <h3 @click="jumpToPaperPage">{{ article.title }}</h3>
@@ -7,13 +7,10 @@
           {{ article.abstract }}
         </p>
         <span v-for="(author, index) in article.authorships" :key="index" class="author">
-          {{ author.author.display_name }}&nbsp&nbsp
+          {{ author.author.display_name }}
         </span>
         <p v-if="article.primary_location != null && article.primary_location.source != null" class="journal">
-          From: {{ article.primary_location.source.display_name }}
-        </p>
-        <p v-else class="journal">
-            暂无出处
+          {{ article.primary_location.source.display_name }}
         </p>
       </li>
     </ul>
@@ -24,12 +21,6 @@
 import { Article } from '../../api/article.js';
 export default {
   name: 'ArticleRecommendation',
-  props: {
-    show: {
-      type: Boolean,
-      default: true
-    }
-  },
   data() {
     return {
       articles: [],
@@ -61,6 +52,10 @@ li {
   border-bottom: 1px solid var(--theme-mode-contrast);
 }
 
+li:last-of-type {
+    border-bottom: 0;
+  }
+
 li h3 {
   color: var(--defaut-text-color);
   font-size: 22px;
@@ -81,10 +76,6 @@ li:hover h3 {
   font-size: 14px;
   font-weight: bold;
   color: var(--defaut-text-color);
-}
-
-.journal {
-  /*margin-left: 15px;*/
 }
 
 @media screen and (max-width: 960px) {
