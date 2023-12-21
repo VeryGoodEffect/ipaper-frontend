@@ -23,7 +23,7 @@ export default {
         // get token
         this.token = this.$route.query.token
         console.log(this.token);
-    }
+    },
     methods: {
         resetPassword() {
             let data = {
