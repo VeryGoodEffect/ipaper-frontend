@@ -144,6 +144,8 @@ export default {
   padding: 50px 0;
   font-size: 50px;
   font-weight: bold;
+  position: relative;
+  z-index: 10;
 }
 
 .search-area {

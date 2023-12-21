@@ -76,7 +76,7 @@ export default {
       activeSuggestionIndex: -1,
       autoCompleteShouldShow: false,
       place_holder: "输入文献",
-    };
+    }
   },
 
   watch: {
@@ -234,6 +234,50 @@ export default {
         );
       }
     },
+    searchOrChangeContent() {
+      if (this.activeSuggestionIndex === -1) {
+        this.search()
+      } else {
+        this.changeContent(this.autoCompleteLists[this.activeSuggestionIndex].display_name)
+      }
+    },
+    navigateDown() {
+      if (this.activeSuggestionIndex < this.autoCompleteLists.length - 1) {
+        this.activeSuggestionIndex++;
+      } else {
+        this.activeIndex = 0;
+      }
+    },
+    navigateUp() {
+      if (this.activeSuggestionIndex > 0) {
+        this.activeSuggestionIndex--;
+      } else {
+        this.activeSuggestionIndex = this.autoComplete.length - 1;
+      }
+    },
+
+    hideAutoCompleteMenu() {
+      setTimeout(() => {
+        this.autoCompleteShouldShow = false
+        this.activeSuggestionIndex = -1
+      }, 100)
+    },
+    changeContent(str) {
+      this.search_search = str
+      this.activeSuggestionIndex = -1
+    },
+    searchOrChangeContent() {
+      if (this.activeSuggestionIndex === -1) {
+        this.search()
+      } else {
+        this.changeContent(this.autoCompleteLists[this.activeSuggestionIndex].display_name)
+      }
+    },
+    scrollToAnchor(anchor) {
+      const offset =  document.getElementById(anchor).getBoundingClientRect().top 
+                      - document.body.getBoundingClientRect().top - 60
+      window.scrollTo({ top: offset, behavior: 'smooth' })
+    }
   },
 };
 </script>
@@ -260,6 +304,8 @@ export default {
   display: flex;
   justify-content: center;
   margin-bottom: 50px;
+  position: relative;
+  z-index: 99;
 }
 
 .search-area div {
