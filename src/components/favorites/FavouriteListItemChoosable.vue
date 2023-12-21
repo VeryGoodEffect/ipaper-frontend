@@ -28,14 +28,14 @@ import { User } from '../../api/users.js'
 
 export default {
   
-  name: 'FavouriteListItem',
+  name: 'FavouriteListItemChoosable',
   props: ['favourites'],
   emits: {
     deleteFavourites: null,
     cancelCreation: null,
     moveFavourites: null,
     IWantToShow: null,
-    showFavoriteDetail: null
+    choose: null
   },
     data() {
       return {
@@ -46,21 +46,9 @@ export default {
         isRenaming: false,
       }
     },
-    mounted() {
-      // window.addEventListener('click', this.hideMenu)
-      // if (this.type !== 'normal') {
-      //   this.$nextTick(() => {
-      //     this.$refs.deleted.style.cursor = 'default'
-      //   })
-      // }
-      // this.$bus.on('renameFailRequest', this.handleRenameFailDisplay)
-    },
-    beforeUnmount() {
-      // window.removeEventListener('click', this.hideMenu)
-    },
     methods: {
       handleClick() {
-        this.$emit('showFavoriteDetail')
+        this.$emit('choose')
       },
       handleRightClick(event) {
         // console.log("111")

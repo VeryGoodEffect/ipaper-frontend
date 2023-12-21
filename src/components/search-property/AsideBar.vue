@@ -1,12 +1,13 @@
 <template>
-  <div>
+  <!-- DO NOT DELETE THIS SEEMINGLY USELESS FUNCTION `doNothing`!!!!  -->
+  <div class="sidebar-container" @click.stop="doNothing">
     <div class="sidebar" :class="{ closed: !isSidebarOpen }">
       <nav>
         <ul>
           <li @click="setSearchType(0)">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M15 6a1 1 0 1 1-2 0a1 1 0 0 1 2 0zm-2.5-4C9.424 2 7 4.424 7 7.5c0 .397.04.796.122 1.175c.058.27-.008.504-.142.638l-4.54 4.54A1.5 1.5 0 0 0 2 14.915V16.5A1.5 1.5 0 0 0 3.5 18h2A1.5 1.5 0 0 0 7 16.5V16h1a1 1 0 0 0 1-1v-1h1a1 1 0 0 0 1-1v-.18c.493.134 1.007.18 1.5.18c3.076 0 5.5-2.424 5.5-5.5S15.576 2 12.5 2zM8 7.5C8 4.976 9.976 3 12.5 3S17 4.976 17 7.5S15.024 12 12.5 12c-.66 0-1.273-.095-1.776-.347A.5.5 0 0 0 10 12.1v.9H9a1 1 0 0 0-1 1v1H7a1 1 0 0 0-1 1v.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.586a.5.5 0 0 1 .146-.353l4.541-4.541c.432-.432.522-1.044.412-1.556A4.619 4.619 0 0 1 8 7.5z" fill="currentColor"></path></g></svg>            关键词搜索</li>
           <li @click="setSearchType(1)"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path d="M368 415.86V72a24.07 24.07 0 0 0-24-24H72a24.07 24.07 0 0 0-24 24v352a40.12 40.12 0 0 0 40 40h328" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"></path><path d="M416 464h0a48 48 0 0 1-48-48V128h72a24 24 0 0 1 24 24v264a48 48 0 0 1-48 48z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M240 128h64"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M240 192h64"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M112 256h192"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M112 320h192"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M112 384h192"></path><path d="M176 208h-64a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z" fill="currentColor"></path></svg> 
-            摘要搜索</li>
+              摘要搜索</li>
           <li @click="setSearchType(2)"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path d="M448.08 256.08c0-106-86-192-192-192s-192 86-192 192s86 192 192 192s192-85.97 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path d="M300.81 358.29c-20.83 7.42-34.05 9.59-54.19 9.59c-61.17 0-106.39-50.07-101-111.84S205 144.21 266.14 144.21c68.92 0 106.79 45.55 101.47 106.55c-4 45.54-32.8 58.66-47.89 56c-14.2-2.55-25.92-15.52-23.75-40.35l5.62-44.66c-7.58-9.17-28.11-18-49.93-14.54C231.77 210.3 209 228 206.56 256s14.49 50.84 39.93 50.84s47.86-18.39 50.69-50.84" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"></path></svg>
              全文搜索</li>
           <li @click="setSearchType(3)">
@@ -21,12 +22,11 @@
              机构搜索</li>
           <li @click="advancedSearch" ><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" style="" ><path d="M256 64C150.13 64 64 150.13 64 256s86.13 192 192 192s192-86.13 192-192S361.87 64 256 64zm80 294.63l-54.15-54.15a88.08 88.08 0 1 1 22.63-22.63L358.63 336z" fill="currentColor"></path><circle cx="232" cy="232" r="56" fill="currentColor"></circle></svg>
             高級搜索</li>
-            
         </ul>
       </nav>
     </div>
 
-    <div class="toggle-button" @click="toggleSidebar">
+    <div class="toggle-button" @click.stop="toggleSidebar" v-if="!isSidebarOpen && toggleShouldShow">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
@@ -70,7 +70,6 @@
 </template>
   
 <script>
-import PopoutModalVue from "../popout-modal/PopoutModal.vue";
 import AdvancedSearchModal from "../../components/modals/AdvancedSearchModal.vue";
 export default {
   components:{
@@ -79,18 +78,35 @@ export default {
   data() {
     return {
       is_advanced_search: false,
-      isSidebarOpen: true,
+      isSidebarOpen: false,
+      toggleShouldShow: true
     };
+  },
+
+  mounted() {
+    window.addEventListener('click', this.closeSidebar)
+  },
+  beforeUnmount() {
+    window.removeEventListener('click', this.closeSidebar)
   },
   
   methods: {
     toggleSidebar() {
-      this.isSidebarOpen = !this.isSidebarOpen;
+      this.isSidebarOpen = !this.isSidebarOpen
+      this.toggleShouldShow = false
+    },
+
+    closeSidebar() {
+      if (this.isSidebarOpen) {
+        this.isSidebarOpen = false
+        setTimeout(() => {
+          this.toggleShouldShow = true
+        }, 310);
+      }
     },
 
     advancedSearch(){
       this.is_advanced_search = true
-        console.log("???")
     },
 
     setSearchType(type){
@@ -99,22 +115,39 @@ export default {
     advsearch(data){
       this.$emit('advsearch',data)
       alert("data send to aside bar")
+    },
+    doNothing() {
+      /* DO NOT DELETE THIS !!!!!!!! */
     }
   },
 };
 </script>
   
-  <style scoped>
+<style scoped>
+.sidebar-container {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 60px);
+  
+  /* overflow: hidden; */
+}
+  
 .sidebar {
   width: 250px;
-  color:  var(--theme-mode-high-contrast);
+  color: var(--theme-mode-high-contrast);
   transition: transform 0.3s ease-in-out;
-  position: fixed;
-  height: 100%;
-  top: 80px;
-  left: 0;
+  position: absolute;
+  top: 0;
   bottom: 0;
-  overflow: auto;
+  overflow-y: scroll;
+  background: var(--theme-mode-like);
+  border-radius: 0 20px 20px 0;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar nav ul {
@@ -146,8 +179,8 @@ export default {
 }
 
 .toggle-button {
-  position: fixed;
-  top: 80px;
+  position: absolute;
+  top: 0px;
   left: 250px;
   /* transform: translateY(-50%);  */
   background: none;
@@ -169,7 +202,7 @@ export default {
 }
 
 .closed ~ .toggle-button {
-    transform: translateX(-250px);
+  transform: translateX(-250px);
 }
 </style>
   

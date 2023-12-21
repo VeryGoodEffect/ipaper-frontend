@@ -1,57 +1,38 @@
 <template>
-  <!-- <button>Create</button> -->
-      <!-- <CreateFav v-if=isCreating /> -->
-      <!-- 
-        - input
-        - button: check cross
-        - emit
-       -->
   <div class="favourite-list" ref="container">
     <CreateFavourite
-    v-if="isCreating"
-    @cancelCreation="cancelCreation"
-    @updateCreation="updateCreation"></CreateFavourite>
-    <FavouriteListItem 
+      v-if="isCreating"
+      @cancelCreation="cancelCreation"
+      @updateCreation="updateCreation"
+    >
+    </CreateFavourite>
+    <FavouriteListItemChoosable 
       v-for="(info, index) in favouritesInfo" :key="index"
       :favourites="favouritesInfo[index]" 
-      @showFavoriteDetail="showFavoriteDetail(index)"
       @IWantToShow="letItShow(index)"
       @deleteFavourites="handleDelete(index)"
+      @choose="moveToList(index)"
     />
   </div>
-
-  <!-- <PopoutModal :show="isPopout" @close="isPopout = false">
-    <h3>{{ popoutInfo.name }}</h3>
-    <div class="favourite-list" ref="container-1"> -->
-    <!-- <FavouriteListItem 
-      v-for="(info, index) in favouritesInfo" :key="index"
-      :favourites="favouritesInfo[index]" 
-      @showFavoriteDetail="showFavoriteDetail(index)"
-      @IWantToShow="letItShow(index)"
-      @deleteFavourites="handleDelete(index)"
-    /> -->
-
-  <!-- </div>
-  </PopoutModal> -->
-  <FavorateContentModal :show="favorateContentModalShouldShow" @close="favorateContentModalShouldShow = false"/>
 </template>
 
 <script>
 import CreateFavourite from './CreateFavourite.vue'
-import FavouriteListItem from './FavouriteListItem.vue'
+import FavouriteListItemChoosable from './FavouriteListItemChoosable.vue'
 import { User } from '../../api/users.js'
-import FavorateContentModal from '../modals/FavorateContentModal.vue'
+// import FavorateContentModal from '../modals/FavorateContentModal.vue'
 export default {
-  name: 'FavouriteList',
-  props: ['isCreating', 'favouritesInfo'],
+  name: 'FavoriteListChoosable',
+  props: ['isCreating', 'favouritesInfo', 'fid'],
   components: {
-    FavouriteListItem,
+    FavouriteListItemChoosable,
     CreateFavourite,
-    FavorateContentModal
+    // FavorateContentModal
   },
   emits: {
     cancelCreation: null,
     updateCreation: null,
+    chooseList: null
   },
   data() {
     return {
@@ -74,7 +55,6 @@ export default {
   methods: {
     handleDelete(index) {
       console.log("111")
-      // console.log(this.favouritesInfo[index].id + this.favouritesInfo[index].name)
       User.deleteFavorite(this.favouritesInfo[index].id).then(
           (response) => {
             console.log(response)
@@ -111,10 +91,16 @@ export default {
       }
     },
     showFavoriteDetail(index) {
-      // this.popoutInfo = this.favouritesInfo[index]
-      // this.isPopout = true
       this.favorateContentModalShouldShow = true
     },
+    moveToList(index) {
+      // ===============================
+      // 【真正实现移动收藏内容的方法】
+      // 方法含义参见 alert 内容
+      // ===============================
+      alert('将学术成果(id: ' + this.fid + ')移动到' + 
+      '收藏夹(id: ' + this.favouritesInfo[index].id + ')')
+    }
   }
 }
 </script>
@@ -127,7 +113,4 @@ export default {
 .favourite-list::-webkit-scrollbar {
   display: none;
 }
-/* .list-item {
-  margin-right: 10px;
-} */
 </style>
