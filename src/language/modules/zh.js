@@ -52,33 +52,37 @@ export default {
 
     rename: '重命名',
     delete: '删除',
+    move_favorite: '移动',
+    choose_favorite: '选择收藏夹',
+
 
     authenticate_text: '认证身份',
     authenticate_prompt: '：建立你的专家信息门户',
-    auditor_text: '选择认证的管理员（不输入表示默认）',
+    auditor_text: '选择认证的管理员（可选）',
     openalexId_text: '输入openalex的Id',
     realName_text: '真实姓名',
     institution_text: '工作机构',
     position_text: '职务',
     concepts_text: '科研领域',
     workEmail_text: '工作邮箱',
-    content_text: '备注',
+    content_text: '备注（可选）',
 
     ipaper_scholar_text: 'iPaper 学术搜索',
 
 
     //advanced_search
+    search_text: '搜索',
     advanced_search: '高级检索',
-    advanced_search_author: '筛选以下作者所著的文章：',
-    advanced_search_author_example: '例如:Xgeon',
+    advanced_search_author: '搜索以下作者所著的文章',
+    advanced_search_author_example: '例如：Xgeon',
     // Show articles in the following publications:
-    advanced_search_publication: '筛选下列期刊中的文章',
-    advanced_search_publication_example: '例如:Nature',
+    advanced_search_publication: '搜索下列期刊中的文章',
+    advanced_search_publication_example: '例如：Nature',
     // Show articles published during the time:
     advanced_search_publish_time: '显示在此期间发表的文章',
     
-    advanced_search_publish_keyword: '该文章的关键词',
-    advanced_search_publish_keyword_isTitle: '是否是title',
+    advanced_search_publish_keyword: '关键词',
+    advanced_search_publish_keyword_isTitle: '是否为文章标题',
     advanced_search_publish_keyword_isTitle_yes: '是',
     advanced_search_publish_keyword_isTitle_no: '否',
     recommend_for_you: '为你推荐',
@@ -100,10 +104,22 @@ export default {
     scholar_portal_focus_areas: "关注领域",
     scholar_portal_net: "关系网络",
 
-    
     paper_detail_abstract: "摘要：",
     paper_detail_keywords: "关键词：",
     paper_detail_tag: "标签：",
     paper_detail_source: "专辑：",
     paper_detail_doi: "DOI：",
+    public_date: "发表日期：",
+
+    institution_main_scholar: "机构主要作者",
+    institution_main_tag: "重点领域",
+    institution_main_papers: "机构文献",
+    institution_URL: "官网链接",
+    institution_relevant_institution: "相关机构",
+
+    tag_detail_wiki: "维基百科：",
+    tag_detail_paper: "相关文献：",
+    tag_detail_author: "相关作者：",
+    tag_detail_institution: "相关机构：",
+    tag_detail_tags: "相关领域：",
 }

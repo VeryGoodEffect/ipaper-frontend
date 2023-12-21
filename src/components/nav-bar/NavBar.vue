@@ -15,12 +15,11 @@
       <template v-if="!isLoggedIn">
         <button class="basic-btn" @click="loginModalShouldShow = true">{{ $t('login_text') }}</button>
         <button class="basic-btn-outline" @click="registerModalShouldShow = true">{{ $t('register_text') }}</button>
-        <button class="basic-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>
         <div class="dropdown-icon">
           <ul class="dropdown-list">
             <li @click="loginModalShouldShow = true">{{ $t('login_text') }}</li>
             <li @click="registerModalShouldShow = true">{{ $t('register_text') }}</li>
-          </ul>   
+          </ul>
         </div>
       </template>
       <template v-else>
@@ -51,11 +50,6 @@
     :show="retrievePasswordModalShouldShow" 
     @close="retrievePasswordModalShouldShow = false"
   />
-
-  <AuthenticateIdentityModal
-    :show="authenticateModalShouldShow"
-    @close="authenticateModalShouldShow = false"
-  />
   
 </template>
 
@@ -65,7 +59,6 @@ import { mapState, mapMutations } from 'vuex'
 import LoginModal from '../modals/LoginModal.vue'
 import RegisterModal from '../modals/RegisterModal.vue'
 import RetrievePasswordModal from '../modals/RetrievePasswordModal.vue'
-import AuthenticateIdentityModal from '../modals/AuthenticateIdentityModal.vue'
 import MailIcon from '../svg/MailIcon.vue'
 import UnreadMailIcon from '../svg/UnreadMailIcon.vue'
 
@@ -79,7 +72,6 @@ export default {
     LoginModal,
     RegisterModal,
     RetrievePasswordModal,
-    AuthenticateIdentityModal,
     i18n,
     MailIcon,
     UnreadMailIcon
@@ -90,7 +82,6 @@ export default {
       loginModalShouldShow: false,
       registerModalShouldShow: false,
       retrievePasswordModalShouldShow: false,
-      authenticateModalShouldShow: false,
       currentUsername: ''
     }
   },
@@ -106,6 +97,7 @@ export default {
   },
   mounted() {
     console.log(this.$cookies.get('user_id'))
+    this.$bus.on('judgeHasUnreadMsg', this.handleJudgeHasUnreadMsg)
     this.getUserIdAndSayHello()
   },
   methods: {
