@@ -26,7 +26,7 @@
       </nav>
     </div>
 
-    <div class="toggle-button" @click.stop="toggleSidebar" v-if="!isSidebarOpen">
+    <div class="toggle-button" @click.stop="toggleSidebar" v-if="!isSidebarOpen && toggleShouldShow">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
@@ -79,6 +79,7 @@ export default {
     return {
       is_advanced_search: false,
       isSidebarOpen: false,
+      toggleShouldShow: true
     };
   },
 
@@ -91,12 +92,16 @@ export default {
   
   methods: {
     toggleSidebar() {
-      this.isSidebarOpen = !this.isSidebarOpen;
+      this.isSidebarOpen = !this.isSidebarOpen
+      this.toggleShouldShow = false
     },
 
     closeSidebar() {
       if (this.isSidebarOpen) {
         this.isSidebarOpen = false
+        setTimeout(() => {
+          this.toggleShouldShow = true
+        }, 310);
       }
     },
 
@@ -197,7 +202,7 @@ export default {
 }
 
 .closed ~ .toggle-button {
-    transform: translateX(-250px);
+  transform: translateX(-250px);
 }
 </style>
   
