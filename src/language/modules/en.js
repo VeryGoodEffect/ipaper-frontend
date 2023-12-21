@@ -94,6 +94,7 @@ export default {
     advanced_search_publish_keyword_isTitle_no: 'no',
     ipaper_scholar_text: 'iPaper Scholar',
     recommend_for_you: 'Recommendation',
+    hotspots: 'Hotspots',
 
     pagination_current_page_1: "Page",
     pagination_current_page_2: "",
