@@ -9,6 +9,7 @@ import PaperDetailView from '../views/paper/PaperDetailView.vue'
 import ScholarPortalView from '../views/scholar-portal/ScholarPortalView.vue'
 import InstitutionView from '../views/institution/InstitutionView.vue'
 import TagDetailView from '../views/tags/TagDetailView.vue'
+import PasswordReset from '../views/password-reset/PasswordReset.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,6 +49,10 @@ const router = createRouter({
     {
       path: '/tag_detail',
       component: TagDetailView
+    },
+    {
+      path: '/password_reset',
+      component: PasswordReset
     }
   ]
 })
