@@ -20,7 +20,7 @@
   >
   </div> -->
 
-  <NavBar style="position: sticky; top: 0" />
+  <NavBar/>
 
   <!-- <SandBoxLoading/> -->
   <RouterView />
