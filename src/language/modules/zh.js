@@ -29,6 +29,12 @@ export default {
     retrieve_password_text: '找回密码',
     retrieve_password_message: '点击确认，随后去邮箱查收重置链接',
 
+    change_password_text: '重设密码',
+    change_password_prompt: '：守护你的帐号安全',
+    old_password: '旧密码',
+    new_password: '新密码',
+    confirm_password: '确认密码',
+
     cancel_follow: '取消关注',
     follow: '关注',
 
@@ -94,6 +100,7 @@ export default {
     advanced_search_publish_keyword_isTitle_yes: '是',
     advanced_search_publish_keyword_isTitle_no: '否',
     recommend_for_you: '为你推荐',
+    hotspots: '学术热点',
 
     pagination_current_page_1: '第',
     pagination_current_page_2: '页',

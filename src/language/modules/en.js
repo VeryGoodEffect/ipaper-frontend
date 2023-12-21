@@ -29,6 +29,12 @@ export default {
     retrieve_password_text: 'Retrieve password',
     retrieve_password_message: 'Click confirm and check the reset link in your email',
 
+    change_password_text: 'Change Password',
+    change_password_prompt: '',
+    old_password: 'Old Password',
+    new_password: 'New Password',
+    confirm_password: 'Confirm Password',
+
     cancel_follow: 'Cancel',
     follow: 'Follow',
     favourites: 'Favourites',
@@ -94,6 +100,7 @@ export default {
     advanced_search_publish_keyword_isTitle_no: 'no',
     ipaper_scholar_text: 'iPaper Scholar',
     recommend_for_you: 'Recommendation',
+    hotspots: 'Hotspots',
 
     pagination_current_page_1: "Page",
     pagination_current_page_2: "",
