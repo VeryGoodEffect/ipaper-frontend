@@ -143,4 +143,15 @@ export default {
     institution_cited_by_count: "总被引用数：",
 
     journal_type: "类型：",
+
+    message_all: '全部消息',
+    message_unread: '未读消息',
+    unread_cnt_1: '有',
+    unread_cnt_2: '封未读消息',
+    unread_cnt_3: '封未读消息',
+    set_read_all: '设为全部已读',
+    delete_read: '删除全部已读',
+    read_it: '设为已读',
+    already_read: '已读',
+    delete_it: '删除',
 }
