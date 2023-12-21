@@ -130,7 +130,7 @@ export default {
     },
     buildQuery() {},
     advsearch(data) {
-      alert("data sent to advsearch");
+      // alert("data sent to advsearch");
       // queryParts = [];
 
       //!暂时先置空吧
@@ -145,15 +145,15 @@ export default {
         is_key_title: this.is_key_title
        */
       if (data.author) {
-        this.search_filter += `authorships.author.display_name.search:${encodeURIComponent(
+        this.search_filter += `author.search:${encodeURIComponent(
           data.author
         )},`;
       }
-      // if (data.publication) {
-      //   this.search_filter += `primary_location.display_name.search:${encodeURIComponent(
-      //     data.publication
-      //   )},`;
-      // }
+      if (data.publication) {
+        this.search_filter += `source.search:${encodeURIComponent(
+          data.publication
+        )},`;
+      }
       if (data.start_time && data.end_time) {
         this.search_filter += `publication_year:${data.start_time}-${data.end_time},`;
       }
