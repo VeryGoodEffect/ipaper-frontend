@@ -38,7 +38,7 @@ app.directive('ellipsis', {
     const transitionTime = binding.value.transitionTime ? binding.value.transitionTime : '0.5s'
     const transitionMicros = parseFloat(transitionTime) * 1000
     {
-      const transition = `max-height ${transitionTime} ${binding.value.transitionMode ? binding.value.transitionMode : 'linear'}`
+      const transition = `max-height ${transitionTime} ${binding.value.transitionMode ? binding.value.transitionMode : 'cubic-bezier(0.075, 0.82, 0.165, 1)'}`
       const computedStyles = window.getComputedStyle(el)
       content.style.fontFamily = computedStyles.fontFamily
       content.style.fontSize = 'inherit'
