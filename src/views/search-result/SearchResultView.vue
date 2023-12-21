@@ -509,7 +509,7 @@ export default {
       }
       // 期刊
       else if (this.search_type == 3) {
-        Search.searchConcepts(this.searchdata).then(
+        Search.searchSources(this.searchdata).then(
           (res) => {
             console.log(res.data.results);
             this.resultlist = res.data.results;
@@ -600,7 +600,7 @@ export default {
     }
     // 期刊
     else if (this.search_type == 3) {
-      Search.searchConcepts(searchdata).then(
+      Search.searchSources(searchdata).then(
         (res) => {
           console.log(res.data.results);
           this.resultlist = res.data.results;

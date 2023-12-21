@@ -82,7 +82,7 @@ export default {
   methods: {
     getInstitutionDetail() {
       // let institutionId = this.$route.params.institutionId
-      let institutionId = 'I1294671590'
+      let institutionId = this.$route.params.id
       if (institutionId) {
         Search.institutionRetrieve(institutionId).then(
           (response) => {
