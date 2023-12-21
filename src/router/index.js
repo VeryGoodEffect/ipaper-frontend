@@ -26,7 +26,7 @@ const router = createRouter({
       component: PersonalHomepageView
     },
     {
-      path: '/scholar_portal',
+      path: '/scholar_portal/:id',
       component: ScholarPortalView
     },
     {
