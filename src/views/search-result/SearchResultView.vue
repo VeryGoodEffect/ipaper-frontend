@@ -297,6 +297,7 @@ export default {
       else if (this.search_type == 3) {
         this.infoItems = this.resultlist.map((item) => {
           return {
+            display_name: item.display_name,
             display_name_zh: item.display_name_zh,
             country_code: item.country_code,
             type: item.type,
@@ -445,15 +446,15 @@ export default {
         is_key_title: this.is_key_title
        */
       if (data.author) {
-        this.filter += `authorships.author.display_name.search:${encodeURIComponent(
+        this.filter += `author.search:${encodeURIComponent(
           data.author
         )},`;
       }
-      // if (data.publication) {
-      //   this.search_filter += `primary_location.display_name.search:${encodeURIComponent(
-      //     data.publication
-      //   )},`;
-      // }
+      if (data.publication) {
+        this.search_filter += `source.search:${encodeURIComponent(
+          data.publication
+        )},`;
+      }
       if (data.start_time && data.end_time) {
         this.filter += `publication_year:${data.start_time}-${data.end_time},`;
       }
