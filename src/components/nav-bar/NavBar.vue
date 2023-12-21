@@ -166,6 +166,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
+  z-index: 999;
 }
 
 header>section {
