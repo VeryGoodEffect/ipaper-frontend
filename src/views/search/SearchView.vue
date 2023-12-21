@@ -124,15 +124,20 @@ export default {
     },
     buildQuery() {},
     advsearch(data) {
-      alert("data sent to advsearch");
+      // alert("data sent to advsearch");
       // queryParts = [];
 
       //!暂时先置空吧
       this.search_filter = "";
 
       if (data.author) {
-        this.search_filter += `authorships.author.display_name.search:${encodeURIComponent(
+        this.search_filter += `author.search:${encodeURIComponent(
           data.author
+        )},`;
+      }
+      if (data.publication) {
+        this.search_filter += `source.search:${encodeURIComponent(
+          data.publication
         )},`;
       }
       if (data.start_time && data.end_time) {

@@ -34,7 +34,7 @@ const router = createRouter({
       component: MessageView
     },
     {
-      path: '/paper_detail',
+      path: '/paper_detail/:id',
       component: PaperDetailView
     },
     {

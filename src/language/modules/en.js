@@ -67,6 +67,15 @@ export default {
     
     ipaper_scholar_text: 'iPaper Scholar',
 
+    kerword_search: 'Keyword',
+    abstract_search: 'Abstract',
+    full_text_search: 'Full Text',
+    title_search: 'Title',
+    author_search: 'Author',
+    journal_search: 'Journal',
+    institution_search: 'Institution',
+    advanced_search_text: 'Advanced',
+
     //advanced_search
     search_text: 'Search',
     advanced_search: 'Advanced Search',

@@ -277,6 +277,7 @@ export default {
             abstract: item.abstract,
             url: item.url,
             language: item.language,
+            id: item.id
           };
         });
       }
@@ -284,8 +285,11 @@ export default {
       else if (this.search_type == 2) {
         this.infoItems = this.resultlist.map((item) => {
           return {
-            title: item.display_name,
-            profile: item.works_api_url,
+            display_name: item.display_name,
+            country_code: item.works_api_url,
+            works_count: item.works_count,
+            cited_by_count: item.cited_by_count,
+            id: item.id 
           };
         });
       }
@@ -293,8 +297,14 @@ export default {
       else if (this.search_type == 3) {
         this.infoItems = this.resultlist.map((item) => {
           return {
-            title: item.display_name_zh,
-            profile: item.homepage_url,
+            display_name: item.display_name,
+            display_name_zh: item.display_name_zh,
+            country_code: item.country_code,
+            type: item.type,
+            works_count: item.works_count,
+            cited_by_count: item.cited_by_count,
+            id: item.id
+
           };
         });
       }
@@ -310,7 +320,8 @@ export default {
             works_count: item.works_count,
             cited_by_count: item.cited_by_count,
             ror: item.ror,
-            homepage_url: item.homepage_url
+            homepage_url: item.homepage_url,
+            id: item.id
           };
         });
       }
@@ -435,15 +446,15 @@ export default {
         is_key_title: this.is_key_title
        */
       if (data.author) {
-        this.filter += `authorships.author.display_name.search:${encodeURIComponent(
+        this.filter += `author.search:${encodeURIComponent(
           data.author
         )},`;
       }
-      // if (data.publication) {
-      //   this.search_filter += `primary_location.display_name.search:${encodeURIComponent(
-      //     data.publication
-      //   )},`;
-      // }
+      if (data.publication) {
+        this.search_filter += `source.search:${encodeURIComponent(
+          data.publication
+        )},`;
+      }
       if (data.start_time && data.end_time) {
         this.filter += `publication_year:${data.start_time}-${data.end_time},`;
       }
