@@ -12,6 +12,7 @@
               v-model="search_search"
               type="text"
               class="basic-input search-input"
+              :placeholder="place_holder"
               @keydown.down="navigateDown" 
               @keydown.up="navigateUp"
               @keydown.enter="searchOrChangeContent"
@@ -81,7 +82,6 @@ export default {
     AsideBar,
     ArticleRecommendation,
     InterestRecommendation,
-    // AdvancedSearchModal
   },
   data() {
     return {
@@ -89,7 +89,6 @@ export default {
       is_advanced_search: true,
       showHotspotRecommend: true,
       search_content: "",
-      // exp https://api.openalex.org/works?filter=concepts.id:{机器学习ID},from_publication_date:2021-01-01&search=深度学习
       search_filter: "",
       search_search: "",
       search_sort: "",
@@ -100,7 +99,8 @@ export default {
       queryParts: {},
       autoCompleteLists: [],
       activeSuggestionIndex: -1,
-      autoCompleteShouldShow: false
+      autoCompleteShouldShow: false,
+      place_holder: "输入文献"
     };
   },
   watch: {
@@ -171,32 +171,39 @@ export default {
         // this.search_filter = "display_name.search:"
         this.search_filter = "";
         this.search_type = 1;
+        this.place_holder = "文献搜索-默认搜索"
       } else if (type == 1) {
         // alert("abstract.search:");
         this.search_filter = "abstract.search:";
         this.search_type = 1;
+        this.place_holder = "文献搜索-摘要搜索"
       } else if (type == 2) {
         // alert("fulltext.search:");
         this.search_filter = "fulltext.search:";
         this.search_type = 1;
+        this.place_holder = "文献搜搜-全文内容"
       } else if (type == 3) {
         // alert("display_name.search:");
         this.search_filter = "display_name.search:";
         this.search_type = 1;
+        this.place_holder = "输入标题:例如 3D Gauss"
       }
       // Author search
       else if (type == 4) {
         // alert("search author");
         this.search_type = 2;
+        this.place_holder = "输入作者:例如 孟"
       }
 
       // 期刊
       else if (type == 5) {
         this.search_type = 3;
+        this.place_holder = "输入期刊:例如Nature"
       }
       // 机构
       else if (type == 6) {
         this.search_type = 4;
+        this.place_holder = "输入机构:例如NASA"
       }
     },
     autoComplete() {

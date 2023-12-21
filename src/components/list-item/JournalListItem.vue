@@ -37,7 +37,7 @@ export default {
     methods: {
       jumpDetailView(){
         this.$router.push({
-          path: "/institution_detail"
+          path: "/institution_detail/"+this.journalListItemInfo.id
         })
       }
     },
