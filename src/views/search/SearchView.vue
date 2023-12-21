@@ -40,7 +40,9 @@
       </section>
       <section class="recommendation">
         <div>
-          HHHHHH
+          <ul>
+            <li v-for="(item, index) in autoCompleteLists" :key="index">{{ item.display_name }}</li>
+          </ul>
         </div>
         <h3>为你推荐</h3>
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -58,6 +60,7 @@ import i18n from "../../language";
 import AsideBar from "../../components/search-property/AsideBar.vue";
 import ArticleRecommendation from "../../components/recommendation/ArticleRecommendation.vue";
 import InterestRecommendation from "../../components/recommendation/InterestRecommendation.vue";
+import { AutoComplete } from '../../api/autocomplete.js'
 
 export default {
   name: "SearchView",
@@ -83,24 +86,29 @@ export default {
       show_property_search: false,
       is_advanced_search: true,
       showHotspotRecommend: true,
-
       // for filter content
       search_content: "",
       // search_content_filter: "",
-
       // exp https://api.openalex.org/works?filter=concepts.id:{机器学习ID},from_publication_date:2021-01-01&search=深度学习
-
       search_filter: "",
       search_search: "",
       search_sort: "",
       search_perpage: 10,
       search_page: 1,
       cur_search_cursor: "",
-
       search_type: 1,
-
       queryParts: {},
+      autoCompleteLists: []
     };
+  },
+  watch: {
+    search_search(newValue, oldValue) {
+      if (newValue.length == 0) {
+        this.autoCompleteLists = []
+      } else {
+        this.autoComplete()
+      }
+    }
   },
   methods: {
     showAsideBar() {
@@ -129,7 +137,6 @@ export default {
 
       //!暂时先置空吧
       this.search_filter = "";
-
       if (data.author) {
         this.search_filter += `author.search:${encodeURIComponent(
           data.author
@@ -147,7 +154,6 @@ export default {
         const field = data.is_key_title ? "title.search" : "abstract.search";
         this.search_filter += `${field}:${encodeURIComponent(data.keyword)},`;
       }
-
       console.log(this.search_filter);
       this.search();
     },
@@ -189,6 +195,37 @@ export default {
         this.search_type = 4;
       }
     },
+    autoComplete() {
+      let data = {
+        q: this.search_search
+      }
+      console.log(data);
+      if (this.search_type == 1) {
+        AutoComplete.getAutoWorks(data).then(
+          response => {
+            this.autoCompleteLists = response.data.results
+          }
+        )
+      } else if (this.search_type == 2) {
+        AutoComplete.getAutoAuthor(data).then(
+          response => {
+            this.autoCompleteLists = response.data.results
+          }
+        )
+      } else if (this.search_type == 3) {
+        AutoComplete.getAutoConcepts(data).then(
+          response => {
+            this.autoCompleteLists = response.data.results
+          }
+        )
+      } else if (this.search_type == 4) {
+        AutoComplete.getAutoInstitutions(data).then(
+          response => {
+            this.autoCompleteLists = response.data.results
+          }
+        )
+      }
+    }
   },
 };
 </script>
