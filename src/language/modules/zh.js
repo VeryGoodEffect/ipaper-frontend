@@ -69,6 +69,14 @@ export default {
 
     ipaper_scholar_text: 'iPaper 学术搜索',
 
+    kerword_search: '关键词',
+    abstract_search: '摘要',
+    full_text_search: '全文',
+    title_search: '标题',
+    author_search: '作者',
+    journal_search: '期刊',
+    institution_search: '机构',
+    advanced_search_text: '高级',
 
     //advanced_search
     search_text: '搜索',
