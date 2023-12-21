@@ -1,8 +1,8 @@
 <template>
     <div class="message-container">
-        <button class="basic-btn-outline" v-if="!msg.is_read" @click="setMessageRead">设为已读</button>
-        <button class="basic-btn" v-else>已读</button>
-        <button class="basic-btn" @click="deleteMessage">删除</button>
+        <button class="basic-btn-outline" v-if="!msg.is_read" @click="setMessageRead">{{ $t('read_it') }}</button>
+        <button class="basic-btn" v-else>{{ $t('already_read') }}</button>
+        <button class="basic-btn" @click="deleteMessage">{{ $t('delete_it') }}</button>
         <h4 class="sender">
             {{ msg.sender.username }}
         </h4>
@@ -18,9 +18,13 @@
     </div>
 </template>
 <script>
+import i18n from '../../language'
 export default {
     name: 'MessageItem',
     props: ['msg'],
+    components: {
+        i18n
+    },
     methods: {
         setMessageRead() {
             this.$bus.emit('sendSetMessageReadByIdRequest', this.msg)

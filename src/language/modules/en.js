@@ -143,4 +143,15 @@ export default {
     institution_cited_by_count: "Total Citations: ",
 
     journal_type: "Type:",
+
+    message_all: 'All',
+    message_unread: 'Unread',
+    unread_cnt_1: 'You have ',
+    unread_cnt_2: ' unread',
+    unread_cnt_3: ' unreads',
+    set_read_all: 'Read All',
+    delete_read: 'Delete Reads',
+    read_it: 'Set Read',
+    already_read: 'Read',
+    delete_it: 'Delete',
 }
