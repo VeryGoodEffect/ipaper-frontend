@@ -121,4 +121,10 @@ export default {
     tag_detail_author: "Related Scholar:",
     tag_detail_institution: "Related Agencies:",
     tag_detail_tags: "Related Field:",
+
+    institution_region: "Country/Region:",
+    institution_works_count: "Total Publications:",
+    institution_cited_by_count: "Total Citations:",
+
+    journal_type: "Type:",
 }

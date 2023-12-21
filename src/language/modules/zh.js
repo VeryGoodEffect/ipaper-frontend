@@ -122,4 +122,10 @@ export default {
     tag_detail_author: "相关作者：",
     tag_detail_institution: "相关机构：",
     tag_detail_tags: "相关领域：",
+
+    institution_region: "国家/地区：",
+    institution_works_count: "学术成果数：",
+    institution_cited_by_count: "总被引用数：",
+
+    journal_type: "类型：",
 }

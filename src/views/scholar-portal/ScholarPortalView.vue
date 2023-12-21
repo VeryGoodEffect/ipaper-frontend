@@ -1,4 +1,7 @@
 <template>
+      <!-- <InstitutionListItem :institutionInfo="institutionInfo"></InstitutionListItem>
+    <ScholarListItem :scholarInfo="scholarInfo"></ScholarListItem>
+    <JournalListItem :journalListItemInfo="journalListItemInfo"></JournalListItem> -->
     <div class="main-part">
       <div class="info-tag-list">
         <div class="personal-info">
@@ -99,6 +102,8 @@
   <script>
   import AuthorRelationGraph from '../../components/relation-graph/RelationGraph.vue'
   import InstitutionListItem from '../../components/list-item/InstitutionListItem.vue'
+  import ScholarListItem from '../../components/list-item/ScholarListItem.vue'
+  import JournalListItem from '../../components/list-item/JournalListItem.vue'
   import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
   import Pagination from '../../components/pagination/Pagination.vue'
   import FavouriteListItem from '../../components/favorites/FavouriteListItem.vue'
@@ -114,6 +119,8 @@
       FavouriteList,
       FollowList,
       SearchResultListItem,
+      ScholarListItem,
+      JournalListItem,
       Pagination,
       InstitutionListItem,
       AuthorRelationGraph,
@@ -169,35 +176,33 @@
         //     keyword: "经济"
         // },
       ],
-        
-        institutionInfo: [
-          {
-            name: 'google',
-            profile: '这是google的简介',
-            link: ''
-          },
-          {
-            name: '北京航空航天大学',
-            profile: '这是google的简介',
-            link: ''
-          },{
-            name: '北航附中',
-            profile: '这是google的简介',
-            link: ''
-          },{
-            name: '北航附小',
-            profile: '这是google的简介',
-            link: '这是google的简介'
-          },{
-            name: 'Huawei',
-            profile: '这是google的简介',
-            link: ''
-          },{
-            name: 'google',
-            profile: '这是google的简介',
-            link: ''
-          },
-        ],
+      journalListItemInfo: {
+        id: "S4306525036",
+        display_name: "PubMed",
+        type: "repository",
+        country_code: "US",
+        homepage_url: "https://pubmed.ncbi.nlm.nih.gov",
+        works_count: 33075868,
+        cited_by_count: 951448677,
+      },
+        scholarInfo: {
+          id: "A5040654425",
+          display_name: "George M Garrity",
+          country_code: 'US',
+          // country_code 从last_known_institution.country_code获得
+          works_count: 96223,
+          cited_by_count: 40117,
+        },
+        institutionInfo: {
+          id: "I1294671590",
+          display_name_zh: '法国国家科学研究中心',
+          display_name: 'French National Centre for Scientific Research',
+          country_code: 'FR',
+          works_count: 993011,
+          cited_by_count: 29396266,
+          ror: "https://ror.org/02feahw73",
+          homepage_url: "https://www.cnrs.fr",
+        },
         isCreating: false,
         moveVisible: false,
         isFavourite: true,
