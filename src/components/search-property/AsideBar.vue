@@ -1,7 +1,7 @@
 <template>
   <!-- DO NOT DELETE THIS SEEMINGLY USELESS FUNCTION `doNothing`!!!!  -->
-  <div class="sidebar-container" @click.stop="doNothing">
-    <div class="sidebar" :class="{ closed: !isSidebarOpen }">
+  <div class="sidebar-container" @click.stop="doNothing" id="sidebar-container">
+    <div class="sidebar" :class="{ closed: !isSidebarOpen }" id="sidebar">
       <nav>
         <ul>
           <li @click="setSearchType(0)">
@@ -84,6 +84,24 @@ export default {
       isSidebarOpen: false,
       toggleShouldShow: true
     };
+  },
+  watch: {
+    isSidebarOpen: {
+      handler(newValue, oldValue) {
+        this.$nextTick(() => {
+          if (newValue == true) {
+            document.getElementById('sidebar-container').style.width = '250px'
+            document.getElementById('sidebar').style.width = '250px'
+          } else {
+            setTimeout(() => {
+              document.getElementById('sidebar-container').style.width = '0px'
+              document.getElementById('sidebar').style.width = '0px'
+            }, 310);
+          }
+        })
+      },
+      immediate: true
+    }
   },
 
   mounted() {

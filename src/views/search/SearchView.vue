@@ -1,11 +1,6 @@
 <template>
   <div>
-    <!-- <div class="aside"> -->
-    <!-- <svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2048 2048"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 152h336"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 256h336"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="48" d="M88 360h336"></path></svg>      -->
-
-    <!-- </div> -->
     <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar>
-
     <main class="container">
       <section class="search-panel">
         <h2>
@@ -13,11 +8,28 @@
         </h2>
 
         <div class="search-area">
-          <input
-            v-model="search_search"
-            type="text"
-            class="basic-input search-input"
-          />
+          <div>
+            <input
+              v-model="search_search"
+              type="text"
+              class="basic-input search-input"
+              @keydown.down="navigateDown" 
+              @keydown.up="navigateUp"
+              @keydown.enter="searchOrChangeContent"
+              @focus="showAutoCompleteMenu"
+              @blur="hideAutoCompleteMenu"
+            />
+            <ul v-if="autoCompleteShouldShow && autoCompleteLists.length > 0">
+            <li 
+              :class="{ 'suggestion-active': index === activeSuggestionIndex }"
+              v-for="(item, index) in autoCompleteLists" :key="index"
+              @mouseover="activeSuggestionIndex = index"
+              @click="changeContent(item.display_name)"
+            >
+              {{ item.display_name }}
+            </li>
+          </ul>
+          </div>
           <button @click="search" class="basic-btn search-btn">
             <svg
               t="1699356103686"
@@ -39,15 +51,8 @@
         </div>
       </section>
       <section class="recommendation">
-        <div>
-          <ul>
-            <li v-for="(item, index) in autoCompleteLists" :key="index">{{ item.display_name }}</li>
-          </ul>
-        </div>
         <h3>为你推荐</h3>
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         <button @click="showHotspotRecommend = true">学术热点</button>
-        &nbsp&nbsp&nbsp&nbsp
         <button @click="showHotspotRecommend = false">猜你想看</button>
         <ArticleRecommendation :show="showHotspotRecommend" />
         <InterestRecommendation :show="!showHotspotRecommend" />
@@ -55,6 +60,7 @@
     </main>
   </div>
 </template>
+
 <script>
 import i18n from "../../language";
 import AsideBar from "../../components/search-property/AsideBar.vue";
@@ -72,16 +78,6 @@ export default {
     // AdvancedSearchModal
   },
   data() {
-    /** 在OpenAlex中，您可以使用多种过滤器搜索属性来精确地缩小搜索结果。这些过滤器通过在查询中使用filter参数来应用。以下是一些关键的过滤器搜索属性及其功能：
-        具体字段搜索：您可以在特定字段上执行搜索，方法是在您想要过滤的属性后面加上.search。例如，可以在标题字段上使用title.search来搜索特定的标题内容。
-        作者数量 (authors_count)：按作品的作者数量进行过滤。您可以使用不等式过滤器选择范围，例如authors_count:>5表示选择作者数量超过5的作品。
-        作者机构所在大洲 (authorships.institutions.continent)：返回至少有一位作者所在机构位于特定大洲的作品。
-        作者机构是否位于全球南部 (authorships.institutions.is_global_south)：根据作者所在机构是否位于全球南部来过滤作品。
-        最佳开放版本 (best_open_version)：按作品的最佳开放访问版本进行过滤，例如可以选择已提交版本、已接受版本或已发布版本。
-        被引用 (cited_by) 和 引用 (cites)：根据作品被引用或引用其他作品的情况进行过滤。
-        概念数量 (concepts_count)：按分配给作品的概念数量进行过滤。
-        创建日期 (from_created_date)、发布日期 (from_publication_date) 和 **更新日期 (`from_updated_date */
-
     return {
       show_property_search: false,
       is_advanced_search: true,
@@ -98,13 +94,17 @@ export default {
       cur_search_cursor: "",
       search_type: 1,
       queryParts: {},
-      autoCompleteLists: []
+      autoCompleteLists: [],
+      activeSuggestionIndex: -1,
+      autoCompleteShouldShow: false
     };
   },
   watch: {
     search_search(newValue, oldValue) {
       if (newValue.length == 0) {
-        this.autoCompleteLists = []
+        setTimeout(() => {
+          this.autoCompleteLists = []
+        }, 100)
       } else {
         this.autoComplete()
       }
@@ -225,6 +225,42 @@ export default {
           }
         )
       }
+    },
+
+    navigateDown() {
+      if (this.activeSuggestionIndex < this.autoCompleteLists.length - 1) {
+        this.activeSuggestionIndex++;
+      } else {
+        this.activeIndex = 0;
+      }
+    },
+    navigateUp() {
+      if (this.activeSuggestionIndex > 0) {
+        this.activeSuggestionIndex--;
+      } else {
+        this.activeSuggestionIndex = this.autoComplete.length - 1;
+      }
+    },
+    showAutoCompleteMenu() {
+      this.activeSuggestionIndex = -1
+      this.autoCompleteShouldShow = true
+    },
+    hideAutoCompleteMenu() {
+      setTimeout(() => {
+        this.autoCompleteShouldShow = false
+        this.activeSuggestionIndex = -1
+      }, 100)
+    },
+    changeContent(str) {
+      this.search_search = str
+      this.activeSuggestionIndex = -1
+    },
+    searchOrChangeContent() {
+      if (this.activeSuggestionIndex === -1) {
+        this.search()
+      } else {
+        this.changeContent(this.autoCompleteLists[this.activeSuggestionIndex].display_name)
+      }
     }
   },
 };
@@ -254,9 +290,14 @@ export default {
   margin-bottom: 50px;
 }
 
+.search-area div {
+  width: 50%;
+  position: relative;
+}
+
 .search-input {
   max-width: 640px;
-  width: 80%;
+  width: 100%;
   border-color: var(--theme-mode-contrast);
   border-width: 2px;
 }
@@ -272,6 +313,39 @@ export default {
   width: 30px;
   height: 30px;
   margin: auto;
+}
+
+.search-area ul {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  max-width: 640px;
+  width: 100%;
+  background: var(--theme-mode-like);
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.search-area ul li {
+  font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  padding: 2px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-area ul li:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+
+.suggestion-active {
+  background: var(--theme-mode-contrast);
+  font-weight: bold;
 }
 
 .recommendation {

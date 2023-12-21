@@ -78,16 +78,8 @@ export default {
 }
 
 .profile {
-    /* padding-left: 20px; */
     font-size: 14px;
     color: var(--theme-mode-very-high-contrast);
-    /* color: rgb(98,186,70); */
-    /* display: -webkit-box; */
-    /* -webkit-box-orient: vertical; */
-    /* overflow: hidden; */
-    /* text-overflow: ellipsis; */
-    /* -webkit-line-clamp: 1;  */
-    /* line-clamp: 1; */
 }
 
 .profile:not(:first-of-type) {
