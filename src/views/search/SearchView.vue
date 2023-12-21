@@ -39,13 +39,17 @@
         </div>
       </section>
       <section class="recommendation">
+        <div>
+          HHHHHH
+        </div>
         <h3>为你推荐</h3>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         <button @click="showHotspotRecommend = true">学术热点</button>
+        &nbsp&nbsp&nbsp&nbsp
         <button @click="showHotspotRecommend = false">猜你想看</button>
         <ArticleRecommendation :show="showHotspotRecommend" />
         <InterestRecommendation :show="!showHotspotRecommend" />
       </section>
-      <!-- <MulSearch /> -->
     </main>
   </div>
 </template>
@@ -55,8 +59,6 @@ import AsideBar from "../../components/search-property/AsideBar.vue";
 import ArticleRecommendation from "../../components/recommendation/ArticleRecommendation.vue";
 import InterestRecommendation from "../../components/recommendation/InterestRecommendation.vue";
 
-// import AdvancedSearchModal from "../../components/modals/AdvancedSearchModal.vue";
-// import MulSearch from '../../components/search-property/MulSearch.vue';
 export default {
   name: "SearchView",
   components: {
@@ -82,13 +84,6 @@ export default {
       is_advanced_search: true,
       showHotspotRecommend: true,
 
-      // for filter type
-      // abstract.search
-      // display_name.search
-      // fulltext.search
-      // title.search
-      // default.search
-
       // for filter content
       search_content: "",
       // search_content_filter: "",
@@ -112,7 +107,6 @@ export default {
       this.show_property_search = !this.show_property_search;
     },
     search() {
-      alert("????");
       const query = {
         filter: this.search_filter,
         search: this.search_search,
@@ -136,24 +130,11 @@ export default {
       //!暂时先置空吧
       this.search_filter = "";
 
-      /**
-       * author: this.author,
-        publication: this.publication,
-        start_time: this.start_time,
-        end_time: this.end_time,
-        keyword: this.keyword,
-        is_key_title: this.is_key_title
-       */
       if (data.author) {
         this.search_filter += `authorships.author.display_name.search:${encodeURIComponent(
           data.author
         )},`;
       }
-      // if (data.publication) {
-      //   this.search_filter += `primary_location.display_name.search:${encodeURIComponent(
-      //     data.publication
-      //   )},`;
-      // }
       if (data.start_time && data.end_time) {
         this.search_filter += `publication_year:${data.start_time}-${data.end_time},`;
       }
@@ -164,16 +145,6 @@ export default {
 
       console.log(this.search_filter);
       this.search();
-
-      /***
-       * 
-       *       author: "",
-      publication: "",
-      start_time: "",
-      end_time: "",
-      keyword: "",
-      is_key_title: true
-       */
     },
     // https://api.openalex.org/authors?filter=display_name.search:einstein
     // https://api.openalex.org/works?filter=type:book
