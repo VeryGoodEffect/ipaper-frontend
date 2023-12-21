@@ -96,6 +96,7 @@ export default {
     },
     sendMsg(){
       this.$emit('senddata',this.searchParams)
+      this.handleClose()
     }
   
   },
