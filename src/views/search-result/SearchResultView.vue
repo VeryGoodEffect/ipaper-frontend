@@ -459,7 +459,7 @@ export default {
        */
     },
 
-    /***
+       /***
        * 
        *    filter : this.search_filter,
             search : this.search_search,
@@ -553,7 +553,7 @@ export default {
       delete this.searchdata["search_type"];
     }
     // console.log(this.$route)
-    alert(this.search_type);
+    // alert(this.search_type);
     /**
      * 
      * filter : this.search_filter,

@@ -186,21 +186,21 @@ export default {
         this.search_filter = "";
         this.search_type = 1;
       } else if (type == 1) {
-        alert("abstract.search:");
+        // alert("abstract.search:");
         this.search_filter = "abstract.search:";
         this.search_type = 1;
       } else if (type == 2) {
-        alert("fulltext.search:");
+        // alert("fulltext.search:");
         this.search_filter = "fulltext.search:";
         this.search_type = 1;
       } else if (type == 3) {
-        alert("display_name.search:");
+        // alert("display_name.search:");
         this.search_filter = "display_name.search:";
         this.search_type = 1;
       }
       // Author search
       else if (type == 4) {
-        alert("search author");
+        // alert("search author");
         this.search_type = 2;
       }
 
