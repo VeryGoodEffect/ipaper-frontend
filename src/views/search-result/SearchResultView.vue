@@ -311,7 +311,6 @@ export default {
             cited_by_count: item.cited_by_count,
             ror: item.ror,
             homepage_url: item.homepage_url
-
           };
         });
       }
