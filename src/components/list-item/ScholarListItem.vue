@@ -3,15 +3,16 @@
       <h3 @click="jumpDetailView" class="title">
           {{ scholarInfo.display_name }}
       </h3>
-      <h3 class="profile">
-            {{ $t('institution_region') }}{{ scholarInfo.country_code }}
-        </h3>
-      <h3 class="profile">
+      <br>
+      <span class="profile">
+        {{ $t('institution_region') }}{{ scholarInfo.country_code }}
+      </span>
+      <span class="profile">
         {{ $t('institution_works_count') }}{{ scholarInfo.works_count }}
-      </h3>
-      <h3 class="profile">
+      </span>
+      <span class="profile">
         {{ $t('institution_cited_by_count') }}{{ scholarInfo.cited_by_count }}
-      </h3>
+      </span>
     </div>
 </template>
 
@@ -60,31 +61,39 @@ export default {
 }
 .title {
     font-size: 20px;
+    font-weight: bold;
     color: var(--theme-mode-very-high-contrast);
-    display: -webkit-box;
+    /* display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 1; 
-    line-clamp: 1;
+    line-clamp: 1; */
     cursor: pointer;
+    display: inline-block;
 }
 
-.out-border :hover {
-    text-decoration: underline;
+.title:hover {
+  text-decoration: underline;
 }
+
 .profile {
     /* padding-left: 20px; */
     font-size: 14px;
     color: var(--theme-mode-very-high-contrast);
     /* color: rgb(98,186,70); */
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1; 
-    line-clamp: 1;
+    /* display: -webkit-box; */
+    /* -webkit-box-orient: vertical; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    /* -webkit-line-clamp: 1;  */
+    /* line-clamp: 1; */
 }
+
+.profile:not(:first-of-type) {
+  margin-left: 10px;
+}
+
 .excerpt {
     font-size: 14px;
     color: var(--theme-mode-high-contrast);
