@@ -28,18 +28,23 @@ import PopoutModal from '../popout-modal/PopoutModal.vue'
 import SearchResultListItem from '../search-result-list/SearchResultListItem.vue'
 import i18n from '../../language'
 import ChooseFavoriteModal from './ChooseFavoriteModal.vue'
+import { User } from '../../api/users.js'
 export default {
   name: 'FavorateContentModal',
   components: {
     PopoutModal,
     SearchResultListItem,
     ChooseFavoriteModal,
+    User,
     i18n
   },
   props: {
     show: {
       type: Boolean,
       default: false
+    },
+    favoriteId: {
+      type: String
     }
   },
   data() {
@@ -49,18 +54,6 @@ export default {
       x: 0,
       y: 0,
       idTobeMoved: '',
-      infoItem: {
-        title: "低碳经济: 人类经济发展方式的新变革",
-        author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
-        excerpt: "0",
-        timeCited: 57,
-        keyword: "经济",
-        publicationYear: 2008,
-        journalName: "中国工业经济",
-        abstract:
-          "This work discusses the new changes in human economic development towards a low carbon economy...",
-        url: "https://example.com/link-to-work",
-      }
     }
   },
   emits: ['close'],
@@ -81,18 +74,18 @@ export default {
       // 必须在这里调用获取收藏夹内容接口
       // 存到 `this.contentList`
       // ==========================
-
-      // 模拟一下死数据
-      for (let i = 0; i < 10; i++)
-      {
-        this.contentList.push(this.infoItem)
-        this.contentList.push(this.infoItem)
-        this.contentList.push(this.infoItem)
-        this.contentList.push(this.infoItem)
-        this.contentList.push(this.infoItem)
-        this.contentList.push(this.infoItem)
+      if (this.favoriteId) {
+        User.getFavoriteList(this.favoriteId).then(
+          (response) => {
+            this.contentList = response.data
+          }
+        )
       }
-      
+      // 模拟一下死数据
+      // for (let i = 0; i < 1; i++)
+      // {
+      //   this.contentList.push(this.infoItem)
+      // }
       // 下面的不能删
       this.closeAll()
     },
@@ -120,17 +113,20 @@ export default {
       // 将 `contentList` 中第 `idx` 项进行移动
       // 这里并不需要实现接口
       // ===========================
+      User.deleteFavorite(this.contentList[idx].favorite_id)
+      this.contentList.splice(idx, 1)
       this.chooseFavoriteModalShouldShow = true
 
       // 实现了 fetchData 后，必须解开下面这句注释
-      // this.idTobeMoved = this.contentList[idx].id
+      this.idTobeMoved = this.contentList[idx].favorite_id
     },
     deleteFavorite(idx) {
       // ===========================
       // 【删除收藏夹内容方法】
       // 删除 `contentList` 中第 `idx` 项
       // ===========================
-      alert('删除' + String(idx))
+      User.deleteFavorite(this.contentList[idx].favorite_id)
+      this.contentList.splice(idx, 1)
     }
   }
 

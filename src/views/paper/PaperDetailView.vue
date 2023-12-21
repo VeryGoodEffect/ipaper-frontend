@@ -76,16 +76,17 @@
 <script>
 import { useRouter } from 'vue-router'
 import { Search } from "../../api/search";
-import katex from 'katex';
-import 'katex/dist/katex.css'
-import { VueLatex } from "vatex";
+// import katex from 'katex';
+// import 'katex/dist/katex.css'
+// import { VueLatex } from "vatex";
 
 export default {
   components: {
-    VueLatex,
+    // VueLatex,
   },
   data() {
     return {
+      paperId: 'W2100837269',
       title: "暂无标题",
       authorships: [],
       institution: '暂无机构',
@@ -103,9 +104,8 @@ export default {
   },
   methods: {
     getPaperDetail() {
-      // let paperId = this.$route.params.paperId
-      let paperId = 'W2911964244'
-      if (paperId) {
+      //this.paperId = this.$route.params.paperId
+      if (this.paperId != '') {
         Search.workRetrieve(paperId).then(
           (response) => {
             this.title = response.data.title
@@ -130,20 +130,22 @@ export default {
         )
       }
     },
-    formatAbstract() {
-      // 转换LaTeX公式的特殊字符
+    // formatAbstract() {
+    //   // 转换LaTeX公式的特殊字符
 
-      var regex = /\$/g;
-      this.abstract = this.abstract.replace(regex, "");
+    //   var regex = /\$/g;
+    //   this.abstract = this.abstract.replace(regex, "");
       
-    },
+    // },
 
     // renderFormula() {
     //   this.$el.innerHTML = "\\[ " + this.abstract + " \\]";
     //   MathJax.typeset([this.$el]);
     // },
 
-    collectPaper() {},
+    collectPaper() {
+
+    },
     citePaper() {},
     sharePaper() {
       var text = window.location.href;
