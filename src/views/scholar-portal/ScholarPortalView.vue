@@ -73,14 +73,16 @@
               </div>
             </div>
             <div class="favorites-list">
-                <Pagination class="pagination">
-                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
-                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
-                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
-                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
-                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
-                    <SearchResultListItem :infoItem="infoItem"></SearchResultListItem>
-                </Pagination>
+              <Pagination
+                class="pagination"
+                :defaultItemsPerPage="5"
+              >
+                <SearchResultListItem
+                  v-for="(info, index) in infoItems"
+                  :key="index"
+                  :infoItem="info"
+                ></SearchResultListItem>
+              </Pagination>
             </div>
           </div>
           
@@ -89,13 +91,13 @@
     </div>
     <div class="relation-network">
       <h3>{{ $t('scholar_portal_net') }}</h3>
-      <RelationGraphDemo></RelationGraphDemo>
+      <AuthorRelationGraph :relationList="relationList"></AuthorRelationGraph>
     </div>
     
 </template>
   
   <script>
-  import RelationGraphDemo from '../../components/relation-graph/RelationGraph.vue'
+  import AuthorRelationGraph from '../../components/relation-graph/RelationGraph.vue'
   import InstitutionListItem from '../../components/list-item/InstitutionListItem.vue'
   import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
   import Pagination from '../../components/pagination/Pagination.vue'
@@ -114,7 +116,7 @@
       SearchResultListItem,
       Pagination,
       InstitutionListItem,
-      RelationGraphDemo,
+      AuthorRelationGraph,
       i18n
     },
     data() {
@@ -144,13 +146,30 @@
           yearCitations: 0,
 
         },
-        infoItem: {
-            title: "低碳经济: 人类经济发展方式的新变革",
-            author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
-            excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
-            timeCited: 57,
-            keyword: "经济"
-        },
+        infoItems: [
+        //   {
+        //     title: "低碳经济: 人类经济发展方式的新变革",
+        //     author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
+        //     excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
+        //     timeCited: 57,
+        //     keyword: "经济"
+        // },
+        // {
+        //     title: "低碳经济: 人类经济发展方式的新变革",
+        //     author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
+        //     excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
+        //     timeCited: 57,
+        //     keyword: "经济"
+        // },
+        // {
+        //     title: "低碳经济: 人类经济发展方式的新变革",
+        //     author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
+        //     excerpt: "低碳经济(Low-carbon Economy)是未来经济发展方式的新选择.本文从大时空跨度和能源利用方conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利conomy)是未来经济发展方式的新选择.本文从大时空跨度和能源利式上,分析了人类经济发展形态演变历程;探讨了低碳经济… 了低碳经济产生与发展.本文研究了低碳",
+        //     timeCited: 57,
+        //     keyword: "经济"
+        // },
+      ],
+        
         institutionInfo: [
           {
             name: 'google',
@@ -238,19 +257,34 @@
             id: '',
           },
           
-        ]
+        ],
+        resultlist: [],
+        relationList: [],
       }
     },
-    
+    watch: {
+      '$route.params': {
+        immediate: true,
+        handler(newParams) {
+          this.authorInfo.id = this.$route.params.id
+          this.getRelationMap()
+          this.getAuthorInfo()
+        }
+      }
+    },
     created() {
+      this.authorInfo.id = this.$route.params.id
+      this.getRelationMap()
       this.getAuthorInfo()
     },
     methods: {
-      getAuthorInfo() {
+      
+      async getAuthorInfo() {
         //get author id
-        let authorID = 'A5040654425'
-        if (authorID) {
-          Search.searchAuthorInfo(authorID).then(
+        // let authorID = 'A5040654425'
+        // this.authorInfo.id = authorID
+        if (this.authorInfo.id) {
+          Search.searchAuthorInfo(this.authorInfo.id).then(
             (response) => {
               console.log(response)
               // console.log(response.data.username)
@@ -275,8 +309,8 @@
                   wikidata: response.data.x_concepts[i].wikidata
                 })
               }
-              this.getAuthorArticle()
-              this.getRelationMap()
+              // this.getRelationMap()
+              this.getAuthorArticle()    
             },
             (error) => {
               console.log(error)
@@ -286,29 +320,64 @@
       },
       getAuthorArticle() {
         console.log(this.authorInfo.works_api_url)
-        var startIndex = this.authorInfo.works_api_url.indexOf('filter='); // 获取"/api/"的起始位置
-        var filter = this.authorInfo.works_api_url.substring(startIndex + 7); // 删除起始位置及之前的内容
+        var startIndex = this.authorInfo.works_api_url.indexOf('filter=')
+        var filter = this.authorInfo.works_api_url.substring(startIndex + 7)
         console.log(filter)
         let data = {
           filter: filter
         }
         Search.searchWorks(data).then(
             (response) => {
-              console.log(111)
-              console.log(response)
+              // console.log(111)
+              // console.log(response)
               // console.log(response.data.username)
+
+              this.resultlist = response.data.results;
+              // console.log(this.resultlist)
+              this.resultlistToInfoItems();
             },
             (error) => {
               console.log(error)
             }
           )
       },
+      resultlistToInfoItems() {
+        this.infoItems = this.resultlist.map((item) => {
+          // console.log(item.authorships[0].author.display_name);
+          // console.log(item.abstract);
+          return {
+            // title: item,s
+            title: item.title,
+            author:
+              item.authorships[0] != null
+                ? item.authorships[0].author.display_name
+                : "unkown",
+            // author: "author",
+            excerpt: "0",
+            timeCited: item.cited_by_count,
+            keyword: "经济",
+            related_times: item.related_works_count,
+            publicationYear: item.publication_year,
+            journalName: item.host_venue
+              ? item.host_venue.display_name
+              : "unknown",
+            abstract: item.abstract,
+            url: item.url,
+            language: item.language,
+          };
+        });
+      },
       getRelationMap() {
+        // console.log(this.authorInfo.id)
+        // console.log(222)
+        // this.authorInfo.id = 'A5040654425'
         History.getRelationMap(this.authorInfo.id).then(
             (response) => {
-              console.log(111222)
+              // console.log(111222)
               console.log(response)
               // console.log(response.data.username)
+              this.relationList = response.data.authors
+              console.log(this.relationList)
             },
             (error) => {
               console.log(error)
