@@ -1,10 +1,16 @@
 <template>
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
         <h3 @click="jumpDetailView" class="title">
-            {{ institutionInfo.title }}
+            {{ institutionInfo.display_name }}
         </h3>
         <h3 class="profile">
-            {{ institutionInfo.profile }}
+            {{ $t('institution_region') }}{{ institutionInfo.country_code }}
+        </h3>
+        <h3 class="profile">
+          {{ $t('institution_works_count') }}{{ institutionInfo.works_count }}
+        </h3>
+        <h3 class="profile">
+          {{ $t('institution_cited_by_count') }}{{ institutionInfo.cited_by_count }}
         </h3>
     </div>
 </template>
