@@ -88,7 +88,8 @@
           ></path>
         </svg>
       </div>
-      <ul v-if="autoCompleteShouldShow && autoCompleteLists.length > 0">
+      <!-- for auto complete -->
+      <!-- <ul v-if="autoCompleteShouldShow && autoCompleteLists.length > 0">
           <li
             :class="{ 'suggestion-active': index === activeSuggestionIndex }"
             v-for="(item, index) in autoCompleteLists"
@@ -98,7 +99,7 @@
           >
             {{ item.display_name }}
           </li>
-        </ul>
+        </ul> -->
     </div>
   </main>
 </template>

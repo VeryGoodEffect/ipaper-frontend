@@ -1,6 +1,5 @@
 <template>
-  <div id="graph-count" style="width: 100%; height: 400px; z-index: 999"></div>
-  
+  <div id="scholar-graph" style="width: 100%; height: 400px; z-index: 999"></div>
 </template>
   
   <script>
@@ -42,24 +41,37 @@ export default {
           },
         ],
         yAxis: [
-          {
-            type: "value",
-          },
-        ],
-        series: [
-          {
-            name: "成果数量",
-            type: "bar",
-            barWidth: "30%",
-            data: [],
-          },
-          {
-            name: "引用数量",
-            type: "bar",
-            barWidth: "30%",
-            data: [],
-          }
-        ],
+        {
+          type: 'value',
+          min: 0,
+          max: 40000, // 引用数量的Y轴上限
+          // 可以为此轴添加额外的样式和配置
+        },
+        {
+          type: 'value',
+          min: 0,
+          max: 2000, // 成果数量的Y轴上限
+          // 可以为此轴添加额外的样式和配置
+          // 设置为右侧的 Y 轴
+          position: 'right',
+        }
+      ],
+      series: [
+        {
+          name: "成果数量",
+          type: "bar",
+          barWidth: "35%",
+          data: [],
+          yAxisIndex: 1, // 使用第二个Y轴（右侧）
+        },
+        {
+          name: "引用数量",
+          type: "bar",
+          barWidth: "35%",
+          data: [],
+          yAxisIndex: 0, // 使用第一个Y轴（左侧）
+        }
+      ],
       },
 
     };
@@ -73,7 +85,7 @@ export default {
       echarts.use([TooltipComponent, GridComponent, BarChart, CanvasRenderer]);
 
       // 获取图表容器
-      const chartDom = document.getElementById("graph-count");
+      const chartDom = document.getElementById("scholar-graph");
 
       // 初始化图表
       this.chart = echarts.init(chartDom);
@@ -85,10 +97,10 @@ export default {
 
       var len = this.info.length;
       console.log(this.info, "!!!!!!!");
-    //   const reversedInfo = this.info.reverse();
-        const sortedInfo = this.info.sort((a, b) => a.year - b.year);
+      // const reversedInfo = this.info.reverse();
+      const sortedInfo = this.info.sort((a, b) => b.year - a.year);
       
-        sortedInfo.forEach((element) => {
+      sortedInfo.reverse().forEach((element) => {
         this.option.xAxis[0].data.push(element.year);
         this.option.series[0].data.push(element.works_count);
         this.option.series[1].data.push(element.cited_by_count);
