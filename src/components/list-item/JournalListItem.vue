@@ -37,9 +37,11 @@ export default {
   },
   methods: {
     jumpDetailView() {
-      this.$router.push({
-        path: "/institution_detail/" + this.journalListItemInfo.id,
-      });
+      console.log(this.journalListItemInfo.homepage_url)
+      // alert(this.infoItem.url)
+      // this.$router.push({
+      //   path: "/institution_detail/" + this.journalListItemInfo.id,
+      // });
     },
   },
   computed: {},

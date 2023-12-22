@@ -1,11 +1,12 @@
 <template>
   <div class="main-area">
-    <!-- <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar> -->
-
-    <!-- works -->
-    <div v-show="this.search_type == 1" class="cond-area" style="display: vertical; position: sticky; top: 0">
-      <div 
-        class="cond-in-1"
+    <div
+      v-show="this.search_type == 1"
+      class="cond-area"
+      style="display: vertical; position: sticky; top: 0"
+    >
+      <div
+        class="filter-card"
         style="
           display: vertical;
           margin-left: auto;
@@ -16,6 +17,7 @@
         "
       >
         <ul>
+          <li>按时间筛选</li>
           <li @click="setFilterTime(1)" style="cursor: pointer">时间不限</li>
           <li @click="setFilterTime(2)" style="cursor: pointer">2023以来</li>
           <li @click="setFilterTime(3)" style="cursor: pointer">2022以来</li>
@@ -27,34 +29,16 @@
           </li>
         </ul>
       </div>
-      <hr />
-      <div
-        class="cond-in-2"
-        style="
-          display: vertical;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 10%;
-          margin-bottom: 10%;
-          text-align: center;
-        "
-      >
+
+      <div class="filter-card" style="display: vertical; text-align: center">
         <ul>
-          <li @click="sortByTime" style="cursor: pointer">日期排序</li>
+          <li>日期排序</li>
+          <li @click="sortByTime(1)" style="cursor: pointer">升序排序</li>
+          <li @click="sortByTime(2)" style="cursor: pointer">降序排序</li>
         </ul>
       </div>
-      <hr />
-      <div
-        class="cond-in-3"
-        style="
-          display: vertical;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 10%;
-          margin-bottom: 10%;
-          text-align: center;
-        "
-      >
+
+      <div class="filter-card" style="display: vertical; text-align: center">
         <ul>
           <li @click="setLanguage(1)" style="cursor: pointer">不限语言</li>
           <li @click="setLanguage(2)" style="cursor: pointer">中文网页</li>
@@ -62,35 +46,15 @@
           <!-- <li>时间不限</li> -->
         </ul>
       </div>
-      <hr />
-      <div
-        class="cond-in-4"
-        style="
-          display: vertical;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 10%;
-          margin-bottom: 10%;
-          text-align: center;
-        "
-      >
-        <ul v-for="(option, index) in options" :key="index">
-          <input type="radio" :value="option.value" v-model="selectedOption" />
-          <label>{{ option.text }}</label>
+
+      <div class="filter-card" style="display: vertical; text-align: center">
+        <ul>
+          <li  v-for="(option, index) in options" :key="index"><input type="radio" :value="option.value" v-model="selectedOption" />
+          <label>{{ option.text }}</label></li>
         </ul>
       </div>
-      <hr />
-      <div
-        class="cond-in-5"
-        style="
-          display: vertical;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 10%;
-          margin-bottom: 10%;
-          text-align: center;
-        "
-      >
+
+      <div class="filter-card" style="display: vertical; text-align: center">
         <ul>
           <li style="cursor: pointer"><input type="checkbox" />包含专利</li>
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
@@ -101,19 +65,27 @@
     </div>
 
     <!-- auth -->
-    <div v-show="this.search_type == 2" class="cond-area" style="display: vertical; position: sticky; top: 0">
-    
-    </div>
-    
+    <div
+      v-show="this.search_type == 2"
+      class="cond-area"
+      style="display: vertical; position: sticky; top: 0"
+    ></div>
+
     <!-- source -->
-    <div v-show="this.search_type == 3" class="cond-area" style="display: vertical; position: sticky; top: 0">
-    </div>
+    <div
+      v-show="this.search_type == 3"
+      class="cond-area"
+      style="display: vertical; position: sticky; top: 0"
+    ></div>
 
     <!-- intst -->
-    <div v-show="this.search_type == 4" class="cond-area" style="display: vertical; position: sticky; top: 0">
-    </div>
+    <div
+      v-show="this.search_type == 4"
+      class="cond-area"
+      style="display: vertical; position: sticky; top: 0"
+    ></div>
 
-    <div>
+    <div style="min-width: 50%">
       <div class="search-container">
         <SearchPanel @senddata="handleModoleSearch"></SearchPanel>
       </div>
@@ -158,9 +130,8 @@
           v-for="(info, index) in infoItems"
           :key="index"
           :journalListItemInfo="info"
-          
         >
-        <!-- journalListItemInfo -->
+          <!-- journalListItemInfo -->
         </journal-list-item>
       </Pagination>
       <!-- 机构 -->
@@ -192,9 +163,8 @@ import InstitutionListItem from "../../components/list-item/InstitutionListItem.
 import JournalListItem from "../../components/list-item/JournalListItem.vue";
 import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 // import SearchModelVue
-import SearchModel from '../search/SearchModel.vue';
-import ChatGPT from '../../components/chat/Chat.vue'
-import SearchPanel from '../search/SearchPanel.vue';
+import SearchPanel from "../search/SearchPanel.vue";
+import ChatGPT from "../../components/chat/Chat.vue";
 export default {
   name: "SearchResultView",
   components: {
@@ -205,7 +175,7 @@ export default {
     JournalListItem,
     ScholarListItem,
     Search,
-    SearchModel,
+
     ChatGPT,
     SearchPanel,
   },
@@ -241,14 +211,13 @@ export default {
       search_type: 0,
 
       autoCompleteLists: [],
-      // work type 
+      // work type
       options: [
-        { text: 'Article', value: 'article' },
-        { text: 'Book', value: 'book' },
-        { text: 'Letter', value: 'letter' },
+        { text: "Article", value: "article" },
+        { text: "Book", value: "book" },
+        { text: "Letter", value: "letter" },
       ],
-      selectedOption: null
-
+      selectedOption: null,
     };
   },
   watch: {
@@ -341,22 +310,23 @@ export default {
     //! 在我重新筛选或者搜索的时候都算是搜索
     setFilterTime(type) {
       if (type == 1) {
-        // this.filter = "publication_year:2023-"
+        this.filter = "";
       } else if (type == 2) {
         // 2023
 
-        this.filter = ",publication_year:2023-";
+        this.filter = "publication_year:2023-,";
       } else if (type == 3) {
         // 2022
-        this.filter = "publication_year:2022-";
+        this.filter = "publication_year:2022-,";
       } else if (type == 4) {
-        this.filter = "publication_year:2021-";
+        this.filter = "publication_year:2021-,";
       } else if (type == 5) {
         this.filter =
           "publication_year:" +
           this.search_start_time +
           "-" +
-          this.search_end_time;
+          this.search_end_time +
+          ",";
       }
       this.searchdata.filter = this.filter;
       console.log(JSON.parse(JSON.stringify(this.searchdata)));
@@ -450,31 +420,35 @@ export default {
       // 早
       if (type == 1) {
         if (
+          alert(this.sort+1),
           this.sort.includes("publication_date:") ||
           this.sort.includes("publication_date:desc")
         ) {
           this.sort = this.sort.replace(
             /publication_date(:desc)?,/,
-            "publication_date:,"
+            "publication_date:"
           );
         } else {
-          this.sort += "publication_date:,";
+          this.sort += "publication_date:";
         }
       }
       // 晚
       else if (type == 2) {
         if (
+          alert(this.sort+2),
           this.sort.includes("publication_date:") ||
           this.sort.includes("publication_date:desc")
         ) {
           this.sort = this.sort.replace(
             /publication_date(:desc)?,/,
-            "publication_date:desc,"
+            "publication_date:desc"
           );
         } else {
-          this.sort += "publication_date:desc,";
+          this.sort += "publication_date:desc";
         }
       }
+      alert(this.sort),
+      this.searchmethod();
     },
 
     sortByCite(type) {
@@ -484,8 +458,8 @@ export default {
     },
 
     handleModoleSearch(searchdata) {
-      alert("data send to here")
-      console.log(searchdata)
+      alert("data send to here");
+      console.log(searchdata);
       this.searchdata = searchdata;
       this.search = searchdata.search;
       this.sort = searchdata.sort;
@@ -512,7 +486,6 @@ export default {
       console.log(JSON.parse(JSON.stringify(this.searchdata)));
       JSON.parse(JSON.stringify(this.searchdata));
 
-      
       // #region search
       if (this.search_type == 1) {
         Search.searchWorks(this.searchdata).then(
@@ -583,7 +556,6 @@ export default {
     },
 
     // search
-
   },
 
   mounted() {
@@ -602,7 +574,6 @@ export default {
 
     searchdata.filter = searchdata.filter.replace(/,$/, "");
     this.searchmethod();
-    
   },
 };
 </script>
@@ -620,7 +591,7 @@ export default {
 .cond-area {
   border: 2px solid red;
   width: 300px;
-  height: 600px;
+  /* height: 600px; */
   margin-top: 30px;
   margin-left: 30px;
 
@@ -628,6 +599,20 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 30px;
+}
+.cond-area .filter-card {
+  border: 2px solid red;
+
+  margin-top: 10%;
+}
+
+.cond-area .filter-card li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd; /* 条目之间的分隔线 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-family: Arial, sans-serif;
 }
 .search-bar {
   /* border: 2px solid red; */
