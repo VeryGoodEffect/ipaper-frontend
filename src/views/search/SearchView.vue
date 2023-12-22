@@ -51,75 +51,10 @@ export default {
   },
   data() {
     return {
-      show_property_search: false,
-      is_advanced_search: true,
-      showHotspotRecommend: true,
-      search_content: "",
-      search_filter: "",
-      search_search: "",
-      search_sort: "",
-      search_perpage: 10,
-      search_page: 1,
-      cur_search_cursor: "",
-      search_type: 1,
-      queryParts: {},
-      autoCompleteLists: [],
-      activeSuggestionIndex: -1,
-      autoCompleteShouldShow: false,
-      place_holder: "输入文献"
     };
   },
-  watch: {
-    search_search(newValue, oldValue) {
-      if (newValue.length == 0) {
-        setTimeout(() => {
-          this.autoCompleteLists = []
-        }, 100)
-      } else {
-        this.autoComplete()
-      }
-    }
-  },
-  methods: {
-    searchOrChangeContent() {
-      if (this.activeSuggestionIndex === -1) {
-        this.search()
-      } else {
-        this.changeContent(this.autoCompleteLists[this.activeSuggestionIndex].display_name)
-      }
-    },
-    navigateDown() {
-      if (this.activeSuggestionIndex < this.autoCompleteLists.length - 1) {
-        this.activeSuggestionIndex++;
-      } else {
-        this.activeIndex = 0;
-      }
-    },
-    navigateUp() {
-      if (this.activeSuggestionIndex > 0) {
-        this.activeSuggestionIndex--;
-      } else {
-        this.activeSuggestionIndex = this.autoComplete.length - 1;
-      }
-    },
 
-    hideAutoCompleteMenu() {
-      setTimeout(() => {
-        this.autoCompleteShouldShow = false
-        this.activeSuggestionIndex = -1
-      }, 100)
-    },
-    changeContent(str) {
-      this.search_search = str
-      this.activeSuggestionIndex = -1
-    },
-    searchOrChangeContent() {
-      if (this.activeSuggestionIndex === -1) {
-        this.search()
-      } else {
-        this.changeContent(this.autoCompleteLists[this.activeSuggestionIndex].display_name)
-      }
-    },
+  methods: {
     scrollToAnchor(anchor) {
       const offset =  document.getElementById(anchor).getBoundingClientRect().top 
                       - document.body.getBoundingClientRect().top - 60
