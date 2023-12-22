@@ -94,7 +94,8 @@
             <div class="btn-wrapper">
               <button v-if="isEditing" class="basic-btn authenticate-btn" @click="submitChangePersonalInfo">{{ $t('confirm_text' )}}</button>
               <button v-if="isEditing" class="basic-btn authenticate-btn" @click="cancelChangePersonalInfo">{{ $t('cancel_text' )}}</button>
-              <button v-if="!isEditing" class="basic-btn authenticate-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>          
+              <button v-if="!isEditing" class="basic-btn authenticate-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>  
+              <button v-if="!isEditing" class="basic-btn authenticate-btn" @click="modifyAuthenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>         
             </div> 
         </div>
         <div class="tag-and-list">
@@ -146,6 +147,11 @@
   :show="authenticateModalShouldShow"
   @close="authenticateModalShouldShow = false"
 />
+
+<ModifyAuthenticateModal
+  :show="modifyAuthenticateModalShouldShow"
+  @close="modifyAuthenticateModalShouldShow = false"
+/>
 </template>
   
   <script>
@@ -155,13 +161,15 @@
   import { User } from '../../api/users.js'
   import FollowList from '../../components/follow-list/FollowList.vue'
   import AuthenticateIdentityModal from '../../components/modals/AuthenticateIdentityModal.vue'
-import { dataTool } from 'echarts'
+  import ModifyAuthenticateModal from '../../components/modals/ModifyAuthenticateModal.vue'
+  import { dataTool } from 'echarts'
   export default {
     components: {
       FavouriteListItem,
       FavouriteList,
       FollowList,
       AuthenticateIdentityModal,
+      ModifyAuthenticateModal,
       i18n
     },
     data() {
@@ -169,6 +177,7 @@ import { dataTool } from 'echarts'
         isEditing: false,
         urlAdding: '',
         authenticateModalShouldShow: false,
+        modifyAuthenticateModalShouldShow: false,
         infoItem: {
             title: "低碳经济: 人类经济发展方式的新变革",
             author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
@@ -220,6 +229,8 @@ import { dataTool } from 'echarts'
     
     created() {
       this.getUserInfo()
+      // this.$bus.on('auditedProcessing', setButtonProcessingStatus)
+      // this.$bus.on('')
     },
     methods: {
       getUserInfo() {
@@ -228,8 +239,6 @@ import { dataTool } from 'echarts'
         if (userId) {
           User.getUser(userId).then(
             (response) => {
-              console.log(response)
-              // console.log(response.data.username)
               this.personalInfo.id = userId
               this.personalInfo.nickName = response.data.username
               this.personalInfo.realName = response.data.real_name
@@ -244,9 +253,6 @@ import { dataTool } from 'echarts'
                   this.personalInfo.urls[i] = "http://" + this.personalInfo.urls[i]
                 }
               }
-              // for (let i = 0; i < response.data.length; i++) {
-              //   this.personalInfo.urls.push(response.data.websites[i].url)
-              // }
               this.personalInfo.avatarUrl = 'api/users/' + userId + '/avatar/'
             },
             (error) => {
@@ -403,6 +409,9 @@ import { dataTool } from 'echarts'
         this.isEditing = true
         this.cur2savePersonalInfo()
       }
+      // setButtonProcessingStatus() {
+
+      // }
     },
   }
   window.addEventListener('scroll', function() {
