@@ -31,7 +31,7 @@
       </div>
       <div>
         <InstitutionGraph :info="counts_by_year"></InstitutionGraph>
-        <InstitutionGraphCite :info="counts_by_year"></InstitutionGraphCite>
+        <!-- <InstitutionGraphCite :info="counts_by_year"></InstitutionGraphCite> -->
       </div>
       <div v-if="relevantInstitution != ''">
         {{ $t('institution_relevant_institution') }}

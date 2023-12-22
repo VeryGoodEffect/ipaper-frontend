@@ -125,7 +125,7 @@
         </ul>
       </div>
       <Pagination
-        v-show="search_type == 1"
+        v-if="search_type == 1"
         class="pagination"
         :defaultItemsPerPage="5"
       >
@@ -137,7 +137,7 @@
       </Pagination>
       <!-- author -->
       <Pagination
-        v-show="search_type == 2"
+        v-if="search_type == 2"
         class="pagination"
         :defaultItemsPerPage="5"
       >
@@ -150,20 +150,22 @@
       </Pagination>
       <!-- 期刊 -->
       <Pagination
-        v-show="search_type == 3"
+        v-if="search_type == 3"
         class="pagination"
         :defaultItemsPerPage="5"
       >
         <journal-list-item
           v-for="(info, index) in infoItems"
           :key="index"
-          :jounalListItemInfo="info"
+          :journalListItemInfo="info"
+          
         >
+        <!-- journalListItemInfo -->
         </journal-list-item>
       </Pagination>
       <!-- 机构 -->
       <Pagination
-        v-show="search_type == 4"
+        v-if="search_type == 4"
         class="pagination"
         :defaultItemsPerPage="5"
       >
@@ -175,6 +177,7 @@
         </institution-list-item>
       </Pagination>
     </div>
+    <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT>
   </div>
 </template>
   
@@ -189,6 +192,8 @@ import InstitutionListItem from "../../components/list-item/InstitutionListItem.
 import JournalListItem from "../../components/list-item/JournalListItem.vue";
 import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 // import SearchModelVue
+import SearchModel from '../search/SearchModel.vue';
+import ChatGPT from '../../components/chat/Chat.vue'
 import SearchPanel from '../search/SearchPanel.vue';
 export default {
   name: "SearchResultView",
@@ -199,6 +204,9 @@ export default {
     InstitutionListItem,
     JournalListItem,
     ScholarListItem,
+    Search,
+    SearchModel,
+    ChatGPT,
     SearchPanel,
   },
   data() {

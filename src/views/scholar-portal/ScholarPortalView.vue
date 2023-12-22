@@ -56,6 +56,9 @@
                 </ul>
               </p>
             </div> 
+
+            
+
             <div class="focus-area">
               <h3>{{ $t('scholar_portal_focus_areas') }}</h3>
               <div class="tag-container">
@@ -89,6 +92,7 @@
         </div>
       </div>  
     </div>
+    <ScholarGraphCite :info="authorInfo.counts_by_year"></ScholarGraphCite>
     <div class="relation-network">
       <h3>{{ $t('scholar_portal_net') }}</h3>
       <AuthorRelationGraph :relationList="relationList"></AuthorRelationGraph>
@@ -111,6 +115,7 @@
   import { History } from '../../api/history.js'
   // import { Article } from '../../api/article.js'
   import FollowList from '../../components/follow-list/FollowList.vue'
+  import ScholarGraphCite from '../../components/graphs/ScholarGraphCite.vue'
   // import EchartGraph from '../../components/relation-graph/EchartGraph.vue'
 import { User } from '../../api/users'
   export default {
@@ -125,7 +130,8 @@ import { User } from '../../api/users'
       InstitutionListItem,
       AuthorRelationGraph,
       // EchartGraph,
-      i18n
+      i18n,
+      ScholarGraphCite
     },
     data() {
       return { 
@@ -305,7 +311,7 @@ import { User } from '../../api/users'
               this.authorInfo.totalWork = response.data.works_count
               this.authorInfo.totalCitations = response.data.cited_by_count
               this.authorInfo.yearCitations = response.data.counts_by_year[0].cited_by_count
-              
+              this.authorInfo.counts_by_year = response.data.counts_by_year
 
               this.interestTag.splice(0, this.interestTag.length)
               for(let i = 0; i < response.data.x_concepts.length; i++) {
