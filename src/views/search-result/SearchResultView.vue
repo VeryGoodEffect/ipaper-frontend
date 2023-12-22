@@ -190,7 +190,6 @@ import InstitutionListItem from "../../components/list-item/InstitutionListItem.
 import JournalListItem from "../../components/list-item/JournalListItem.vue";
 import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 // import SearchModelVue
-import SearchModel from '../search/SearchModel.vue';
 import ChatGPT from '../../components/chat/Chat.vue'
 import SearchPanel from '../search/SearchPanel.vue';
 export default {
@@ -203,7 +202,6 @@ export default {
     JournalListItem,
     ScholarListItem,
     Search,
-    SearchModel,
     ChatGPT,
     SearchPanel,
   },

@@ -121,11 +121,11 @@ export default {
     scholar_portal_focus_areas: "Focus Areas",
     scholar_portal_net: "Relation Network",
 
-    paper_detail_abstract: "abstract:",
-    paper_detail_keywords: "keywords:",
-    paper_detail_tag: "tags:",
-    paper_detail_source: "journal:",
-    paper_detail_doi: "DOI:",
+    paper_detail_abstract: "abstract",
+    paper_detail_keywords: "keywords",
+    paper_detail_tag: "tags",
+    paper_detail_source: "journal",
+    paper_detail_doi: "DOI",
 
     all_status:'All Status',
     select_audit_status: 'Select Application Status',
