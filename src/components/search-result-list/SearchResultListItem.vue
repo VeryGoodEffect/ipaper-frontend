@@ -2,15 +2,14 @@
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
         <h3 class="title" @click="jumpArticle(infoItem.url)" v-html="highlightedText(infoItem.keyword, infoItem.title)"></h3>
         <div class="author">
-          <div v-for="(author, idx) in infoItem.authorships" :key="idx">
+          <span v-for="(author, idx) in infoItem.authorships" :key="idx">
             {{ author.author.display_name }}
-          </div>  
+          </span>  
         </div>
         <p v-html="highlightedText(infoItem.keyword, infoItem.abstract)" class="excerpt"
         v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: true}">
         </p>
         <div class="info">
-          {{ collectModalShouldShow}}
             <div class="download">
               <svg t="1702361941375" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1181" width="200" height="200"><path d="M128 576.64v192a64 64 0 0 0 64 64h640a64 64 0 0 0 64-64v-192h64v192a128 128 0 0 1-128 128H192a128 128 0 0 1-128-128v-192h64zM511.392 128.64a32 32 0 0 1 32 32V564.16l138.752-136.544a32 32 0 0 1 42.272-2.304l3.008 2.688a32 32 0 0 1-0.384 45.248l-193.184 190.144a32 32 0 0 1-44.96-0.096l-192-190.112a32 32 0 1 1 45.024-45.472l137.504 136.128V160.608a32 32 0 0 1 28.256-31.776l3.712-0.224z" p-id="1182" fill="#1A0EAB"></path></svg>
             </div>
@@ -92,6 +91,7 @@ export default {
 }
 .title {
     font-size: 20px;
+    font-weight: bold;
     color: var(--theme-mode-very-high-contrast);
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -101,28 +101,15 @@ export default {
     line-clamp: 1;
     cursor: pointer;
 }
-.author {
-    /* padding-left: 20px; */
-    font-size: 14px;
+.author span {
+    font-size: 16px;
     color: var(--theme-mode-very-high-contrast);
-    /* color: rgb(98,186,70); */
-    display: -webkit-box;
-    /* -webkit-box-orient: vertical; */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1; 
-    line-clamp: 1;
+    margin-right: 10px;
 }
 .excerpt {
     font-size: 14px;
     color: var(--theme-mode-high-contrast);
-    /* width: 855px; */
-    /* display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    line-clamp: 2; */
+
 }
 
 .excerpt.full {
