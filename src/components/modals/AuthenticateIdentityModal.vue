@@ -24,8 +24,8 @@
         type="text" class="basic-input" 
         :placeholder="$t('content_text')" v-model="content">
         <div>
-          <ImageUpload v-if="images.length != 3" @click="openFilePicker"></ImageUpload>
-          <img v-for="(img, index) in images" :key="index" :src="img" style="height: 100px; width: 100px;">
+          <ImageUpload v-if="images.length != 3" @click="openFilePicker" style="cursor: pointer"></ImageUpload>
+          <img v-for="(img, index) in images" :key="index" @click="deleteImage(index)" :src="img" style="height: 100px; width: 100px;">
         </div>
         <div v-if="images.length == 3">已达图片上传上限</div>
         <input type="file" ref="fileInput" style="display: none" @change="handleFileUpload">
@@ -118,6 +118,10 @@
         let imgUrl = URL.createObjectURL(imgUpload)
         this.images.push(imgUrl)
         this.imageFiles.push(imgUpload)
+      },
+      deleteImage(i) {
+        this.images.splice(i, 1)
+        this.imageFiles.splice(i, 1)
       }
     }
   }

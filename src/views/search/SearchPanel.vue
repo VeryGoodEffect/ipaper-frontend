@@ -306,7 +306,6 @@ export default {
 .search-area {
   display: flex;
   justify-content: center;
-  /* margin-bottom: 50px; */
   position: relative;
   z-index: 99;
   margin: 0 auto;
@@ -318,7 +317,6 @@ export default {
 }
 
 .search-input {
-  /* max-width: 640px; */
   width: 100%;
   border-color: var(--theme-mode-contrast);
   border-width: 2px;
