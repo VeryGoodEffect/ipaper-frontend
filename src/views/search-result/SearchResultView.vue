@@ -4,6 +4,7 @@
       class="cond-area"
       style="display: vertical; position: sticky; top: 0"
     >
+    <span>篩選</span>
       <div
         class="filter-card"
         style="
@@ -15,25 +16,15 @@
           text-align: center;
         "
       >
+      
         <ul>
           <li>按时间筛选</li>
           <li @click="setFilterTime(1)" style="cursor: pointer">时间不限</li>
           <li @click="setFilterTime(2)" style="cursor: pointer">2023以来</li>
           <li @click="setFilterTime(3)" style="cursor: pointer">2022以来</li>
           <li @click="setFilterTime(4)" style="cursor: pointer">2021以来</li>
-          <li @click="setFilterTime(5)" style="cursor: pointer">自定义范围</li>
-          <li v-if="show_range" @click="setFilterTime(5)">
-            <input v-model="search_start_time" type="text" style="width: 30%" />
-            <input v-model="search_end_time" type="text" style="width: 30%" />
-          </li>
-        </ul>
-      </div>
-
-      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
-        <ul>
-          <li>日期排序</li>
-          <li @click="sortByTime(1)" style="cursor: pointer">升序排序</li>
-          <li @click="sortByTime(2)" style="cursor: pointer">降序排序</li>
+          <li @click="setFilterTime(5)" style="cursor: pointer">自定义范围 <span><input v-model="search_start_time" type="text" style="width: 30%" />
+            <input v-model="search_end_time" type="text" style="width: 30%" /></span></li>
         </ul>
       </div>
 
@@ -46,13 +37,6 @@
         </ul>
       </div>
 
-      <div v-if="search_type==3" class="filter-card" style="display: vertical; text-align: center">
-        <ul>
-          <li  v-for="(option, index) in options" :key="index"><input type="radio" :value="option.value" v-model="selectedOption" />
-          <label>{{ option.text }}</label></li>
-        </ul>
-      </div>
-
       <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
         <ul>
           <li style="cursor: pointer"><input type="checkbox" />包含专利</li>
@@ -60,12 +44,40 @@
           <li style="cursor: pointer">时间不限</li>
         </ul>
       </div>
+
+      <span>排序</span>
+      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
+        <ul>
+          <li>日期排序</li>
+          <li @click="sortByTime(1)" style="cursor: pointer">升序排序</li>
+          <li @click="sortByTime(2)" style="cursor: pointer">降序排序</li>
+        </ul>
+      </div>
+      
+      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
+        <ul>
+          <li>引用次數排序</li>
+          <li style="cursor: pointer">升序排序</li>
+          <li style="cursor: pointer">降序排序</li>
+        </ul>
+      </div>
+
+
+
+      <div v-if="search_type==3" class="filter-card" style="display: vertical; text-align: center">
+        <ul>
+          <li  v-for="(option, index) in options" :key="index"><input type="radio" :value="option.value" v-model="selectedOption" />
+          <label>{{ option.text }}</label></li>
+        </ul>
+      </div>
+
+
       <!-- <hr> -->
     </div>
 
     <div style="min-width: 50%">
       <div class="search-container">
-        <SearchPanel @senddata="handleModoleSearch"></SearchPanel>
+        <SearchPanel ref="searchPanelRef" @senddata="handleModoleSearch"></SearchPanel>
       </div>
       <div>
         <ul>
@@ -197,6 +209,7 @@ export default {
       selectedOption: null,
 
       placehold: "",
+      searchPanelRef: null
     };
   },
   watch: {
@@ -237,6 +250,10 @@ export default {
           return item;
         });
       }
+    },
+
+    changeSearchPanelContent(){
+      // this.searchPanelRef = this.$refs.
     },
 
     // #region AsideBar

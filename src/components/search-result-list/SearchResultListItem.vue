@@ -7,7 +7,7 @@
           </span>  
         </div>
         <p v-html="highlightedText(infoItem.keyword, infoItem.abstract)" class="excerpt"
-        v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: true}">
+        v-ellipsis="{ maxLine: 3, maxWidth: '80%', wrappable: false}">
         </p>
         <div class="info">
             <div class="download">

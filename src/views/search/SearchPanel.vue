@@ -90,9 +90,10 @@ export default {
         this.autoComplete();
       }
     },
-    senddata(newValue,oldValue){
+    searchContent(newValue,oldValue){
       // console.log(`message changed from ${oldVal} to ${newVal}`);
       this.search_search = newValue
+      alert("sent search content")
     }
   },
 
