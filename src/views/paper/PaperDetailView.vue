@@ -36,10 +36,9 @@
             <h4 class="little-title"> 
               {{ $t("paper_detail_abstract") }}
             </h4>
-            
-            {{ this.abstract }}
-
-            
+            <p class="abstract-wrapper">
+              {{ this.abstract }}
+            </p>
             <!-- <vue-latex :displayMode="true"  :expression="this.displayAbstract"></vue-latex> -->
             <!-- <p v-html=this.displayAbstract></p> -->
           </div>
@@ -55,7 +54,7 @@
             <h4 class="little-title"> 
             {{ $t('paper_detail_doi') }}
             </h4>
-            <a :href="doi"> {{this.doi}} </a>
+            <a :href="doi" target="_blank"> {{this.doi}} </a>
           </div>
           <div class="paper-source" v-if = "source != ''">
             <h4 class="little-title"> 
@@ -63,21 +62,14 @@
             </h4>
             {{ this.source }}
           </div>
-          <!-- <div class="paper-tags">
-            <h4 class="little-title"> 
-            {{ $t('paper_detail_tag') }}
-            </h4>
-            <span class="paper-tag" v-for="(tag, idx) in this.tags" :key="idx">
-              {{ tag.display_name }}
-            </span>
-          </div> -->
-          <button @click="gotoPaperLandingURL" class="button-long">
+          
+          <button class="basic-btn-outline function-btn" @click="gotoPaperLandingURL" >
             在线阅读
           </button>
-          <button v-if="pdf_url != ''" @click="gotoPdfURL" class="button-long">
+          <button class="basic-btn-outline function-btn" v-if="pdf_url != ''" @click="gotoPdfURL">
             PDF阅读
           </button>
-          <button @click="downloadPaper" class="button-long">
+          <button class="basic-btn-outline function-btn" @click="downloadPaper" >
             PDF下载
           </button>
         </div>
@@ -199,6 +191,7 @@ export default {
   /* border: 2px solid red; */
 }
 .paper-header {
+  margin-top: 20px;
   width: 100%;
   /* border: 2px solid red;  */
   display: flex;
@@ -206,10 +199,12 @@ export default {
 }
 .paper-header :first-child {
   font-size: 15px;
+  font-weight: bold;
   color: var(--theme-color-60)
 }
 .paper-head {
   display: flex;
+  margin-top: 10px;
   flex-direction: column;
   justify-content: center;
 }
@@ -217,9 +212,12 @@ export default {
   width: 100%;
 }
 .paper-title {
+  width: 80%;
+  margin: 0 auto;
   text-align: center;
-  font-size: 30px;
+  font-size: 35px;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 .author-container {
   display: flex;
@@ -235,6 +233,9 @@ export default {
   color: var(--theme-color);
   margin-right: 20px;
 }
+.paper-author:hover {
+  text-decoration: underline;
+}
 .paper-author :hover {
   text-decoration: underline;
 }
@@ -248,31 +249,46 @@ export default {
   margin: 0 10px;
   width: 40px;
   height: 40px;
-  background-color: var(--theme-mode-slight-contrast);
+  background: var(--theme-mode-slight-contrast);
   border-radius: 50%;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.button-long {
+
+.button-circle:hover {
+  background: var(--theme-mode-contrast);
+  transform: translate(-3px, -3px) scale(1.2);
+}
+
+.button-circle:hover svg {
+  transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  scale: 1.05;
+}
+
+/* .button-long {
   margin: 0 10px;
   width: 40px;
   height: 40px;
   background-color: var(--theme-mode-slight-contrast);
   width: 90px;
-}
+} */
 .icon {
-  width: 20px;
-  height: 20px;
-  margin-top: 9px;
-  margin-left: 9px;
-  fill: var(--theme-mode-very-high-contrast);;
+  width: 25px;
+  height: 25px;
+  fill: var(--theme-color)
 }
 .paper-content {
   width: 80%;
-  margin: 0 auto;
+  margin: 30px auto;
   /* border: 2px red solid; */
-  padding: 20px;
-  background-color: var(--theme-mode-contrast);
-  margin-top: 20px;
+  box-sizing: border-box;
+  padding: 25px 40px;
+  background-color: var(--theme-mode-like);
+  box-shadow: 5px 5px 5px var(--theme-mode-contrast);
+  border-radius: 10px;
 }
 .little-title {
   margin-bottom: 10px;
@@ -290,5 +306,25 @@ export default {
 }
 .paper-source {
   margin-bottom: 20px;
+}
+
+.paper-keywords h4,
+.paper-doi h4,
+.paper-source h4 {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.function-btn {
+  font-size: 16px;
+}
+
+.function-btn:not(:last-of-type) {
+  margin-right: 10px;
+}
+p.abstract-wrapper {
+  /* overflow-wrap: break-word; */
+  word-wrap: break-word;
+  /* word-break: break-all; */
 }
 </style>
