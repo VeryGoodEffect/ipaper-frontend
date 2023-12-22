@@ -89,7 +89,7 @@ export default {
         this.scrollToBottom();
       } else {
         const data = JSON.parse(event.data);
-        console.log(data);
+        // console.log(data);
         if (data.delta.content) {
           this.dialogList[this.dialogList.length - 1].content +=
             data.delta.content;
@@ -142,15 +142,22 @@ export default {
       });
       setTimeout(this.clearUselessStyle, 10);
       this.scrollToBottom();
+      if (!this.ws) {
+        const url = `wss://www.isound.live/ws/chat/?user_id=${this.$cookies.get(
+          "user_id"
+        )}`;
+        this.ws = new WebSocket(url);
+        this.ws.onmessage = this.handleMessage;
+      }
       if (this.ws.readyState === WebSocket.CLOSED) {
         const url = `wss://www.isound.live/ws/chat/?user_id=${this.$cookies.get(
           "user_id"
         )}`;
-        if (!this.ws) {
-          this.ws = new WebSocket(url);
-          this.ws.onmessage = this.handleMessage;
-        }
+        this.ws = new WebSocket(url);
+        this.ws.onmessage = this.handleMessage;
+
       }
+
       Chat.createCompletion(data);
     },
     conversationClicked(index) {

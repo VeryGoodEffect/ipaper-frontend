@@ -77,7 +77,7 @@
 
     <div style="min-width: 50%">
       <div class="search-container">
-        <SearchPanel @senddata="handleModoleSearch"></SearchPanel>
+        <SearchPanel ref="searchPanelRef" @senddata="handleModoleSearch"></SearchPanel>
       </div>
       <div>
         <ul>
@@ -209,6 +209,7 @@ export default {
       selectedOption: null,
 
       placehold: "",
+      searchPanelRef: null
     };
   },
   watch: {
@@ -249,6 +250,10 @@ export default {
           return item;
         });
       }
+    },
+
+    changeSearchPanelContent(){
+      // this.searchPanelRef = this.$refs.
     },
 
     // #region AsideBar
