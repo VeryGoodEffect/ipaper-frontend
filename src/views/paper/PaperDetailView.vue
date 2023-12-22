@@ -86,7 +86,7 @@ export default {
   },
   data() {
     return {
-      paperId: 'W2100837269',
+      paperId: undefined,
       title: "暂无标题",
       authorships: [],
       institution: '暂无机构',
@@ -104,9 +104,9 @@ export default {
   },
   methods: {
     getPaperDetail() {
-      //this.paperId = this.$route.params.paperId
-      if (this.paperId != '') {
-        Search.workRetrieve(paperId).then(
+      this.paperId = this.$route.params.id
+      if (this.paperId) {
+        Search.workRetrieve(this.paperId).then(
           (response) => {
             this.title = response.data.title
             this.authorships = response.data.authorships

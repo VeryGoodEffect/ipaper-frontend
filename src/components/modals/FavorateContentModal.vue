@@ -19,7 +19,7 @@
     </div>
   </PopoutModal>
 
-  <ChooseFavoriteModal :fid="idTobeMoved" :show="chooseFavoriteModalShouldShow" @close="chooseFavoriteModalShouldShow = false"/>
+  <ChooseFavoriteModal :fid="idTobeMoved" :paperId="paperIdTobeMoved" :show="chooseFavoriteModalShouldShow" @close="chooseFavoriteModalShouldShow = false"/>
 
 </template>
 
@@ -54,6 +54,7 @@ export default {
       x: 0,
       y: 0,
       idTobeMoved: '',
+      paperIdTobeMoved: '',
     }
   },
   emits: ['close'],
@@ -113,12 +114,11 @@ export default {
       // 将 `contentList` 中第 `idx` 项进行移动
       // 这里并不需要实现接口
       // ===========================
-      User.deleteFavorite(this.contentList[idx].favorite_id)
-      this.contentList.splice(idx, 1)
       this.chooseFavoriteModalShouldShow = true
 
       // 实现了 fetchData 后，必须解开下面这句注释
       this.idTobeMoved = this.contentList[idx].favorite_id
+      this.paperIdTobeMoved = this.contentList[idx].id
     },
     deleteFavorite(idx) {
       // ===========================
