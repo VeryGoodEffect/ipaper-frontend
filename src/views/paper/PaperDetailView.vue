@@ -71,18 +71,20 @@
       </div>
     </div>
   </div>
+  <ChooseFavoriteModal :paperId="paperId" :show="collectModalShouldShow" @close="collectModalShouldShow = false"/>
 </template>
 
 <script>
 import { useRouter } from 'vue-router'
 import { Search } from "../../api/search";
+import ChooseFavoriteModal from '../../components/modals/ChooseFavoriteModal.vue';
 // import katex from 'katex';
 // import 'katex/dist/katex.css'
 // import { VueLatex } from "vatex";
 
 export default {
   components: {
-    // VueLatex,
+    ChooseFavoriteModal
   },
   data() {
     return {
@@ -97,6 +99,7 @@ export default {
       tags: [],
       date: '',
       pdf_url: '',
+      collectModalShouldShow: false
     }
   },
   created() {
@@ -144,7 +147,7 @@ export default {
     // },
 
     collectPaper() {
-
+      this.collectModalShouldShow = true
     },
     citePaper() {},
     sharePaper() {

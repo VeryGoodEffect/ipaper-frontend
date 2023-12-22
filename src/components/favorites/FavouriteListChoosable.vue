@@ -102,7 +102,7 @@ export default {
         paper_id: this.paperId
       }).then(
         (response) => {
-          User.deleteFavorite(this.fid)
+          // User.deleteFavorite(this.fid)
           // alert('将学术成果(id: ' + this.paperId + ')移动到' + 
           // '收藏夹(id: ' + this.favouritesInfo[index].id + ')')
         },

@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <ChooseFavoriteModal :show="collectModalShouldShow" @close="collectModalShouldShow = false"/>
+    <ChooseFavoriteModal :paperId="infoItem.id" :show="collectModalShouldShow" @close="collectModalShouldShow = false"/>
 </template>
 
 <script>
