@@ -127,6 +127,9 @@ export default {
     paper_detail_source: "journal:",
     paper_detail_doi: "DOI:",
 
+    all_status:'All Status',
+    select_audit_status: 'Select Application Status',
+    no_audit_results: 'No Matched Results',
     application_type: 'Application Type',
     not_reviewed: 'Not reviewed',
     access: 'Approved',
