@@ -5,6 +5,10 @@
         <span class="name">{{ institutionName }}</span>
         <span class="country">({{ institutionCountry }})</span>
       </div>
+      <div>
+        <InstitutionGraph :info="counts_by_year"></InstitutionGraph>
+        <!-- <InstitutionGraphCite :info="counts_by_year"></InstitutionGraphCite> -->
+      </div>
       <div class="author-list">
           {{ $t('institution_main_scholar') }}
           <div v-for="(author, idx) in institutionAuthors" :key="idx" @click="gotoAuthor(author)">
@@ -29,10 +33,7 @@
         {{ $t('institution_main_papers') }}
         <SearchResultListItem v-for="(info,index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
       </div>
-      <div>
-        <InstitutionGraph :info="counts_by_year"></InstitutionGraph>
-        <!-- <InstitutionGraphCite :info="counts_by_year"></InstitutionGraphCite> -->
-      </div>
+      
       <div v-if="relevantInstitution != ''">
         {{ $t('institution_relevant_institution') }}
         <span v-for="(institution, idx) in relevantInstitution" :key="idx">

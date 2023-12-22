@@ -156,7 +156,7 @@ export default {
     disapprove_submitted: 'This application has been disapproved.',
     no_images: 'No Images',
     submit_audit: 'Submit',
-    public_date: "Date of Publication:",
+    public_date: "Date of Publication: ",
 
     institution_main_scholar: "Main scholars",
     institution_main_tag: "Main field",
