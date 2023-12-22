@@ -114,7 +114,9 @@
     </div>
 
     <div>
-      <search-model @senddata="handleModoleSearch"></search-model>
+      <div class="search-container">
+        <SearchPanel @senddata="handleModoleSearch"></SearchPanel>
+      </div>
       <div>
         <ul>
           <li v-for="(item, index) in autoCompleteLists" :key="index">
@@ -123,7 +125,7 @@
         </ul>
       </div>
       <Pagination
-        v-if="search_type == 1"
+        v-show="search_type == 1"
         class="pagination"
         :defaultItemsPerPage="5"
       >
@@ -135,7 +137,7 @@
       </Pagination>
       <!-- author -->
       <Pagination
-        v-if="search_type == 2"
+        v-show="search_type == 2"
         class="pagination"
         :defaultItemsPerPage="5"
       >
@@ -148,20 +150,20 @@
       </Pagination>
       <!-- 期刊 -->
       <Pagination
-        v-if="search_type == 3"
+        v-show="search_type == 3"
         class="pagination"
         :defaultItemsPerPage="5"
       >
         <journal-list-item
           v-for="(info, index) in infoItems"
           :key="index"
-          :JounalListItemInfo="info"
+          :jounalListItemInfo="info"
         >
         </journal-list-item>
       </Pagination>
       <!-- 机构 -->
       <Pagination
-        v-if="search_type == 4"
+        v-show="search_type == 4"
         class="pagination"
         :defaultItemsPerPage="5"
       >
@@ -190,6 +192,7 @@ import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 // import SearchModelVue
 import SearchModel from '../search/SearchModel.vue';
 import ChatGPT from '../../components/chat/Chat.vue'
+import SearchPanel from '../search/SearchPanel.vue';
 export default {
   name: "SearchResultView",
   components: {
@@ -202,6 +205,7 @@ export default {
     Search,
     SearchModel,
     ChatGPT,
+    SearchPanel,
   },
   data() {
     return {
@@ -659,6 +663,11 @@ export default {
 .pagination {
   margin-top: 30px;
   margin-left: 30px;
+}
+
+.search-container {
+  padding: 10px;
+  width: 100%;
 }
 
 @media screen and (max-width: 1000px) {

@@ -29,18 +29,22 @@
     <button @click="lastPage">
       &gt;&gt;
     </button>
-    <div class="flatten"> {{ $t('pagination_current_page_1') }} </div>
-    <input v-model="jumpPage" @input="handleJumpNumberInput" @keydown.enter="jumpToPage" min="1" :max="totalPages"
-      placeholder="Go to Page" class="jump_page_number flatten">
-    <div class="flatten"> / {{ totalPages }} {{ $t('pagination_current_page_2') }} </div>
-    <button @click="jumpToPage" class="flatten"> {{ $t('pagination_jump') }} </button>
-    <select class="flatten" :value="itemsPerPage" @change="$emit('item-per-page-change', Number($event.target.value))">
-      <option :value="5">5</option>
-      <option :value="10">10</option>
-      <option :value="20">20</option>
-      <option :value="50">50</option>
-    </select>
-    <div class="flatten">{{ $t('pagination_per_page') }}</div>
+    <section>
+      <div class="flatten no-margin"> {{ $t('pagination_current_page_1') }} </div>
+      <input v-model="jumpPage" @input="handleJumpNumberInput" @keydown.enter="jumpToPage" min="1" :max="totalPages"
+        placeholder="Go to Page" class="jump_page_number flatten" />
+      <div class="flatten no-margin"> / {{ totalPages }} {{ $t('pagination_current_page_2') }} </div>
+      <button @click="jumpToPage" class="flatten"> {{ $t('pagination_jump') }} </button>
+    </section>
+    <div class="flatten">
+      <select class="flatten" :value="itemsPerPage" @change="$emit('item-per-page-change', Number($event.target.value))">
+        <option :value="5">5</option>
+        <option :value="10">10</option>
+        <option :value="20">20</option>
+        <option :value="50">50</option>
+      </select>
+      <div class="flatten">{{ $t('pagination_per_page') }}</div>
+    </div>
   </div>
 </template>
 
@@ -108,10 +112,10 @@ export default {
 <style scoped>
 .pagination {
   font-weight: 700;
-  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   margin: 0 auto;
 }
 
@@ -161,10 +165,12 @@ select option {
   border: 1px solid var(--theme-mode-contrast);
   border-radius: 5px;
   padding: 5px;
-  max-width: 100px;
+  max-width: 40px;
+  margin: 0 !important;
 }
 
 .flatten {
+  display: inline-block;
   white-space: nowrap;
   margin: auto 10px;
 }

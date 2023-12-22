@@ -6,7 +6,9 @@
         <h2>
           {{ $t("ipaper_scholar_text") }}
         </h2>
-        <SearchModel></SearchModel>
+        <div class="search-container">
+          <SearchPanel></SearchPanel>
+        </div>
         <!-- <search></search> -->
         <!-- <search></search> -->
       </section>
@@ -34,9 +36,8 @@ import i18n from "../../language";
 import ArticleRecommendation from "../../components/recommendation/ArticleRecommendation.vue";
 import InterestRecommendation from "../../components/recommendation/InterestRecommendation.vue";
 
-import { AutoComplete } from '../../api/autocomplete.js';
 import AsideBar from "../../components/search-property/AsideBar.vue";
-import SearchModel from "./SearchModel.vue";
+import SearchPanel from "./SearchPanel.vue";
 // import search from "./SearchModel.vue";
 // import i18n from "../../language";
 export default {
@@ -46,7 +47,7 @@ export default {
     AsideBar,
     ArticleRecommendation,
     InterestRecommendation,
-    SearchModel
+    SearchPanel
   },
   data() {
     return {
@@ -148,65 +149,6 @@ export default {
   z-index: 10;
 }
 
-.search-area {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 50px;
-}
-
-.search-area div {
-  width: 50%;
-  position: relative;
-}
-
-.search-input {
-  max-width: 640px;
-  width: 100%;
-  border-color: var(--theme-mode-contrast);
-  border-width: 2px;
-}
-
-.search-btn {
-  width: 50px;
-  height: 50px;
-  margin: 0;
-  margin-left: 10px;
-}
-
-.search-btn svg {
-  width: 30px;
-  height: 30px;
-  margin: auto;
-}
-
-.search-area ul {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 60px;
-  max-width: 640px;
-  width: 100%;
-  background: var(--theme-mode-like);
-  box-sizing: border-box;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.search-area ul li {
-  font-size: 16px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  box-sizing: border-box;
-  padding: 2px 5px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.search-area ul li:not(:last-of-type) {
-  margin-bottom: 10px;
-}
-
 .suggestion-active {
   background: var(--theme-mode-contrast);
   font-weight: bold;
@@ -241,6 +183,14 @@ export default {
   margin-top: 10px;
   fill: var(--theme-color);
   cursor: pointer;
+}
+
+.search-container {
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  /* display: flex;
+  justify-content: center; */
 }
 
 @media screen and (max-width: 960px) {

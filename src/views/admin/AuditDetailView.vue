@@ -107,7 +107,7 @@ export default {
     },
     data() {
         return {
-            avatar: `/api/users/${this.id}/avatar`,
+            avatar: `/api/users/${this.userId}/avatar`,
             approved: this.status === 0 ? undefined :
                 this.status === 2 ? false : true,
             reason: this.rejectReason
@@ -170,7 +170,7 @@ export default {
             if (this.status !== 0) {
                 return
             }
-            Application.approveAudited(this.id, {
+            Application.approveAudited(this.auditId, {
                 real_name: this.realName,
                 institution: this.institution,
                 position: this.position,
@@ -187,7 +187,7 @@ export default {
             if (this.status !== 0) {
                 return
             }
-            Application.failAudited(this.id, {
+            Application.failAudited(this.auditId, {
                 failed_reason: this.reason
             }).then(() => {
                 this.$emit('disapprove')
@@ -195,7 +195,11 @@ export default {
         }
     },
     props: {
-        id: {
+        userId: {
+            type: Number,
+            required: true
+        },
+        auditId: {
             type: Number,
             required: true
         },
