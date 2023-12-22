@@ -36,7 +36,6 @@ import i18n from "../../language";
 import ArticleRecommendation from "../../components/recommendation/ArticleRecommendation.vue";
 import InterestRecommendation from "../../components/recommendation/InterestRecommendation.vue";
 
-import { AutoComplete } from '../../api/autocomplete.js';
 import AsideBar from "../../components/search-property/AsideBar.vue";
 import SearchPanel from "./SearchPanel.vue";
 // import search from "./SearchModel.vue";
