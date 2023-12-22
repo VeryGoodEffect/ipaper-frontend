@@ -23,7 +23,7 @@ import { User } from '../../api/users.js'
 // import FavorateContentModal from '../modals/FavorateContentModal.vue'
 export default {
   name: 'FavoriteListChoosable',
-  props: ['isCreating', 'favouritesInfo', 'fid'],
+  props: ['isCreating', 'favouritesInfo', 'fid', 'paperId'],
   components: {
     FavouriteListItemChoosable,
     CreateFavourite,
@@ -98,8 +98,18 @@ export default {
       // 【真正实现移动收藏内容的方法】
       // 方法含义参见 alert 内容
       // ===============================
-      alert('将学术成果(id: ' + this.fid + ')移动到' + 
-      '收藏夹(id: ' + this.favouritesInfo[index].id + ')')
+      User.collectFavorite(this.favouritesInfo[index].id, {
+        paper_id: this.paperId
+      }).then(
+        (response) => {
+          User.deleteFavorite(this.fid)
+          // alert('将学术成果(id: ' + this.paperId + ')移动到' + 
+          // '收藏夹(id: ' + this.favouritesInfo[index].id + ')')
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
     }
   }
 }

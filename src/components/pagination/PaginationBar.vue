@@ -29,18 +29,22 @@
     <button @click="lastPage">
       &gt;&gt;
     </button>
-    <div class="flatten"> {{ $t('pagination_current_page_1') }} </div>
-    <input v-model="jumpPage" @input="handleJumpNumberInput" @keydown.enter="jumpToPage" min="1" :max="totalPages" placeholder="Go to Page"
-      class="jump_page_number flatten">
-    <div class="flatten"> / {{ totalPages }} {{ $t('pagination_current_page_2') }} </div>
-    <button @click="jumpToPage"> {{ $t('pagination_jump') }} </button>
-    <select class="flatten" :value="itemsPerPage" @change="$emit('item-per-page-change', Number($event.target.value))">
-      <option :value="5">5</option>
-      <option :value="10">10</option>
-      <option :value="20">20</option>
-      <option :value="50">50</option>
-    </select>
-    <div class="flatten">{{ $t('pagination_per_page') }}</div>
+    <section>
+      <div class="flatten no-margin"> {{ $t('pagination_current_page_1') }} </div>
+      <input v-model="jumpPage" @input="handleJumpNumberInput" @keydown.enter="jumpToPage" min="1" :max="totalPages"
+        placeholder="Go to Page" class="jump_page_number flatten" />
+      <div class="flatten no-margin"> / {{ totalPages }} {{ $t('pagination_current_page_2') }} </div>
+      <button @click="jumpToPage" class="flatten"> {{ $t('pagination_jump') }} </button>
+    </section>
+    <div class="flatten">
+      <select class="flatten" :value="itemsPerPage" @change="$emit('item-per-page-change', Number($event.target.value))">
+        <option :value="5">5</option>
+        <option :value="10">10</option>
+        <option :value="20">20</option>
+        <option :value="50">50</option>
+      </select>
+      <div class="flatten">{{ $t('pagination_per_page') }}</div>
+    </div>
   </div>
 </template>
 
@@ -95,10 +99,10 @@ export default {
     },
     handleJumpNumberInput() {
       if (!/^[1-9]\d*$/.test(this.jumpPage)) {
-        this.jumpPage=this.currentPage
+        this.jumpPage = this.currentPage
       }
       else {
-        this.jumpPage=parseInt(this.jumpPage)
+        this.jumpPage = parseInt(this.jumpPage)
       }
     }
   },
@@ -108,9 +112,11 @@ export default {
 <style scoped>
 .pagination {
   font-weight: 700;
-  width: 80%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .pagination div {
@@ -118,14 +124,18 @@ export default {
 }
 
 button {
+  width: fit-content;
+  padding: 0 10px;
   background: var(--theme-mode-like);
   color: var(--theme-color);
   font-weight: 700;
   margin: 10px 5px;
 }
-button:hover{
+
+button:hover {
   background: var(--theme-mode-contrast);
 }
+
 button.active {
   background: var(--theme-color);
   color: rgb(243, 243, 243);
@@ -152,16 +162,16 @@ select option {
 .jump_page_number {
   color: var(--theme-color);
   background: var(--theme-mode-like);
-  border: 1px solid var(--theme-mode-contrast) ;
+  border: 1px solid var(--theme-mode-contrast);
   border-radius: 5px;
   padding: 5px;
-  max-width: 100px;
+  max-width: 40px;
+  margin: 0 !important;
 }
 
 .flatten {
-  display: ruby;
+  display: inline-block;
+  white-space: nowrap;
   margin: auto 10px;
 }
-
-
 </style>

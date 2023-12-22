@@ -2,8 +2,9 @@
   <div class="main-area">
     <!-- <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar> -->
 
-    <div class="cond-area" style="display: vertical; position: sticky; top: 0">
-      <div
+    <!-- works -->
+    <div v-show="this.search_type == 1" class="cond-area" style="display: vertical; position: sticky; top: 0">
+      <div 
         class="cond-in-1"
         style="
           display: vertical;
@@ -39,7 +40,6 @@
         "
       >
         <ul>
-          <li style="cursor: pointer">相关性排序</li>
           <li @click="sortByTime" style="cursor: pointer">日期排序</li>
         </ul>
       </div>
@@ -99,10 +99,24 @@
       </div>
       <!-- <hr> -->
     </div>
+
+    <!-- auth -->
+    <div v-show="this.search_type == 2" class="cond-area" style="display: vertical; position: sticky; top: 0">
+    
+    </div>
+    
+    <!-- source -->
+    <div v-show="this.search_type == 3" class="cond-area" style="display: vertical; position: sticky; top: 0">
+    </div>
+
+    <!-- intst -->
+    <div v-show="this.search_type == 4" class="cond-area" style="display: vertical; position: sticky; top: 0">
+    </div>
+
     <div>
-      <!-- <Search></Search> -->
-      <search-model @senddata="handleModoleSearch"></search-model>
-      <!-- works -->
+      <div class="search-container">
+        <SearchPanel @senddata="handleModoleSearch"></SearchPanel>
+      </div>
       <div>
         <ul>
           <li v-for="(item, index) in autoCompleteLists" :key="index">
@@ -175,7 +189,7 @@ import InstitutionListItem from "../../components/list-item/InstitutionListItem.
 import JournalListItem from "../../components/list-item/JournalListItem.vue";
 import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 // import SearchModelVue
-import SearchModel from '../search/SearchModel.vue';
+import SearchPanel from '../search/SearchPanel.vue';
 export default {
   name: "SearchResultView",
   components: {
@@ -185,8 +199,7 @@ export default {
     InstitutionListItem,
     JournalListItem,
     ScholarListItem,
-    Search,
-    SearchModel,
+    SearchPanel,
   },
   data() {
     return {
@@ -220,6 +233,14 @@ export default {
       search_type: 0,
 
       autoCompleteLists: [],
+      // work type 
+      options: [
+        { text: 'Article', value: 'article' },
+        { text: 'Book', value: 'book' },
+        { text: 'Letter', value: 'letter' },
+      ],
+      selectedOption: null
+
     };
   },
   watch: {
@@ -483,6 +504,7 @@ export default {
       console.log(JSON.parse(JSON.stringify(this.searchdata)));
       JSON.parse(JSON.stringify(this.searchdata));
 
+      
       // #region search
       if (this.search_type == 1) {
         Search.searchWorks(this.searchdata).then(
@@ -635,6 +657,11 @@ export default {
 .pagination {
   margin-top: 30px;
   margin-left: 30px;
+}
+
+.search-container {
+  padding: 10px;
+  width: 100%;
 }
 
 @media screen and (max-width: 1000px) {

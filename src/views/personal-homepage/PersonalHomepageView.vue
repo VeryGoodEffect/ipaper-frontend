@@ -174,8 +174,7 @@
           {
             name: '全景视觉',
             link: ''
-          },
-          
+          }, 
         ]
       }
     },
@@ -263,7 +262,7 @@
             },
             error => {
               this.save2curPersonalInfo()
-              alert(error.message)
+                (error.message)
             }
           )
         }
