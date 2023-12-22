@@ -49,7 +49,7 @@ export default {
         ],
         series: [
           {
-            name: "Direct",
+            name: "引用数量",
             type: "bar",
             barWidth: "60%",
             data: [],

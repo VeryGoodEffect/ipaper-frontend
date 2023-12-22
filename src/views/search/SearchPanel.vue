@@ -179,17 +179,20 @@ export default {
       // Author search
       else if (type == 4) {
         // alert("search author");
+        this.search_filter = "";
         this.search_type = 2;
         this.place_holder = "输入作者:例如 孟";
       }
 
       // 期刊
       else if (type == 5) {
+        this.search_filter = "";
         this.search_type = 3;
         this.place_holder = "输入期刊:例如Nature";
       }
       // 机构
       else if (type == 6) {
+        this.search_filter = "";
         this.search_type = 4;
         this.place_holder = "输入机构:例如NASA";
       }
