@@ -125,7 +125,7 @@
         </ul>
       </div>
       <Pagination
-        v-if="search_type == 1"
+        v-show="search_type == 1"
         class="pagination"
         :defaultItemsPerPage="5"
       >
@@ -137,7 +137,7 @@
       </Pagination>
       <!-- author -->
       <Pagination
-        v-if="search_type == 2"
+        v-show="search_type == 2"
         class="pagination"
         :defaultItemsPerPage="5"
       >
@@ -150,20 +150,20 @@
       </Pagination>
       <!-- 期刊 -->
       <Pagination
-        v-if="search_type == 3"
+        v-show="search_type == 3"
         class="pagination"
         :defaultItemsPerPage="5"
       >
         <journal-list-item
           v-for="(info, index) in infoItems"
           :key="index"
-          :JounalListItemInfo="info"
+          :jounalListItemInfo="info"
         >
         </journal-list-item>
       </Pagination>
       <!-- 机构 -->
       <Pagination
-        v-if="search_type == 4"
+        v-show="search_type == 4"
         class="pagination"
         :defaultItemsPerPage="5"
       >
