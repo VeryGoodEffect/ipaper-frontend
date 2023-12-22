@@ -70,17 +70,7 @@
           @focus="showAutoCompleteMenu"
           @blur="hideAutoCompleteMenu"
         />
-        <ul v-if="autoCompleteShouldShow && autoCompleteLists.length > 0">
-          <li
-            :class="{ 'suggestion-active': index === activeSuggestionIndex }"
-            v-for="(item, index) in autoCompleteLists"
-            :key="index"
-            @mouseover="activeSuggestionIndex = index"
-            @click="changeContent(item.display_name)"
-          >
-            {{ item.display_name }}
-          </li>
-        </ul>
+        
         <svg
           @click="basicSearch"
           t="1699356103686"
@@ -98,6 +88,17 @@
           ></path>
         </svg>
       </div>
+      <ul v-if="autoCompleteShouldShow && autoCompleteLists.length > 0">
+          <li
+            :class="{ 'suggestion-active': index === activeSuggestionIndex }"
+            v-for="(item, index) in autoCompleteLists"
+            :key="index"
+            @mouseover="activeSuggestionIndex = index"
+            @click="changeContent(item)"
+          >
+            {{ item.display_name }}
+          </li>
+        </ul>
     </div>
   </main>
 </template>
@@ -119,6 +120,7 @@ export default {
       autoCompleteLists: [],
       activeSuggestionIndex: -1,
       autoCompleteShouldShow: false,
+      searchtype: ""
     };
   },
   watch: {
@@ -132,6 +134,10 @@ export default {
       }
     },
   },
+  // institution
+  // author
+  // work
+  // concept
   methods: {
     basicSearch() {
       if (this.searchKeyword != "") {
@@ -146,6 +152,15 @@ export default {
           cursor: "",
           search_type: 1,
         };
+        if(this.searchtype == "work"){
+          searchdata.search_type =1
+        }else if(this.searchtype == "author"){
+          searchdata.search_type =2
+        }else if(this.searchtype == "concept"){
+
+        }else if(this.searchtype == "institution"){
+          searchdata.search_type =4
+        }
 
         let userId = this.$cookies.get("user_id");
         if (userId == null) {
@@ -188,6 +203,13 @@ export default {
       } else {
         this.changeContent(this.autoCompleteLists[this.activeSuggestionIndex].display_name)
       }
+    },
+
+    changeContent(item) {
+      this.searchKeyword = item.display_name;
+      this.activeSuggestionIndex = -1;
+      this.searchtype = item.entity_type
+
     },
     navigateDown() {
       if (this.activeSuggestionIndex < this.autoCompleteLists.length - 1) {

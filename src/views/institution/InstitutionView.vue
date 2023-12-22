@@ -30,7 +30,8 @@
         <SearchResultListItem v-for="(info,index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
       </div>
       <div>
-        引用情况（考虑图表？）
+        <InstitutionGraph :info="counts_by_year"></InstitutionGraph>
+        <InstitutionGraphCite :info="counts_by_year"></InstitutionGraphCite>
       </div>
       <div v-if="relevantInstitution != ''">
         {{ $t('institution_relevant_institution') }}
@@ -50,10 +51,13 @@
 <script>
 import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
 import { Search } from '../../api/search'
-
+import InstitutionGraph from '../../components/graphs/InstitutionGraph.vue'
+import InstitutionGraphCite from '../../components/graphs/InstitutionGraphCite.vue'
 export default {
   components: { 
-    SearchResultListItem
+    SearchResultListItem,
+    InstitutionGraph,
+    InstitutionGraphCite
   },
   data() {
     return {
@@ -87,6 +91,8 @@ export default {
             this.relevantInstitution = response.data.associated_institutions
             this.institutionTags = response.data.x_concepts
             this.paperURL = response.data.works_api_url
+            alert("counts_by_year"+response.data.counts_by_year)
+            this.counts_by_year = response.data.counts_by_year
             this.getPapers(this.paperURL)
           }
         )

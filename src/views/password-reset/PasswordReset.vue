@@ -22,7 +22,7 @@ export default {
     mounted() {
         // get token
         this.token = this.$route.query.token
-        console.log(this.token);
+        console.log(this.token)
     },
     methods: {
         resetPassword() {
