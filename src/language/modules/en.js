@@ -48,6 +48,9 @@ export default {
 
     personal_info_nick_name: 'Nick Name',
     personal_info_real_name: 'Real Name',
+    gender_unset: 'unset',
+    gender_male: 'male',
+    gender_female: 'female',
     personal_info_region: 'Country/Region',
     personal_info_institution: 'Institution',
     personal_info_email: 'Email',
@@ -176,4 +179,6 @@ export default {
     read_it: 'Set Read',
     already_read: 'Read',
     delete_it: 'Delete',
+
+    maximum_image: 'Maximum number limit'
 }

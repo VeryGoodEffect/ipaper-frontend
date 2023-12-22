@@ -49,6 +49,9 @@ export default {
 
     personal_info_nick_name: '昵称',
     personal_info_real_name: '真实姓名',
+    gender_unset: '未设置',
+    gender_male: '男',
+    gender_female: '女',
     personal_info_region: '国家/地区',
     personal_info_institution: '机构',
     personal_info_email: '邮箱',
@@ -178,4 +181,6 @@ export default {
     read_it: '设为已读',
     already_read: '已读',
     delete_it: '删除',
+
+    maximum_image: '图片数量已达上限'
 }
