@@ -166,6 +166,8 @@ export default {
 
     journal_type: "类型：",
 
+    chat_all_conversations: "全部聊天",
+    chat_send: "发送",
     message_all: '全部消息',
     message_unread: '未读消息',
     unread_cnt_1: '有',

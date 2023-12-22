@@ -14,7 +14,7 @@
     <FavouriteListItem 
       v-for="(info, index) in favouritesInfo" :key="index"
       :favourites="favouritesInfo[index]" 
-      @showFavoriteDetail="showFavoriteDetail(index)"
+      @showFavoriteDetail="showFavoriteDetail(info.id)"
       @IWantToShow="letItShow(index)"
       @deleteFavourites="handleDelete(index)"
     />
@@ -33,7 +33,7 @@
 
   <!-- </div>
   </PopoutModal> -->
-  <FavorateContentModal :show="favorateContentModalShouldShow" @close="favorateContentModalShouldShow = false"/>
+  <FavorateContentModal :favoriteId="favoriteId" :show="favorateContentModalShouldShow" @close="favorateContentModalShouldShow = false"/>
 </template>
 
 <script>
@@ -60,6 +60,7 @@ export default {
         name: '',
         id: '',
       },
+      favoriteId: '',
       favorateContentModalShouldShow: false
     }
   },
@@ -110,10 +111,11 @@ export default {
         this.$refs.container.scrollLeft += e.deltaY * 2
       }
     },
-    showFavoriteDetail(index) {
+    showFavoriteDetail(infoId) {
       // this.popoutInfo = this.favouritesInfo[index]
       // this.isPopout = true
       this.favorateContentModalShouldShow = true
+      this.favoriteId = infoId
     },
   }
 }

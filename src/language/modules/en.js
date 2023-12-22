@@ -164,6 +164,8 @@ export default {
 
     journal_type: "Type:",
 
+    chat_all_conversations: "Chats",
+    chat_send: "Send",
     message_all: 'All',
     message_unread: 'Unread',
     unread_cnt_1: 'You have ',
