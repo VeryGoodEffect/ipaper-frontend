@@ -128,4 +128,7 @@ export default {
     institution_cited_by_count: "总被引用数：",
 
     journal_type: "类型：",
+
+    chat_all_conversations: "全部聊天",
+    chat_send: "发送",
 }

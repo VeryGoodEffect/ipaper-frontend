@@ -127,4 +127,7 @@ export default {
     institution_cited_by_count: "Total Citations:",
 
     journal_type: "Type:",
+
+    chat_all_conversations: "Chats",
+    chat_send: "Send",
 }
