@@ -2,9 +2,9 @@
     <PopoutModal :show="show" @close="handleClose">
       <div class="container">
         <h3>{{ $t('authenticate_text') }}<span>{{ $t('authenticate_prompt') }}</span></h3>
-        <input
+        <!-- <input
           type="text" class="basic-input" 
-          :placeholder="$t('auditor_text')" v-model="auditor">
+          :placeholder="$t('auditor_text')" v-model="auditor"> -->
         <input
         type="text" class="basic-input" 
         :placeholder="$t('realName_text')" v-model="realName">
@@ -23,6 +23,14 @@
         <input
         type="text" class="basic-input" 
         :placeholder="$t('content_text')" v-model="content">
+        <div>
+          <ImageUpload v-if="images.length != 3" @click="openFilePicker"></ImageUpload>
+          <img v-for="(img, index) in images" :key="index" :src="img" style="height: 100px; width: 100px;">
+        </div>
+        <div v-if="images.length == 3">已达图片上传上限</div>
+        <input type="file" ref="fileInput" style="display: none" @change="handleFileUpload">
+        <div>
+        </div>
         <div class="btn-box">
           <button class="basic-btn-outline" @click="handleClose">{{ $t('cancel_text') }}</button>
           <button class="basic-btn" @click="handleAuthenticate">{{ $t('authenticate_text') }}</button>
@@ -33,6 +41,7 @@
   
   <script>
   import PopoutModal from '../popout-modal/PopoutModal.vue'
+  import ImageUpload from '../svg/ImageUpload.vue'
   
   import i18n from '../../language'
   
@@ -51,7 +60,9 @@
         position: '',
         concepts: '',
         workEmail: '',
-        content: ''
+        content: '',
+        images: [],
+        imageFiles: [],
       }
     },
     props: {
@@ -62,6 +73,7 @@
     },
     components: {
       PopoutModal,
+      ImageUpload,
       i18n
     },
     methods: {
@@ -70,16 +82,26 @@
         this.$emit('close')
       },
       handleAuthenticate() {
-        let form = {
-          auditor: this.auditor,
-          real_name: this.realName,
-          institution: this.institution,
-          position: this.position,
-          concepts: this.concepts,
-          work_email: this.workEmail,
-          content: this.content
+        let formData = new FormData()
+        formData.append('auditor', 22)
+        formData.append('real_name', this.realName)
+        formData.append('institution', this.institution)
+        formData.append('position', this.position)
+        let concepts_data = {
+          concepts: this.concepts
         }
-        Application.applications(form).then(
+        console.log(concepts_data);
+        formData.append('concepts', JSON.stringify(concepts_data))
+        formData.append('work_email', this.workEmail)
+        if (this.content.length == 0) {
+          formData.append('content', '无备注')
+        } else {
+          formData.append('content', this.content)
+        }
+        for (let i = 1; i <= this.imageFiles.length; i++) {
+          formData.append('image' + i, this.imageFiles[i - 1])
+        }
+        Application.applications(formData).then(
           (response) => {
             alert('提交认证成功！')
           },
@@ -87,6 +109,15 @@
             alert(error.data)
           }
         )
+      },
+      openFilePicker() {
+        this.$refs.fileInput.click();
+      },
+      handleFileUpload(e) {
+        let imgUpload = e.target.files[0]
+        let imgUrl = URL.createObjectURL(imgUpload)
+        this.images.push(imgUrl)
+        this.imageFiles.push(imgUpload)
       }
     }
   }
