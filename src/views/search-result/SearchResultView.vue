@@ -1,7 +1,6 @@
 <template>
   <div class="main-area">
     <div
-      v-show="this.search_type == 1"
       class="cond-area"
       style="display: vertical; position: sticky; top: 0"
     >
@@ -30,7 +29,7 @@
         </ul>
       </div>
 
-      <div class="filter-card" style="display: vertical; text-align: center">
+      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
         <ul>
           <li>日期排序</li>
           <li @click="sortByTime(1)" style="cursor: pointer">升序排序</li>
@@ -38,7 +37,7 @@
         </ul>
       </div>
 
-      <div class="filter-card" style="display: vertical; text-align: center">
+      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
         <ul>
           <li @click="setLanguage(1)" style="cursor: pointer">不限语言</li>
           <li @click="setLanguage(2)" style="cursor: pointer">中文网页</li>
@@ -47,14 +46,14 @@
         </ul>
       </div>
 
-      <div class="filter-card" style="display: vertical; text-align: center">
+      <div v-if="search_type==3" class="filter-card" style="display: vertical; text-align: center">
         <ul>
           <li  v-for="(option, index) in options" :key="index"><input type="radio" :value="option.value" v-model="selectedOption" />
           <label>{{ option.text }}</label></li>
         </ul>
       </div>
 
-      <div class="filter-card" style="display: vertical; text-align: center">
+      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
         <ul>
           <li style="cursor: pointer"><input type="checkbox" />包含专利</li>
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
@@ -63,27 +62,6 @@
       </div>
       <!-- <hr> -->
     </div>
-
-    <!-- auth -->
-    <div
-      v-show="this.search_type == 2"
-      class="cond-area"
-      style="display: vertical; position: sticky; top: 0"
-    ></div>
-
-    <!-- source -->
-    <div
-      v-show="this.search_type == 3"
-      class="cond-area"
-      style="display: vertical; position: sticky; top: 0"
-    ></div>
-
-    <!-- intst -->
-    <div
-      v-show="this.search_type == 4"
-      class="cond-area"
-      style="display: vertical; position: sticky; top: 0"
-    ></div>
 
     <div style="min-width: 50%">
       <div class="search-container">
@@ -217,6 +195,8 @@ export default {
         { text: "Letter", value: "letter" },
       ],
       selectedOption: null,
+
+      placehold: "",
     };
   },
   watch: {
@@ -476,18 +456,26 @@ export default {
     },
     // 真正做搜索后端
     searchmethod() {
-      this.searchdata.filter = this.filter.replace(/,$/, "");
-      this.searchdata.search = this.search;
-      this.searchdata.sort = this.sort;
-      this.searchdata.perpage = this.perpage;
-      this.searchdata.cursor = this.cursor;
-      this.searchdata.page = this.page;
-      console.log(JSON.parse(JSON.stringify(this.searchdata)));
-      JSON.parse(JSON.stringify(this.searchdata));
+      const searchdata = {
+        filter: this.filter.replace(/,$/, ""),
+        search: this.search,
+        sort: this.sort,
+        perpage: this.perpage,
+        cursor: this.cursor,
+        page: this.page
+      }
+      // this.searchdata.filter = this.filter.replace(/,$/, "");
+      // this.searchdata.search = this.search;
+      // this.searchdata.sort = this.sort;
+      // this.searchdata.perpage = this.perpage;
+      // this.searchdata.cursor = this.cursor;
+      // this.searchdata.page = this.page;
+      // console.log(JSON.parse(JSON.stringify(this.searchdata)));
+      // JSON.parse(JSON.stringify(this.searchdata));
 
       // #region search
       if (this.search_type == 1) {
-        Search.searchWorks(this.searchdata).then(
+        Search.searchWorks(searchdata).then(
           (res) => {
             console.log(res.data.results);
             this.resultlist = res.data.results;
@@ -498,7 +486,7 @@ export default {
       }
       // author
       else if (this.search_type == 2) {
-        Search.searchAuthor(this.searchdata).then(
+        Search.searchAuthor(searchdata).then(
           (res) => {
             console.log(res.data.results);
             this.resultlist = res.data.results;
@@ -509,7 +497,7 @@ export default {
       }
       // 期刊
       else if (this.search_type == 3) {
-        Search.searchSources(this.searchdata).then(
+        Search.searchSources(searchdata).then(
           (res) => {
             console.log(res.data.results);
             this.resultlist = res.data.results;
@@ -520,7 +508,7 @@ export default {
       }
       // 机构
       else if (this.search_type == 4) {
-        Search.searchInstitutions(this.searchdata).then(
+        Search.searchInstitutions(searchdata).then(
           (res) => {
             console.log(res.data.results);
             this.resultlist = res.data.results;
@@ -603,6 +591,7 @@ export default {
   border: 2px solid red;
 
   margin-top: 10%;
+  border-radius: 8px;
 }
 
 .cond-area .filter-card li {
@@ -664,6 +653,7 @@ export default {
     width: 90%;
     height: unset;
     min-height: 300px;
+    display: block;
   }
 }
 </style>
