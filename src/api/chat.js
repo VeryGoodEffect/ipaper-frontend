@@ -7,6 +7,7 @@ export class Chat {
     static async createCompletion(data) {
         return service(url.completions, {
             method: "post",
+            // responseType: "stream",
             data
         })
     }
