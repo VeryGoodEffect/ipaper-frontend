@@ -29,7 +29,9 @@
                     <div class="concepts">
                         <span>{{ $t('concepts_text') }}</span>
                         <div>
-                            <span v-for="concept in concepts" :key="concept">{{ concept.display_name }}</span>
+                            <span v-for="concept in concepts" :key="concept">
+                                {{ concept.display_name === '' ? $t('no_concepts') : concept.display_name }}
+                            </span>
                         </div>
                     </div>
                     <div class="content">
@@ -259,12 +261,22 @@ export default {
             default: ''
         }
     },
+    computed: {
+        language() {
+            return this.$t('web_name_text')
+        }
+    },
     watch: {
         isDetail() {
             this.resize()
         },
         approved() {
             this.resize()
+        },
+        language() {
+            setTimeout(() => {
+                this.resize()
+            }, (100));
         }
     },
     mounted() {
@@ -376,11 +388,13 @@ export default {
 .institution,
 .position,
 .submit-time,
-.work-email {
+.work-email,
+.content {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     word-break: break-all;
+    align-items: end;
 }
 
 .submit-time {

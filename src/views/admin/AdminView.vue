@@ -1,5 +1,9 @@
 <template>
     <div class="container">
+        <button @click="displayTutorial = true">教程</button>
+        <button @click="handleLoading">预览加载条</button>
+        <new-loading-bar :display="displayLoad" :progress="progress" @stop-display="displayLoad = false"></new-loading-bar>
+        <tutorial-view :display="displayTutorial" @stop-display="displayTutorial = false"></tutorial-view>
         <div class="status-select-container">
             <span class="select-tip">{{ $t('select_audit_status') }}</span>
             <select v-model="selectStatus">
@@ -25,20 +29,26 @@
     </div>
 </template>
 <script>
-
 import i18n from '../../language';
 import { Application } from '../../api/applications';
 import Pagination from '../../components/pagination/Pagination.vue';
 import AuditDetailView from './AuditDetailView.vue';
+import TutorialView from '../tutorialView/TutorialView.vue';
+import NewLoadingBar from '../../components/loading-bar/NewLoadingBar.vue';
 export default {
     name: 'AdminView',
     components: {
         Pagination,
         AuditDetailView,
-        i18n
+        i18n,
+        TutorialView,
+        NewLoadingBar
     },
     data() {
         return {
+            displayLoad: false,
+            progress: 0,
+            displayTutorial: false,
             AvailableStatus: [-1, 0, 1, 2, 3],
             selectStatus: -1,
             currentPage: 1,
@@ -142,7 +152,16 @@ export default {
                     }
                 }, (err) => { alert(err) })
             })
-        }
+        },
+        handleLoading() {
+            this.displayLoad = true
+            this.progress = 0
+            for (let i = 1; i <= 100; i++) {
+                setTimeout(() => {
+                    this.progress++
+                }, i * 10)
+            }
+        },
     },
     mounted() {
         const param = {

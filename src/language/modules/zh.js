@@ -135,6 +135,7 @@ export default {
     not_access: '未通过',
     audit_return: '返回',
     not_confirmed: '已通过，未确认',
+    no_concepts: '没有科研领域信息',
     submit_time: '申请时间',
     image_material: '图片材料',
     approve_audit: '通过',
@@ -178,4 +179,6 @@ export default {
     read_it: '设为已读',
     already_read: '已读',
     delete_it: '删除',
+
+    tutorial_skip: '跳过?'
 }
