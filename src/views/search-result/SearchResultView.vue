@@ -192,7 +192,7 @@ import InstitutionListItem from "../../components/list-item/InstitutionListItem.
 import JournalListItem from "../../components/list-item/JournalListItem.vue";
 import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 // import SearchModelVue
-import SearchModel from '../search/SearchModel.vue';
+import SearchModel from '../search/SearchPanel.vue';
 import ChatGPT from '../../components/chat/Chat.vue'
 import SearchPanel from '../search/SearchPanel.vue';
 export default {
