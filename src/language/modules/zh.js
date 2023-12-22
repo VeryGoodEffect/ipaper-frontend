@@ -88,6 +88,15 @@ export default {
     institution_search: '机构',
     advanced_search_text: '高级',
 
+    search_type_0: '默认搜索',
+    search_type_1: '摘要搜索',
+    search_type_2: '全文搜索',
+    search_type_3: '标题搜索',
+    search_type_4: '作者搜索',
+    search_type_5: '期刊搜索',
+    search_type_6: '机构搜索',
+    
+
     //advanced_search
     search_text: '搜索',
     advanced_search: '高级检索',

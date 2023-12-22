@@ -84,6 +84,15 @@ export default {
     journal_search: 'Journal',
     institution_search: 'Institution',
     advanced_search_text: 'Advanced',
+
+    search_type_0: 'Default Search',
+    search_type_1: 'Abstract Search',
+    search_type_2: 'Full Text Search',
+    search_type_3: 'Title Search',
+    search_type_4: 'Author Search',
+    search_type_5: 'Journal Search',
+    search_type_6: 'Institution Search',
+
     check_approve: 'Do you confirm the approval of the user\'s application?',
     check_disapprove: 'Please inform the user of the reason for not passing the audit',
 
