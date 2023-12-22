@@ -72,20 +72,24 @@
     </div>
   </div>
   <ChooseFavoriteModal :paperId="paperId" :show="collectModalShouldShow" @close="collectModalShouldShow = false"/>
+  <CiteModal :citations="citations" :show="citeModalShouldShow" @close="citeModalShouldShow = false"/>
 </template>
 
 <script>
 import { useRouter } from 'vue-router'
 import { Search } from "../../api/search";
 import ChooseFavoriteModal from '../../components/modals/ChooseFavoriteModal.vue';
+import CiteModal from '../../components/modals/CiteModal.vue';
+
 // import katex from 'katex';
 // import 'katex/dist/katex.css'
 // import { VueLatex } from "vatex";
 
 export default {
   components: {
-    ChooseFavoriteModal
-  },
+    ChooseFavoriteModal,
+    CiteModal
+},
   data() {
     return {
       paperId: undefined,
@@ -99,7 +103,9 @@ export default {
       tags: [],
       date: '',
       pdf_url: '',
-      collectModalShouldShow: false
+      citations: [],
+      collectModalShouldShow: false,
+      citeModalShouldShow: false
     }
   },
   created() {
@@ -128,7 +134,8 @@ export default {
             this.date = response.data.publication_date
             if(response.data.primary_location.pdf_url != null) {
               this.pdf_url = response.data.primary_location.pdf_url
-            } 
+            }
+            this.citations = response.data.citations
           }
         )
       }
@@ -149,7 +156,9 @@ export default {
     collectPaper() {
       this.collectModalShouldShow = true
     },
-    citePaper() {},
+    citePaper() {
+      this.citeModalShouldShow = true
+    },
     sharePaper() {
       var text = window.location.href;
       const type = "text/plain";
