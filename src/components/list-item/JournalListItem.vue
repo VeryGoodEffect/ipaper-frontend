@@ -72,8 +72,13 @@ export default {
   cursor: pointer;
 }
 
+.title:hover {
+  text-decoration: underline;
+}
+
 .profile {
   font-size: 14px;
   color: var(--theme-mode-very-high-contrast);
+  margin-right: 10px;
 }
 </style>
