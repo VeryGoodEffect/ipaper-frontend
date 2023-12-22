@@ -38,8 +38,6 @@ import InterestRecommendation from "../../components/recommendation/InterestReco
 
 import AsideBar from "../../components/search-property/AsideBar.vue";
 import SearchPanel from "./SearchPanel.vue";
-// import search from "./SearchModel.vue";
-// import i18n from "../../language";
 export default {
   name: "SearchView",
   components: {
