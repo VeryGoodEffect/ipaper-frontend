@@ -241,9 +241,10 @@ header button {
   padding: 5px;
   border-radius: 5px;
   transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  text-align: center;
 }
 
-.dropdown-list li:first-child {
+.dropdown-list li:not(:last-child) {
   margin-bottom: 10px;
 }
 

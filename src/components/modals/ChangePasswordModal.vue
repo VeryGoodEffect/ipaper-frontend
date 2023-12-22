@@ -91,12 +91,12 @@ min-width: 60%;
 .container>h3 {
 display: flex;
 justify-content: center;
-margin-bottom: 50px;
+margin-bottom: 30px;
 }
 
 .container>h3,
 .container>h3 * {
-font-size: 40px;
+font-size: 35px;
 font-weight: bold;
 }
 
@@ -112,12 +112,10 @@ padding-right: 20px;
 color: var(--theme-mode-high-contrast);
 }
 
-.container>input:first-of-type {
-margin-bottom: 40px;
+.container>input {
+margin-bottom: 20px;
 }
-.container>input:last-of-type {
-margin-bottom: 5px;
-}
+
 
 .container>span {
 width: 70%;
@@ -139,7 +137,8 @@ font-size: 24px;
 
 @media screen and (max-width: 768px) {
 .container>h3 {
-    font-size: 25px;
+    padding-top: 10px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 30px
 }

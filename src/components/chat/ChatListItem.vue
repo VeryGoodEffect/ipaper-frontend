@@ -33,6 +33,7 @@
         height: 50px;
         cursor: pointer;
         background-color: var(--theme-mode);
+        text-align: left;
     }
     .conversation-container h4 {
         margin-left: 10px;

@@ -52,6 +52,7 @@ import AsideBar from "../../components/search-property/AsideBar.vue";
 import i18n from "../../language";
 export default {
   emits: ["senddata"],
+  props:["searchContent"],
   components: {
     i18n,
     AsideBar,
@@ -75,7 +76,7 @@ export default {
       autoCompleteLists: [],
       activeSuggestionIndex: -1,
       autoCompleteShouldShow: false,
-      place_holder: "输入文献",
+      place_holder: this.$t('search_type_0'),
     }
   },
 
@@ -89,6 +90,11 @@ export default {
         this.autoComplete();
       }
     },
+    searchContent(newValue,oldValue){
+      // console.log(`message changed from ${oldVal} to ${newVal}`);
+      this.search_search = newValue
+      alert("sent search content")
+    }
   },
 
   methods: {
@@ -159,39 +165,42 @@ export default {
         // this.search_filter = "display_name.search:"
         this.search_filter = "";
         this.search_type = 1;
-        this.place_holder = "文献搜索-默认搜索";
+        this.place_holder = this.$t('search_type_0')
       } else if (type == 1) {
         // alert("abstract.search:");
         this.search_filter = "abstract.search:";
         this.search_type = 1;
-        this.place_holder = "文献搜索-摘要搜索";
+        this.place_holder = this.$t('search_type_1')
       } else if (type == 2) {
         // alert("fulltext.search:");
         this.search_filter = "fulltext.search:";
         this.search_type = 1;
-        this.place_holder = "文献搜搜-全文内容";
+        this.place_holder = this.$t('search_type_2')
       } else if (type == 3) {
         // alert("display_name.search:");
         this.search_filter = "display_name.search:";
         this.search_type = 1;
-        this.place_holder = "输入标题:例如 3D Gauss";
+        this.place_holder = this.$t('search_type_3')
       }
       // Author search
       else if (type == 4) {
         // alert("search author");
+        this.search_filter = "";
         this.search_type = 2;
-        this.place_holder = "输入作者:例如 孟";
+        this.place_holder = this.$t('search_type_4')
       }
 
       // 期刊
       else if (type == 5) {
+        this.search_filter = "";
         this.search_type = 3;
-        this.place_holder = "输入期刊:例如Nature";
+        this.place_holder = this.$t('search_type_5')
       }
       // 机构
       else if (type == 6) {
+        this.search_filter = "";
         this.search_type = 4;
-        this.place_holder = "输入机构:例如NASA";
+        this.place_holder = this.$t('search_type_6')
       }
     },
     autoComplete() {
@@ -303,7 +312,6 @@ export default {
 .search-area {
   display: flex;
   justify-content: center;
-  /* margin-bottom: 50px; */
   position: relative;
   z-index: 99;
   margin: 0 auto;
@@ -315,7 +323,6 @@ export default {
 }
 
 .search-input {
-  /* max-width: 640px; */
   width: 100%;
   border-color: var(--theme-mode-contrast);
   border-width: 2px;
