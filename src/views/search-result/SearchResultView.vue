@@ -114,7 +114,9 @@
     </div>
 
     <div>
-      <search-model @senddata="handleModoleSearch"></search-model>
+      <div class="search-container">
+        <SearchPanel @senddata="handleModoleSearch"></SearchPanel>
+      </div>
       <div>
         <ul>
           <li v-for="(item, index) in autoCompleteLists" :key="index">
@@ -187,7 +189,7 @@ import InstitutionListItem from "../../components/list-item/InstitutionListItem.
 import JournalListItem from "../../components/list-item/JournalListItem.vue";
 import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 // import SearchModelVue
-import SearchModel from '../search/SearchModel.vue';
+import SearchPanel from '../search/SearchPanel.vue';
 export default {
   name: "SearchResultView",
   components: {
@@ -197,8 +199,7 @@ export default {
     InstitutionListItem,
     JournalListItem,
     ScholarListItem,
-    Search,
-    SearchModel,
+    SearchPanel,
   },
   data() {
     return {
@@ -656,6 +657,11 @@ export default {
 .pagination {
   margin-top: 30px;
   margin-left: 30px;
+}
+
+.search-container {
+  padding: 10px;
+  width: 100%;
 }
 
 @media screen and (max-width: 1000px) {
