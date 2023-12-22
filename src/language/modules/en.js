@@ -190,4 +190,8 @@ export default {
     delete_it: 'Delete',
 
     maximum_image: 'Maximum number limit'
+
+
+
+    // Search 
 }
