@@ -70,7 +70,7 @@ export default {
     concepts_text: 'Work concepts(Required)',
     workEmail_text: 'Work email(Required)',
     content_text: 'Anything else',
-    image_text: 'Upload 1 - 3 images for audition',
+    image_text: 'Upload 1 - 3 images for audit',
     ipaper_scholar_text: 'iPaper Scholar',
 
     kerword_search: 'Keyword',
@@ -81,11 +81,13 @@ export default {
     journal_search: 'Journal',
     institution_search: 'Institution',
     advanced_search_text: 'Advanced',
+    check_approve: 'Do you confirm the approval of the user\'s application?',
+    check_disapprove: 'Please inform the user of the reason for not passing the audit',
 
     //advanced_search
     search_text: 'Search',
     advanced_search: 'Advanced Search',
-    advanced_search_author: 'Search articles by the following author' ,
+    advanced_search_author: 'Search articles by the following author',
     advanced_search_author_example: 'Example: Xgeon',
     // Show articles in the following publications:
     advanced_search_publication: 'Search articles in the following publication',
@@ -125,18 +127,24 @@ export default {
     paper_detail_source: "journal:",
     paper_detail_doi: "DOI:",
 
+    all_status:'All Status',
+    select_audit_status: 'Select Application Status',
+    no_audit_results: 'No Matched Results',
     application_type: 'Application Type',
     not_reviewed: 'Not reviewed',
     access: 'Approved',
     not_access: 'Rejected',
     audit_return: 'Back',
     not_confirmed: 'Approved but Not Confirmed',
+    image_material: 'Image Material',
     submit_time: 'Submit Time',
-    approve_audition: 'Approve',
-    disapprove_audition: 'Reject',
+    approve_audit: 'Approve',
+    disapprove_audit: 'Reject',
+    approve_submitted: 'This application has been approved.',
+    disapprove_submitted: 'This application has been disapproved.',
     no_images: 'No Images',
-    submit_audition: 'Submit',
-    public_date: "Date of publication:",
+    submit_audit: 'Submit',
+    public_date: "Date of Publication:",
 
     institution_main_scholar: "Main scholars",
     institution_main_tag: "Main field",
@@ -156,6 +164,8 @@ export default {
 
     journal_type: "Type:",
 
+    chat_all_conversations: "Chats",
+    chat_send: "Send",
     message_all: 'All',
     message_unread: 'Unread',
     unread_cnt_1: 'You have ',

@@ -151,7 +151,7 @@ export default {
   left: 0;
   width: 250px;
   height: calc(100vh - 60px);
-  
+  z-index: 90;
   /* overflow: hidden; */
 }
   

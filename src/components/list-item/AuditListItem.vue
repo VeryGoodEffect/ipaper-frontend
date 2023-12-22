@@ -25,7 +25,7 @@
         <div class="status-bar">
             <div>
                 <div class="status-dot"
-                    :style="{ 'background-color': status === 0 ? '#f48216' : status === 1 ? '#58d24a' : '#ce312d' }">
+                    :style="{ 'background-color': status === 0 ? '#f48216' : status === 1 ? '#58d24a' : status === 2 ? '#ce312d' : '#1177f0' }">
                 </div>
                 <!-- TODO:改成v-if -->
                 <div class="status-text">

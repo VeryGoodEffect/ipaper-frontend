@@ -72,7 +72,7 @@ export default {
     concepts_text: '科研领域',
     workEmail_text: '工作邮箱',
     content_text: '备注（可选）',
-    image_text:'请上传图片材料（1-3张）',
+    image_text: '请上传图片材料（1-3张）',
 
     ipaper_scholar_text: 'iPaper 学术搜索',
 
@@ -95,7 +95,7 @@ export default {
     advanced_search_publication_example: '例如：Nature',
     // Show articles published during the time:
     advanced_search_publish_time: '显示在此期间发表的文章',
-    
+
     advanced_search_publish_keyword: '关键词',
     advanced_search_publish_keyword_isTitle: '是否为文章标题',
     advanced_search_publish_keyword_isTitle_yes: '是',
@@ -105,8 +105,8 @@ export default {
 
     pagination_current_page_1: '第',
     pagination_current_page_2: '页',
-    pagination_per_page:'条 / 页',
-    pagination_jump:'跳转',
+    pagination_per_page: '条 / 页',
+    pagination_jump: '跳转',
 
     search_result_cited_times: "被引用次数：",
     search_result_related_work: "相关文章",
@@ -126,7 +126,9 @@ export default {
     paper_detail_source: "专辑：",
     paper_detail_doi: "DOI：",
 
-
+    all_status: '所有状态',
+    select_audit_status: '筛选申请记录状态',
+    no_audit_results: '没有符合条件的申请记录',
     application_type: '申请类型',
     not_reviewed: '未审核',
     access: '已通过',
@@ -135,10 +137,14 @@ export default {
     not_confirmed: '已通过，未确认',
     submit_time: '申请时间',
     image_material: '图片材料',
-    approve_audition: '通过',
-    disapprove_audition: '不通过',
+    approve_audit: '通过',
+    disapprove_audit: '不通过',
     no_images: '没有图片材料',
-    submit_audition:'提交审核',
+    submit_audit: '确认提交',
+    check_approve: '确认通过该用户的申请？',
+    check_disapprove: '请告知用户未通过审核的原因',
+    approve_submitted: '已通过该申请',
+    disapprove_submitted: '已拒绝该申请',
 
     public_date: "发表日期：",
 
@@ -160,6 +166,8 @@ export default {
 
     journal_type: "类型：",
 
+    chat_all_conversations: "全部聊天",
+    chat_send: "发送",
     message_all: '全部消息',
     message_unread: '未读消息',
     unread_cnt_1: '有',

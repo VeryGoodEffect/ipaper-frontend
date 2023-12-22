@@ -4,6 +4,7 @@
       <h3>{{ $t('choose_favorite') }} </h3>
       <FavouriteListChoosable 
         :fid="fid"
+        :paperId="paperId"
         @cancelCreation="cancelCreation"
         @updateCreation="updateCreation"
         :isCreating="isCreating"
@@ -36,6 +37,10 @@ export default {
       default: false
     },
     fid: {
+      type: String,
+      default: ''
+    },
+    paperId: {
       type: String,
       default: ''
     }
