@@ -34,13 +34,15 @@
       placeholder="Go to Page" class="jump_page_number flatten">
     <div class="flatten"> / {{ totalPages }} {{ $t('pagination_current_page_2') }} </div>
     <button @click="jumpToPage" class="flatten"> {{ $t('pagination_jump') }} </button>
-    <select class="flatten" :value="itemsPerPage" @change="$emit('item-per-page-change', Number($event.target.value))">
-      <option :value="5">5</option>
-      <option :value="10">10</option>
-      <option :value="20">20</option>
-      <option :value="50">50</option>
-    </select>
-    <div class="flatten">{{ $t('pagination_per_page') }}</div>
+    <div class="flatten">
+      <select class="flatten" :value="itemsPerPage" @change="$emit('item-per-page-change', Number($event.target.value))">
+        <option :value="5">5</option>
+        <option :value="10">10</option>
+        <option :value="20">20</option>
+        <option :value="50">50</option>
+      </select>
+      <div class="flatten">{{ $t('pagination_per_page') }}</div>
+    </div>
   </div>
 </template>
 
@@ -165,6 +167,7 @@ select option {
 }
 
 .flatten {
+  display: inline-block;
   white-space: nowrap;
   margin: auto 10px;
 }
