@@ -2,7 +2,7 @@
   <div>
     <ul>
       <li v-for="(article, index) in articles" :key="index">
-        <h3 @click="jumpToPaperPage">{{ article.title }}</h3>
+        <h3 @click="jumpToPaperPage(index)">{{ article.title }}</h3>
         <p class="abstract" v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: false}">
           {{ article.abstract }}
         </p>
@@ -34,8 +34,8 @@ export default {
       )
   },
   methods: {
-    jumpToPaperPage() {
-
+    jumpToPaperPage(i) {
+      this.$router.replace('paper_detail/'+ this.articles[i].id)
     }
   }
 }

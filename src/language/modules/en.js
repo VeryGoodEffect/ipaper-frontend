@@ -48,6 +48,9 @@ export default {
 
     personal_info_nick_name: 'Nick Name',
     personal_info_real_name: 'Real Name',
+    gender_unset: 'unset',
+    gender_male: 'male',
+    gender_female: 'female',
     personal_info_region: 'Country/Region',
     personal_info_institution: 'Institution',
     personal_info_email: 'Email',
@@ -81,6 +84,15 @@ export default {
     journal_search: 'Journal',
     institution_search: 'Institution',
     advanced_search_text: 'Advanced',
+
+    search_type_0: 'Default Search',
+    search_type_1: 'Abstract Search',
+    search_type_2: 'Full Text Search',
+    search_type_3: 'Title Search',
+    search_type_4: 'Author Search',
+    search_type_5: 'Journal Search',
+    search_type_6: 'Institution Search',
+
     check_approve: 'Do you confirm the approval of the user\'s application?',
     check_disapprove: 'Please inform the user of the reason for not passing the audit',
 
@@ -121,11 +133,11 @@ export default {
     scholar_portal_focus_areas: "Focus Areas",
     scholar_portal_net: "Relation Network",
 
-    paper_detail_abstract: "abstract:",
-    paper_detail_keywords: "keywords:",
-    paper_detail_tag: "tags:",
-    paper_detail_source: "journal:",
-    paper_detail_doi: "DOI:",
+    paper_detail_abstract: "abstract",
+    paper_detail_keywords: "keywords",
+    paper_detail_tag: "tags",
+    paper_detail_source: "journal",
+    paper_detail_doi: "DOI",
 
     all_status:'All Status',
     select_audit_status: 'Select Application Status',
@@ -144,7 +156,7 @@ export default {
     disapprove_submitted: 'This application has been disapproved.',
     no_images: 'No Images',
     submit_audit: 'Submit',
-    public_date: "Date of Publication:",
+    public_date: "Date of Publication: ",
 
     institution_main_scholar: "Main scholars",
     institution_main_tag: "Main field",
@@ -176,4 +188,10 @@ export default {
     read_it: 'Set Read',
     already_read: 'Read',
     delete_it: 'Delete',
+
+    maximum_image: 'Maximum number limit'
+
+
+
+    // Search 
 }

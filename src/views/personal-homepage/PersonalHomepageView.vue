@@ -14,32 +14,47 @@
                 @change="handleFileChange"
               />
             </div>
-            <button @click="changePersonalInfo">修改个人信息</button> 
+            <!-- <button @click="changePersonalInfo">修改个人信息</button>  -->
             <!-- 变成输入框 -->
-            <button @click="submitChangePersonalInfo">确认修改</button>
-            <button @click="cancelChangePersonalInfo">取消修改</button>
             <!-- 好像修改个人信息时修改的字段比较少，并且有些我们也没有展示 -->
 
             <div class="personal-info-text" >
               <p class="personal-info-text-nickname">
                 <!-- {{ $t('personal_info_nick_name') }}:  -->
-                {{ personalInfo.nickName }}
+                <template v-if="!isEditing">{{ personalInfo.nickName }}</template>
+                <input 
+                  class="basic-input edit-input-nickname" v-else 
+                  type="text" v-model="personalInfo.nickName" />
               </p>
               <p class="personal-info-text-real-name">
                 <!-- {{ $t('personal_info_real_name') }}:  -->
-                {{ personalInfo.realName }}
+                <template v-if="!isEditing">{{ personalInfo.realName }}</template>
+                <input class="basic-input edit-input-real-name" v-else 
+                type="text" v-model="personalInfo.realName" 
+                :placeholder="$t('personal_info_real_name')"/>
               </p>
               <p class="personal-info-text-region">
                 <em>{{ $t('personal_info_region') }}</em>&nbsp;&nbsp;
                 {{ personalInfo.region }}
               </p>
-              <p class="personal-info-text-gender" v-if="personalInfo.gender.length !== 0">
+              <p class="personal-info-text-gender">
                 <em>{{ $t('personal_info_gender') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.gender }}
+                <template v-if="!isEditing">{{ $t(personalInfo.gender) }}</template>
+                <template v-else>
+                  <input id="male" type="radio" value="gender_male" v-model="personalInfo.gender"/>
+                  <label for="male">{{ $t('gender_male') }}</label>
+                  <input id="female" type="radio" value="gender_female" v-model="personalInfo.gender"/>
+                  <label for="female">{{ $t('gender_female') }}</label>
+                  <input id="unset" type="radio" value="gender_unset" v-model="personalInfo.gender"/>
+                  <label for="unset">{{ $t('gender_unset') }}</label>
+                </template>
+                
               </p>
-              <p class="personal-info-text-institution" v-if="personalInfo.institution !== null">
+              <p class="personal-info-text-institution" v-if="personalInfo.institution || isEditing">
                 <em>{{ $t('personal_info_institution') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.institution }}
+                <template v-if="!isEditing">{{ personalInfo.institution }}</template>
+                <input class="basic-input edit-input-text" v-else
+                  type="text" v-model="personalInfo.institution"/>
               </p>
               <!-- <p class="personal-info-text-major">
                 <em>{{ $t('personal_info_major') }}</em>&nbsp;&nbsp;
@@ -47,19 +62,40 @@
               </p> -->
               <p class="personal-info-text-email">
                 <em>{{ $t('personal_info_email') }}</em>&nbsp;&nbsp;
-                {{ personalInfo.email }}
+                <template v-if="!isEditing">{{ personalInfo.email }}</template>
+                <input class="basic-input edit-input-text" v-else
+                  type="text" v-model="personalInfo.email"/>
               </p>
-              <p class="personal-info-text-url" v-if="personalInfo.urls.length !== 0"> 
+              <p class="personal-info-text-url" v-if="personalInfo.urls.length !== 0 || isEditing"> 
                 <em>{{ $t('personal_info_url') }}</em>
                 <ul class="personal-info-text-url-list">
                   <li v-for="(url, index) in personalInfo.urls" :key="index">
-                    &nbsp;&nbsp;&nbsp;<svg t="1702890339983" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4227"><path d="M377.6 473.6C377.6 448 384 422.4 403.2 403.2l70.4-70.4 57.6-57.6c19.2-19.2 38.4-25.6 64-25.6 25.6 0 44.8 6.4 64 25.6 38.4 38.4 38.4 89.6 0 128l-128 128C512 550.4 492.8 556.8 467.2 556.8L416 608C428.8 614.4 448 620.8 467.2 620.8 512 620.8 544 601.6 576 576l128-128c57.6-57.6 57.6-153.6 0-211.2-57.6-57.6-153.6-57.6-211.2 0l-128 128C320 403.2 307.2 467.2 326.4 524.8L377.6 473.6z"  p-id="4228"></path><path d="M646.4 550.4c0 25.6-6.4 51.2-25.6 70.4l-128 128c-19.2 19.2-38.4 25.6-64 25.6-25.6 0-44.8-6.4-64-25.6-38.4-38.4-38.4-89.6 0-128l128-128c19.2-19.2 44.8-25.6 70.4-25.6l51.2-51.2C588.8 409.6 576 403.2 556.8 403.2 512 403.2 473.6 422.4 448 448L320 576c-57.6 57.6-57.6 153.6 0 211.2 57.6 57.6 153.6 57.6 211.2 0l128-128c44.8-44.8 57.6-108.8 32-160L646.4 550.4z"  p-id="4229"></path></svg>
-                    <a :href="url" target="_blank">{{ url }}</a>
+                    &nbsp;&nbsp;&nbsp;
+                    <svg t="1702890339983" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4227"><path d="M377.6 473.6C377.6 448 384 422.4 403.2 403.2l70.4-70.4 57.6-57.6c19.2-19.2 38.4-25.6 64-25.6 25.6 0 44.8 6.4 64 25.6 38.4 38.4 38.4 89.6 0 128l-128 128C512 550.4 492.8 556.8 467.2 556.8L416 608C428.8 614.4 448 620.8 467.2 620.8 512 620.8 544 601.6 576 576l128-128c57.6-57.6 57.6-153.6 0-211.2-57.6-57.6-153.6-57.6-211.2 0l-128 128C320 403.2 307.2 467.2 326.4 524.8L377.6 473.6z"  p-id="4228"></path><path d="M646.4 550.4c0 25.6-6.4 51.2-25.6 70.4l-128 128c-19.2 19.2-38.4 25.6-64 25.6-25.6 0-44.8-6.4-64-25.6-38.4-38.4-38.4-89.6 0-128l128-128c19.2-19.2 44.8-25.6 70.4-25.6l51.2-51.2C588.8 409.6 576 403.2 556.8 403.2 512 403.2 473.6 422.4 448 448L320 576c-57.6 57.6-57.6 153.6 0 211.2 57.6 57.6 153.6 57.6 211.2 0l128-128c44.8-44.8 57.6-108.8 32-160L646.4 550.4z"  p-id="4229"></path></svg>
+                    <a :href="url" target="_blank" v-if="!isEditing">{{ url }}</a>
+                    <input class="basic-input url-input" v-else
+                      type="text" v-model="personalInfo.urls[index]"/>
+                    <svg v-if="isEditing" @click="personalInfo.urls.splice(index, 1);"
+                      t="1703220686999" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3523" id="mx_n_1703220687001" width="200" height="200"><path d="M512 832c-176.448 0-320-143.552-320-320S335.552 192 512 192s320 143.552 320 320-143.552 320-320 320m0-704C300.256 128 128 300.256 128 512s172.256 384 384 384 384-172.256 384-384S723.744 128 512 128" p-id="3524"></path><path d="M649.824 361.376a31.968 31.968 0 0 0-45.248 0L505.6 460.352l-98.976-98.976a31.968 31.968 0 1 0-45.248 45.248l98.976 98.976-98.976 98.976a32 32 0 0 0 45.248 45.248l98.976-98.976 98.976 98.976a31.904 31.904 0 0 0 45.248 0 31.968 31.968 0 0 0 0-45.248L550.848 505.6l98.976-98.976a31.968 31.968 0 0 0 0-45.248" p-id="3525"></path></svg>
+                  </li>
+                  <li class="add-url" v-if="isEditing">
+                    &nbsp;&nbsp;&nbsp;
+                    <svg t="1702890339983" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4227"><path d="M377.6 473.6C377.6 448 384 422.4 403.2 403.2l70.4-70.4 57.6-57.6c19.2-19.2 38.4-25.6 64-25.6 25.6 0 44.8 6.4 64 25.6 38.4 38.4 38.4 89.6 0 128l-128 128C512 550.4 492.8 556.8 467.2 556.8L416 608C428.8 614.4 448 620.8 467.2 620.8 512 620.8 544 601.6 576 576l128-128c57.6-57.6 57.6-153.6 0-211.2-57.6-57.6-153.6-57.6-211.2 0l-128 128C320 403.2 307.2 467.2 326.4 524.8L377.6 473.6z"  p-id="4228"></path><path d="M646.4 550.4c0 25.6-6.4 51.2-25.6 70.4l-128 128c-19.2 19.2-38.4 25.6-64 25.6-25.6 0-44.8-6.4-64-25.6-38.4-38.4-38.4-89.6 0-128l128-128c19.2-19.2 44.8-25.6 70.4-25.6l51.2-51.2C588.8 409.6 576 403.2 556.8 403.2 512 403.2 473.6 422.4 448 448L320 576c-57.6 57.6-57.6 153.6 0 211.2 57.6 57.6 153.6 57.6 211.2 0l128-128c44.8-44.8 57.6-108.8 32-160L646.4 550.4z"  p-id="4229"></path></svg>
+                    <input class="basic-input url-input" 
+                      type="text" v-model="urlAdding"/>
+                    <svg class="cross" @click="if (urlAdding !== '') personalInfo.urls.push(urlAdding); urlAdding=''"
+                      t="1703220134641"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7499" id="mx_n_1703220134642" width="200" height="200"><path d="M512 832c-176.448 0-320-143.552-320-320S335.552 192 512 192s320 143.552 320 320-143.552 320-320 320m0-704C300.256 128 128 300.256 128 512s172.256 384 384 384 384-172.256 384-384S723.744 128 512 128" p-id="7500"></path><path d="M683.936 470.944H544v-139.968a32 32 0 1 0-64 0v139.968h-139.936a32 32 0 0 0 0 64H480v139.968a32 32 0 0 0 64 0v-139.968h139.968a32 32 0 0 0 0-64" p-id="7501"></path></svg>
                   </li>
                 </ul>
               </p>
-            </div>  
-            <button class="basic-btn authenticate-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>          
+              <svg v-if="!isEditing" @click="enterEditingMode"
+                t="1703218462193" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6301" id="mx_n_1703218462195" width="200" height="200"><path d="M853.333333 501.333333c-17.066667 0-32 14.933333-32 32v320c0 6.4-4.266667 10.666667-10.666666 10.666667H170.666667c-6.4 0-10.666667-4.266667-10.666667-10.666667V213.333333c0-6.4 4.266667-10.666667 10.666667-10.666666h320c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32H170.666667c-40.533333 0-74.666667 34.133333-74.666667 74.666666v640c0 40.533333 34.133333 74.666667 74.666667 74.666667h640c40.533333 0 74.666667-34.133333 74.666666-74.666667V533.333333c0-17.066667-14.933333-32-32-32z" p-id="6302"></path><path d="M405.333333 484.266667l-32 125.866666c-2.133333 10.666667 0 23.466667 8.533334 29.866667 6.4 6.4 14.933333 8.533333 23.466666 8.533333h8.533334l125.866666-32c6.4-2.133333 10.666667-4.266667 14.933334-8.533333l300.8-300.8c38.4-38.4 38.4-102.4 0-140.8-38.4-38.4-102.4-38.4-140.8 0L413.866667 469.333333c-4.266667 4.266667-6.4 8.533333-8.533334 14.933334z m59.733334 23.466666L761.6 213.333333c12.8-12.8 36.266667-12.8 49.066667 0 12.8 12.8 12.8 36.266667 0 49.066667L516.266667 558.933333l-66.133334 17.066667 14.933334-68.266667z" p-id="6303"></path></svg>
+            </div> 
+            <div class="btn-wrapper">
+              <button v-if="isEditing" class="basic-btn authenticate-btn" @click="submitChangePersonalInfo">{{ $t('confirm_text' )}}</button>
+              <button v-if="isEditing" class="basic-btn authenticate-btn" @click="cancelChangePersonalInfo">{{ $t('cancel_text' )}}</button>
+              <button v-if="!isEditing" class="basic-btn authenticate-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>          
+            </div> 
         </div>
         <div class="tag-and-list">
           <div class="list">
@@ -119,6 +155,7 @@
   import { User } from '../../api/users.js'
   import FollowList from '../../components/follow-list/FollowList.vue'
   import AuthenticateIdentityModal from '../../components/modals/AuthenticateIdentityModal.vue'
+import { dataTool } from 'echarts'
   export default {
     components: {
       FavouriteListItem,
@@ -129,6 +166,8 @@
     },
     data() {
       return { 
+        isEditing: false,
+        urlAdding: '',
         authenticateModalShouldShow: false,
         infoItem: {
             title: "低碳经济: 人类经济发展方式的新变革",
@@ -199,8 +238,16 @@
               this.personalInfo.institution = response.data.institution
               this.personalInfo.email = response.data.email
               this.personalInfo.urls = response.data.websites
+              for (let i = 0; i < this.personalInfo.urls.length; i++) {
+                if (!this.personalInfo.urls[i].startsWith('http://') && 
+                      !this.personalInfo.urls[i].startsWith('https://')) {
+                  this.personalInfo.urls[i] = "http://" + this.personalInfo.urls[i]
+                }
+              }
+              // for (let i = 0; i < response.data.length; i++) {
+              //   this.personalInfo.urls.push(response.data.websites[i].url)
+              // }
               this.personalInfo.avatarUrl = 'api/users/' + userId + '/avatar/'
-              console.log(this.personalInfo.avatarUrl)
             },
             (error) => {
               console.log(error)
@@ -229,12 +276,32 @@
       },
       // 或许修改头像和修改其他文字的个人信息是两个事情可以不同操作的事件？
       submitChangePersonalInfo() {
+        this.isEditing = false
         let userId = this.$cookies.get('user_id')
-        let data = new FormData()
-        data.append('username', this.personalInfo.nickName)
-        data.append('gender', this.personalInfo.gender)
-        data.append('institution', this.personalInfo.institution)
-        data.append('websites', this.personalInfo.urls)
+        // let data = new FormData()
+        // data.append('username', this.personalInfo.nickName)
+        // data.append('real_name', this.personalInfo.realName)
+        // data.append('gender', this.personalInfo.gender)
+        // data.append('institution', this.personalInfo.institution)
+        if (this.urlAdding !== '') {
+          this.personalInfo.urls.push(this.urlAdding)
+          this.urlAdding = ''
+        }
+        for (let i = 0; i < this.personalInfo.urls.length; i++) {
+          if (!this.personalInfo.urls[i].startsWith('http://') &&
+                !this.personalInfo.urls[i].startsWith('https://')) {
+            this.personalInfo.urls[i] = "http://" + this.personalInfo.urls[i]
+          }
+        }
+        // data.append('websites', JSON.stringify(this.personalInfo.urls))
+        let data = {
+          username: this.personalInfo.nickName,
+          real_name: this.personalInfo.realName,
+          gender: this.personalInfo.gender,
+          institution: this.personalInfo.institution,
+          websites: this.personalInfo.urls
+        }
+
         if (userId) {
           User.changePersonalInfo(userId, data).then(
             response => {
@@ -268,6 +335,7 @@
         }
       },
       cancelChangePersonalInfo() {
+        this.isEditing = false
         this.save2curPersonalInfo()
       },
       handleMove() {
@@ -320,14 +388,20 @@
       cur2savePersonalInfo() {
         this.savePersonalInfo.avatarUrl = this.personalInfo.avatarUrl
         this.savePersonalInfo.nickName = this.personalInfo.nickName
+        this.savePersonalInfo.realNmae = this.personalInfo.realName
         this.savePersonalInfo.gender = this.personalInfo.gender
         this.savePersonalInfo.urls = this.personalInfo.urls
       },
       save2curPersonalInfo() {
         this.personalInfo.avatarUrl = this.savePersonalInfo.avatarUrl
         this.personalInfo.nickName = this.savePersonalInfo.nickName
+        this.personalInfo.realName = this.savePersonalInfo.realName
         this.personalInfo.gender = this.savePersonalInfo.gender
         this.personalInfo.urls = this.savePersonalInfo.urls
+      },
+      enterEditingMode() {
+        this.isEditing = true
+        this.cur2savePersonalInfo()
       }
     },
   }
@@ -370,6 +444,7 @@ em {
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   fill: #666;
 }
+
 .return-text {
   font-size: 20px;
   /* color: #666; */
@@ -418,6 +493,8 @@ em {
   height: 250px;
   width: 250px;
   border-radius: 50%;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  cursor: pointer;
 }
 
 .personal-image img:hover {
@@ -428,6 +505,18 @@ em {
   /* min-height: 400px; */
   width: 300px;
   margin-top: 10px;   
+  position: relative;
+}
+
+.personal-info-text>svg {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 5px;
+  right: 0;
+  background: transparent;
+  cursor: pointer;
+  fill: var(--default-text-color);
 }
 
 .personal-info-text p:not(:nth-child(1), :nth-child(2)) {
@@ -440,7 +529,7 @@ em {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
-.personal-info-text p:last-child {
+.personal-info-text p:last-of-type {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   padding-bottom: 15px;
@@ -468,6 +557,7 @@ em {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
 }
 
 .personal-info-text-url-list li svg {
@@ -476,11 +566,19 @@ em {
   fill: var(--default-text-color);
 }
 
+.personal-info-text-url-list li svg:last-of-type.cross {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  fill: var(--default-text-color);
+}
+
 .personal-info-text-url-list li:last-child {
   margin-bottom: 0;
 }
 
-.personal-info-text-url-list li:hover * {
+.personal-info-text-url-list li:hover svg:first-of-type {
   font-size: 17px;
   font-weight: bold;
   color: var(--theme-color);
@@ -637,19 +735,70 @@ transition: opacity 0.5s linear 0s;
   margin-left: auto;
 }
 
+input[type="file"] {
+  display: none;
+}
+
+
+
+.edit-input-nickname {
+  width: 80%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+.edit-input-real-name {
+  width: 80%;
+  margin-top: 10px;
+  height: 30px;
+  font-style: 16px;
+  text-align: center;
+}
+.edit-input-text {
+  width: 80%;
+  height: 40px;
+}
+.url-input {
+  width: 70%;
+  height: 30px;
+  font-weight: normal !important;
+  font-size: 16px !important;
+  color: var(--default-text-color) !important;
+}
+.add-url {
+  position: relative;
+}
+.add-url svg:last-of-type {
+  position: absolute;
+  cursor: pointer;
+  right: 10px;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  margin-right: 9px;
+  fill: var(--theme-color) !important;
+}
+
+label {
+  margin-right: 10px;
+}
+
+.btn-wrapper {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-wrapper button {
+  margin: 20px 0;
+}
+
+
 
 @media screen and (max-width: 1450px) {
   .personal-info {
     justify-content: center;
   }
-}
-
-
-@media screen and (max-width: 900px) {
-  .personal-image {
-    /* margin-left: 30px; */
-  }
-
 }
 
 @media screen and (max-width: 768px) {

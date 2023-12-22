@@ -1,8 +1,8 @@
 <template>
   <div :class="['out-border', { 'out-border-full': isExpanded }]">
-    <h3 @click="jumpDetailView" class="title">
+    <a :href=journalListItemInfo.homepage_url><h3 @click="jumpDetailView" class="title">
       {{ journalListItemInfo.display_name }}
-    </h3>
+    </h3></a>
     <span class="profile">
       {{ $t("institution_region") }}{{ journalListItemInfo.country_code }}
     </span>
@@ -37,9 +37,11 @@ export default {
   },
   methods: {
     jumpDetailView() {
-      this.$router.push({
-        path: "/institution_detail/" + this.journalListItemInfo.id,
-      });
+      console.log(this.journalListItemInfo.homepage_url)
+      // alert(this.infoItem.url)
+      // this.$router.push({
+      //   path: "/institution_detail/" + this.journalListItemInfo.id,
+      // });
     },
   },
   computed: {},
@@ -72,8 +74,13 @@ export default {
   cursor: pointer;
 }
 
+.title:hover {
+  text-decoration: underline;
+}
+
 .profile {
   font-size: 14px;
   color: var(--theme-mode-very-high-contrast);
+  margin-right: 10px;
 }
 </style>
