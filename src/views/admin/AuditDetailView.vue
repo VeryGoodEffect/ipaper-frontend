@@ -77,8 +77,8 @@
                     <div class="check-disapprove">{{ status === 0 ? $t('check_disapprove') : $t('disapprove_submitted') }}
                     </div>
                     <div class="textarea-container">
-                        <textarea draggable="false" placeholder="......" v-model="reason"
-                            :contenteditable="status === 0"></textarea>
+                        <textarea draggable="false" :placeholder="rejectReason === '' ? '......' : rejectReason"
+                            v-model="reason" :readonly="status !== 0"></textarea>
                     </div>
                     <div class="submit-button-container">
                         <button class="submit-button" :class="{ 'disabled-button': status !== 0 }"
@@ -110,7 +110,7 @@ export default {
             avatar: `/api/users/${this.userId}/avatar`,
             approved: this.status === 0 ? undefined :
                 this.status === 2 ? false : true,
-            reason: this.rejectReason
+            reason: '',
         }
     },
     methods: {

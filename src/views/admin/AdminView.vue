@@ -3,7 +3,7 @@
         <div class="status-select-container">
             <span class="select-tip">{{ $t('select_audit_status') }}</span>
             <select v-model="selectStatus">
-                <option :value="-1">{{ $t('all_status') }}</option>
+                <option :value="-1" selected>{{ $t('all_status') }}</option>
                 <option :value="0">{{ $t('not_reviewed') }}</option>
                 <option :value="1">{{ $t('access') }}</option>
                 <option :value="2">{{ $t('not_access') }}</option>
@@ -12,6 +12,7 @@
         </div>
         <div class="audit-list">
             <ul>
+                <li v-if="auditDatas.length === 0" class="no-result-tip">{{ $t('no_audit_results') }}</li>
                 <pagination :items-per-page="itemsPerPage" :total-pages="totalPages" :current-page="currentPage"
                     @change-page="handleChangePage" @change-item-per-page="handleChangePerPage">
                     <li v-for="data in auditDatas" :key="data.submitTime">
@@ -19,7 +20,6 @@
                             @approve="data.status = 3" @disapprove="data.status = 2"></audit-detail-view>
                     </li>
                 </pagination>
-                <li v-if="auditDatas.length === 0" class="no-result-tip">{{ $t('no_audit_results') }}</li>
             </ul>
         </div>
     </div>
@@ -138,7 +138,7 @@ export default {
                         submitTime: result.timestamp,
                         concepts: result.concepts,
                         images: image,
-                        rejectReason: result.rejectReason
+                        rejectReason: result.failed_reason
                     }
                 }, (err) => { alert(err) })
             })
@@ -151,6 +151,18 @@ export default {
         }
         this.getResult(param)
     },
+    watch: {
+        selectStatus(value) {
+            const param = {
+                limit: this.itemsPerPage,
+                offset: 0,
+            }
+            if (value >= 0) {
+                param.status = this.packStatus(value)
+            }
+            this.getResult(param)
+        }
+    }
 }
 </script >
 <style scoped>
@@ -163,6 +175,7 @@ export default {
     background: var(--theme-color-10);
     padding: 20px;
     border-radius: 15px;
+
 }
 
 .status-select-container {
@@ -182,5 +195,13 @@ select {
     color: var(--theme-color);
     font-weight: 700;
     margin-right: 2%;
+}
+
+.no-result-tip {
+    color: var(--theme-color);
+    font-size: 25px;
+    font-weight: 700;
+    margin: 5%;
+    text-align: center;
 }
 </style>
