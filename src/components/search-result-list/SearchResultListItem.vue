@@ -74,10 +74,7 @@ export default {
         showCollectModal() {
           this.collectModalShouldShow = true
         }
-    },
-    computed: {
-    
-  }
+    }
 }
 </script>
 

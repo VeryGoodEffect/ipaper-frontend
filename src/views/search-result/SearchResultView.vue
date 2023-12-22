@@ -175,7 +175,6 @@ export default {
     JournalListItem,
     ScholarListItem,
     Search,
-
     ChatGPT,
     SearchPanel,
   },
