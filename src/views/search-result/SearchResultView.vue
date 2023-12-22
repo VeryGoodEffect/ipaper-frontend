@@ -573,10 +573,9 @@ export default {
     if (this.searchdata && "search_type" in this.searchdata) {
       delete this.searchdata["search_type"];
     }
-
     console.log(searchdata);
-
-    searchdata.filter = searchdata.filter.replace(/,$/, "");
+    if (searchdata.filter != null)
+      searchdata.filter = searchdata.filter.replace(/,$/, "");
     this.searchmethod();
   },
 };
