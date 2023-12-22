@@ -173,6 +173,7 @@
         </institution-list-item>
       </Pagination>
     </div>
+    <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT>
   </div>
 </template>
   
@@ -188,6 +189,7 @@ import JournalListItem from "../../components/list-item/JournalListItem.vue";
 import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 // import SearchModelVue
 import SearchModel from '../search/SearchModel.vue';
+import ChatGPT from '../../components/chat/Chat.vue'
 export default {
   name: "SearchResultView",
   components: {
@@ -199,6 +201,7 @@ export default {
     ScholarListItem,
     Search,
     SearchModel,
+    ChatGPT,
   },
   data() {
     return {
