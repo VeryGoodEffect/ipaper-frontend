@@ -92,8 +92,9 @@
     <div class="relation-network">
       <h3>{{ $t('scholar_portal_net') }}</h3>
       <AuthorRelationGraph :relationList="relationList"></AuthorRelationGraph>
+      
     </div>
-    
+    <!-- <EchartGraph :relationList="relationList"></EchartGraph> -->
 </template>
   
   <script>
@@ -110,6 +111,7 @@
   import { History } from '../../api/history.js'
   // import { Article } from '../../api/article.js'
   import FollowList from '../../components/follow-list/FollowList.vue'
+  // import EchartGraph from '../../components/relation-graph/EchartGraph.vue'
 import { User } from '../../api/users'
   export default {
     components: {
@@ -122,6 +124,7 @@ import { User } from '../../api/users'
       Pagination,
       InstitutionListItem,
       AuthorRelationGraph,
+      // EchartGraph,
       i18n
     },
     data() {
@@ -270,7 +273,7 @@ import { User } from '../../api/users'
         immediate: true,
         handler(newParams) {
           this.authorInfo.id = this.$route.params.id
-          this.getAuthorInfo()
+          // this.getAuthorInfo()
           this.getRelationMap()
         }
       }
@@ -278,7 +281,7 @@ import { User } from '../../api/users'
     created() {
       this.authorInfo.id = this.$route.params.id
       this.getAuthorInfo()
-      this.getRelationMap()
+      // this.getRelationMap()
     },
     methods: {
       

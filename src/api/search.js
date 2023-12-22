@@ -71,44 +71,4 @@ export class Search {
             method: "get"
         })
     }
-    // static async searchWorks(endpoint,params) {
-
-    // }
-
-
-    /**
-     * // api.js
-
-import axios from 'axios';
-
-const baseURL = 'https://example.com/api';
-
-const api = axios.create({
-  baseURL,
-});
-
-export const fetchData = (endpoint, params) => {
-  return api.get(endpoint, {
-    params,
-  });
-};
-     * 
-     * 
-     * 
-     * import { fetchData } from './api';
-
-const endpoint = '/data';
-const params = {
-  param1: 'value1',
-  param2: 'value2',
-};
-
-fetchData(endpoint, params)
-  .then(response => {
-    console.log(response.data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
-     */
 }

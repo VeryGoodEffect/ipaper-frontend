@@ -64,8 +64,23 @@
           type="text"
           :placeholder="$t('huge_input_placeholder')"
           v-model="searchKeyword"
-          @keyup.enter="basicSearch"
+          @keydown.down="navigateDown"
+          @keydown.up="navigateUp"
+          @keydown.enter="searchOrChangeContent"
+          @focus="showAutoCompleteMenu"
+          @blur="hideAutoCompleteMenu"
         />
+        <ul v-if="autoCompleteShouldShow && autoCompleteLists.length > 0">
+          <li
+            :class="{ 'suggestion-active': index === activeSuggestionIndex }"
+            v-for="(item, index) in autoCompleteLists"
+            :key="index"
+            @mouseover="activeSuggestionIndex = index"
+            @click="changeContent(item.display_name)"
+          >
+            {{ item.display_name }}
+          </li>
+        </ul>
         <svg
           @click="basicSearch"
           t="1699356103686"
@@ -90,6 +105,7 @@
 <script>
 import LoadingBar from "../../components/loading-bar/LoadingBar.vue";
 import i18n from "../../language";
+import { AutoComplete } from '../../api/autocomplete.js';
 
 export default {
   name: "IntroView",
@@ -100,7 +116,21 @@ export default {
   data() {
     return {
       searchKeyword: "", // 搜索关键字
+      autoCompleteLists: [],
+      activeSuggestionIndex: -1,
+      autoCompleteShouldShow: false,
     };
+  },
+  watch: {
+    searchKeyword(newValue, oldValue) {
+      if (newValue.length == 0) {
+        setTimeout(() => {
+          this.autoCompleteLists = [];
+        }, 100);
+      } else {
+        this.autoComplete();
+      }
+    },
   },
   methods: {
     basicSearch() {
@@ -127,6 +157,50 @@ export default {
             query: searchdata,
           });
         }
+      }
+    },
+
+    hideAutoCompleteMenu() {
+      setTimeout(() => {
+        this.autoCompleteShouldShow = false
+        this.activeSuggestionIndex = -1
+      }, 100)
+    },
+    autoComplete() {
+      let data = {
+        q: this.searchKeyword,
+        entity_type: ""
+      };
+      console.log(data);
+      AutoComplete.getAutoAllInfo(data).then((res)=>{
+        console.log(data)
+        this.autoCompleteLists = res.data.results; 
+      })
+    },
+    showAutoCompleteMenu() {
+      this.activeSuggestionIndex = -1;
+      this.autoCompleteShouldShow = true;
+    },
+
+    searchOrChangeContent() {
+      if (this.activeSuggestionIndex === -1) {
+        this.search()
+      } else {
+        this.changeContent(this.autoCompleteLists[this.activeSuggestionIndex].display_name)
+      }
+    },
+    navigateDown() {
+      if (this.activeSuggestionIndex < this.autoCompleteLists.length - 1) {
+        this.activeSuggestionIndex++;
+      } else {
+        this.activeIndex = 0;
+      }
+    },
+    navigateUp() {
+      if (this.activeSuggestionIndex > 0) {
+        this.activeSuggestionIndex--;
+      } else {
+        this.activeSuggestionIndex = this.autoComplete.length - 1;
       }
     },
   },
@@ -197,4 +271,7 @@ main h2 {
     font-size: 40px;
   }
 }
+
+
+
 </style>

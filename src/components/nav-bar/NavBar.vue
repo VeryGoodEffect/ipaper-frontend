@@ -27,6 +27,7 @@
           <div>{{ $t('hello_message') + currentUsername }}</div>
           <ul class="dropdown-list">
             <li @click="jumpToPersonalHomepage">{{ $t('personal_homepage_text') }}</li>
+            <li @click="jumpToChangePassword">{{ $t('change_password_text') }}</li>
             <li @click="handleLogout">{{ $t('logout_text') }}</li>
           </ul>
         </a>
@@ -51,6 +52,11 @@
     @close="retrievePasswordModalShouldShow = false"
   />
   
+  <ChangePasswordModal
+    :show="changePasswordModalShow"
+    @close="changePasswordModalShow = false"
+  />
+  
 </template>
 
 <script>
@@ -61,6 +67,7 @@ import RegisterModal from '../modals/RegisterModal.vue'
 import RetrievePasswordModal from '../modals/RetrievePasswordModal.vue'
 import MailIcon from '../svg/MailIcon.vue'
 import UnreadMailIcon from '../svg/UnreadMailIcon.vue'
+import ChangePasswordModal from '../modals/ChangePasswordModal.vue'
 
 import { Account } from '../../api/accounts.js'
 import { User } from '../../api/users.js'
@@ -72,6 +79,7 @@ export default {
     LoginModal,
     RegisterModal,
     RetrievePasswordModal,
+    ChangePasswordModal,
     i18n,
     MailIcon,
     UnreadMailIcon
@@ -82,6 +90,7 @@ export default {
       loginModalShouldShow: false,
       registerModalShouldShow: false,
       retrievePasswordModalShouldShow: false,
+      changePasswordModalShow: false,
       currentUsername: ''
     }
   },
@@ -149,6 +158,10 @@ export default {
           alert("登出失败！")
         }
       )
+    },
+    jumpToChangePassword() {
+      console.log(111);
+      this.changePasswordModalShow = true
     }
   }
 }
@@ -158,14 +171,14 @@ export default {
 header {
   position: sticky;
   top: 0;
-  width: 100%;
+  width: 98.5%;
   height: 60px;
-  /* background: rgba(100, 100, 100, .2); */
   background: var(--theme-mode);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
+  z-index: 999;
 }
 
 header>section {

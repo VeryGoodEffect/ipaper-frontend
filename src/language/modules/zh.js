@@ -29,6 +29,12 @@ export default {
     retrieve_password_text: '找回密码',
     retrieve_password_message: '点击确认，随后去邮箱查收重置链接',
 
+    change_password_text: '重设密码',
+    change_password_prompt: '：守护你的帐号安全',
+    old_password: '旧密码',
+    new_password: '新密码',
+    confirm_password: '确认密码',
+
     cancel_follow: '取消关注',
     follow: '关注',
 
@@ -66,9 +72,18 @@ export default {
     concepts_text: '科研领域',
     workEmail_text: '工作邮箱',
     content_text: '备注（可选）',
+    image_text:'请上传图片材料（1-3张）',
 
     ipaper_scholar_text: 'iPaper 学术搜索',
 
+    kerword_search: '关键词',
+    abstract_search: '摘要',
+    full_text_search: '全文',
+    title_search: '标题',
+    author_search: '作者',
+    journal_search: '期刊',
+    institution_search: '机构',
+    advanced_search_text: '高级',
 
     //advanced_search
     search_text: '搜索',
@@ -86,6 +101,7 @@ export default {
     advanced_search_publish_keyword_isTitle_yes: '是',
     advanced_search_publish_keyword_isTitle_no: '否',
     recommend_for_you: '为你推荐',
+    hotspots: '学术热点',
 
     pagination_current_page_1: '第',
     pagination_current_page_2: '页',
@@ -109,6 +125,25 @@ export default {
     paper_detail_tag: "标签：",
     paper_detail_source: "专辑：",
     paper_detail_doi: "DOI：",
+
+
+    application_type: '申请类型',
+    not_reviewed: '未审核',
+    access: '已通过',
+    not_access: '未通过',
+    audit_return: '返回',
+    not_confirmed: '已通过，未确认',
+    submit_time: '申请时间',
+    image_material: '图片材料',
+    approve_audit: '通过',
+    disapprove_audit: '不通过',
+    no_images: '没有图片材料',
+    submit_audit:'确认提交',
+    check_approve: '确认通过该用户的申请？',
+    check_disapprove: '请告知用户未通过审核的原因',
+    approve_submitted: '已通过该申请',
+    disapprove_submitted:'已拒绝该申请',
+
     public_date: "发表日期：",
 
     institution_main_scholar: "机构主要作者",
@@ -131,4 +166,14 @@ export default {
 
     chat_all_conversations: "全部聊天",
     chat_send: "发送",
+    message_all: '全部消息',
+    message_unread: '未读消息',
+    unread_cnt_1: '有',
+    unread_cnt_2: '封未读消息',
+    unread_cnt_3: '封未读消息',
+    set_read_all: '设为全部已读',
+    delete_read: '删除全部已读',
+    read_it: '设为已读',
+    already_read: '已读',
+    delete_it: '删除',
 }
