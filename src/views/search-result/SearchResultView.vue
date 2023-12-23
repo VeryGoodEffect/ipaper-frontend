@@ -477,7 +477,7 @@ export default {
         filter: this.filter.replace(/,$/, ""),
         search: this.search,
         sort: this.sort,
-        perpage: this.perpage,
+        per_page: this.perpage,
         cursor: this.cursor,
         page: this.page
       }
