@@ -55,10 +55,9 @@
                 <!-- <span v-for="(tag, idx) in author.x_concepts" :key="idx" class="author-tag-item" @click="gotoTag(tag)">
                   {{ tag.display_name }}
                 </span> -->
-              </div>
-              </div>
-              
-          </div>
+                </div>
+              </div>   
+            </div>
         </div>
         
         <div class="paper-list">
@@ -139,14 +138,20 @@ export default {
             this.institutionNameZh = response.data.display_name_zh
             this.institutionCountry = response.data.country_code
             this.authorURL = response.data.authors_api_url
-            this.getAuthors(this.authorURL)
+            this.getAuthors(this.authorURL)     
             this.institutionURL = response.data.homepage_url
             this.relevantInstitution = response.data.associated_institutions
             this.institutionTags = response.data.x_concepts
             this.paperURL = response.data.works_api_url
             // alert("counts_by_year"+response.data.counts_by_year)
             this.counts_by_year = response.data.counts_by_year
-            this.getPapers(this.paperURL)
+            
+            const param = {
+              per_page: this.paginationInfo.itemsPerPage,
+              page: this.paginationInfo.currentPage
+            }
+            console.log(this.paperURL)
+            this.getPapers(this.paperURL, param)
           }
         )
       }
@@ -163,14 +168,16 @@ export default {
         }
       )
     },
-    getPapers(url) {
-      Search.getEntities(url).then(
+    getPapers(url, param) {
+      // Search.getEntities(url).then(
+      Search.getPagnationEntities(url, param).then(
         (response) => {
+          // console.log(response)
+          this.infoItems = []
+          this.paginationInfo.totalPages = Math.ceil(response.data.meta.count / this.paginationInfo.itemsPerPage)
+          // console.log(this.paginationInfo.totalPages)
           this.infoItems = response.data.results
-          console.log(this.infoItems.length)
-          this.paginationInfo.itemsPerPage = 10
-          this.paginationInfo.totalPages = Math.ceil(this.infoItems.length / this.paginationInfo.itemsPerPage)
-          console.log(this.paginationInfo.totalPages)
+          console.log(this.infoItems)
         }
       )
     },
@@ -187,21 +194,20 @@ export default {
       //路由跳转到学者详情页
     },
     handleChangePage(page) {
-        this.currentPage = page
+        this.paginationInfo.currentPage = page
         const param = {
-            limit: this.itemsPerPage,
-
-            offset: this.itemsPerPage * (this.currentPage - 1)
+          per_page: this.paginationInfo.itemsPerPage,
+          page: this.paginationInfo.currentPage
         }
-        // this.getResult(param)
+        this.getPapers(this.paperURL, param)
     },
     handleChangePerPage(perPage) {
-        this.itemsPerPage = perPage
+        this.paginationInfo.itemsPerPage = perPage
         const param = {
-            limit: this.itemsPerPage,
-            offset: 0
+          per_page: this.paginationInfo.itemsPerPage,
+          page: 1
         }
-        // this.getResult(param)
+        this.getPapers(this.paperURL, param)
     },
   }
 }

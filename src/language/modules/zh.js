@@ -169,11 +169,11 @@ export default {
     institution_relevant_institution: "相关机构",
     institution_author_achievement: "成果数",
 
-    tag_detail_wiki: "维基百科：",
-    tag_detail_paper: "相关文献：",
-    tag_detail_author: "相关作者：",
-    tag_detail_institution: "相关机构：",
-    tag_detail_tags: "相关领域：",
+    tag_detail_wiki: "维基百科",
+    tag_detail_paper: "相关文献",
+    tag_detail_author: "相关作者",
+    tag_detail_institution: "相关机构",
+    tag_detail_tags: "相关领域",
 
     institution_region: "国家/地区：",
     institution_works_count: "学术成果数：",
