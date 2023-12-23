@@ -253,7 +253,7 @@ export default {
     },
 
     changeSearchPanelContent(){
-      // this.searchPanelRef = this.$refs.
+      this.searchPanelRef = this.$refs.searchPanelRef.setSearchContent(this.search)
     },
 
     // #region AsideBar
@@ -477,7 +477,7 @@ export default {
         filter: this.filter.replace(/,$/, ""),
         search: this.search,
         sort: this.sort,
-        perpage: this.perpage,
+        per_page: this.perpage,
         cursor: this.cursor,
         page: this.page
       }
@@ -570,6 +570,7 @@ export default {
     this.perpage = searchdata.perpage;
     this.cursor = searchdata.cursor;
     this.search_type = searchdata.search_type;
+    this.changeSearchPanelContent(this.search)
     if (this.searchdata && "search_type" in this.searchdata) {
       delete this.searchdata["search_type"];
     }
