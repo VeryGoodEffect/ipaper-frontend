@@ -160,11 +160,13 @@ export default {
 
     public_date: "发表日期：",
 
+    institution_achievement: "机构成果",
     institution_main_scholar: "机构主要作者",
     institution_main_tag: "重点领域",
     institution_main_papers: "机构文献",
     institution_URL: "官网链接",
     institution_relevant_institution: "相关机构",
+    institution_author_achievement: "成果数",
 
     tag_detail_wiki: "维基百科：",
     tag_detail_paper: "相关文献：",

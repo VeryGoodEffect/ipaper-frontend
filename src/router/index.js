@@ -51,7 +51,7 @@ const router = createRouter({
       component: InstitutionView
     },
     {
-      path: '/tag_detail',
+      path: '/tag_detail/:id',
       component: TagDetailView
     },
     {

@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     getTagDetail() {
-      let tagId = 'C41008148'
+      let tagId = this.$route.params.id
       if (tagId) {
         Search.conceptRetrieve(tagId).then(
           (response) => {
