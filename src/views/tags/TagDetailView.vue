@@ -1,47 +1,87 @@
 <template>
-  <div v-if="this.$i18n.locale == 'en'">
-    {{ tagName }}
-  </div>
-  <div v-else>
-    {{ tagNameZh }}
-  </div>
-  <div>
-    {{ $t('tag_detail_wiki') }}
-    <a :href="this.wikiURL">{{ this.wikiURL }}</a>
-  </div>
-  <div>
-    {{ $t('tag_detail_paper') }}
-    <SearchResultListItem v-for="(info,index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
-  </div>
-  <div>
-    {{ $t('tag_detail_institution') }}
-    <div v-for="(institution, idx) in institutions" :key="idx">
-      <div v-if="this.$i18n.locale == 'en'"> 
-        {{ institution.display_name }}
-      </div>
-      <div v-else>
-        {{ institution.display_name_zh }}
-      </div>
+  <div class="container">
+    <div v-if="this.$i18n.locale == 'en'" class="title">
+      {{ tagName }}
     </div>
-  </div>
-  <div>
-    {{ $t('tag_detail_author') }}
-    <div v-for="(author, idx) in authors" :key="idx" @click="gotoAuthor(author)">
-      {{ author.display_name }}
-      ({{ author.works_count }})
-      </div>
-  </div>
-  <div>
-    {{ $t('tag_detail_tags') }}
-    <div v-for="(tag, idx) in relatedTags" :key="idx">
-      <div v-if="this.$i18n.locale == 'en'"> 
-        {{ tag.display_name }}
-      </div>
-      <div v-else>
-        {{ tag.display_name_zh }}
-      </div>
+    <div v-else class="title">
+      {{ tagNameZh }}
     </div>
+    <div class="main-area">
+      <div class="left-row">
+        <div>
+          <p class="tags">
+            {{ $t('tag_detail_wiki') }}
+          </p>
+          
+          <a :href="this.wikiURL">{{ this.wikiURL }}</a>
+        </div>
+        
+        <div v-if="institutions != ''">
+          <p class="tags">
+            {{ $t('tag_detail_institution') }}
+          </p>
+          <div class="relevant-institution-list">
+            <div v-for="(institution, idx) in institutions" :key="idx" class="relevant-institution"
+            @click="gotoRelevantInstitution(institution)">
+              <p v-if="this.$i18n.locale == 'en'">
+                {{ institution.display_name }}
+              </p>
+              <p v-else>
+                {{ institution.display_name_zh }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="tags">
+            {{ $t('tag_detail_tags') }}
+          </p>
+          <div class="relevant-institution-list">
+            <div v-for="(tag, idx) in relatedTags" :key="idx" class="relevant-institution"
+            @click="gotoTag(tag)">
+              <p v-if="this.$i18n.locale == 'en'"> 
+                {{ tag.display_name }}
+              </p>
+              <p v-else>
+                {{ tag.display_name_zh }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="tags">
+            {{ $t('tag_detail_author') }}
+          </p>
+          <div class="author-list">
+            <div v-for="(author, idx) in authors" :key="idx" @click="gotoAuthor(author)" class="author-name">
+            {{ author.display_name }} 
+            &ensp;&ensp;
+            {{ $t('institution_author_achievement') }}
+            {{ author.works_count }}
+            <!-- <span v-for="(tag, idx) in author.x_concepts" :key="idx" class="author-tag-item" @click="gotoTag(tag)">
+              {{ tag.display_name }}
+            </span> -->
+            </div>
+          </div>   
+        </div>
+
+      </div>
+
+      <div class="right-row"> 
+        <div>
+          <p class="tags-right">
+            {{ $t('tag_detail_paper') }}
+          </p>
+          
+          <SearchResultListItem v-for="(info,index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
+        </div>
+      </div>
+    </div> 
+
   </div>
+  
 </template>
 
 <script>
@@ -52,6 +92,14 @@ export default {
   components: {
     SearchResultListItem,
     i18n
+  },
+  watch: {
+    '$route.params.id': {
+      immediate: true,
+      handler(newVal, oldVal) {
+        this.getTagDetail()
+      },
+    },
   },
   data() {
     return {
@@ -104,13 +152,17 @@ export default {
       Search.getEntities(url).then(
         (response) => {
           this.institutions = response.data.results
+          console.log(this.institutions)
         }
       )
     },
     getAuthors(url) {
       Search.getEntities(url).then(
         (response) => {
-          this.authors = response.data.results
+          this.authors = []
+          for(let i = 0; i < 10; i++) {
+            this.authors.push(response.data.results[i])
+          }
         }
       )
     },
@@ -121,9 +173,108 @@ export default {
         }
       )
     },
+    gotoTag(tag) {
+    //路由跳转到领域详情页 
+      this.$router.push('/tag_detail/' + tag.id)
+    },
+    gotoRelevantInstitution(institution) {
+      this.$router.push('/institution_detail/' + institution.id)
+      // location.reload()
+    },
+    gotoAuthor(author) {
+      this.$router.push('/scholar_portal/' + author.id)
+      //路由跳转到学者详情页
+    }
   }
 }
 </script>
 <style scoped>
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+.title {
+  font-size: 35px;
+  font-weight: bold;
+  margin: 0 auto;
+  text-align: center;
+  /* border: 2px red solid; */
+  width: 80%;
+  margin-bottom: 20px;
+}
+.main-area {
+  display: flex;
+  margin: 0 auto;
+}
+.left-row {
+  width: 50%;
+}
+.right-row {
+  width: 50%;
+  padding-left: 30px;
+  border-left: 2px solid var(--theme-mode-contrast);
+}
+.tags {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+.tags-right {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.tags + a {
+  margin-left: 10px;
+  text-wrap: wrap;
+  word-wrap: break-word;
+}
+.relevant-institution-list {
+  margin-left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.relevant-institution-list :hover {
+  text-decoration: underline;
+}
+.relevant-institution {
+  /* border: 2px solid red ; */
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.relevant-institution > p {
+  color: var(--theme-color);
+  /* text-wrap: nowrap; */
+  cursor: pointer;
+}
+.author-name {
+  color: var(--theme-color);  
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
 
+.author-name:hover {
+  text-decoration: underline;
+}
+.author-list {
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .main-area {
+    display: block;
+  }
+  .left-row {
+    width: 100%;
+  }
+  .right-row {
+    font-size: 25px;
+    width: 100%;
+    border-left: unset;
+    padding-left: unset;
+  }
+}
 </style>

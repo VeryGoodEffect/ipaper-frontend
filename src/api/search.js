@@ -71,4 +71,10 @@ export class Search {
             method: "get"
         })
     }
+    static async getPagnationEntities(url, data) {
+        return service(url, {
+            method: "get",
+            params: data
+        })
+    }
 }

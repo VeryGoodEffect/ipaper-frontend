@@ -1,7 +1,7 @@
 <template>
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
         <h3 class="title" @click="jumpArticle(infoItem.url)" v-html="highlightedText(infoItem.keyword, infoItem.title)"></h3>
-        <div class="author">
+        <div class="author" v-ellipsis="{ maxLine: 1, maxWidth: '100%', wrappable: true}">
           <span v-for="(author, idx) in infoItem.authorships" :key="idx">
             {{ author.author.display_name }}
           </span>  
@@ -81,7 +81,7 @@ export default {
 .out-border {
     /* border: 1px solid red; */
     width: 700px;
-    min-height: 130px;
+    min-height: 80px;
     position: relative;
 }
 .out-border-full {

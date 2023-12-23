@@ -1,20 +1,20 @@
 <template>
   <div :class="['out-border', { 'out-border-full': isExpanded }]">
-    <a :href=journalListItemInfo.homepage_url><h3 @click="jumpDetailView" class="title">
-      {{ journalListItemInfo.display_name }}
+    <a :href=infoItem.homepage_url><h3 @click="jumpDetailView" class="title">
+      {{ infoItem.display_name }}
     </h3></a>
     <span class="profile">
-      {{ $t("institution_region") }}{{ journalListItemInfo.country_code }}
+      {{ $t("institution_region") }}{{ infoItem.country_code }}
     </span>
     <span class="profile">
-      {{ $t("journal_type") }}{{ journalListItemInfo.type }}
+      {{ $t("journal_type") }}{{ infoItem.type }}
     </span>
     <span class="profile">
-      {{ $t("institution_works_count") }}{{ journalListItemInfo.works_count }}
+      {{ $t("institution_works_count") }}{{ infoItem.works_count }}
     </span>
     <span class="profile">
       {{ $t("institution_cited_by_count")
-      }}{{ journalListItemInfo.cited_by_count }}
+      }}{{ infoItem.cited_by_count }}
     </span>
   </div>
 </template>
@@ -23,7 +23,7 @@
 import i18n from "../../language";
 
 export default {
-  props: ["journalListItemInfo"],
+  props: ["infoItem"],
   components: {
     i18n,
   },
@@ -37,10 +37,10 @@ export default {
   },
   methods: {
     jumpDetailView() {
-      console.log(this.journalListItemInfo.homepage_url)
+      console.log(this.infoItem.homepage_url)
       // alert(this.infoItem.url)
       // this.$router.push({
-      //   path: "/institution_detail/" + this.journalListItemInfo.id,
+      //   path: "/institution_detail/" + this.infoItem.id,
       // });
     },
   },

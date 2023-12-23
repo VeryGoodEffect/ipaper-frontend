@@ -29,10 +29,10 @@
               <div class="institution-relevant-institution-list">
                 <div v-for="(institution, idx) in relevantInstitution" :key="idx" class="relevant-institution"
                 @click="gotoRelevantInstitution(institution)">
-                  {{ institution.display_name }}
+                    {{ institution.display_name }}
                 </div>
               </div>
-          </div>
+            </div>
           <div>
             <p class="tags">
                {{ $t('institution_URL') }}
@@ -42,12 +42,12 @@
               {{ this.institutionURL }}
             </a>
           </div>
-            <div class="author-list">
+            <div>
               <p class="tags">
                 {{ $t('institution_main_scholar') }}
               </p>
-              
-              <div v-for="(author, idx) in institutionAuthors" :key="idx" @click="gotoAuthor(author)" class="author-name">
+              <div class="author-list">
+                <div v-for="(author, idx) in institutionAuthors" :key="idx" @click="gotoAuthor(author)" class="author-name">
                 {{ author.display_name }} 
                 &ensp;&ensp;
                 {{ $t('institution_author_achievement') }}
@@ -55,8 +55,9 @@
                 <!-- <span v-for="(tag, idx) in author.x_concepts" :key="idx" class="author-tag-item" @click="gotoTag(tag)">
                   {{ tag.display_name }}
                 </span> -->
-              </div>
-          </div>
+                </div>
+              </div>   
+            </div>
         </div>
         
         <div class="paper-list">
@@ -65,7 +66,12 @@
               {{ $t('institution_main_papers') }}
             </p>
             
-            <Pagination :defaultItemsPerPage="5">
+            <Pagination 
+            :itemsPerPage="this.paginationInfo.itemsPerPage"
+            :currentPage="this.paginationInfo.currentPage"
+            :totalPages="this.paginationInfo.totalPages"
+            @change-page="handleChangePage" @change-item-per-page="handleChangePerPage"
+            >
               <SearchResultListItem v-for="(info,index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
             </Pagination>
           </div>
@@ -102,6 +108,11 @@ export default {
       institutionAuthors: [],
       paperURL: '',
       infoItems: [],
+      paginationInfo: {
+        itemsPerPage: 10,
+        currentPage: 1,
+        totalPages: 3,
+      },
     }
   },
   watch: {
@@ -127,14 +138,20 @@ export default {
             this.institutionNameZh = response.data.display_name_zh
             this.institutionCountry = response.data.country_code
             this.authorURL = response.data.authors_api_url
-            this.getAuthors(this.authorURL)
+            this.getAuthors(this.authorURL)     
             this.institutionURL = response.data.homepage_url
             this.relevantInstitution = response.data.associated_institutions
             this.institutionTags = response.data.x_concepts
             this.paperURL = response.data.works_api_url
             // alert("counts_by_year"+response.data.counts_by_year)
             this.counts_by_year = response.data.counts_by_year
-            this.getPapers(this.paperURL)
+            
+            const param = {
+              per_page: this.paginationInfo.itemsPerPage,
+              page: this.paginationInfo.currentPage
+            }
+            console.log(this.paperURL)
+            this.getPapers(this.paperURL, param)
           }
         )
       }
@@ -151,11 +168,16 @@ export default {
         }
       )
     },
-    getPapers(url) {
-      Search.getEntities(url).then(
+    getPapers(url, param) {
+      // Search.getEntities(url).then(
+      Search.getPagnationEntities(url, param).then(
         (response) => {
+          // console.log(response)
+          this.infoItems = []
+          this.paginationInfo.totalPages = Math.ceil(response.data.meta.count / this.paginationInfo.itemsPerPage)
+          // console.log(this.paginationInfo.totalPages)
           this.infoItems = response.data.results
-          console.log(response.data)
+          console.log(this.infoItems)
         }
       )
     },
@@ -168,8 +190,25 @@ export default {
       // location.reload()
     },
     gotoAuthor(author) {
+      this.$router.push('/scholar_portal/' + author.id)
       //路由跳转到学者详情页
-    }
+    },
+    handleChangePage(page) {
+        this.paginationInfo.currentPage = page
+        const param = {
+          per_page: this.paginationInfo.itemsPerPage,
+          page: this.paginationInfo.currentPage
+        }
+        this.getPapers(this.paperURL, param)
+    },
+    handleChangePerPage(perPage) {
+        this.paginationInfo.itemsPerPage = perPage
+        const param = {
+          per_page: this.paginationInfo.itemsPerPage,
+          page: 1
+        }
+        this.getPapers(this.paperURL, param)
+    },
   }
 }
 </script>
@@ -283,6 +322,13 @@ export default {
   flex-wrap: wrap;
 }
 
+.author-name:hover {
+  text-decoration: underline;
+}
+
+.author-list {
+  margin-left: 10px;
+}
 @media screen and (max-width: 768px) {
   .graph-and-author {
     display: block;

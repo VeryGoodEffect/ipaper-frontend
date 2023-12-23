@@ -264,7 +264,7 @@ import { User } from '../../api/users'
             id: '',
           },
           {
-            name: '全景视觉',
+            nawatme: '全景视觉',
             link: '',
             id: '',
           },
@@ -279,7 +279,7 @@ import { User } from '../../api/users'
         immediate: true,
         handler(newParams) {
           this.authorInfo.id = this.$route.params.id
-          // this.getAuthorInfo()
+          this.getAuthorInfo()
           this.getRelationMap()
         }
       }
@@ -288,6 +288,9 @@ import { User } from '../../api/users'
       this.authorInfo.id = this.$route.params.id
       this.getAuthorInfo()
       // this.getRelationMap()
+    },
+    mounted(){
+
     },
     methods: {
       
