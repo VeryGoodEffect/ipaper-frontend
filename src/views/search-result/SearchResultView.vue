@@ -1,10 +1,10 @@
 <template>
   <div class="main-area">
     <div
-      v-show="this.search_type == 1"
       class="cond-area"
       style="display: vertical; position: sticky; top: 0"
     >
+    <span>篩選</span>
       <div
         class="filter-card"
         style="
@@ -16,29 +16,19 @@
           text-align: center;
         "
       >
+      
         <ul>
           <li>按时间筛选</li>
           <li @click="setFilterTime(1)" style="cursor: pointer">时间不限</li>
           <li @click="setFilterTime(2)" style="cursor: pointer">2023以来</li>
           <li @click="setFilterTime(3)" style="cursor: pointer">2022以来</li>
           <li @click="setFilterTime(4)" style="cursor: pointer">2021以来</li>
-          <li @click="setFilterTime(5)" style="cursor: pointer">自定义范围</li>
-          <li v-if="show_range" @click="setFilterTime(5)">
-            <input v-model="search_start_time" type="text" style="width: 30%" />
-            <input v-model="search_end_time" type="text" style="width: 30%" />
-          </li>
+          <li @click="setFilterTime(5)" style="cursor: pointer">自定义范围 <span><input v-model="search_start_time" type="text" style="width: 30%" />
+            <input v-model="search_end_time" type="text" style="width: 30%" /></span></li>
         </ul>
       </div>
 
-      <div class="filter-card" style="display: vertical; text-align: center">
-        <ul>
-          <li>日期排序</li>
-          <li @click="sortByTime(1)" style="cursor: pointer">升序排序</li>
-          <li @click="sortByTime(2)" style="cursor: pointer">降序排序</li>
-        </ul>
-      </div>
-
-      <div class="filter-card" style="display: vertical; text-align: center">
+      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
         <ul>
           <li @click="setLanguage(1)" style="cursor: pointer">不限语言</li>
           <li @click="setLanguage(2)" style="cursor: pointer">中文网页</li>
@@ -47,47 +37,47 @@
         </ul>
       </div>
 
-      <div class="filter-card" style="display: vertical; text-align: center">
-        <ul>
-          <li  v-for="(option, index) in options" :key="index"><input type="radio" :value="option.value" v-model="selectedOption" />
-          <label>{{ option.text }}</label></li>
-        </ul>
-      </div>
-
-      <div class="filter-card" style="display: vertical; text-align: center">
+      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
         <ul>
           <li style="cursor: pointer"><input type="checkbox" />包含专利</li>
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
           <li style="cursor: pointer">时间不限</li>
         </ul>
       </div>
+
+      <span>排序</span>
+      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
+        <ul>
+          <li>日期排序</li>
+          <li @click="sortByTime(1)" style="cursor: pointer">升序排序</li>
+          <li @click="sortByTime(2)" style="cursor: pointer">降序排序</li>
+        </ul>
+      </div>
+      
+      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
+        <ul>
+          <li>引用次數排序</li>
+          <li style="cursor: pointer">升序排序</li>
+          <li style="cursor: pointer">降序排序</li>
+        </ul>
+      </div>
+
+
+
+      <div v-if="search_type==3" class="filter-card" style="display: vertical; text-align: center">
+        <ul>
+          <li  v-for="(option, index) in options" :key="index"><input type="radio" :value="option.value" v-model="selectedOption" />
+          <label>{{ option.text }}</label></li>
+        </ul>
+      </div>
+
+
       <!-- <hr> -->
     </div>
 
-    <!-- auth -->
-    <div
-      v-show="this.search_type == 2"
-      class="cond-area"
-      style="display: vertical; position: sticky; top: 0"
-    ></div>
-
-    <!-- source -->
-    <div
-      v-show="this.search_type == 3"
-      class="cond-area"
-      style="display: vertical; position: sticky; top: 0"
-    ></div>
-
-    <!-- intst -->
-    <div
-      v-show="this.search_type == 4"
-      class="cond-area"
-      style="display: vertical; position: sticky; top: 0"
-    ></div>
-
     <div style="min-width: 50%">
       <div class="search-container">
-        <SearchPanel @senddata="handleModoleSearch"></SearchPanel>
+        <SearchPanel ref="searchPanelRef" @senddata="handleModoleSearch"></SearchPanel>
       </div>
       <div>
         <ul>
@@ -217,6 +207,9 @@ export default {
         { text: "Letter", value: "letter" },
       ],
       selectedOption: null,
+
+      placehold: "",
+      searchPanelRef: null
     };
   },
   watch: {
@@ -257,6 +250,10 @@ export default {
           return item;
         });
       }
+    },
+
+    changeSearchPanelContent(){
+      // this.searchPanelRef = this.$refs.
     },
 
     // #region AsideBar
@@ -476,18 +473,26 @@ export default {
     },
     // 真正做搜索后端
     searchmethod() {
-      this.searchdata.filter = this.filter.replace(/,$/, "");
-      this.searchdata.search = this.search;
-      this.searchdata.sort = this.sort;
-      this.searchdata.perpage = this.perpage;
-      this.searchdata.cursor = this.cursor;
-      this.searchdata.page = this.page;
-      console.log(JSON.parse(JSON.stringify(this.searchdata)));
-      JSON.parse(JSON.stringify(this.searchdata));
+      const searchdata = {
+        filter: this.filter.replace(/,$/, ""),
+        search: this.search,
+        sort: this.sort,
+        perpage: this.perpage,
+        cursor: this.cursor,
+        page: this.page
+      }
+      // this.searchdata.filter = this.filter.replace(/,$/, "");
+      // this.searchdata.search = this.search;
+      // this.searchdata.sort = this.sort;
+      // this.searchdata.perpage = this.perpage;
+      // this.searchdata.cursor = this.cursor;
+      // this.searchdata.page = this.page;
+      // console.log(JSON.parse(JSON.stringify(this.searchdata)));
+      // JSON.parse(JSON.stringify(this.searchdata));
 
       // #region search
       if (this.search_type == 1) {
-        Search.searchWorks(this.searchdata).then(
+        Search.searchWorks(searchdata).then(
           (res) => {
             console.log(res.data.results);
             this.resultlist = res.data.results;
@@ -498,7 +503,7 @@ export default {
       }
       // author
       else if (this.search_type == 2) {
-        Search.searchAuthor(this.searchdata).then(
+        Search.searchAuthor(searchdata).then(
           (res) => {
             console.log(res.data.results);
             this.resultlist = res.data.results;
@@ -509,7 +514,7 @@ export default {
       }
       // 期刊
       else if (this.search_type == 3) {
-        Search.searchSources(this.searchdata).then(
+        Search.searchSources(searchdata).then(
           (res) => {
             console.log(res.data.results);
             this.resultlist = res.data.results;
@@ -520,7 +525,7 @@ export default {
       }
       // 机构
       else if (this.search_type == 4) {
-        Search.searchInstitutions(this.searchdata).then(
+        Search.searchInstitutions(searchdata).then(
           (res) => {
             console.log(res.data.results);
             this.resultlist = res.data.results;
@@ -568,10 +573,9 @@ export default {
     if (this.searchdata && "search_type" in this.searchdata) {
       delete this.searchdata["search_type"];
     }
-
     console.log(searchdata);
-
-    searchdata.filter = searchdata.filter.replace(/,$/, "");
+    if (searchdata.filter != null)
+      searchdata.filter = searchdata.filter.replace(/,$/, "");
     this.searchmethod();
   },
 };
@@ -603,6 +607,7 @@ export default {
   border: 2px solid red;
 
   margin-top: 10%;
+  border-radius: 8px;
 }
 
 .cond-area .filter-card li {
@@ -664,6 +669,7 @@ export default {
     width: 90%;
     height: unset;
     min-height: 300px;
+    display: block;
   }
 }
 </style>

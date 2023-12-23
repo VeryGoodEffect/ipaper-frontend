@@ -52,6 +52,7 @@ import AsideBar from "../../components/search-property/AsideBar.vue";
 import i18n from "../../language";
 export default {
   emits: ["senddata"],
+  props:["searchContent"],
   components: {
     i18n,
     AsideBar,
@@ -89,6 +90,11 @@ export default {
         this.autoComplete();
       }
     },
+    searchContent(newValue,oldValue){
+      // console.log(`message changed from ${oldVal} to ${newVal}`);
+      this.search_search = newValue
+      alert("sent search content")
+    }
   },
 
   methods: {

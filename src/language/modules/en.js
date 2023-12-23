@@ -139,7 +139,7 @@ export default {
     paper_detail_source: "journal",
     paper_detail_doi: "DOI",
 
-    all_status:'All Status',
+    all_status: 'All Status',
     select_audit_status: 'Select Application Status',
     no_audit_results: 'No Matched Results',
     application_type: 'Application Type',
@@ -148,6 +148,7 @@ export default {
     not_access: 'Rejected',
     audit_return: 'Back',
     not_confirmed: 'Approved but Not Confirmed',
+    no_concepts: 'No Concepts Provided',
     image_material: 'Image Material',
     submit_time: 'Submit Time',
     approve_audit: 'Approve',
@@ -191,5 +192,11 @@ export default {
     already_read: 'Read',
     delete_it: 'Delete',
 
+    tutorial_skip: 'Skip?',
+
     maximum_image: 'Maximum number limit'
+
+
+
+    // Search 
 }

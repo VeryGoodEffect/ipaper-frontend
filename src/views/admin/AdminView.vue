@@ -1,9 +1,13 @@
 <template>
     <div class="container">
+        <button @click="displayTutorial = true">教程</button>
+        <button @click="handleLoading">预览加载条</button>
+        <new-loading-bar :display="displayLoad" :progress="progress" @stop-display="displayLoad = false"></new-loading-bar>
+        <tutorial-view :display="displayTutorial" @stop-display="displayTutorial = false"></tutorial-view>
         <div class="status-select-container">
             <span class="select-tip">{{ $t('select_audit_status') }}</span>
             <select v-model="selectStatus">
-                <option :value="-1">{{ $t('all_status') }}</option>
+                <option :value="-1" selected>{{ $t('all_status') }}</option>
                 <option :value="0">{{ $t('not_reviewed') }}</option>
                 <option :value="1">{{ $t('access') }}</option>
                 <option :value="2">{{ $t('not_access') }}</option>
@@ -12,6 +16,7 @@
         </div>
         <div class="audit-list">
             <ul>
+                <li v-if="auditDatas.length === 0" class="no-result-tip">{{ $t('no_audit_results') }}</li>
                 <pagination :items-per-page="itemsPerPage" :total-pages="totalPages" :current-page="currentPage"
                     @change-page="handleChangePage" @change-item-per-page="handleChangePerPage">
                     <li v-for="data in auditDatas" :key="data.submitTime">
@@ -19,26 +24,31 @@
                             @approve="data.status = 3" @disapprove="data.status = 2"></audit-detail-view>
                     </li>
                 </pagination>
-                <li v-if="auditDatas.length === 0" class="no-result-tip">{{ $t('no_audit_results') }}</li>
             </ul>
         </div>
     </div>
 </template>
 <script>
-
 import i18n from '../../language';
 import { Application } from '../../api/applications';
 import Pagination from '../../components/pagination/Pagination.vue';
 import AuditDetailView from './AuditDetailView.vue';
+import TutorialView from '../tutorialView/TutorialView.vue';
+import NewLoadingBar from '../../components/loading-bar/NewLoadingBar.vue';
 export default {
     name: 'AdminView',
     components: {
         Pagination,
         AuditDetailView,
-        i18n
+        i18n,
+        TutorialView,
+        NewLoadingBar
     },
     data() {
         return {
+            displayLoad: false,
+            progress: 0,
+            displayTutorial: false,
             AvailableStatus: [-1, 0, 1, 2, 3],
             selectStatus: -1,
             currentPage: 1,
@@ -138,11 +148,20 @@ export default {
                         submitTime: result.timestamp,
                         concepts: result.concepts,
                         images: image,
-                        rejectReason: result.rejectReason
+                        rejectReason: result.failed_reason
                     }
                 }, (err) => { alert(err) })
             })
-        }
+        },
+        handleLoading() {
+            this.displayLoad = true
+            this.progress = 0
+            for (let i = 1; i <= 100; i++) {
+                setTimeout(() => {
+                    this.progress++
+                }, i * 10)
+            }
+        },
     },
     mounted() {
         const param = {
@@ -151,6 +170,18 @@ export default {
         }
         this.getResult(param)
     },
+    watch: {
+        selectStatus(value) {
+            const param = {
+                limit: this.itemsPerPage,
+                offset: 0,
+            }
+            if (value >= 0) {
+                param.status = this.packStatus(value)
+            }
+            this.getResult(param)
+        }
+    }
 }
 </script >
 <style scoped>
@@ -163,6 +194,7 @@ export default {
     background: var(--theme-color-10);
     padding: 20px;
     border-radius: 15px;
+
 }
 
 .status-select-container {
@@ -182,5 +214,13 @@ select {
     color: var(--theme-color);
     font-weight: 700;
     margin-right: 2%;
+}
+
+.no-result-tip {
+    color: var(--theme-color);
+    font-size: 25px;
+    font-weight: 700;
+    margin: 5%;
+    text-align: center;
 }
 </style>
