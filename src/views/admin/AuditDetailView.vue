@@ -50,7 +50,7 @@
                     </div>
                     <div class="submit-time">
                         <span>{{ $t('submit_time') }} </span>
-                        <span> {{ submitTime }}</span>
+                        <span v-ellipsis="{ maxLine: 2, wrappable: true, maxWidth: '100%' }">{{ submitTime }}</span>
                     </div>
                 </div>
 
@@ -115,6 +115,9 @@ export default {
             reason: '',
         }
     },
+    unmounted() {
+        removeEventListener('resize', this.resize)
+    },
     methods: {
         resize() {
             let wrapper = this.$refs.wrapper
@@ -122,6 +125,7 @@ export default {
             let simpleView = this.$refs.simpleView
             let approveArea = this.$refs.approveArea
             let disapproveArea = this.$refs.disapproveArea
+            console.log(this.$refs.approveArea)
             switch (this.approved) {
                 case true:
                     approveArea.style.display = 'block'

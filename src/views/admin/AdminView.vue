@@ -52,7 +52,7 @@ export default {
             AvailableStatus: [-1, 0, 1, 2, 3],
             selectStatus: -1,
             currentPage: 1,
-            itemsPerPage: 5,
+            itemsPerPage: 1,
             totalPages: 1,
             auditDatas: []
         }
@@ -104,7 +104,6 @@ export default {
             this.currentPage = page
             const param = {
                 limit: this.itemsPerPage,
-
                 offset: this.itemsPerPage * (this.currentPage - 1)
             }
             this.getResult(param)
