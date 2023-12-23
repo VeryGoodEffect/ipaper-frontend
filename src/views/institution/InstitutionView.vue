@@ -109,7 +109,7 @@ export default {
       paperURL: '',
       infoItems: [],
       paginationInfo: {
-        itemsPerPage: 10,
+        itemsPerPage: 5,
         currentPage: 1,
         totalPages: 3,
       },

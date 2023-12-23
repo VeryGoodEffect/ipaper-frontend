@@ -74,8 +74,15 @@
           <p class="tags-right">
             {{ $t('tag_detail_paper') }}
           </p>
-          
+          <Pagination 
+          :itemsPerPage="this.paginationInfo.itemsPerPage"
+          :currentPage="this.paginationInfo.currentPage"
+          :totalPages="this.paginationInfo.totalPages"
+          @change-page="handleChangePage" @change-item-per-page="handleChangePerPage"
+          >
           <SearchResultListItem v-for="(info,index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
+          </Pagination>
+          
         </div>
       </div>
     </div> 
@@ -88,10 +95,12 @@
 import { Search } from '../../api/search'
 import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
 import i18n from '../../language'
+import Pagination from "../../components/pagination/Pagination.vue"
 export default {
   components: {
     SearchResultListItem,
-    i18n
+    i18n,
+    Pagination
   },
   watch: {
     '$route.params.id': {
@@ -114,6 +123,11 @@ export default {
     authors: [],
     papersURL: '',
     infoItems: [],
+    paginationInfo: {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalPages: 3,
+    },
     }
   },
   created() {
@@ -136,7 +150,12 @@ export default {
               this.authorsURL = response.data.authors_api_url
               this.getAuthors(this.authorsURL)
               this.papersURL = response.data.works_api_url
-              this.getPapers(this.papersURL)
+
+              const param = {
+                per_page: this.paginationInfo.itemsPerPage,
+                page: this.paginationInfo.currentPage
+              }
+              this.getPapers(this.papersURL, param)
           }
         )
       }
@@ -166,10 +185,19 @@ export default {
         }
       )
     },
-    getPapers(url) {
-      Search.getEntities(url).then(
+    getPapers(url, param) {
+      console.log(this.papersURL)
+      // Search.getEntities(url).then(
+      Search.getPagnationEntities(url, param).then(
         (response) => {
+          console.log(11224123123)
+          console.log(this.paginationInfo)
+          console.log(response)
+          this.infoItems = []
+          this.paginationInfo.totalPages = Math.ceil(response.data.meta.count / this.paginationInfo.itemsPerPage)
+          // console.log(this.paginationInfo.totalPages)
           this.infoItems = response.data.results
+          console.log(this.infoItems)
         }
       )
     },
@@ -184,7 +212,23 @@ export default {
     gotoAuthor(author) {
       this.$router.push('/scholar_portal/' + author.id)
       //路由跳转到学者详情页
-    }
+    },
+    handleChangePage(page) {
+        this.paginationInfo.currentPage = page
+        const param = {
+          per_page: this.paginationInfo.itemsPerPage,
+          page: this.paginationInfo.currentPage
+        }
+        this.getPapers(this.paperURL, param)
+    },
+    handleChangePerPage(perPage) {
+        this.paginationInfo.itemsPerPage = perPage
+        const param = {
+          per_page: this.paginationInfo.itemsPerPage,
+          page: 1
+        }
+        this.getPapers(this.paperURL, param)
+    },
   }
 }
 </script>
