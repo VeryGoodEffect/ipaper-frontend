@@ -302,7 +302,7 @@ export default {
     },
     advsearch(data) {
       this.$emit("advsearch", data);
-      alert("data send to aside bar");
+      // alert("data send to aside bar");
     },
     doNothing() {
       /* DO NOT DELETE THIS !!!!!!!! */

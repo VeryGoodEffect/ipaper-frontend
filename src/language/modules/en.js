@@ -194,9 +194,44 @@ export default {
 
     tutorial_skip: 'Skip?',
 
-    maximum_image: 'Maximum number limit'
+    maximum_image: 'Maximum number limit',
 
 
 
-    // Search 
+
+    /**
+     * Filter
+Filter by Time
+No Time Limit
+Since 2023
+Since 2022
+Since 2021
+     */
+    // Search filter
+    filter: 'filte',
+    filte_by_time: 'filte_by_time',
+    no_limit_time: 'no time limit',
+    since_2023: 'since_2023',
+    since_2022: 'since_2022',
+    since_2021: 'since_2021',
+    self_define_time_range: 'time range',
+    
+
+    // language
+    no_language_limit: 'No Language Limit',
+    chinece_language: 'CN Language',
+    english_language: 'EN Language',
+
+    // sort
+    sort: 'sort',
+    sort_by_date: 'Sort By Date',
+    sort_by_up: 'Sort By Up',
+    sort_by_down: 'Sort By Down',
+
+    // include
+    include_patend: '包含专利',
+    include_cide: '包含引用',
+
+
+    
 }

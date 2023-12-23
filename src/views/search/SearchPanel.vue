@@ -118,7 +118,7 @@ export default {
         });
       } else {
         this.$emit("senddata", query);
-        alert("SendData")
+        // alert("SendData")
         // 当前路由与目标路径不匹配
         // 执行其他逻辑
       }
@@ -150,6 +150,7 @@ export default {
         const field = data.is_key_title ? "title.search" : "abstract.search";
         this.search_filter += `${field}:${encodeURIComponent(data.keyword)},`;
       }
+      this.search_search = ""
       console.log(this.search_filter);
       this.search();
     },
@@ -162,21 +163,25 @@ export default {
         // display_name.search:
         // this.search_filter = "display_name.search:"
         this.search_filter = "";
+        this.sort = "";
         this.search_type = 1;
         this.place_holder = this.$t('search_type_0')
       } else if (type == 1) {
         // alert("abstract.search:");
         this.search_filter = "abstract.search:";
         this.search_type = 1;
+        this.sort = "";
         this.place_holder = this.$t('search_type_1')
       } else if (type == 2) {
         // alert("fulltext.search:");
         this.search_filter = "fulltext.search:";
+        this.sort = "";
         this.search_type = 1;
         this.place_holder = this.$t('search_type_2')
       } else if (type == 3) {
         // alert("display_name.search:");
         this.search_filter = "display_name.search:";
+        this.sort = "";
         this.search_type = 1;
         this.place_holder = this.$t('search_type_3')
       }
@@ -184,6 +189,7 @@ export default {
       else if (type == 4) {
         // alert("search author");
         this.search_filter = "";
+        this.sort = "";
         this.search_type = 2;
         this.place_holder = this.$t('search_type_4')
       }
@@ -191,12 +197,14 @@ export default {
       // 期刊
       else if (type == 5) {
         this.search_filter = "";
+        this.sort = "";
         this.search_type = 3;
         this.place_holder = this.$t('search_type_5')
       }
       // 机构
       else if (type == 6) {
         this.search_filter = "";
+        this.sort = "";
         this.search_type = 4;
         this.place_holder = this.$t('search_type_6')
       }
