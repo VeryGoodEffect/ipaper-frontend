@@ -154,12 +154,12 @@ export default {
             })
         },
         handleLoading() {
-            this.displayLoad = true
             this.progress = 0
+            this.displayLoad = true
             for (let i = 1; i <= 100; i++) {
                 setTimeout(() => {
                     this.progress++
-                }, i * 10)
+                }, i * 50)
             }
         },
     },

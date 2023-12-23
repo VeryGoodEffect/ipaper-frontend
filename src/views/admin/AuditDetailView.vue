@@ -45,7 +45,7 @@
                                 target="_blank">
                                 <div class="image" :style="{ 'background-image': `url('${image}')` }"></div>
                             </a>
-                            <span v-if="images.length === 0">{{ }}</span>
+                            <span v-if="images.length === 0">{{ $t('no_images') }}</span>
                         </div>
                     </div>
                     <div class="submit-time">
