@@ -56,17 +56,15 @@
 import ChatListItem from "../../components/chat/ChatListItem.vue";
 import { Chat } from "../../api/chat.js";
 // import VueMarkdown from 'vue-markdown'
-import { marked } from 'marked';
-import hljs from 'highlight.js';
-import 'highlight.js/styles/github.css'; // 或者你选择的其他样式
+import { marked } from "marked";
+import hljs from "highlight.js";
+import "highlight.js/styles/github.css"; // 或者你选择的其他样式
 export default {
   components: {
     ChatListItem,
     // VueMarkdown
   },
-  computed:{
-    
-  },
+  computed: {},
   data() {
     return {
       inputText: "",
@@ -87,16 +85,21 @@ export default {
     if (!this.ws) {
       this.ws = new WebSocket(url);
       this.ws.onmessage = this.handleMessage;
-    };
+    }
     marked.setOptions({
-        highlight: function(code, lang) {
-          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-          return hljs.highlight(code, { language }).value;
-        },
-      });
+      highlight: function (code, lang) {
+        const language = hljs.getLanguage(lang) ? lang : "plaintext";
+        return hljs.highlight(code, { language }).value;
+      },
+    });
   },
   methods: {
     renderedMarkdown(markdown) {
+      this.$nextTick(() => {
+        document.querySelectorAll("pre code").forEach((block) => {
+          hljs.highlightBlock(block);
+        });
+      });
       return marked(markdown);
     },
     handleMessage(event) {
@@ -171,7 +174,6 @@ export default {
         )}`;
         this.ws = new WebSocket(url);
         this.ws.onmessage = this.handleMessage;
-
       }
 
       Chat.createCompletion(data);
