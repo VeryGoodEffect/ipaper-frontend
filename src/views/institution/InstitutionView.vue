@@ -29,10 +29,10 @@
               <div class="institution-relevant-institution-list">
                 <div v-for="(institution, idx) in relevantInstitution" :key="idx" class="relevant-institution"
                 @click="gotoRelevantInstitution(institution)">
-                  {{ institution.display_name }}
+                    {{ institution.display_name }}
                 </div>
               </div>
-          </div>
+            </div>
           <div>
             <p class="tags">
                {{ $t('institution_URL') }}
@@ -68,9 +68,10 @@
             </p>
             
             <Pagination 
-            :defaultItemsPerPage="this.paginationInfo.defaultItemsPerPage"
+            :itemsPerPage="this.paginationInfo.itemsPerPage"
             :currentPage="this.paginationInfo.currentPage"
             :totalPages="this.paginationInfo.totalPages"
+            @change-page="handleChangePage" @change-item-per-page="handleChangePerPage"
             >
               <SearchResultListItem v-for="(info,index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
             </Pagination>
@@ -184,7 +185,24 @@ export default {
     gotoAuthor(author) {
       this.$router.push('/scholar_portal/' + author.id)
       //路由跳转到学者详情页
-    }
+    },
+    handleChangePage(page) {
+        this.currentPage = page
+        const param = {
+            limit: this.itemsPerPage,
+
+            offset: this.itemsPerPage * (this.currentPage - 1)
+        }
+        // this.getResult(param)
+    },
+    handleChangePerPage(perPage) {
+        this.itemsPerPage = perPage
+        const param = {
+            limit: this.itemsPerPage,
+            offset: 0
+        }
+        // this.getResult(param)
+    },
   }
 }
 </script>
@@ -302,6 +320,9 @@ export default {
   text-decoration: underline;
 }
 
+.author-list {
+  margin-left: 10px;
+}
 @media screen and (max-width: 768px) {
   .graph-and-author {
     display: block;
