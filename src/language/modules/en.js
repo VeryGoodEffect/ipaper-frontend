@@ -159,11 +159,13 @@ export default {
     submit_audit: 'Submit',
     public_date: "Date of Publication: ",
 
+    institution_achievement: "Achievement",
     institution_main_scholar: "Main scholars",
     institution_main_tag: "Main field",
     institution_main_papers: "Institutional literature",
     institution_URL: "Official website link",
     institution_relevant_institution: "Relevant institutions",
+    institution_author_achievement: "Total achievements:",
 
     tag_detail_wiki: "wiki: ",
     tag_detail_paper: "Related Literature: ",
