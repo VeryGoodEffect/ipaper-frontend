@@ -18,7 +18,7 @@
         >
         </p>
         <div class="info">
-            <div class="download">
+            <div class="download" @click="downloadPaper">
               <svg t="1702361941375" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1181" width="200" height="200"><path d="M128 576.64v192a64 64 0 0 0 64 64h640a64 64 0 0 0 64-64v-192h64v192a128 128 0 0 1-128 128H192a128 128 0 0 1-128-128v-192h64zM511.392 128.64a32 32 0 0 1 32 32V564.16l138.752-136.544a32 32 0 0 1 42.272-2.304l3.008 2.688a32 32 0 0 1-0.384 45.248l-193.184 190.144a32 32 0 0 1-44.96-0.096l-192-190.112a32 32 0 1 1 45.024-45.472l137.504 136.128V160.608a32 32 0 0 1 28.256-31.776l3.712-0.224z" p-id="1182" fill="#1A0EAB"></path></svg>
             </div>
             <div class="collect"  @click="showCollectModal">
@@ -80,6 +80,15 @@ export default {
         },
         showCollectModal() {
           this.collectModalShouldShow = true
+        },
+        downloadPaper() {
+          const link = document.createElement('a')
+          link.style.display = 'none'
+          link.href = this.infoItem.primary_location.pdf_url
+          link.setAttribute('download', this.infoItem.title + '.pdf')
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
         }
     }
 }
