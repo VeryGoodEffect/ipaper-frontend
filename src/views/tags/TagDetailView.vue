@@ -188,7 +188,7 @@ export default {
     getPapers(url, param) {
       console.log(this.papersURL)
       // Search.getEntities(url).then(
-      Search.getPagnationEntities(url, param).then(
+      Search.getPagnationEntities(this.papersURL, param).then(
         (response) => {
           console.log(11224123123)
           console.log(this.paginationInfo)
