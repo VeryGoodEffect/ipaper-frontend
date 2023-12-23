@@ -139,7 +139,7 @@ export default {
     paper_detail_source: "journal",
     paper_detail_doi: "DOI",
 
-    all_status:'All Status',
+    all_status: 'All Status',
     select_audit_status: 'Select Application Status',
     no_audit_results: 'No Matched Results',
     application_type: 'Application Type',
@@ -148,6 +148,7 @@ export default {
     not_access: 'Rejected',
     audit_return: 'Back',
     not_confirmed: 'Approved but Not Confirmed',
+    no_concepts: 'No Concepts Provided',
     image_material: 'Image Material',
     submit_time: 'Submit Time',
     approve_audit: 'Approve',
@@ -158,11 +159,13 @@ export default {
     submit_audit: 'Submit',
     public_date: "Date of Publication: ",
 
+    institution_achievement: "Achievement",
     institution_main_scholar: "Main scholars",
     institution_main_tag: "Main field",
     institution_main_papers: "Institutional literature",
     institution_URL: "Official website link",
     institution_relevant_institution: "Relevant institutions",
+    institution_author_achievement: "Total achievements:",
 
     tag_detail_wiki: "wiki: ",
     tag_detail_paper: "Related Literature: ",
@@ -188,6 +191,8 @@ export default {
     read_it: 'Set Read',
     already_read: 'Read',
     delete_it: 'Delete',
+
+    tutorial_skip: 'Skip?',
 
     maximum_image: 'Maximum number limit'
 

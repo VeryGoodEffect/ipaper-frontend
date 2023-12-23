@@ -100,8 +100,6 @@ export default {
     },
     handleAuthenticate() {
       let formData = new FormData()
-      formData.append('auditor', 22)
-      // 这里需要zsm看后端怎么处理，应该默认直接分配一个管理员账号
       formData.append('real_name', this.realName)
       formData.append('institution', this.institution)
       formData.append('position', this.position)
