@@ -34,7 +34,9 @@
             p-id="5282"
           ></path>
         </svg> -->
-        <v-md-preview :text="dialog.content" class="md-preview"></v-md-preview>
+        <!-- <v-md-preview :text="dialog.content" class="md-preview"></v-md-preview> -->
+        <!-- <div class="md-preview" v-html="renderMarkdown(dialog.content)"></div> -->
+        <div class="md-preview" v-html="renderedMarkdown(dialog.content)"></div>
       </div>
     </div>
     <div class="input-area">
@@ -54,11 +56,16 @@
 import ChatListItem from "../../components/chat/ChatListItem.vue";
 import { Chat } from "../../api/chat.js";
 // import VueMarkdown from 'vue-markdown'
-
+import { marked } from 'marked';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css'; // 或者你选择的其他样式
 export default {
   components: {
     ChatListItem,
     // VueMarkdown
+  },
+  computed:{
+    
   },
   data() {
     return {
@@ -80,9 +87,18 @@ export default {
     if (!this.ws) {
       this.ws = new WebSocket(url);
       this.ws.onmessage = this.handleMessage;
-    }
+    };
+    marked.setOptions({
+        highlight: function(code, lang) {
+          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+          return hljs.highlight(code, { language }).value;
+        },
+      });
   },
   methods: {
+    renderedMarkdown(markdown) {
+      return marked(markdown);
+    },
     handleMessage(event) {
       if (event.data.finish_reason === "stop") {
         this.clearUselessStyle();
