@@ -1,33 +1,33 @@
 <template>
-    <div class="loading-container" :class="{ 'open': display, 'close': close }">
-        <div class="letters-container">
+    <div class="loading-container" :class="{ 'open': display, 'loading-close': close, 'animated-end': close }">
+        <div class="letters-container" :class="{}">
             <span>
                 <span class="letter-parent i" ref="parentI">i</span>
-                <span class="letter-child i" ref="childI">i</span>
+                <span class="letter-child i" :class="{ 'animated': localProgress >= (100 / 6) * 1 }" ref="childI">i</span>
             </span>
             <span>
                 <span class="letter-parent p1" ref="parentP1">P</span>
-                <span class="letter-child i" ref="childP1">P</span>
+                <span class="letter-child p1" :class="{ 'animated': localProgress >= (100 / 6) * 2 }" ref="childP1">P</span>
             </span>
             <span>
                 <span class="letter-parent a" ref="parentA">a</span>
-                <span class="letter-child i" ref="childA">a</span>
+                <span class="letter-child a" :class="{ 'animated': localProgress >= (100 / 6) * 3 }" ref="childA">a</span>
             </span>
             <span>
                 <span class="letter-parent p2" ref="parentP2">p</span>
-                <span class="letter-child i" ref="childP2">p</span>
+                <span class="letter-child p2" :class="{ 'animated': localProgress >= (100 / 6) * 4 }" ref="childP2">p</span>
             </span>
 
             <span>
                 <span class="letter-parent e" ref="parentE">e</span>
-                <span class="letter-child i" ref="childE">e</span>
+                <span class="letter-child e" :class="{ 'animated': localProgress >= (100 / 6) * 5 }" ref="childE">e</span>
             </span>
             <span>
                 <span class="letter-parent r" ref="parentR">r</span>
-                <span class="letter-child i" ref="childR">r</span>
+                <span class="letter-child r" :class="{ 'animated': localProgress >= (100 / 6) * 6 }" ref="childR">r</span>
             </span>
         </div>
-        <div>{{ localProgress }}</div>
+        <!-- <div>{{ localProgress }}</div> -->
     </div>
 </template>
 
@@ -55,16 +55,6 @@ export default {
     },
     watch: {
         localProgress(value) {
-            if (value === 100) {
-                setTimeout(() => {
-                    this.close = true
-                    setTimeout(() => {
-                        this.$emit('stop-display')
-                    }, 1000);
-                }, 500);
-
-            }
-
             const parentI = this.$refs.parentI
             const parentP1 = this.$refs.parentP1
             const parentA = this.$refs.parentA
@@ -79,36 +69,48 @@ export default {
             const childE = this.$refs.childE
             const childR = this.$refs.childR
 
+            const parents = [parentI, parentP1, parentA, parentP2, parentE, parentR]
+            const children = [childI, childP1, childA, childP2, childE, childR]
+            const initialize = () => {
+                parents.forEach(parent => {
+                    parent.style.visibility = 'visible'
+                })
+                children.forEach((child) => {
+                    child.style.width = '0'
+                })
+            }
+            if (value >= 100) {
+                parentR.style.visibility = 'hidden'
+                childR.style.width = '100%'
+                setTimeout(() => {
+                    this.close = true
+                    setTimeout(() => {
+                        initialize()
+                        this.close = false
+                        this.localProgress = 0
+                        this.$emit('stop-display')
+                    }, 750);
+                }, 500);
+            }
             //分类讨论localProgress
-            let segment = Math.floor(value / (100 / 6))
-            let segmentRate = (value - segment * (100 / 6)) / (100 / 6)
+            const segment = Math.floor(value / (100 / 6))
+            const segmentRate = (value - segment * (100 / 6)) / (100 / 6)
+            const rateLength = segmentRate * 100 + '%'
             if (segment === 0) {
-                childI.style.width = segmentRate * 100 + '%'
+                children[segment].style.width = rateLength
             }
-            else if (segment === 1) {
-                childI.style.width = '100%'
-                childP1.style.width = segmentRate * 100 + '%'
-            }
-            else if (segment === 2) {
-                childI.style.width = '100%'
-                childA.style.width = segmentRate * 100 + '%'
-            }
-            else if (segment === 3) {
-                childI.style.width = '100%'
-                childP2.style.width = segmentRate * 100 + '%'
-            } else if (segment === 4) {
-                childI.style.width = '100%'
-                childE.style.width = segmentRate * 100 + '%'
-            } else if (segment === 5) {
-                childI.style.width = '100%'
-                childR.style.width = segmentRate * 100 + '%'
+            else if (segment > 0 && segment < children.length) {
+                children[segment - 1].style.width = '100%'
+                parents[segment - 1].style.visibility = 'hidden'
+                children[segment].style.width = rateLength
             }
         },
         progress(value) {
+            console.log(value)
             let addProgress = () => {
-                this.localProgress++
-                if (this.localProgress < value) {
-                    setTimeout(addProgress, 5)
+                if (this.localProgress < value + 0.2) {
+                    this.localProgress += 0.2
+                    setTimeout(addProgress, 1)
                 }
             }
             addProgress()
@@ -129,12 +131,14 @@ export default {
     z-index: 1000;
     align-items: center;
     justify-content: center;
+    transition: all ease-out 0.5s;
+    transform-origin: center center;
 }
 
 .letters-container {
     display: flex;
     justify-content: center;
-    background-clip: text;
+
 }
 
 .letters-container>span {
@@ -147,9 +151,14 @@ export default {
     display: flex;
 }
 
+.letter-child,
+.letter-parent {
+    font-size: 5em;
+}
+
 .letter-parent {
     position: relative;
-    /* animation: jump 0.5s infinite ease-in-out; */
+
 }
 
 .letter-child {
@@ -158,10 +167,28 @@ export default {
     top: 0;
     color: var(--theme-color);
     overflow: hidden;
+    width: 0%;
 }
 
-.close {
-    animation: out 0.5s ease-in-out 1 forward;
+.animated {
+    animation: jump 0.6s 1 ease-out,
+        float-up-down 1.58s infinite,
+        float-left-right 2.46s infinite,
+        rotation 3.94s 1s infinite;
+    animation-composition: add;
+
+}
+
+.animated-end {
+    background: var(--theme-color);
+}
+
+.animated-end .letters-container>span>span.letter-child {
+    color: var(--theme-mode);
+}
+
+.loading-close {
+    animation: out 0.75s ease-in-out 1 forwards;
 }
 
 
@@ -171,35 +198,103 @@ export default {
         transform: scale(1);
     }
 
-    10% {
-        transform: scale(1.1);
-    }
-
     100% {
         opacity: 0;
         display: none;
-        transform: scale(0);
+        transform: scale(3);
     }
 }
 
 @keyframes jump {
     0% {
-        scale: 0;
-        translate: 0;
-    }
-
-    50% {
-        scale: 1.5;
-        translate: -5% -5%;
-    }
-
-    90% {
         scale: 1;
         translate: 0;
     }
 
+    40% {
+        scale: 1.5;
+        translate: 0 -20%;
+    }
+
+    60% {
+        scale: 0.8;
+        translate: 0;
+    }
+
+    80% {
+        scale: 1.1;
+    }
+
     100% {
-        scale: 0.9;
+        scale: 1;
+    }
+}
+
+
+@keyframes float-up-down {
+    0% {
+        animation-timing-function: ease-out;
+        translate: 0;
+    }
+
+    25% {
+        animation-timing-function: ease-in-out;
+        translate: -20% 0;
+    }
+
+
+    75% {
+        animation-timing-function: ease-in;
+        translate: 20% 0;
+    }
+
+    100% {
+        animation-timing-function: linear;
+        translate: 0;
+    }
+}
+
+@keyframes float-left-right {
+    0% {
+        animation-timing-function: ease-out;
+        translate: 0;
+    }
+
+    25% {
+        animation-timing-function: ease-in-out;
+        translate: 0 -20%;
+    }
+
+    75% {
+        animation-timing-function: ease-in;
+        translate: 0 20%;
+    }
+
+    100% {
+        animation-timing-function: linear;
+        translate: 0;
+    }
+}
+
+@keyframes rotation {
+    0% {
+        animation-timing-function: ease-out;
+        rotate: 0;
+    }
+
+    25% {
+        animation-timing-function: ease-in-out;
+        rotate: 25deg;
+    }
+
+    75% {
+        animation-timing-function: ease-in;
+        rotate: -25deg;
+    }
+
+    100% {
+        animation-timing-function: linear;
+        rotate: 0;
     }
 }
 </style>

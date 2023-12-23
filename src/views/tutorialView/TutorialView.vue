@@ -1,5 +1,5 @@
 <template>
-    <div class="tutorial-container" :class="{ 'open': display, 'close': close }">
+    <div class="tutorial-container" :class="{ 'open': display, 'tutorial-close': close }">
         <div class="skip-button-container">
             <span>{{ $t('tutorial_skip') }}</span>
             <button class="skip-button" @click="handleSkip">
@@ -213,8 +213,8 @@ button:hover {
     animation: in 0.7s ease-in-out 1 forwards;
 }
 
-.close {
-    animation: out 0.7s ease-in-out 1 forwards;
+.tutorial-close {
+    animation: out 1s ease-in-out 1 forwards;
 }
 
 @keyframes in {
