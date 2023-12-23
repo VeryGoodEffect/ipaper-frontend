@@ -56,6 +56,10 @@ export default {
       console.log(itemsPerPage, this.itemsPerPage)
     }
   },
+  mounted(){
+    this.changePage(1);
+    this.changeItemsPerPage(5);
+  }
   // watch: {
     // 'this.$refs.container.children.length'() {
     //   this.totalPages = Math.ceil(this.$refs.container.children.length / this.itemsPerPage)
