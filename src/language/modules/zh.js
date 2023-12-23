@@ -200,5 +200,31 @@ export default {
 
     tutorial_skip: '跳过?',
 
-    maximum_image: '图片数量已达上限'
+    maximum_image: '图片数量已达上限',
+
+    // SearchFilter
+    filter: '筛选',
+    filte_by_time: '根据时间筛选',
+    no_limit_time: '没有时间限制',
+    since_2023: '2023年以来',
+    since_2022: '2022年以来',
+    since_2021: '2021年以来',
+    self_define_time_range: '时间范围',
+
+    // language
+    no_language_limit: '不限语言',
+    chinece_language: '中文网页',
+    english_language: '英文网页',
+
+    
+
+
+    // sort
+    sort: '排序',
+
+    // include
+    include_patend: '包含专利',
+    include_cide: '包含引用',
+
+
 }

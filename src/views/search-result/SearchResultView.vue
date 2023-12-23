@@ -1,8 +1,12 @@
 <template>
   <div class="main-area">
     <div class="cond-area" style="display: vertical; position: sticky; top: 0">
-      <span>篩選</span>
-      <div
+      <h3 style="width: 100%;" @click="show_filte = ! show_filte">
+        {{ $t('filter') }}
+
+      </h3>
+      <div v-show="show_filte">
+        <div
         class="filter-card"
         style="
           display: vertical;
@@ -14,13 +18,13 @@
         "
       >
         <ul>
-          <li>按时间筛选</li>
-          <li @click="setFilterTime(1)" style="cursor: pointer">时间不限</li>
-          <li @click="setFilterTime(2)" style="cursor: pointer">2023以来</li>
-          <li @click="setFilterTime(3)" style="cursor: pointer">2022以来</li>
-          <li @click="setFilterTime(4)" style="cursor: pointer">2021以来</li>
+          <li>{{ $t('filte_by_time') }}</li>
+          <li @click="setFilterTime(1)" style="cursor: pointer">{{ $t('no_limit_time') }}</li>
+          <li @click="setFilterTime(2)" style="cursor: pointer">{{ $t('since_2023') }}</li>
+          <li @click="setFilterTime(3)" style="cursor: pointer">{{ $t('since_2022') }}</li>
+          <li @click="setFilterTime(4)" style="cursor: pointer">{{ $t('since_2021') }}</li>
           <li @click="setFilterTime(5)" style="cursor: pointer">
-            自定义范围
+            {{ $t('self_define_time_range') }}
             <span
               ><input
                 v-model="search_start_time"
@@ -38,14 +42,14 @@
         style="display: vertical; text-align: center"
       >
         <ul>
-          <li @click="setLanguage(1)" style="cursor: pointer">不限语言</li>
-          <li @click="setLanguage(2)" style="cursor: pointer">中文网页</li>
-          <li @click="setLanguage(3)" style="cursor: pointer">英文网页</li>
+          <li @click="setLanguage(1)" style="cursor: pointer">{{ $t('no_language_limit') }}</li>
+          <li @click="setLanguage(2)" style="cursor: pointer">{{ $t('chinece_language') }}</li>
+          <li @click="setLanguage(3)" style="cursor: pointer">{{ $t('english_language') }}</li>
           <!-- <li>时间不限</li> -->
         </ul>
       </div>
 
-      <div
+      <!-- <div
         v-if="search_type == 1"
         class="filter-card"
         style="display: vertical; text-align: center"
@@ -53,35 +57,8 @@
         <ul>
           <li style="cursor: pointer"><input type="checkbox" />包含专利</li>
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
-          <li style="cursor: pointer">时间不限</li>
         </ul>
-      </div>
-
-      <span>排序</span>
-      <div
-        v-if="search_type == 1"
-        class="filter-card"
-        style="display: vertical; text-align: center"
-      >
-        <ul>
-          <li>日期排序</li>
-          <li @click="sortByTime(1)" style="cursor: pointer">升序排序</li>
-          <li @click="sortByTime(2)" style="cursor: pointer">降序排序</li>
-        </ul>
-      </div>
-
-      <div
-        v-if="search_type == 1"
-        class="filter-card"
-        style="display: vertical; text-align: center"
-      >
-        <ul>
-          <li>引用次數排序</li>
-          <li style="cursor: pointer">升序排序</li>
-          <li style="cursor: pointer">降序排序</li>
-        </ul>
-      </div>
-
+      </div> -->
       <div
         v-if="search_type == 3"
         class="filter-card"
@@ -98,6 +75,41 @@
           </li>
         </ul>
       </div>
+      </div>
+
+
+        
+
+
+      <h3 style="width: 100%;" @click="show_sort=!show_sort">{{ $t('sort') }}</h3>
+      <div v-show="show_sort">
+        <div
+        v-if="search_type == 1"
+        class="filter-card"
+        style="display: vertical; text-align: center"
+      >
+        <ul>
+          <li @click="show_sort_by_date=!show_sort_by_date">日期排序</li>
+          <li v-show="show_sort_by_date" @click="sortByTime(1)" style="cursor: pointer">升序排序</li>
+          <li v-show="show_sort_by_date" @click="sortByTime(2)" style="cursor: pointer">降序排序</li>
+        </ul>
+      </div>
+
+      <div
+        v-if="search_type == 1"
+        class="filter-card"
+        style="display: vertical; text-align: center"
+      >
+        <ul>
+          <li @click="show_sort_by_cite=!show_sort_by_cite">引用次數排序</li>
+          <li v-show="show_sort_by_cite" style="cursor: pointer">升序排序</li>
+          <li v-show="show_sort_by_cite" style="cursor: pointer">降序排序</li>
+        </ul>
+      </div>
+      </div>
+
+
+
 
       <!-- <hr> -->
     </div>
@@ -212,6 +224,11 @@ export default {
     }
      */
     return {
+      show_sort_by_date: false,
+      show_sort_by_cite: false,
+      show_sort: false,
+      show_filte: false.valueOf,
+
       totalPages: 1,
       currentPage: 1,
       itemsPerPage: 5,
@@ -505,7 +522,7 @@ export default {
         delete this.searchdata["search_type"];
       }
 
-      console.log(searchdata);
+      // console.log(searchdata);
 
       this.searchmethod();
     },
