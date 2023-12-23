@@ -93,6 +93,9 @@ export default {
     search_type_5: 'Journal Search',
     search_type_6: 'Institution Search',
 
+    // interest_tag_select
+    interest_tag_select_text: 'Choose Your Interest Tag',
+
     check_approve: 'Do you confirm the approval of the user\'s application?',
     check_disapprove: 'Please inform the user of the reason for not passing the audit',
 
@@ -167,11 +170,11 @@ export default {
     institution_relevant_institution: "Relevant institutions",
     institution_author_achievement: "Total achievements:",
 
-    tag_detail_wiki: "wiki: ",
-    tag_detail_paper: "Related Literature: ",
-    tag_detail_author: "Related Scholar: ",
-    tag_detail_institution: "Related Agencies: ",
-    tag_detail_tags: "Related Field: ",
+    tag_detail_wiki: "wiki",
+    tag_detail_paper: "Related Literature",
+    tag_detail_author: "Related Scholar",
+    tag_detail_institution: "Related Agencies",
+    tag_detail_tags: "Related Field",
 
     institution_region: "Country/Region: ",
     institution_works_count: "Total Publications: ",

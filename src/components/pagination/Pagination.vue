@@ -57,8 +57,8 @@ export default {
     }
   },
   mounted(){
-    this.changePage(1);
-    this.changeItemsPerPage(5);
+    // this.changePage(1);
+    // this.changeItemsPerPage(this.itemsPerPage);
   }
   // watch: {
     // 'this.$refs.container.children.length'() {

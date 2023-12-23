@@ -1,13 +1,21 @@
 <template>
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
         <h3 class="title" @click="jumpArticle(infoItem.url)" v-html="highlightedText(infoItem.keyword, infoItem.title)"></h3>
-        <div class="author" v-ellipsis="{ maxLine: 1, maxWidth: '100%', wrappable: true}">
+        <!-- <div class="author" v-ellipsis="{ maxLine: 1, maxWidth: '100%', wrappable: true}">
+          <span v-for="(author, idx) in infoItem.authorships" :key="idx">
+            {{ author.author.display_name }}
+          </span>  
+        </div> -->
+        <div class="author">
           <span v-for="(author, idx) in infoItem.authorships" :key="idx">
             {{ author.author.display_name }}
           </span>  
         </div>
+        <!-- <p v-html="highlightedText(infoItem.keyword, infoItem.abstract)" class="excerpt"
+        v-ellipsis="{ maxLine: 3, maxWidth: '80%', wrappable: false}">
+        </p> -->
         <p v-html="highlightedText(infoItem.keyword, infoItem.abstract)" class="excerpt"
-        v-ellipsis="{ maxLine: 3, maxWidth: '80%', wrappable: true}">
+        >
         </p>
         <div class="info">
             <div class="download">
@@ -101,6 +109,15 @@ export default {
     line-clamp: 1;
     cursor: pointer;
 }
+.author {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2; 
+    line-clamp: 2;
+    cursor: pointer;
+}
 .author span {
     font-size: 16px;
     color: var(--theme-mode-very-high-contrast);
@@ -109,7 +126,13 @@ export default {
 .excerpt {
     font-size: 14px;
     color: var(--theme-mode-high-contrast);
-
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 5; 
+    line-clamp: 5;
+    cursor: pointer;
 }
 
 .excerpt.full {
@@ -129,6 +152,7 @@ export default {
 .collect {
     margin-right: 10px;
     font-size: 15px;
+    cursor: pointer;
 }
 .time-cited {
     margin-right: 10px;
