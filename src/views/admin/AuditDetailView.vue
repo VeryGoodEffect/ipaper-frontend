@@ -29,7 +29,9 @@
                     <div class="concepts">
                         <span>{{ $t('concepts_text') }}</span>
                         <div>
-                            <span v-for="concept in concepts" :key="concept">{{ concept.display_name }}</span>
+                            <span v-for="concept in concepts" :key="concept">
+                                {{ concept.display_name === '' ? $t('no_concepts') : concept.display_name }}
+                            </span>
                         </div>
                     </div>
                     <div class="content">
@@ -43,12 +45,12 @@
                                 target="_blank">
                                 <div class="image" :style="{ 'background-image': `url('${image}')` }"></div>
                             </a>
-                            <span v-if="images.length === 0">{{ }}</span>
+                            <span v-if="images.length === 0">{{ $t('no_images') }}</span>
                         </div>
                     </div>
                     <div class="submit-time">
                         <span>{{ $t('submit_time') }} </span>
-                        <span> {{ submitTime }}</span>
+                        <span v-ellipsis="{ maxLine: 2, wrappable: true, maxWidth: '100%' }">{{ submitTime }}</span>
                     </div>
                 </div>
 
@@ -77,8 +79,8 @@
                     <div class="check-disapprove">{{ status === 0 ? $t('check_disapprove') : $t('disapprove_submitted') }}
                     </div>
                     <div class="textarea-container">
-                        <textarea draggable="false" placeholder="......" v-model="reason"
-                            :contenteditable="status === 0"></textarea>
+                        <textarea draggable="false" :placeholder="rejectReason === '' ? '......' : rejectReason"
+                            v-model="reason" :readonly="status !== 0"></textarea>
                     </div>
                     <div class="submit-button-container">
                         <button class="submit-button" :class="{ 'disabled-button': status !== 0 }"
@@ -110,8 +112,11 @@ export default {
             avatar: `/api/users/${this.userId}/avatar`,
             approved: this.status === 0 ? undefined :
                 this.status === 2 ? false : true,
-            reason: this.rejectReason
+            reason: '',
         }
+    },
+    unmounted() {
+        removeEventListener('resize', this.resize)
     },
     methods: {
         resize() {
@@ -120,6 +125,7 @@ export default {
             let simpleView = this.$refs.simpleView
             let approveArea = this.$refs.approveArea
             let disapproveArea = this.$refs.disapproveArea
+            console.log(this.$refs.approveArea)
             switch (this.approved) {
                 case true:
                     approveArea.style.display = 'block'
@@ -259,12 +265,22 @@ export default {
             default: ''
         }
     },
+    computed: {
+        language() {
+            return this.$t('web_name_text')
+        }
+    },
     watch: {
         isDetail() {
             this.resize()
         },
         approved() {
             this.resize()
+        },
+        language() {
+            setTimeout(() => {
+                this.resize()
+            }, (100));
         }
     },
     mounted() {
@@ -376,11 +392,13 @@ export default {
 .institution,
 .position,
 .submit-time,
-.work-email {
+.work-email,
+.content {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     word-break: break-all;
+    align-items: end;
 }
 
 .submit-time {

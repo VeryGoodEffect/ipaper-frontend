@@ -90,10 +90,6 @@ export default {
         this.autoComplete();
       }
     },
-    senddata(newValue,oldValue){
-      // console.log(`message changed from ${oldVal} to ${newVal}`);
-      this.search_search = newValue
-    }
   },
 
   methods: {
@@ -126,6 +122,9 @@ export default {
         // 当前路由与目标路径不匹配
         // 执行其他逻辑
       }
+    },
+    setSearchContent(data){
+      this.search_search = data 
     },
     buildQuery() {},
     advsearch(data) {

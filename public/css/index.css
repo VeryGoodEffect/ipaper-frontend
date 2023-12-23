@@ -1,17 +1,18 @@
 :root {
   --theme-mode: #f3f3f3;
+  --theme-mode-translucent: #f3f3f388;
   --theme-mode-like: #eee;
   --theme-mode-slight-contrast: #e3e3e3;
   --theme-mode-contrast: #ccc;
   --theme-mode-high-contrast: #777;
   --theme-mode-very-high-contrast: #222;
   --default-text-color: #111;
-  --theme-color: rgba(3,122,255, 1);
-  --theme-color-80: rgba(3,122,255, .8);
-  --theme-color-60: rgba(3,122,255, .6);
-  --theme-color-50: rgba(3,122,255, .5);
-  --theme-color-30: rgba(3,122,255, .3);
-  --theme-color-10: rgba(3,122,255, .1);
+  --theme-color: rgba(3, 122, 255, 1);
+  --theme-color-80: rgba(3, 122, 255, .8);
+  --theme-color-60: rgba(3, 122, 255, .6);
+  --theme-color-50: rgba(3, 122, 255, .5);
+  --theme-color-30: rgba(3, 122, 255, .3);
+  --theme-color-10: rgba(3, 122, 255, .1);
 }
 
 body {
@@ -24,7 +25,7 @@ body {
 
 * {
   color: var(--default-text-color);
-  font-family: "SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif;
+  font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 /* #region basic-button */
@@ -40,6 +41,7 @@ button {
   background: var(--theme-color);
   color: #fff;
 }
+
 .basic-btn:hover {
   background: var(--theme-color-80);
 }
@@ -50,6 +52,7 @@ button {
   border: 1px solid var(--theme-color);
   color: var(--theme-color);
 }
+
 .basic-btn-outline:hover {
   border: 1px solid var(--theme-color-60);
   color: var(--theme-color-80);
@@ -71,10 +74,12 @@ button {
   outline: 0 solid var(--theme-color);
   transition: .1s linear;
 }
+
 .basic-input:focus {
   border: 1px solid var(--theme-color);
   outline: 2px solid var(--theme-color);
 }
+
 /* #endregion */
 
 
@@ -90,6 +95,7 @@ button {
   justify-content: center;
   align-items: center;
 }
+
 .huge-input {
   width: calc(100% - 10px);
   height: calc(100% - 10px);
@@ -101,24 +107,28 @@ button {
   z-index: 2;
   border: none;
 }
+
 .huge-input:focus {
   outline: 0;
   border: 0;
 }
+
 .huge-input::placeholder {
   color: grey;
 }
+
 .huge-input-wrapper::before {
   content: '';
   position: absolute;
   width: 600%;
   height: 80%;
-  background-image: conic-gradient(var(--theme-color) 25%, transparent 50%, var(--theme-color) 75%,  transparent 100%);
-  animation: 
-    rotate1 5s cubic-bezier(.71,.07,.37,.92) infinite,
-    rotate2 5s cubic-bezier(.71,.07,.37,.92) infinite;
+  background-image: conic-gradient(var(--theme-color) 25%, transparent 50%, var(--theme-color) 75%, transparent 100%);
+  animation:
+    rotate1 5s cubic-bezier(.71, .07, .37, .92) infinite,
+    rotate2 5s cubic-bezier(.71, .07, .37, .92) infinite;
   animation-delay: 0s 5s;
 }
+
 .huge-input-wrapper::after {
   content: '';
   position: absolute;
@@ -130,15 +140,18 @@ button {
     rotate2 3s cubic-bezier(0,.44,.19,.99);
   animation-delay: 0s 3s; */
 }
+
 @keyframes rotate1 {
   100% {
     transform: rotate(180deg);
   }
 }
+
 @keyframes rotate2 {
   0% {
     transform: rotate(180deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -149,6 +162,7 @@ button {
     transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     width: 80vw;
   }
+
   .huge-input {
     font-size: 25px;
   }
@@ -175,18 +189,22 @@ button {
     opacity: 0;
     transform: scale3d(0.3, 0.3, 0.3);
   }
+
   50% {
     opacity: 1;
   }
 }
+
 @keyframes tooltip-zoomOut {
   from {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
     transform: scale3d(0.3, 0.3, 0.3);
   }
+
   to {
     opacity: 0;
   }
@@ -194,7 +212,8 @@ button {
 
 .tooltip-appear {
   animation: tooltip-zoomIn .3s forwards;
-} 
+}
+
 .tooltip-disappear {
   animation: tooltip-zoomOut .3s forwards;
 }
@@ -205,6 +224,7 @@ a {
   color: var(--theme-color);
   cursor: pointer;
 }
+
 a:hover {
   text-decoration: underline;
 }
@@ -214,6 +234,7 @@ a:hover {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -223,6 +244,7 @@ a:hover {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }

@@ -95,6 +95,10 @@ export default {
     search_type_4: '作者搜索',
     search_type_5: '期刊搜索',
     search_type_6: '机构搜索',
+
+    // interest_tag_select
+    interest_tag_select_text: '选择你的兴趣标签',
+    
     
 
     //advanced_search
@@ -147,6 +151,7 @@ export default {
     not_access: '未通过',
     audit_return: '返回',
     not_confirmed: '已通过，未确认',
+    no_concepts: '没有科研领域信息',
     submit_time: '申请时间',
     image_material: '图片材料',
     approve_audit: '通过',
@@ -160,17 +165,19 @@ export default {
 
     public_date: "发表日期：",
 
+    institution_achievement: "机构成果",
     institution_main_scholar: "机构主要作者",
     institution_main_tag: "重点领域",
     institution_main_papers: "机构文献",
     institution_URL: "官网链接",
     institution_relevant_institution: "相关机构",
+    institution_author_achievement: "成果数",
 
-    tag_detail_wiki: "维基百科：",
-    tag_detail_paper: "相关文献：",
-    tag_detail_author: "相关作者：",
-    tag_detail_institution: "相关机构：",
-    tag_detail_tags: "相关领域：",
+    tag_detail_wiki: "维基百科",
+    tag_detail_paper: "相关文献",
+    tag_detail_author: "相关作者",
+    tag_detail_institution: "相关机构",
+    tag_detail_tags: "相关领域",
 
     institution_region: "国家/地区：",
     institution_works_count: "学术成果数：",
@@ -190,6 +197,8 @@ export default {
     read_it: '设为已读',
     already_read: '已读',
     delete_it: '删除',
+
+    tutorial_skip: '跳过?',
 
     maximum_image: '图片数量已达上限'
 }

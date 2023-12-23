@@ -1,17 +1,17 @@
 <template>
     <div :class="['out-border', { 'out-border-full': isExpanded }]">
       <h3 @click="jumpDetailView" class="title">
-          {{ scholarInfo.display_name }}
+          {{ infoItem.display_name }}
       </h3>
       <br>
       <span class="profile">
-        {{ $t('institution_region') }}{{ scholarInfo.country_code }}
+        {{ $t('institution_region') }}{{ infoItem.country_code }}
       </span>
       <span class="profile">
-        {{ $t('institution_works_count') }}{{ scholarInfo.works_count }}
+        {{ $t('institution_works_count') }}{{ infoItem.works_count }}
       </span>
       <span class="profile">
-        {{ $t('institution_cited_by_count') }}{{ scholarInfo.cited_by_count }}
+        {{ $t('institution_cited_by_count') }}{{ infoItem.cited_by_count }}
       </span>
     </div>
 </template>
@@ -20,7 +20,7 @@
 import i18n from '../../language'
 
 export default {
-  props: ['scholarInfo'],
+  props: ['infoItem'],
     components: {
         i18n
     },
@@ -30,12 +30,12 @@ export default {
       }
     },
     mounted() {
-       console.log(this.infoItem)
+      //  console.log(this.infoItem)
     },
     methods: {
       jumpDetailView(){
         this.$router.push({
-          path: "/scholar_portal/" + this.scholarInfo.id
+          path: "/scholar_portal/" + this.infoItem.id
         })
       }
     },

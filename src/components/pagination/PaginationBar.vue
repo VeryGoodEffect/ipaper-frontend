@@ -38,6 +38,7 @@
     </section>
     <div class="flatten">
       <select class="flatten" :value="itemsPerPage" @change="$emit('item-per-page-change', Number($event.target.value))">
+        <option :value="itemsPerPage">{{ itemsPerPage }}</option>
         <option :value="5">5</option>
         <option :value="10">10</option>
         <option :value="20">20</option>

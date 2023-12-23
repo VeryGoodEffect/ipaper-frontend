@@ -7,7 +7,6 @@
       </li>
     </ul>
   </div>
-  
 </template>
 
 <script>
@@ -32,6 +31,7 @@ export default {
       let mode = getComputedStyle(document.documentElement).getPropertyValue('--theme-mode')
       if (mode === '#181818') {
         document.documentElement.style.setProperty('--theme-mode', '#f3f3f3')
+        document.documentElement.style.setProperty('--theme-mode-translucent', '#f3f3f388')
         document.documentElement.style.setProperty('--theme-mode-like', '#eee')
         document.documentElement.style.setProperty('--theme-mode-slight-contrast', '#e3e3e3')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#ccc')
@@ -40,6 +40,7 @@ export default {
         document.documentElement.style.setProperty('--default-text-color', '#111')
       } else {
         document.documentElement.style.setProperty('--theme-mode', '#181818')
+        document.documentElement.style.setProperty('--theme-mode-translucent', '#18181888')
         document.documentElement.style.setProperty('--theme-mode-like', '#222')
         document.documentElement.style.setProperty('--theme-mode-slight-contrast', '#333')
         document.documentElement.style.setProperty('--theme-mode-contrast', '#444')
@@ -116,6 +117,7 @@ ul li button {
   border-radius: 50%;
   transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
 ul li button:hover {
   scale: 1.2;
 }

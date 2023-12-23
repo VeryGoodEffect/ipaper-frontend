@@ -1,10 +1,7 @@
 <template>
   <div class="main-area">
-    <div
-      class="cond-area"
-      style="display: vertical; position: sticky; top: 0"
-    >
-    <span>篩選</span>
+    <div class="cond-area" style="display: vertical; position: sticky; top: 0">
+      <span>篩選</span>
       <div
         class="filter-card"
         style="
@@ -16,19 +13,30 @@
           text-align: center;
         "
       >
-      
         <ul>
           <li>按时间筛选</li>
           <li @click="setFilterTime(1)" style="cursor: pointer">时间不限</li>
           <li @click="setFilterTime(2)" style="cursor: pointer">2023以来</li>
           <li @click="setFilterTime(3)" style="cursor: pointer">2022以来</li>
           <li @click="setFilterTime(4)" style="cursor: pointer">2021以来</li>
-          <li @click="setFilterTime(5)" style="cursor: pointer">自定义范围 <span><input v-model="search_start_time" type="text" style="width: 30%" />
-            <input v-model="search_end_time" type="text" style="width: 30%" /></span></li>
+          <li @click="setFilterTime(5)" style="cursor: pointer">
+            自定义范围
+            <span
+              ><input
+                v-model="search_start_time"
+                type="text"
+                style="width: 30%" />
+              <input v-model="search_end_time" type="text" style="width: 30%"
+            /></span>
+          </li>
         </ul>
       </div>
 
-      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
+      <div
+        v-if="search_type == 1"
+        class="filter-card"
+        style="display: vertical; text-align: center"
+      >
         <ul>
           <li @click="setLanguage(1)" style="cursor: pointer">不限语言</li>
           <li @click="setLanguage(2)" style="cursor: pointer">中文网页</li>
@@ -37,7 +45,11 @@
         </ul>
       </div>
 
-      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
+      <div
+        v-if="search_type == 1"
+        class="filter-card"
+        style="display: vertical; text-align: center"
+      >
         <ul>
           <li style="cursor: pointer"><input type="checkbox" />包含专利</li>
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
@@ -46,15 +58,23 @@
       </div>
 
       <span>排序</span>
-      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
+      <div
+        v-if="search_type == 1"
+        class="filter-card"
+        style="display: vertical; text-align: center"
+      >
         <ul>
           <li>日期排序</li>
           <li @click="sortByTime(1)" style="cursor: pointer">升序排序</li>
           <li @click="sortByTime(2)" style="cursor: pointer">降序排序</li>
         </ul>
       </div>
-      
-      <div v-if="search_type==1" class="filter-card" style="display: vertical; text-align: center">
+
+      <div
+        v-if="search_type == 1"
+        class="filter-card"
+        style="display: vertical; text-align: center"
+      >
         <ul>
           <li>引用次數排序</li>
           <li style="cursor: pointer">升序排序</li>
@@ -62,22 +82,32 @@
         </ul>
       </div>
 
-
-
-      <div v-if="search_type==3" class="filter-card" style="display: vertical; text-align: center">
+      <div
+        v-if="search_type == 3"
+        class="filter-card"
+        style="display: vertical; text-align: center"
+      >
         <ul>
-          <li  v-for="(option, index) in options" :key="index"><input type="radio" :value="option.value" v-model="selectedOption" />
-          <label>{{ option.text }}</label></li>
+          <li v-for="(option, index) in options" :key="index">
+            <input
+              type="radio"
+              :value="option.value"
+              v-model="selectedOption"
+            />
+            <label>{{ option.text }}</label>
+          </li>
         </ul>
       </div>
-
 
       <!-- <hr> -->
     </div>
 
     <div style="min-width: 50%">
       <div class="search-container">
-        <SearchPanel @senddata="handleModoleSearch"></SearchPanel>
+        <SearchPanel
+          ref="searchPanelRef"
+          @senddata="handleModoleSearch"
+        ></SearchPanel>
       </div>
       <div>
         <ul>
@@ -86,56 +116,50 @@
           </li>
         </ul>
       </div>
+
+      <!--     //this.$emit('change-item-per-page',itemsPerPage)
+    //this.$emit('change-page',page) -->
+    <!-- 
+       -->
       <Pagination
-        v-if="search_type == 1"
-        class="pagination"
-        :defaultItemsPerPage="5"
-      >
-        <SearchResultListItem
-          v-for="(info, index) in infoItems"
-          :key="index"
-          :infoItem="info"
-        ></SearchResultListItem>
-      </Pagination>
-      <!-- author -->
-      <Pagination
-        v-if="search_type == 2"
-        class="pagination"
-        :defaultItemsPerPage="5"
-      >
-        <scholar-list-item
-          v-for="(info, index) in infoItems"
-          :key="index"
-          :scholarInfo="info"
-        >
-        </scholar-list-item>
-      </Pagination>
-      <!-- 期刊 -->
-      <Pagination
-        v-if="search_type == 3"
-        class="pagination"
-        :defaultItemsPerPage="5"
-      >
-        <journal-list-item
-          v-for="(info, index) in infoItems"
-          :key="index"
-          :journalListItemInfo="info"
-        >
-          <!-- journalListItemInfo -->
-        </journal-list-item>
-      </Pagination>
-      <!-- 机构 -->
-      <Pagination
-        v-if="search_type == 4"
-        class="pagination"
-        :defaultItemsPerPage="5"
-      >
-        <institution-list-item
-          v-for="(info, index) in infoItems"
-          :key="index"
-          :institutionInfo="info"
-        >
-        </institution-list-item>
+      @change-item-per-page="changeItemPerpage"
+      @change-page="changePages"
+      :itemsPerPage="itemsPerPage"
+      :currentPage="currentPage"
+      :totalPages="totalPages"
+
+      class="pagination" :defaultItemsPerPage="5">
+        <div v-if="search_type == 1">
+          <SearchResultListItem
+            v-for="(info, index) in infoItems"
+            :key="index"
+            :infoItem="info"
+          ></SearchResultListItem>
+        </div>
+        <div v-else-if="search_type == 2">
+          <ScholarListItem
+            v-show="search_type == 2"
+            v-for="(info, index) in infoItems"
+            :key="index"
+            :infoItem="info"
+          ></ScholarListItem>
+        </div>
+        <div v-else-if="search_type == 3">
+          <JournalListItem
+            v-for="(info, index) in infoItems"
+            :key="index"
+            :infoItem="info"
+          ></JournalListItem>
+        </div>
+
+        <div v-else>
+          <InstitutionListItem
+            v-show="search_type == 4"
+            v-for="(info, index) in infoItems"
+            :key="index"
+            :infoItem="info"
+          ></InstitutionListItem>
+        </div>
       </Pagination>
     </div>
     <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT>
@@ -155,6 +179,7 @@ import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 // import SearchModelVue
 import SearchPanel from "../search/SearchPanel.vue";
 import ChatGPT from "../../components/chat/Chat.vue";
+import { ref } from "vue";
 export default {
   name: "SearchResultView",
   components: {
@@ -169,7 +194,29 @@ export default {
     SearchPanel,
   },
   data() {
+    /**
+     * 
+     *     itemsPerPage: {
+      type: Number,
+      default: 5
+    },
+    currentPage: {
+      type:Number,
+      required: true,
+      default:1
+    },
+    totalPages:{
+      type: Number,
+      required: true,
+      default:1
+    }
+     */
     return {
+      totalPages: 1,
+      currentPage: 1,
+      itemsPerPage: 5,
+
+
       resultlist: null,
       infoItems: [],
       infoItem: {
@@ -209,6 +256,7 @@ export default {
       selectedOption: null,
 
       placehold: "",
+      searchPanelRef: null,
     };
   },
   watch: {
@@ -221,35 +269,29 @@ export default {
     },
   },
   methods: {
+
+    changePages(data){
+      this.currentPage = data
+      alert(data)
+      this.searchmethod()
+    },
+    changeItemPerpage(data){
+      this.itemsPerPage = data
+      this.searchmethod()
+    },
     // #region resultlistToInfoItems
     resultlistToInfoItems() {
-      // works
-      if (this.search_type == 1) {
-        this.infoItems = this.resultlist.map((item) => {
-          // console.log(item.authorships[0].author.display_name);
-          // console.log(item.abstract);
-          return item;
-        });
-      }
-      // author
-      else if (this.search_type == 2) {
-        this.infoItems = this.resultlist.map((item) => {
-          return item;
-        });
-      }
-      // qikan
-      else if (this.search_type == 3) {
-        this.infoItems = this.resultlist.map((item) => {
-          return item;
-        });
-      }
-      // jigou
-      else if (this.search_type == 4) {
-        this.infoItems = this.resultlist.map((item) => {
-          return item;
-        });
-      }
+      this.infoItems = this.resultlist;
     },
+
+    changeSearchPanelContent() {
+      this.searchPanelRef = this.$refs.searchPanelRef.setSearchContent(
+        this.search
+      );
+    },
+    //this.$emit('change-item-per-page',itemsPerPage)
+    //this.$emit('change-page',page)
+ 
 
     // #region AsideBar
     showAsideBar() {
@@ -356,7 +398,7 @@ export default {
 
     advsearch(data) {
       alert("data sent to advsearch");
-      // queryParts = [];
+      // inParts = [];
 
       //!暂时先置空吧
       this.search_filter = "";
@@ -388,6 +430,8 @@ export default {
       console.log(this.filter);
       this.searchmethod();
 
+
+
       /***
        * 
        *       author: "",
@@ -411,9 +455,9 @@ export default {
       // 早
       if (type == 1) {
         if (
-          alert(this.sort+1),
+          (alert(this.sort + 1),
           this.sort.includes("publication_date:") ||
-          this.sort.includes("publication_date:desc")
+            this.sort.includes("publication_date:desc"))
         ) {
           this.sort = this.sort.replace(
             /publication_date(:desc)?,/,
@@ -426,9 +470,9 @@ export default {
       // 晚
       else if (type == 2) {
         if (
-          alert(this.sort+2),
+          (alert(this.sort + 2),
           this.sort.includes("publication_date:") ||
-          this.sort.includes("publication_date:desc")
+            this.sort.includes("publication_date:desc"))
         ) {
           this.sort = this.sort.replace(
             /publication_date(:desc)?,/,
@@ -438,8 +482,7 @@ export default {
           this.sort += "publication_date:desc";
         }
       }
-      alert(this.sort),
-      this.searchmethod();
+      alert(this.sort), this.searchmethod();
     },
 
     sortByCite(type) {
@@ -468,14 +511,18 @@ export default {
     },
     // 真正做搜索后端
     searchmethod() {
+      this.perpage = this.itemsPerPage
+      this.page = this.currentPage
       const searchdata = {
         filter: this.filter.replace(/,$/, ""),
         search: this.search,
         sort: this.sort,
-        perpage: this.perpage,
+        per_page: this.perpage,
         cursor: this.cursor,
-        page: this.page
-      }
+        page: this.page,
+      };
+
+      // alert("fuck");
       // this.searchdata.filter = this.filter.replace(/,$/, "");
       // this.searchdata.search = this.search;
       // this.searchdata.sort = this.sort;
@@ -489,9 +536,15 @@ export default {
       if (this.search_type == 1) {
         Search.searchWorks(searchdata).then(
           (res) => {
-            console.log(res.data.results);
+            console.log(res.data);
+            
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
+
+            this.totalPages = res.data.meta.count
+            this.currentPage = res.data.meta.page
+            this.per_page = res.data.meta.per_page
+
           },
           (err) => {}
         );
@@ -500,9 +553,12 @@ export default {
       else if (this.search_type == 2) {
         Search.searchAuthor(searchdata).then(
           (res) => {
-            console.log(res.data.results);
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
+
+            this.totalPages = res.data.meta.count
+            this.currentPage = res.data.meta.page
+            this.per_page = res.data.meta.per_page
           },
           (err) => {}
         );
@@ -514,6 +570,10 @@ export default {
             console.log(res.data.results);
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
+
+            this.totalPages = res.data.meta.count
+            this.currentPage = res.data.meta.page
+            this.per_page = res.data.meta.per_page
           },
           (err) => {}
         );
@@ -525,6 +585,10 @@ export default {
             console.log(res.data.results);
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
+
+            this.totalPages = res.data.meta.count
+            this.currentPage = res.data.meta.page
+            this.per_page = res.data.meta.per_page
           },
           (err) => {}
         );
@@ -554,25 +618,49 @@ export default {
       }
     },
 
+    
+
     // search
   },
 
   mounted() {
     const searchdata = this.$route.query;
+
     this.searchdata = searchdata;
     this.search = searchdata.search;
     this.sort = searchdata.sort;
     this.perpage = searchdata.perpage;
     this.cursor = searchdata.cursor;
     this.search_type = searchdata.search_type;
+    this.changeSearchPanelContent(this.search);
     if (this.searchdata && "search_type" in this.searchdata) {
       delete this.searchdata["search_type"];
     }
-
     console.log(searchdata);
-
-    searchdata.filter = searchdata.filter.replace(/,$/, "");
+    if (searchdata.filter != null)
+      searchdata.filter = searchdata.filter.replace(/,$/, "");
     this.searchmethod();
+  },
+
+  computed: {
+    currentComponent() {
+      alert(
+        "current search type decide the component render",
+        this.search_type
+      );
+      switch (this.search_type) {
+        case 1:
+          return ref("SearchResultListItem"); // 搜索结果
+        case 2:
+          return ref("ScholarListItem"); // 学者列表项
+        case 3:
+          return ref("JournalListItem"); // 期刊列表项
+        case 4:
+          return ref("InstitutionListItem"); // 机构列表项
+        default:
+          return null; // 默认情况（可选）
+      }
+    },
   },
 };
 </script>

@@ -43,7 +43,7 @@
 <script>
 import i18n from '../../language';
 export default {
-    name: "AuditListItem",
+    name: "infoItem",
     components: {
         i18n,
     },
