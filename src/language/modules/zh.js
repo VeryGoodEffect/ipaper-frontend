@@ -95,6 +95,10 @@ export default {
     search_type_4: '作者搜索',
     search_type_5: '期刊搜索',
     search_type_6: '机构搜索',
+
+    // interest_tag_select
+    interest_tag_select_text: '选择你的兴趣标签',
+    
     
 
     //advanced_search
