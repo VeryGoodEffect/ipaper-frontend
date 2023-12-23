@@ -174,6 +174,12 @@ export default {
       alert("已复制到剪切板");
     },
     downloadPaper() {
+      const link = document.createElement('a')
+      link.style.display = 'none'
+      link.href = this.pdf_url
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
     },
     gotoAuthorPage(id) {
       this.$router.push('/scholar_portal/' + id);
