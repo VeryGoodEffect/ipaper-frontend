@@ -69,7 +69,7 @@
           <button class="basic-btn-outline function-btn" v-if="pdf_url != ''" @click="gotoPdfURL">
             PDF阅读
           </button>
-          <button class="basic-btn-outline function-btn" @click="downloadPaper" >
+          <button class="basic-btn-outline function-btn" v-if="pdf_url != ''" @click="downloadPaper" >
             PDF下载
           </button>
         </div>
@@ -173,10 +173,12 @@ export default {
       navigator.clipboard.write(data);
       alert("已复制到剪切板");
     },
-    downloadPaper() {
+    downloadPaper(event) {
+      // event.preventDefault()
       const link = document.createElement('a')
       link.style.display = 'none'
-      link.href = this.pdf_url
+      link.href = 'https://www.isound.live/api/download?url=' + this.pdf_url + '&filename=' + this.title + '.pdf'
+      
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
