@@ -2,7 +2,8 @@
     <div class="container">
         <button @click="displayTutorial = true">教程</button>
         <button @click="handleLoading">预览加载条</button>
-        <new-loading-bar :display="displayLoad" :progress="progress" @stop-display="displayLoad = false"></new-loading-bar>
+        <new-loading-bar :display="displayLoad" :progress="progress" @stop-display="displayLoad = false" :accelerate="false"
+            :isReal="false"></new-loading-bar>
         <tutorial-view :display="displayTutorial" @stop-display="displayTutorial = false"></tutorial-view>
         <div class="status-select-container">
             <span class="select-tip">{{ $t('select_audit_status') }}</span>
@@ -155,11 +156,14 @@ export default {
         handleLoading() {
             this.progress = 0
             this.displayLoad = true
-            for (let i = 1; i <= 100; i++) {
-                setTimeout(() => {
-                    this.progress++
-                }, i * 50)
-            }
+            // for (let i = 1; i <= 100; i++) {
+            //     setTimeout(() => {
+            //         this.progress++
+            //     }, i * 50)
+            // }
+            setTimeout(() => {
+                this.progress = 100
+            }, 12000);
         },
     },
     mounted() {

@@ -1,5 +1,5 @@
 <template>
-    <div class="loading-container" :class="{ 'open': display, 'loading-close': close, 'animated-end': close }">
+    <div class="loading-container" :class="{ 'open': display, 'loading-close-slow': slowClose, 'animated-end': slowClose }">
         <div class="letters-container" :class="{}">
             <span>
                 <span class="letter-parent i" ref="parentI">i</span>
@@ -36,11 +36,22 @@ export default {
     name: 'NewLoadingBar',
     data() {
         return {
-            close: false,
+            slowClose: false,
             localProgress: 0
         }
     },
     props: {
+        //是否跳过加载完成后的动画
+        accelerate:
+        {
+            type: Boolean,
+            default: false
+        },
+        //是否具有真加载进度
+        isReal: {
+            type: Boolean,
+            default: true
+        },
         display: {
             type: Boolean,
             required: true,
@@ -82,15 +93,21 @@ export default {
             if (value >= 100) {
                 parentR.style.visibility = 'hidden'
                 childR.style.width = '100%'
-                setTimeout(() => {
-                    this.close = true
+                if (this.accelerate) {
+                    initialize()
+                    this.localProgress = 0
+                    this.$emit('stop-display')
+                } else {
                     setTimeout(() => {
-                        initialize()
-                        this.close = false
-                        this.localProgress = 0
-                        this.$emit('stop-display')
-                    }, 750);
-                }, 500);
+                        this.slowClose = true
+                        setTimeout(() => {
+                            initialize()
+                            this.slowClose = false
+                            this.localProgress = 0
+                            this.$emit('stop-display')
+                        }, 750);
+                    }, 500);
+                }
             }
             //分类讨论localProgress
             const segment = Math.floor(value / (100 / 6))
@@ -100,22 +117,43 @@ export default {
                 children[segment].style.width = rateLength
             }
             else if (segment > 0 && segment < children.length) {
-                children[segment - 1].style.width = '100%'
-                parents[segment - 1].style.visibility = 'hidden'
+                for (let i = 0; i < segment; i++) {
+                    children[i].style.width = '100%'
+                    parents[i].style.visibility = 'hidden'
+                }
                 children[segment].style.width = rateLength
             }
         },
         progress(value) {
             console.log(value)
             let addProgress = () => {
-                if (this.localProgress < value + 0.2) {
-                    this.localProgress += 0.2
+                if (this.localProgress < value + 0.2 && this.display) {
+                    this.localProgress += 1
                     setTimeout(addProgress, 1)
                 }
             }
             addProgress()
+        },
+        display(value) {
+            if (!this.isReal) {
+                let x = 0
+                let deltaTime = 10
+                //a为上界，b为增长速率参数
+                let a = 0.7, b = 0.5
+                this.localProgress = 0
+                const smoothLoad = () => {
+                    const y = (-Math.exp(-b * x) + 1) * a
+                    this.localProgress = y * 100
+                    console.log(y)
+                    x += deltaTime / 1000
+                    if (this.progress < 70 && this.display) {
+                        setTimeout(smoothLoad, deltaTime);
+                    }
+                }
+                smoothLoad()
+            }
         }
-    }
+    },
 }
 </script>
 
@@ -172,9 +210,9 @@ export default {
 
 .animated {
     animation: jump 0.6s 1 ease-out,
-        float-up-down 1.58s infinite,
-        float-left-right 2.46s infinite,
-        rotation 3.94s 1s infinite;
+        float-up-down 2.58s infinite,
+        float-left-right 3.46s infinite,
+        rotation 5.94s 1s infinite;
     animation-composition: add;
 
 }
@@ -187,7 +225,8 @@ export default {
     color: var(--theme-mode);
 }
 
-.loading-close {
+
+.loading-close-slow {
     animation: out 0.75s ease-in-out 1 forwards;
 }
 
