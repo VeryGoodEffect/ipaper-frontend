@@ -67,6 +67,7 @@
           </div>   
         </div>
 
+        <TagDetailGraphScholarVue :authorList="authors"></TagDetailGraphScholarVue>
       </div>
 
       <div class="right-row"> 
@@ -96,11 +97,13 @@ import { Search } from '../../api/search'
 import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
 import i18n from '../../language'
 import Pagination from "../../components/pagination/Pagination.vue"
+import TagDetailGraphScholarVue from '../../components/graphs/TagDetailGraphScholar.vue'
 export default {
   components: {
     SearchResultListItem,
     i18n,
-    Pagination
+    Pagination,
+    TagDetailGraphScholarVue
   },
   watch: {
     '$route.params.id': {
@@ -170,20 +173,24 @@ export default {
     getInstitutions(url) {
       Search.getEntities(url).then(
         (response) => {
+          console.log( "institutions"+response.data.results )
           this.institutions = []
-          for(let i = 0; i < 10; i++) {
+          var lenth = response.data.results.length
+          for(let i = 0; i < 10 && i<length; i++) {
             this.institutions.push(response.data.results[i])
           }
           // this.institutions = response.data.results
-          // console.log(this.institutions)
+          console.log(this.institutions)
         }
       )
     },
     getAuthors(url) {
       Search.getEntities(url).then(
         (response) => {
+          console.log( "author"+response.data.results )
           this.authors = []
-          for(let i = 0; i < 10; i++) {
+          var lenth = response.data.results.length
+          for(let i = 0; i < 10 && i < lenth; i++) {
             this.authors.push(response.data.results[i])
           }
         }

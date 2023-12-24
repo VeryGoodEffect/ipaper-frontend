@@ -235,6 +235,9 @@ Since 2021
     include_patend: '包含专利',
     include_cide: '包含引用',
 
+    // 
+    top_scholar: 'Top Scholar',
+
 
     
 }
