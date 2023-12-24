@@ -1,5 +1,6 @@
 <template>
   <!-- <LoadingBar style="position: fixed;width: 1000px;z-index: -1;" :progress="progress"></LoadingBar> -->
+  <img src="/imgs/local.jpg" width="300" alt="Test Static Resource Error">
   <main>
     <div>
       <h2>{{ $t("frontpage_intro") }}</h2>
