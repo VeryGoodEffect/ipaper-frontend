@@ -70,7 +70,7 @@ export default {
                     this.showInterestTag = this.transformInterestTag()
                 },
                 error => {
-                    alert('Error')
+                    // alert('Error')
                 }
             )
         },
@@ -106,7 +106,7 @@ export default {
                     this.$bus.emit('sendFlushInterestRequest')
                 },
                 error => {
-                    alert('Error')
+                    // alert('Error')
                 }
             )
         },

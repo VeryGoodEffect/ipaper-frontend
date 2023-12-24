@@ -30,7 +30,7 @@
           <img src="https://img2.baidu.com/it/u=118397013,4126789630&fm=253&fmt=auto&app=138&f=JPEG?w=243&h=243">
           <p>Assistant</p>
         </div>
-        <div class="user-info" v-else="dialog.isResponse">
+        <div class="user-info" v-else>
           <p>{{ currentUsername }}</p>
           <img src="https://img.zcool.cn/community/01884c5da1a0fba80121b7226a6bb6.png@1280w_1l_2o_100sh.png">
         </div>
@@ -245,10 +245,13 @@ export default {
 
   <style scoped>
 .container {
-  border: 2px solid var(--theme-mode-high-contrast);
+  background: var(--theme-mode);
+  /* border: 2px solid var(--theme-mode-high-contrast); */
   border-radius: 10px;
   width: 400px;
-  height: 740px;
+  height: calc(100vh - 100px);
+  position: relative;
+  z-index: 100;
 }
 .header {
   margin: 0 auto;
@@ -265,16 +268,17 @@ export default {
   margin-top: 10px; 
   margin-left: 100px;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 .chatGPT-num {
   font-size: 20px;
   margin-top: 12px;
   margin-left: 5px;
   font-size: 18px;
-  color: var(--theme-color-50);
+  /* color: var(--theme-color-50); */
 }
 .dialog-box {
-  height: 600px;
+  height: 520px;
   width: 100%;
   overflow-y: auto;
   margin-bottom: 10px;
@@ -287,6 +291,7 @@ export default {
 }
 .scrollable-div::-webkit-scrollbar {
   width: 0.5em;
+  display: none;
 }
 
 .scrollable-div::-webkit-scrollbar-track {
@@ -304,7 +309,7 @@ export default {
 .input-area {
   display: flex;
   margin: 0 auto;
-  width: 90%;
+  width: 86%;
   border: 2px solid var(--theme-mode-contrast);
   border-radius: 10px;
   padding: 10px;
@@ -351,7 +356,7 @@ export default {
 .user-content {
   right: 0;
   /* width: 30px; */
-  background-color: var(--theme-color-80);
+  background-color: var(--theme-color-60);
   align-self: flex-end;
   border: unset;
 }
@@ -359,10 +364,10 @@ export default {
   color: white;
 }
 .input-text {
-  border-radius: 10px;
-  width: 310px;
+  border-radius: 5px;
+  width: 300px;
   margin-right: 10px;
-  font-size: 17px;
+  font-size: 16px;
   overflow: hidden;
   background-color: var(--theme-mode);
 }
@@ -444,4 +449,5 @@ export default {
   height: 20px;
   fill: var(--default-text-color);
 }
+
 </style>

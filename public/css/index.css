@@ -13,6 +13,8 @@
   --theme-color-50: rgba(3, 122, 255, .5);
   --theme-color-30: rgba(3, 122, 255, .3);
   --theme-color-10: rgba(3, 122, 255, .1);
+
+  --article-list-item-icon-color: rgb(26, 14, 171);
 }
 
 body {
@@ -256,4 +258,21 @@ a:hover {
 
 .document-fade-in *:not(body) {
   animation: fade-in .6s linear forwards;
+}
+
+pre * {
+  font-family: Monaco, Menlo, Consolas, "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", "Microsoft YaHei", sans-serif !important;
+  font-size: 12px !important;
+  background: #ccc !important;
+  border-radius: 5px !important;
+}
+
+pre *::-webkit-scrollbar {
+  display: none;
+}
+
+.dialog-bubble *{
+  font-size: 14px;
+  font-family: Monaco, Menlo, Consolas, "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", "Microsoft YaHei", sans-serif !important;
+  line-height: 2em;
 }

@@ -290,7 +290,7 @@ export default {
                     },
                     error => {
                         this.save2curPersonalInfo()
-                        alert(error.message)
+                        // alert(error.message)
                     }
                 )
             }
@@ -306,7 +306,7 @@ export default {
                 User.changePersonalInfo(userId, data).then(
                     response => {
                         this.cur2savePersonalInfo()
-                        alert('头像修改成功')
+                        // alert('头像修改成功')
                     },
                     error => {
                         this.save2curPersonalInfo()

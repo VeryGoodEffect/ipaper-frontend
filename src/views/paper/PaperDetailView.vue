@@ -171,7 +171,7 @@ export default {
       const blob = new Blob([text], { type });
       const data = [new ClipboardItem({ [type]: blob })];
       navigator.clipboard.write(data);
-      alert("已复制到剪切板");
+      // alert("已复制到剪切板");
     },
     downloadPaper(event) {
       // event.preventDefault()

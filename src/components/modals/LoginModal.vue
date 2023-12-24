@@ -69,7 +69,7 @@ export default {
       }
       Account.login(loginForm).then(
         (response) => {
-          alert("登录成功！")
+          // alert("登录成功！")
           this.setIsLoggedIn(true)
           this.handleClose()
           if (this.$route.path === '/') {
@@ -77,7 +77,7 @@ export default {
           }
         },
         (error) => {
-          alert("登录失败！")
+          // alert("登录失败！")
         }
       )
       

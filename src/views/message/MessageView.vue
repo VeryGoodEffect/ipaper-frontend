@@ -63,10 +63,10 @@ export default {
             this.unreadMsgs.splice(this.unreadMsgs.indexOf(msg), 1)
             Messages.deleteMessageById(msg.id).then(
                 response => {
-                    alert('删除成功')
+                    // alert('删除成功')
                 },
                 error => {
-                    alert('删除失败')
+                    // alert('删除失败')
                 }
             )
         },
@@ -81,7 +81,7 @@ export default {
                     this.getAllMessage()
                 },
                 error => {
-                    alert('设置为已读失败')
+                    // alert('设置为已读失败')
                 }
             )
         },

@@ -150,7 +150,9 @@ export default {
                         images: image,
                         rejectReason: result.failed_reason
                     }
-                }, (err) => { alert(err) })
+                }, (err) => { 
+                    // alert(err) 
+                    })
             })
         },
         handleLoading() {

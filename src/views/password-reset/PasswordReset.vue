@@ -33,10 +33,10 @@ export default {
             }
             Account.passwordReset(data).then(
                 response => {
-                    alert('密码重置成功')
+                    // alert('密码重置成功')
                 },
                 error => {
-                    alert('密码重置失败')
+                    // alert('密码重置失败')
                 }
             )
         },

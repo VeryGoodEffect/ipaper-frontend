@@ -226,5 +226,7 @@ export default {
     include_patend: '包含专利',
     include_cide: '包含引用',
 
+    talk_with_chat: '试用 ChatGPT',
+
 
 }

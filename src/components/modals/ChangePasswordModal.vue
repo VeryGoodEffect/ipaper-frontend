@@ -64,10 +64,10 @@ export default {
             }
             Account.passwordChange(data).then(
                 response => {
-                    alert('修改密码成功, 请重新登录')
+                    // alert('修改密码成功, 请重新登录')
                 },
                 error => {
-                    alert('修改密码失败')
+                    // alert('修改密码失败')
                 }
             )
         }

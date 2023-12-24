@@ -49,10 +49,10 @@ export default {
       }
       Account.sendPasswordResetEmail(resetPasswordForm).then(
         (response) => {
-          alert("请查看邮箱链接")
+          // alert("请查看邮箱链接")
         },
         (error) => {
-          alert(error.data)
+          // alert(error.data)
         }
       )
     }

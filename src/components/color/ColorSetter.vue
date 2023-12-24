@@ -38,6 +38,7 @@ export default {
         document.documentElement.style.setProperty('--theme-mode-high-contrast', '#777')
         document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#222')
         document.documentElement.style.setProperty('--default-text-color', '#111')
+        document.documentElement.style.setProperty('--article-list-item-icon-color', 'rgb(26, 14, 171)')
       } else {
         document.documentElement.style.setProperty('--theme-mode', '#181818')
         document.documentElement.style.setProperty('--theme-mode-translucent', '#18181888')
@@ -47,6 +48,7 @@ export default {
         document.documentElement.style.setProperty('--theme-mode-high-contrast', '#bbb')
         document.documentElement.style.setProperty('--theme-mode-very-high-contrast', '#c8c8c8')
         document.documentElement.style.setProperty('--default-text-color', '#eaeaea')
+        document.documentElement.style.setProperty('--article-list-item-icon-color', 'rgb(190, 184, 255)')
       }
     },
     changeThemeColor(color) {

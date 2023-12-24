@@ -174,7 +174,19 @@
         </div>
       </Pagination>
     </div>
-    <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT>
+    <!-- <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT> -->
+    <div class="chat">
+      <template v-if="showChat">
+        <ChatGPT/>
+        <svg @click="showChat = false"
+          t="1703445209964" class="fold-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8413" width="200" height="200"><path d="M584.533333 512l-302.933333 302.933333L341.333333 874.666667l302.933334-302.933334 59.733333-59.733333-59.733333-59.733333L341.333333 145.066667 281.6 209.066667l302.933333 302.933333z" fill="#444444" p-id="8414"></path></svg>
+      </template>
+      <template v-else>
+        <svg  @click="showChat = true"
+          t="1703444908491" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8273" width="200" height="200"><path d="M401.066667 512l302.933333 302.933333-59.733333 59.733334L341.333333 571.733333 281.6 512 341.333333 452.266667l302.933334-302.933334 59.733333 59.733334L401.066667 512z" fill="#444444" p-id="8274"></path></svg>
+        <span @click="showChat = true">{{ $t('talk_with_chat') }}</span>
+      </template>
+    </div>
   </div>
 </template>
   
@@ -228,6 +240,7 @@ export default {
       show_sort_by_cite: false,
       show_sort: false,
       show_filte: false.valueOf,
+      showChat: false,
 
       totalPages: 1,
       currentPage: 1,
@@ -289,7 +302,7 @@ export default {
 
     changePages(data){
       this.currentPage = data
-      alert(data)
+      //alert(data)
       this.searchmethod()
     },
     changeItemPerpage(data){
@@ -322,21 +335,21 @@ export default {
         this.search_filter = "";
         this.search_type = 1;
       } else if (type == 1) {
-        alert("abstract.search:");
+        //alert("abstract.search:");
         this.search_filter = "abstract.search:";
         this.search_type = 1;
       } else if (type == 2) {
-        alert("fulltext.search:");
+        //alert("fulltext.search:");
         this.search_filter = "fulltext.search:";
         this.search_type = 1;
       } else if (type == 3) {
-        alert("display_name.search:");
+        //alert("display_name.search:");
         this.search_filter = "display_name.search:";
         this.search_type = 1;
       }
       // Author search
       else if (type == 4) {
-        alert("search author");
+        //alert("search author");
         this.search_type = 2;
       }
 
@@ -414,7 +427,7 @@ export default {
     },
 
     advsearch(data) {
-      alert("data sent to advsearch");
+      //alert("data sent to advsearch");
       // inParts = [];
 
       //!暂时先置空吧
@@ -472,7 +485,7 @@ export default {
       // 早
       if (type == 1) {
         if (
-          (alert(this.sort + 1),
+          (/*alert(this.sort + 1),*/
           this.sort.includes("publication_date:") ||
             this.sort.includes("publication_date:desc"))
         ) {
@@ -487,7 +500,7 @@ export default {
       // 晚
       else if (type == 2) {
         if (
-          (alert(this.sort + 2),
+          (/*alert(this.sort + 2),*/
           this.sort.includes("publication_date:") ||
             this.sort.includes("publication_date:desc"))
         ) {
@@ -499,7 +512,7 @@ export default {
           this.sort += "publication_date:desc";
         }
       }
-      alert(this.sort), this.searchmethod();
+      /*alert(this.sort), */this.searchmethod();
     },
 
     sortByCite(type) {
@@ -509,7 +522,7 @@ export default {
     },
 
     handleModoleSearch(searchdata) {
-      alert("data send to here");
+      // alert("data send to here");
       console.log(searchdata);
       this.searchdata = searchdata;
       this.search = searchdata.search;
@@ -661,10 +674,10 @@ export default {
 
   computed: {
     currentComponent() {
-      alert(
-        "current search type decide the component render",
-        this.search_type
-      );
+      // alert(
+      //   "current search type decide the component render",
+      //   this.search_type
+      // );
       switch (this.search_type) {
         case 1:
           return ref("SearchResultListItem"); // 搜索结果
@@ -760,6 +773,37 @@ export default {
 .search-container {
   padding: 10px;
   width: 100%;
+}
+
+.chat {
+  margin-top: 20px;
+  min-width: 320px;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.chat svg {
+  fill: var(--default-text-color);
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.chat  span {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.chat span:hover {
+  text-decoration: underline;
+}
+
+.fold-icon {
+  position: absolute;
+  right: 0;top: 0;
+  z-index: 200;
 }
 
 @media screen and (max-width: 1000px) {
