@@ -364,26 +364,26 @@ export default {
       } else if (type == 2) {
         // 2023
 
-        this.filter = "publication_year:2023-,";
+        this.filter = "publication_year:2023-";
       } else if (type == 3) {
         // 2022
-        this.filter = "publication_year:2022-,";
+        this.filter = "publication_year:2022-";
       } else if (type == 4) {
-        this.filter = "publication_year:2021-,";
+        this.filter = "publication_year:2021-";
       } else if (type == 5) {
         this.filter =
           "publication_year:" +
           this.search_start_time +
           "-" +
           this.search_end_time +
-          ",";
+          "";
       }
       this.searchdata.filter = this.filter;
       console.log(JSON.parse(JSON.stringify(this.searchdata)));
-      JSON.parse(JSON.stringify(this.searchdata));
+      // JSON.parse(JSON.stringify(this.searchdata));
       Search.searchWorks(JSON.parse(JSON.stringify(this.searchdata))).then(
         (res) => {
-          console.log(res.data.results);
+          console.log(res.data);
           this.resultlist = res.data.results;
           this.resultlistToInfoItems();
         },
