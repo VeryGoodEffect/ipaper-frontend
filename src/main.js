@@ -169,8 +169,8 @@ app.mount('#app')
 // highlightjs
 // import hljs from 'highlight.js';
 
-VMdPreview.use(githubTheme, {
-  Hljs: hljs,
-});
-VMdPreview.use(createKatexPlugin());
-app.use(VMdPreview);
+// VMdPreview.use(githubTheme, {
+//   Hljs: hljs,
+// });
+// VMdPreview.use(createKatexPlugin());
+// app.use(VMdPreview);

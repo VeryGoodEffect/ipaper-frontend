@@ -170,8 +170,12 @@ export default {
     getInstitutions(url) {
       Search.getEntities(url).then(
         (response) => {
-          this.institutions = response.data.results
-          console.log(this.institutions)
+          this.institutions = []
+          for(let i = 0; i < 10; i++) {
+            this.institutions.push(response.data.results[i])
+          }
+          // this.institutions = response.data.results
+          // console.log(this.institutions)
         }
       )
     },

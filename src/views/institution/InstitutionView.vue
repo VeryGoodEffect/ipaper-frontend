@@ -140,7 +140,12 @@ export default {
             this.authorURL = response.data.authors_api_url
             this.getAuthors(this.authorURL)     
             this.institutionURL = response.data.homepage_url
-            this.relevantInstitution = response.data.associated_institutions
+
+            this.relevantInstitution = []
+            for(let i = 0; i < 10; i++) {
+              this.relevantInstitution.push(response.data.associated_institutions[i])
+            }
+            // this.relevantInstitution = response.data.associated_institutions
             this.institutionTags = response.data.x_concepts
             this.paperURL = response.data.works_api_url
             // alert("counts_by_year"+response.data.counts_by_year)

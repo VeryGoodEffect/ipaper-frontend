@@ -1,42 +1,41 @@
 <template>
   <div class="container">
-    <div class="conversation-button" @click="checkAllConversation">
-      {{ $t("chat_all_conversations") }}
-      <div class="conversation-list scrollable-div" v-if="isCheckingRoom">
-        <ChatListItem
-          v-for="(conversation, index) in conversationList"
-          :key="conversation.index"
-          :conversationInfo="conversationList[index]"
-          @conversationClicked="conversationClicked(index)"
-          class="chat-list-item"
-        ></ChatListItem>
+    <div class="header">
+      <div class="conversation-button" @click="checkAllConversation">
+        <svg t="1703383758860" class="icon" viewBox="0 0 1084 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7653" width="200" height="200"><path d="M184.83361091 241.54245141h697.95496331a34.89774795 34.89774795 0 1 0 0-69.79549591H184.83361091a34.89774795 34.89774795 0 1 0-1e-8 69.79549591zM184.83361091 546.89774795h414.41075932a34.89774795 34.89774795 0 1 0 0-69.7954959H184.83361091a34.89774795 34.89774795 0 1 0-1e-8 69.7954959zM184.83361091 852.25304449h196.29983373a34.89774795 34.89774795 0 1 0 1e-8-69.7954959H184.83361091a34.89774795 34.89774795 0 1 0-1e-8 69.7954959z" p-id="7654"></path></svg>
+        <div class="conversation-list scrollable-div" v-if="isCheckingRoom">
+          <ChatListItem
+            v-for="(conversation, index) in conversationList"
+            :key="conversation.index"
+            :conversationInfo="conversationList[index]"
+            @conversationClicked="conversationClicked(index)"
+            class="chat-list-item"
+          ></ChatListItem>
+        </div>
       </div>
+      <p class="chatGPT">
+        ChatGPT
+      </p>
+      <p class="chatGPT-num">
+        3.5
+      </p>
     </div>
+    
     <div class="dialog-box scrollable-div">
       <div
         v-for="dialog in dialogList"
         :key="dialog.index"
-        :class="['dialog-bubble', { 'user-content': !dialog.isResponse }]"
       >
-        <!-- <svg
-          v-if="dialog.content === ''"
-          t="1703209866887"
-          class="loading-icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="5281"
-          width="200"
-          height="200"
-        >
-          <path
-            d="M480 96a32 32 0 0 1 64 0v192a32 32 0 0 1-64 0V96z m250.624 60.64a32 32 0 1 1 51.776 37.632L669.568 349.6a32 32 0 0 1-51.808-37.632L730.624 156.64zM897.76 353.024a32 32 0 1 1 19.776 60.864l-182.624 59.328a32 32 0 0 1-19.776-60.864l182.624-59.328z m19.776 257.088a32 32 0 1 1-19.776 60.864l-182.624-59.328a32 32 0 0 1 19.776-60.864l182.624 59.328zM782.4 829.76a32 32 0 0 1-51.776 37.632L617.76 712.064a32 32 0 1 1 51.808-37.632L782.4 829.76zM544 928a32 32 0 0 1-64 0V736a32 32 0 0 1 64 0v192z m-250.624-60.64a32 32 0 0 1-51.776-37.632L354.432 674.4a32 32 0 0 1 51.808 37.632L293.376 867.36zM126.24 670.976a32 32 0 1 1-19.776-60.864l182.624-59.328a32 32 0 0 1 19.776 60.864L126.24 670.976z m-19.776-257.088a32 32 0 0 1 19.776-60.864l182.624 59.328a32 32 0 1 1-19.776 60.864l-182.624-59.328zM241.6 194.24a32 32 0 1 1 51.776-37.632L406.24 311.936a32 32 0 1 1-51.808 37.632L241.6 194.24z"
-            p-id="5282"
-          ></path>
-        </svg> -->
-        <!-- <v-md-preview :text="dialog.content" class="md-preview"></v-md-preview> -->
-        <!-- <div class="md-preview" v-html="renderMarkdown(dialog.content)"></div> -->
-        <div class="md-preview" v-html="renderedMarkdown(dialog.content)"></div>
+        <div class="assistant-info" v-if="dialog.isResponse">
+          <img src="https://img2.baidu.com/it/u=118397013,4126789630&fm=253&fmt=auto&app=138&f=JPEG?w=243&h=243">
+          <p>Assistant</p>
+        </div>
+        <div class="user-info" v-else="dialog.isResponse">
+          <p>User</p>
+          <img src="https://img.zcool.cn/community/01884c5da1a0fba80121b7226a6bb6.png@1280w_1l_2o_100sh.png">
+        </div>
+        <div v-if="dialog.isResponse" class="dialog-bubble" v-html="renderedMarkdown(dialog.content)"></div>
+        <div v-else class="dialog-bubble user-content" v-html="renderedMarkdown(dialog.content)"></div>
       </div>
     </div>
     <div class="input-area">
@@ -45,9 +44,9 @@
         v-model="inputText"
         @keydown.enter.prevent="submit"
       ></textarea>
-      <button type="button" @click="submit" class="send-button">
-        {{ $t("chat_send") }}
-      </button>
+      <div @click="submit" class="send-button">
+        <svg t="1703386830104" class="icon-send" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9604" width="200" height="200"><path d="M507.904 882.688c-18.432 0-33.28-14.848-33.28-33.28v-655.36c0-18.432 14.848-33.28 33.28-33.28s33.28 14.848 33.28 33.28v654.848c0 18.432-14.848 33.792-33.28 33.792z" fill="" p-id="9605"></path><path d="M787.968 502.784c-8.704 0-16.896-3.072-23.552-9.728L507.904 236.544 251.392 493.056c-12.8 12.8-34.304 12.8-47.104 0-12.8-12.8-12.8-34.304 0-47.104l280.064-280.064c6.144-6.144 14.848-9.728 23.552-9.728s17.408 3.584 23.552 9.728l280.064 280.064c12.8 12.8 12.8 34.304 0 47.104-6.656 6.656-15.36 9.728-23.552 9.728z" p-id="9606"></path></svg>
+      </div>
     </div>
   </div>
 </template>
@@ -112,6 +111,7 @@ export default {
         if (data.delta.content) {
           this.dialogList[this.dialogList.length - 1].content +=
             data.delta.content;
+            this.conversationID = data.delta.conversation.id
         }
       }
 
@@ -133,7 +133,7 @@ export default {
     getChatConversations() {
       Chat.getAllConversations(this.$cookies.get("user_id")).then(
         (response) => {
-          console.log(response);
+          // console.log(response);
           this.conversationList = response.data;
           // console.log(response.data.username)
         },
@@ -146,6 +146,8 @@ export default {
       if (this.inputText === "") {
         return;
       }
+      // console.log(111111111)
+      // console.log(this.conversationID)
       let data = {
         conversation: this.conversationID,
         content: this.inputText,
@@ -176,15 +178,16 @@ export default {
         this.ws.onmessage = this.handleMessage;
       }
 
-      Chat.createCompletion(data);
+      Chat.createCompletion(data)
     },
     conversationClicked(index) {
-      this.conversationID = this.conversationList[index].id;
-      console.log(this.conversationID);
-      this.dialogList = [];
+      this.conversationID = this.conversationList[index].id
+      // console.log(this.conversationID)
+      this.dialogList = []
       Chat.getChatMessagesList(this.conversationID).then(
         (response) => {
-          console.log(response);
+          // console.log(11111)
+          // console.log(response)
           for (let i = 0; i < response.data.length; i++) {
             let flag = false;
             if (response.data[i].role === "assistant") {
@@ -197,7 +200,7 @@ export default {
           }
 
           this.scrollToBottom();
-          setTimeout(this.clearUselessStyle, 10);
+          setTimeout(this.clearUselessStyle, 10)
         },
         (error) => {
           console.log(error);
@@ -206,20 +209,20 @@ export default {
     },
     scrollToBottom() {
       this.$nextTick(function () {
-        const container = document.querySelector(".dialog-box");
-        console.log(container);
-        container.scrollTop = container.scrollHeight;
-        container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+        const container = document.querySelector(".dialog-box")
+        // console.log(container)
+        container.scrollTop = container.scrollHeight
+        container.scrollTo({ top: container.scrollHeight, behavior: "smooth" })
       });
     },
     clearUselessStyle() {
       var divElements = document.querySelectorAll(".github-markdown-body");
       // console.log(divElements)
       for (var i = 0; i < divElements.length; i++) {
-        var divElement = divElements[i];
+        var divElement = divElements[i]
         // 对每个div元素进行操作
-        divElement.style.paddingBottom = "0";
-        divElement.style.fontSize = "15px";
+        divElement.style.paddingBottom = "0"
+        divElement.style.fontSize = "15px"
       }
     },
   },
@@ -231,17 +234,42 @@ export default {
   border: 2px solid var(--theme-mode-high-contrast);
   border-radius: 10px;
   width: 400px;
-  height: 730px;
+  height: 740px;
+}
+.header {
+  margin: 0 auto;
+  width: 90%;
+  border-bottom: 2px solid var(--theme-mode-contrast);
+  display: flex;
+  margin-bottom: 10px;
+}
+/* .header > p {
+  
+} */
+.chatGPT {
+  font-size: 20px;
+  margin-top: 10px; 
+  margin-left: 100px;
+  margin-bottom: 10px;
+}
+.chatGPT-num {
+  font-size: 20px;
+  margin-top: 12px;
+  margin-left: 5px;
+  font-size: 18px;
+  color: var(--theme-color-50);
 }
 .dialog-box {
   height: 600px;
   width: 100%;
   overflow-y: auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   /* position: relative; */
+  font-size: unset;
+}
+.dialog-box > div {
   display: flex;
   flex-direction: column;
-  font-size: unset;
 }
 .scrollable-div::-webkit-scrollbar {
   width: 0.5em;
@@ -261,7 +289,12 @@ export default {
 }
 .input-area {
   display: flex;
-  justify-content: space-around;
+  margin: 0 auto;
+  width: 90%;
+  border: 2px solid var(--theme-mode-contrast);
+  border-radius: 10px;
+  padding: 10px;
+  /* justify-content: space-around; */
 }
 .dialog-bubble {
   border: 2px solid var(--theme-mode-high-contrast);
@@ -274,27 +307,18 @@ export default {
   margin-left: 10px;
   margin-right: 20px;
   /* padding-bottom: 10px; */
-  padding: 0;
-}
-.dialog-bubble p {
-  margin: 10px;
-}
-.dialog-bubble * {
   /* padding: 0; */
+  padding: 10px;
 }
+
 .response {
   display: flex;
   flex-wrap: wrap;
 }
 .conversation-button {
-  background-color: var(--theme-mode-contrast);
-  width: 100px;
-  min-width: 100px;
   text-align: center;
-  height: 30px;
-  border-radius: 10px;
   cursor: pointer;
-  margin: 10px;
+  margin-top: 10px;
   position: relative;
   transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   z-index: 999;
@@ -305,13 +329,14 @@ export default {
   /* right: -0px; */
   height: 500px;
   overflow-y: auto;
-  width: 225px;
+  width: 260px;
   background-color: var(--theme-mode-slight-contrast);
   border-radius: 5px;
   border: 2px solid var(--theme-mode-high-contrast);
 }
 .user-content {
   right: 0;
+  /* width: 30px; */
   background-color: var(--theme-color-80);
   align-self: flex-end;
   border: unset;
@@ -321,30 +346,73 @@ export default {
 }
 .input-text {
   border-radius: 10px;
-  width: 200px;
+  width: 310px;
+  margin-right: 10px;
   font-size: 17px;
   overflow: hidden;
+  background-color: var(--theme-mode);
 }
 .send-button {
   background-color: var(--theme-color-80);
-  color: white;
+  /* color: white; */
+  border-radius: 15px;
+  width: 40px;
+  cursor: pointer;
+  /* right: 0; */
+  /* align-self: flex-end; */
+}
+.send-button :hover {
+  background-color: var(--theme-color-100);
+  
+  /* right: 0; */
+  /* align-self: flex-end; */
+}
+.icon-send {
+  fill: white;
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  margin-left: 5px;
 }
 .bubble-container {
   align-self: flex-end;
 }
 .chat-list-item {
-  margin-bottom: 10px;
-  margin-left: 7px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--theme-mode-contrast);
 }
-.loading-icon {
-  width: 30px;
-  height: 30px;
-  animation: rotate 2s infinite linear;
-  animation-play-state: running;
-  margin-left: 44%;
-  margin-top: 15px;
+.assistant-info {
+  display: flex;
+
+}
+.assistant-info > img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+.assistant-info > p{
+  margin-left: 10px;
+  margin-top: 9px;
 }
 
+.user-info {
+  display: flex;
+  right: 0;
+  align-self: flex-end;
+}
+.user-info > img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+.user-info > p{
+  margin-right: 10px;
+  margin-top: 9px;
+}
 @keyframes rotate {
   from {
     transform: rotate(0deg);
@@ -356,5 +424,10 @@ export default {
 
 .md-preview {
   font-size: 15px !important;
+}
+.icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--default-text-color);
 }
 </style>
