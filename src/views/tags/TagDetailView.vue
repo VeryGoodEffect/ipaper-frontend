@@ -175,9 +175,16 @@ export default {
         (response) => {
           console.log( "institutions"+response.data.results )
           this.institutions = []
-          var lenth = response.data.results.length
-          for(let i = 0; i < 10 && i<length; i++) {
-            this.institutions.push(response.data.results[i])
+          if(response.data.results.length >= 10)
+          {
+            for(let i = 0; i < 10; i++) {
+              this.institutions.push(response.data.results[i])
+            }
+          }
+          else {
+            for(let i = 0; i < response.data.results.length; i++) {
+              this.institutions.push(response.data.results[i])
+            }
           }
           // this.institutions = response.data.results
           console.log(this.institutions)
@@ -189,9 +196,16 @@ export default {
         (response) => {
           console.log( "author"+response.data.results )
           this.authors = []
-          var lenth = response.data.results.length
-          for(let i = 0; i < 10 && i < lenth; i++) {
-            this.authors.push(response.data.results[i])
+          if(response.data.results.length >= 10)
+          {
+            for(let i = 0; i < 10; i++) {
+              this.authors.push(response.data.results[i])
+            }
+          }
+          else {
+            for(let i = 0; i < response.data.results.length; i++) {
+              this.authors.push(response.data.results[i])
+            }
           }
         }
       )
@@ -201,9 +215,9 @@ export default {
       // Search.getEntities(url).then(
       Search.getPagnationEntities(this.papersURL, param).then(
         (response) => {
-          console.log(11224123123)
-          console.log(this.paginationInfo)
-          console.log(response)
+          // console.log(11224123123)
+          // console.log(this.paginationInfo)
+          // console.log(response)
           this.infoItems = []
           this.paginationInfo.totalPages = Math.ceil(response.data.meta.count / this.paginationInfo.itemsPerPage)
           // console.log(this.paginationInfo.totalPages)
