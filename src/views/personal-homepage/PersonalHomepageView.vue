@@ -116,8 +116,8 @@
                 <h3>{{ $t('personal_interest_tags') }}</h3>
                 <button @click="interestTagSelectorModalShow = true">添加兴趣标签</button>
                 <div class="tag-container">
-                    <p v-for="(tag, index) in interestTag" :key="index" class="tag-item">
-                        {{ tag.name }}
+                    <p v-for="(tag, index) in interests" :key="index" class="tag-item">
+                        {{ tag }}
                     </p>
                 </div>
             </div>
@@ -185,8 +185,9 @@ export default {
                 email: '',
                 gender: '',
                 urls: [],
-                major: ''
+                major: '',
             },
+            interests: [],
             savePersonalInfo: {},
             avatarIsHovered: false,
             isChangeing: false,
@@ -199,8 +200,7 @@ export default {
 
     created() {
         this.getUserInfo()
-        // this.$bus.on('auditedProcessing', setButtonProcessingStatus)
-        // this.$bus.on('')
+        this.$bus.on('sendFlushInterestRequest', this.flushInterets)
     },
     methods: {
         getUserInfo() {
@@ -224,6 +224,7 @@ export default {
                             }
                         }
                         this.personalInfo.avatarUrl = 'api/users/' + userId + '/avatar/'
+                        this.interests = response.data.interests
                     },
                     (error) => {
                         console.log(error)
@@ -232,13 +233,25 @@ export default {
                 User.getFavoriteList(0).then(
                     (response) => {
                         console.log(response)
-                        // console.log(response.data.username)
                         for (var i = 0; i < response.data.length; i++) {
                             this.favouritesInfo.push({
                                 name: response.data[i].name,
                                 id: response.data[i].id
                             })
                         }
+                    },
+                    (error) => {
+                        console.log(error)
+                    }
+                )
+            }
+        },
+        flushInterets() {
+            let userId = this.$cookies.get('user_id')
+            if (userId) {
+                User.getUser(userId).then(
+                    (response) => {
+                        this.interests = response.data.interests
                     },
                     (error) => {
                         console.log(error)
