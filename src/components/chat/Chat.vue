@@ -31,7 +31,7 @@
           <p>Assistant</p>
         </div>
         <div class="user-info" v-else="dialog.isResponse">
-          <p>User</p>
+          <p>{{ currentUsername }}</p>
           <img src="https://img.zcool.cn/community/01884c5da1a0fba80121b7226a6bb6.png@1280w_1l_2o_100sh.png">
         </div>
         <div v-if="dialog.isResponse" class="dialog-bubble" v-html="renderedMarkdown(dialog.content)"></div>
@@ -54,6 +54,7 @@
   <script>
 import ChatListItem from "../../components/chat/ChatListItem.vue";
 import { Chat } from "../../api/chat.js";
+import { User } from "../../api/users.js";
 // import VueMarkdown from 'vue-markdown'
 import { marked } from "marked";
 import hljs from "highlight.js";
@@ -74,9 +75,12 @@ export default {
       conversationList: [],
       conversationID: null,
       ws: null,
+      currentUsername: '',
     };
   },
-  created() {},
+  created() {
+    this.getUserInfo()
+  },
   mounted() {
     const url = `wss://www.isound.live/ws/chat/?user_id=${this.$cookies.get(
       "user_id"
@@ -93,6 +97,16 @@ export default {
     });
   },
   methods: {
+    getUserInfo() {
+      User.getUser(this.$cookies.get('user_id')).then(
+        (response) => {
+          this.currentUsername = response.data.username
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    },
     renderedMarkdown(markdown) {
       this.$nextTick(() => {
         document.querySelectorAll("pre code").forEach((block) => {
