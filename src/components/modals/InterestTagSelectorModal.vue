@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="interest-tag-options">
-            <n-tree block-line :data="this.showInterestTag" expand-on-click checkable :on-update:checked-keys="handleNodeSelect" />
+            <n-tree ref="interestTreeRef" block-line :data="this.showInterestTag" expand-on-click checkable :on-update:checked-keys="handleNodeSelect" />
         </div>
         <div class="btn-box">
             <button class="basic-btn-outline" @click="handleClose">{{ $t('cancel_text') }}</button>
@@ -60,6 +60,7 @@ export default {
     },
     methods: {
         handleClose() {
+            this.deleteSelectedTags()
             this.$emit('close')
         },
         getInteretTag() {
@@ -90,7 +91,7 @@ export default {
                         label,
                         key: nodeId++,
                         children,
-                        disabled: true
+                        checkboxDisabled: true
                     })
                 }
             })
@@ -103,6 +104,7 @@ export default {
             Article.modifyInterest(data).then(
                 response => {
                     this.handleClose()
+                    this.$bus.emit('sendFlushInterestRequest')
                 },
                 error => {
                     alert('Error')
@@ -118,6 +120,18 @@ export default {
                 this.selectInterestTag.splice(this.selectInterestTag.indexOf(key), 1)
             }
             this.showSelectTag = this.showSelectTag.filter(item => item.key !== key)
+        },
+        deleteSelectedTags() {
+            this.selectInterestTag.forEach(key => {
+                this.deleteSelectedTag(key);
+            });
+            this.selectInterestTag = [];
+            this.showSelectTag = [];
+            this.showInterestTag.forEach(category => {
+                category.children.forEach(tag => {
+                    tag.isChecked = false;
+                });
+            });
         }
     }
 }
