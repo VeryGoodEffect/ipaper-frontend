@@ -125,7 +125,6 @@ export default {
             let simpleView = this.$refs.simpleView
             let approveArea = this.$refs.approveArea
             let disapproveArea = this.$refs.disapproveArea
-            console.log(this.$refs.approveArea)
             switch (this.approved) {
                 case true:
                     approveArea.style.display = 'block'
