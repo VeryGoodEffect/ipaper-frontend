@@ -2,29 +2,29 @@
 <PopoutModal :show="show" @close="handleClose">
     <div class="container">
         审核进度：
-        <div v-if="this.percentage == 100">{{ this.auditDetail.status }}</div>
-        <div v-else>正在审核中</div>
+        <span v-if="this.percentage == 100">{{ this.auditDetail.status }}</span>
+        <span v-else>正在审核中</span>
         <n-progress type="line" :percentage="this.percentage" :indicator-placement="'inside'" processing />
+        <div>
+        <!-- 提交认证信息 -->
+        </div>
+        <div>
+            <p>审核管理员: {{ auditorUsername }}</p>
+            <p>{{ real_name }}</p>
+            <p>{{ institution }}</p>
+            <p>{{ position }}</p>
+            <p>{{ concepts }}</p>
+            <p>{{ work_email }}</p>
+            <p>{{ content }}</p>
+            <p>{{ timestamp }}</p>
+            <img v-if="image1 != null" :src="image1" style="height: 100px; width: 100px">
+            <img v-if="image2 != null" :src="image2" style="height: 100px; width: 100px">
+            <img v-if="image3 != null" :src="image3" style="height: 100px; width: 100px">
+            <!-- 这里吧图片弄一下就ok -->
+        </div>
+        <button class="basic-btn-outline" @click="handleClose">{{ $t('cancel_text') }}</button>
+        <button class="basic-btn authenticate-btn" @click="modifyAuthenticateModalShouldShow = true">重新认证</button>
     </div>
-    <div>
-        提交认证信息
-    </div>
-    <div>
-        <p>审核管理员: {{ auditorUsername }}</p>
-        <p>{{ real_name }}</p>
-        <p>{{ institution }}</p>
-        <p>{{ position }}</p>
-        <p>{{ concepts }}</p>
-        <p>{{ work_email }}</p>
-        <p>{{ content }}</p>
-        <p>{{ timestamp }}</p>
-        <img v-if="image1 != null" :src="image1" style="height: 100px; width: 100px">
-        <img v-if="image2 != null" :src="image2" style="height: 100px; width: 100px">
-        <img v-if="image3 != null" :src="image3" style="height: 100px; width: 100px">
-        <!-- 这里吧图片弄一下就ok -->
-    </div>
-    <button class="basic-btn-outline" @click="handleClose">{{ $t('cancel_text') }}</button>
-    <button class="basic-btn authenticate-btn" @click="modifyAuthenticateModalShouldShow = true">重新认证</button>
     <ModifyAuthenticateModal :show="modifyAuthenticateModalShouldShow" @close="modifyAuthenticateModalShouldShow = false" />
 </PopoutModal>
 </template>
@@ -110,4 +110,17 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+button:first-of-type {
+    margin-right: 20px;
+}
+
+p:first-of-type {
+    margin-top: 10px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+</style>

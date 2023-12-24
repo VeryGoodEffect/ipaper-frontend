@@ -15,6 +15,8 @@ import InstitutionView from '../views/institution/InstitutionView.vue'
 import TagDetailView from '../views/tags/TagDetailView.vue'
 import PasswordReset from '../views/password-reset/PasswordReset.vue'
 
+import store from '../store'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -50,23 +52,39 @@ const router = createRouter({
       path: '/institution_detail/:id',
       component: InstitutionView
     },
-    {
-      path: '/tag_detail/:id',
-      component: TagDetailView
-    },
-    {
-      path: '/chat',
-      component: ChatTestView
-    },
-    {
-      path: '/password_reset',
-      component: PasswordReset
-    },
+    // {
+    //   path: '/tag_detail/:id',
+    //   component: TagDetailView
+    // },
+    // {
+    //   path: '/chat',
+    //   component: ChatTestView
+    // },
+    // {
+    //   path: '/password_reset',
+    //   component: PasswordReset
+    // },
     {
       path: '/admin',
       component: AdminView
     },
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = store.state.isLoggedIn
+  if (!isLoggedIn && (
+      to.path === '/personal_homepage' ||
+      to.path === '/message' || 
+      to.path === '/admin' ||
+      to.path === '/search'
+    )  
+  ) {
+    console.log('not log', isLoggedIn)
+    next('/')
+  } else {
+    next()
+  }
 })
 
 export default router

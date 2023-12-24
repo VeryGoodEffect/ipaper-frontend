@@ -1,7 +1,7 @@
 export default {
     web_name_text: ' 学术成果分享平台',
 
-    frontpage_intro: '非常好的平台',
+    frontpage_intro: '又多又快，一点不赖',
 
     login_text: '登录',
     logout_text: '登出',

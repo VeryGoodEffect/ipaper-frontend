@@ -42,6 +42,7 @@ button {
 .basic-btn {
   background: var(--theme-color);
   color: #fff;
+  cursor: pointer;
 }
 
 .basic-btn:hover {
@@ -53,6 +54,7 @@ button {
   background-color: transparent;
   border: 1px solid var(--theme-color);
   color: var(--theme-color);
+  cursor: pointer;
 }
 
 .basic-btn-outline:hover {

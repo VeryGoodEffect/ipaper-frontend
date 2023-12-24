@@ -1,13 +1,15 @@
 <template>
 <PopoutModal :show="show" @close="handleClose">
     <div class="container">
-        <h3>{{ $t('interest_tag_select_text') }}</h3>
+        <h3>
+            {{ $t('interest_tag_select_text') }}
+        </h3>
         <div class="select-container">
             <div class="select-content" v-if="this.showSelectTag.length !== 0">
                 <TagButtonItem v-for="tag in this.showSelectTag" :key="tag.key" :tag="tag"></TagButtonItem>
             </div>
             <div v-else>
-                暂未选择兴趣标签
+                <!-- 暂未选择兴趣标签 -->
             </div>
         </div>
         <div class="interest-tag-options">
@@ -143,6 +145,7 @@ export default {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    max-width: 800px;
 }
 
 .container>* {
@@ -152,7 +155,7 @@ export default {
 .container>h3 {
     display: flex;
     justify-content: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .container>h3,
@@ -200,7 +203,7 @@ export default {
 }
 
 .select-container {
-    width: 75%;
+    max-width: 60%;
     height: 45px;
     overflow-x: auto;
     white-space: nowrap;
@@ -211,6 +214,9 @@ export default {
 .select-content {
     display: flex;
     /* 确保内容可以横向排列 */
+}
+.select-container::-webkit-scrollbar {
+    display: none;
 }
 
 /* 每个滚动项的容器 */
@@ -224,6 +230,14 @@ export default {
     width: 75%;
     overflow-y: auto;
     margin-bottom: 5px
+}
+
+.interest-tag-options::-webkit-scrollbar {
+    display: none;
+}
+
+svg {
+    fill: var(--theme-color) !important;
 }
 
 @media screen and (max-width: 768px) {

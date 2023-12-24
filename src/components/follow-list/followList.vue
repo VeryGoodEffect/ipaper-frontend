@@ -1,9 +1,9 @@
 <template>
   <div class="follow-list-area">
       <div class="item-card" v-for="(follower, idx) in followers" :key="idx">
-        <div>
+        <!-- <div>
           <img class="item-image" />
-        </div>
+        </div> -->
         <div class="item-text">
           <h4 class="follower-name">{{ follower.display_name }}</h4>
         </div>
@@ -124,8 +124,11 @@ export default {
 .follow-list-area {
   padding: 20px;
   overflow-y: auto;
-  height: 550px; 
+  min-height: 250px; 
+  max-height: 500px; 
   background: var(--theme-mode-like);
+  margin-bottom: 20px;
+  border-radius: 10px;
 }
 
 .item-card {
@@ -160,6 +163,11 @@ export default {
 
 .item-text h4:hover {
   text-decoration: underline;
+}
+
+.follower-name {
+  margin-left: 15px;
+  cursor: pointer;
 }
 
 </style>

@@ -1,7 +1,7 @@
 export default {
     web_name_text: ' Academic Sharing',
 
-    frontpage_intro: 'Blow my own trumpet~',
+    frontpage_intro: 'Faster? Fastest.',
 
     login_text: 'Login',
     logout_text: 'Logout',

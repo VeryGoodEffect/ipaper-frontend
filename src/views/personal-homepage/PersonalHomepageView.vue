@@ -113,8 +113,11 @@
                 </div>
             </div>
             <div class="personal-tag">
-                <h3>{{ $t('personal_interest_tags') }}</h3>
-                <button @click="interestTagSelectorModalShow = true">添加兴趣标签</button>
+                <h3>
+                  {{ $t('personal_interest_tags') }}
+                  <svg @click="interestTagSelectorModalShow = true"
+                    t="1703450163993" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8553" width="200" height="200"><path d="M469.333333 469.333333V170.666667h85.333334v298.666666h298.666666v85.333334h-298.666666v298.666666h-85.333334v-298.666666H170.666667v-85.333334h298.666666z" p-id="8554"></path></svg>
+                </h3>
                 <div class="tag-container">
                     <p v-for="(tag, index) in interests" :key="index" class="tag-item">
                         {{ tag }}
@@ -610,6 +613,14 @@ em {
     width: 100%;
     /* border: 2px solid red; */
     /* width: 50%;  */
+}
+
+.personal-tag svg {
+  fill: var(--theme-color) !important;
+  width: 30px;
+  height: 30px;
+  translate: 0 5px;
+  cursor: pointer;
 }
 
 .personal-tag h3 {

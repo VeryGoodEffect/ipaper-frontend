@@ -154,6 +154,7 @@ export default {
         (response) => {
           // alert("登出成功！")
           this.setIsLoggedIn(false)
+          this.$router.replace('/')
         },
         (error) => {
           // alert("登出失败！")

@@ -215,17 +215,20 @@ main h2 {
     width: 40px;
     height: 40px;
   }
+  main h2 {
+    font-size: 50px;
+  }
 }
 
 @media screen and (max-width: 600px) {
   main h2 {
-    font-size: 60px;
+    font-size: 30px;
   }
 }
 
 @media screen and (max-width: 450px) {
   main h2 {
-    font-size: 40px;
+    font-size: 20px;
   }
 }
 
