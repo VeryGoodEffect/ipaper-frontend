@@ -1,45 +1,22 @@
 <template >
   <div class="search-area">
     <div>
-      <input
-        v-model="search_search"
-        type="text"
-        class="basic-input search-input"
-        :placeholder="place_holder"
-        @keydown.down="navigateDown"
-        @keydown.up="navigateUp"
-        @keydown.enter="searchOrChangeContent"
-        @focus="showAutoCompleteMenu"
-        @blur="hideAutoCompleteMenu"
-      />
+      <input v-model="search_search" type="text" class="basic-input search-input" :placeholder="place_holder"
+        @keydown.down="navigateDown" @keydown.up="navigateUp" @keydown.enter="searchOrChangeContent"
+        @focus="showAutoCompleteMenu" @blur="hideAutoCompleteMenu" />
       <ul v-if="autoCompleteShouldShow && autoCompleteLists.length > 0">
-        <li
-          :class="{ 'suggestion-active': index === activeSuggestionIndex }"
-          v-for="(item, index) in autoCompleteLists"
-          :key="index"
-          @mouseover="activeSuggestionIndex = index"
-          @click="changeContent(item.display_name)"
-        >
+        <li :class="{ 'suggestion-active': index === activeSuggestionIndex }" v-for="(item, index) in autoCompleteLists"
+          :key="index" @mouseover="activeSuggestionIndex = index" @click="changeContent(item.display_name)">
           {{ item.display_name }}
         </li>
       </ul>
     </div>
     <button @click="search" class="basic-btn search-btn">
-      <svg
-        t="1699356103686"
-        class="icon"
-        viewBox="0 0 1024 1024"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        p-id="4162"
-        width="200"
-        height="200"
-      >
+      <svg t="1699356103686" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        p-id="4162" width="200" height="200">
         <path
           d="M945.066667 898.133333l-189.866667-189.866666c55.466667-64 87.466667-149.333333 87.466667-241.066667 0-204.8-168.533333-373.333333-373.333334-373.333333S96 264.533333 96 469.333333 264.533333 842.666667 469.333333 842.666667c91.733333 0 174.933333-34.133333 241.066667-87.466667l189.866667 189.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c8.533333-12.8 8.533333-34.133333-2.133333-46.933334zM469.333333 778.666667C298.666667 778.666667 160 640 160 469.333333S298.666667 160 469.333333 160 778.666667 298.666667 778.666667 469.333333 640 778.666667 469.333333 778.666667z"
-          p-id="4163"
-          fill="#fff"
-        ></path>
+          p-id="4163" fill="#fff"></path>
       </svg>
     </button>
   </div>
@@ -52,7 +29,7 @@ import AsideBar from "../../components/search-property/AsideBar.vue";
 import i18n from "../../language";
 export default {
   emits: ["senddata"],
-  props:["searchContent"],
+  props: ["searchContent"],
   components: {
     i18n,
     AsideBar,
@@ -123,10 +100,10 @@ export default {
         // 执行其他逻辑
       }
     },
-    setSearchContent(data){
-      this.search_search = data 
+    setSearchContent(data) {
+      this.search_search = data
     },
-    buildQuery() {},
+    buildQuery() { },
     advsearch(data) {
       // alert("data sent to advsearch");
       // queryParts = [];
@@ -289,8 +266,8 @@ export default {
       }
     },
     scrollToAnchor(anchor) {
-      const offset =  document.getElementById(anchor).getBoundingClientRect().top 
-                      - document.body.getBoundingClientRect().top - 60
+      const offset = document.getElementById(anchor).getBoundingClientRect().top
+        - document.body.getBoundingClientRect().top - 60
       window.scrollTo({ top: offset, behavior: 'smooth' })
     }
   },
@@ -301,6 +278,7 @@ export default {
   max-width: 100%;
   /* overflow: hidden; */
 }
+
 .container {
   width: 100%;
   /* height: calc(100vh - 80px); */
@@ -319,6 +297,7 @@ export default {
   display: flex;
   justify-content: center;
   position: relative;
+  top: 0;
   z-index: 99;
   margin: 0 auto;
 }

@@ -1,5 +1,6 @@
 <template>
-    <div class="loading-container" :class="{ 'open': display, 'loading-close-slow': slowClose, 'animated-end': slowClose }">
+    <div ref="container" class="loading-container"
+        :class="{ 'open': display, 'loading-close-slow': slowClose, 'animated-end': slowClose }">
         <div class="letters-container" :class="{}">
             <span>
                 <span class="letter-parent i" ref="parentI">i</span>
@@ -154,19 +155,38 @@ export default {
             }
         }
     },
+    methods: {
+        //因为采用了fixed，所以需要动态调整宽高
+        resize() {
+            const container = this.$refs.container
+            const parentWidth = container.parentNode.offsetWidth
+            const parentHeight = container.parentNode.offsetHeight
+            container.style.width = parentWidth + 'px'
+            container.style.height = parentHeight + 'px'
+        }
+    },
+    mounted() {
+        this.resize()
+        // 使用 MutationObserver 监听 DOM 变化
+        var observer = new MutationObserver(this.resize);
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+    },
+    beforeUnmount() {
+        removeEventListener('resize', this.resize)
+    },
 }
 </script>
 
 <style scoped >
 .loading-container {
-    background: var(--theme-mode-translucent);
-    backdrop-filter: blur(5px);
-    position: fixed;
+    background: var(--theme-mode);
+    /* backdrop-filter: blur(5px); */
+    position: sticky;
     top: 0;
     display: none;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
+    /* width: 100%;
+    height: 100%; */
+    z-index: 500;
     align-items: center;
     justify-content: center;
     transition: all ease-out 0.5s;
@@ -323,12 +343,12 @@ export default {
 
     25% {
         animation-timing-function: ease-in-out;
-        rotate: 25deg;
+        rotate: 10deg;
     }
 
     75% {
         animation-timing-function: ease-in;
-        rotate: -25deg;
+        rotate: -10deg;
     }
 
     100% {
