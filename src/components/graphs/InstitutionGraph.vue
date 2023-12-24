@@ -1,6 +1,5 @@
 <template>
   <div id="graph-count" style="width: 100%; height: 400px; z-index: 999"></div>
-  
 </template>
   
   <script>
@@ -35,7 +34,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: [],
+            data: ['2020','2021','2022'],
             axisTick: {
               alignWithLabel: true,
             },
@@ -51,21 +50,25 @@ export default {
             name: "成果数量",
             type: "bar",
             barWidth: "30%",
-            data: [],
+            data: [1000,2000,3000],
           },
           {
             name: "引用数量",
             type: "bar",
             barWidth: "30%",
-            data: [],
-          }
+            data: [1000,2000,3000],
+          },
         ],
       },
-
     };
   },
   beforeDestroy() {
     this.destroyChart();
+  },
+  beforeUnmount() {
+    if (this.chart) {
+      this.chart.dispose();
+    }
   },
   methods: {
     initChart() {
@@ -74,25 +77,7 @@ export default {
 
       // 获取图表容器
       const chartDom = document.getElementById("graph-count");
-
-      // 初始化图表
       this.chart = echarts.init(chartDom);
-
-      // 设置图表配置项
-
-      // 设置图表配置项并渲染图表
-      // this.chart.setOption(this.option);
-
-      var len = this.info.length;
-      console.log(this.info, "!!!!!!!");
-    //   const reversedInfo = this.info.reverse();
-        const sortedInfo = this.info.sort((a, b) => a.year - b.year);
-      
-        sortedInfo.forEach((element) => {
-        this.option.xAxis[0].data.push(element.year);
-        this.option.series[0].data.push(element.works_count);
-        this.option.series[1].data.push(element.cited_by_count);
-      });
 
       this.chart.setOption(this.option);
     },
@@ -103,6 +88,22 @@ export default {
         this.chart.dispose();
         this.chart = null;
       }
+    },
+  },
+  watch: {
+    info(oldVal, newVal) {
+      // var len = this.info.length;
+      console.log(this.info, "!!!!!!!");
+      //   const reversedInfo = this.info.reverse();
+      const sortedInfo = this.newVal.sort((a, b) => a.year - b.year);
+      this.option.xAxis[0].data = [];
+      this.option.series[0].data = [];
+      this.option.series[1].data = [];
+      sortedInfo.forEach((element) => {
+        this.option.xAxis[0].data.push(element.year);
+        this.option.series[0].data.push(element.works_count);
+        this.option.series[1].data.push(element.cited_by_count);
+      });
     },
   },
 };
