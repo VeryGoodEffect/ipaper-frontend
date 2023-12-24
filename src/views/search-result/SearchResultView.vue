@@ -1,55 +1,68 @@
 <template>
   <div class="main-area">
     <div class="cond-area" style="display: vertical; position: sticky; top: 0">
-      <h3 style="width: 100%;" @click="show_filte = ! show_filte">
-        {{ $t('filter') }}
-
+      <h3 style="width: 100%" @click="show_filte = !show_filte">
+        {{ $t("filter") }}
       </h3>
       <div v-show="show_filte">
         <div
-        class="filter-card"
-        style="
-          display: vertical;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 10%;
-          margin-bottom: 10%;
-          text-align: center;
-        "
-      >
-        <ul>
-          <li>{{ $t('filte_by_time') }}</li>
-          <li @click="setFilterTime(1)" style="cursor: pointer">{{ $t('no_limit_time') }}</li>
-          <li @click="setFilterTime(2)" style="cursor: pointer">{{ $t('since_2023') }}</li>
-          <li @click="setFilterTime(3)" style="cursor: pointer">{{ $t('since_2022') }}</li>
-          <li @click="setFilterTime(4)" style="cursor: pointer">{{ $t('since_2021') }}</li>
-          <li @click="setFilterTime(5)" style="cursor: pointer">
-            {{ $t('self_define_time_range') }}
-            <span
-              ><input
-                v-model="search_start_time"
-                type="text"
-                style="width: 30%" />
-              <input v-model="search_end_time" type="text" style="width: 30%"
-            /></span>
-          </li>
-        </ul>
-      </div>
+          class="filter-card"
+          style="
+            display: vertical;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            text-align: center;
+          "
+        >
+          <ul>
+            <li>{{ $t("filte_by_time") }}</li>
+            <li @click="setFilterTime(1)" style="cursor: pointer">
+              {{ $t("no_limit_time") }}
+            </li>
+            <li @click="setFilterTime(2)" style="cursor: pointer">
+              {{ $t("since_2023") }}
+            </li>
+            <li @click="setFilterTime(3)" style="cursor: pointer">
+              {{ $t("since_2022") }}
+            </li>
+            <li @click="setFilterTime(4)" style="cursor: pointer">
+              {{ $t("since_2021") }}
+            </li>
+            <li @click="setFilterTime(5)" style="cursor: pointer">
+              {{ $t("self_define_time_range") }}
+              <span
+                ><input
+                  v-model="search_start_time"
+                  type="text"
+                  style="width: 30%" />
+                <input v-model="search_end_time" type="text" style="width: 30%"
+              /></span>
+            </li>
+          </ul>
+        </div>
 
-      <div
-        v-if="search_type == 1"
-        class="filter-card"
-        style="display: vertical; text-align: center"
-      >
-        <ul>
-          <li @click="setLanguage(1)" style="cursor: pointer">{{ $t('no_language_limit') }}</li>
-          <li @click="setLanguage(2)" style="cursor: pointer">{{ $t('chinece_language') }}</li>
-          <li @click="setLanguage(3)" style="cursor: pointer">{{ $t('english_language') }}</li>
-          <!-- <li>时间不限</li> -->
-        </ul>
-      </div>
+        <div
+          v-if="search_type == 1"
+          class="filter-card"
+          style="display: vertical; text-align: center"
+        >
+          <ul>
+            <li @click="setLanguage(1)" style="cursor: pointer">
+              {{ $t("no_language_limit") }}
+            </li>
+            <li @click="setLanguage(2)" style="cursor: pointer">
+              {{ $t("chinece_language") }}
+            </li>
+            <li @click="setLanguage(3)" style="cursor: pointer">
+              {{ $t("english_language") }}
+            </li>
+            <!-- <li>时间不限</li> -->
+          </ul>
+        </div>
 
-      <!-- <div
+        <!-- <div
         v-if="search_type == 1"
         class="filter-card"
         style="display: vertical; text-align: center"
@@ -59,57 +72,78 @@
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
         </ul>
       </div> -->
-      <div
-        v-if="search_type == 3"
-        class="filter-card"
-        style="display: vertical; text-align: center"
-      >
-        <ul>
-          <li v-for="(option, index) in options" :key="index">
-            <input
-              type="radio"
-              :value="option.value"
-              v-model="selectedOption"
-            />
-            <label>{{ option.text }}</label>
-          </li>
-        </ul>
+        <div
+          v-if="search_type == 3"
+          class="filter-card"
+          style="display: vertical; text-align: center"
+        >
+          <ul>
+            <li v-for="(option, index) in options" :key="index">
+              <input
+                type="radio"
+                :value="option.value"
+                v-model="selectedOption"
+              />
+              <label>{{ option.text }}</label>
+            </li>
+          </ul>
+        </div>
       </div>
-      </div>
 
-
-        
-
-
-      <h3 style="width: 100%;" @click="show_sort=!show_sort">{{ $t('sort') }}</h3>
+      <h3 style="width: 100%" @click="show_sort = !show_sort">
+        {{ $t("sort") }}
+      </h3>
       <div v-show="show_sort">
         <div
-        v-if="search_type == 1"
-        class="filter-card"
-        style="display: vertical; text-align: center"
-      >
-        <ul>
-          <li @click="show_sort_by_date=!show_sort_by_date">日期排序</li>
-          <li v-show="show_sort_by_date" @click="sortByTime(1)" style="cursor: pointer">升序排序</li>
-          <li v-show="show_sort_by_date" @click="sortByTime(2)" style="cursor: pointer">降序排序</li>
-        </ul>
+          v-if="search_type == 1"
+          class="filter-card"
+          style="display: vertical; text-align: center"
+        >
+          <ul>
+            <li @click="show_sort_by_date = !show_sort_by_date">日期排序</li>
+            <li
+              v-show="show_sort_by_date"
+              @click="sortByTime(2)"
+              style="cursor: pointer"
+            >
+              升序排序
+            </li>
+            <li
+              v-show="show_sort_by_date"
+              @click="sortByTime(1)"
+              style="cursor: pointer"
+            >
+              降序排序
+            </li>
+          </ul>
+        </div>
+
+        <div
+          v-if="search_type == 1"
+          class="filter-card"
+          style="display: vertical; text-align: center"
+        >
+          <ul>
+            <li @click="show_sort_by_cite = !show_sort_by_cite">
+              引用次數排序
+            </li>
+            <li
+              @click="sortByCite(1)"
+              v-show="show_sort_by_cite"
+              style="cursor: pointer"
+            >
+              升序排序
+            </li>
+            <li
+              @click="sortByCite(2)"
+              v-show="show_sort_by_cite"
+              style="cursor: pointer"
+            >
+              降序排序
+            </li>
+          </ul>
+        </div>
       </div>
-
-      <div
-        v-if="search_type == 1"
-        class="filter-card"
-        style="display: vertical; text-align: center"
-      >
-        <ul>
-          <li @click="show_sort_by_cite=!show_sort_by_cite">引用次數排序</li>
-          <li v-show="show_sort_by_cite" style="cursor: pointer">升序排序</li>
-          <li v-show="show_sort_by_cite" style="cursor: pointer">降序排序</li>
-        </ul>
-      </div>
-      </div>
-
-
-
 
       <!-- <hr> -->
     </div>
@@ -131,16 +165,17 @@
 
       <!--     //this.$emit('change-item-per-page',itemsPerPage)
     //this.$emit('change-page',page) -->
-    <!-- 
+      <!-- 
        -->
       <Pagination
-      @change-item-per-page="changeItemPerpage"
-      @change-page="changePages"
-      :itemsPerPage="itemsPerPage"
-      :currentPage="currentPage"
-      :totalPages="totalPages"
-
-      class="pagination" :defaultItemsPerPage="5">
+        @change-item-per-page="changeItemPerpage"
+        @change-page="changePages"
+        :itemsPerPage="itemsPerPage"
+        :currentPage="currentPage"
+        :totalPages="totalPages"
+        class="pagination"
+        :defaultItemsPerPage="5"
+      >
         <div v-if="search_type == 1">
           <SearchResultListItem
             v-for="(info, index) in infoItems"
@@ -233,7 +268,6 @@ export default {
       currentPage: 1,
       itemsPerPage: 5,
 
-
       resultlist: null,
       infoItems: [],
       infoItem: {
@@ -286,15 +320,14 @@ export default {
     },
   },
   methods: {
-
-    changePages(data){
-      this.currentPage = data
-      alert(data)
-      this.searchmethod()
+    changePages(data) {
+      this.currentPage = data;
+      alert(data);
+      this.searchmethod();
     },
-    changeItemPerpage(data){
-      this.itemsPerPage = data
-      this.searchmethod()
+    changeItemPerpage(data) {
+      this.itemsPerPage = data;
+      this.searchmethod();
     },
     // #region resultlistToInfoItems
     resultlistToInfoItems() {
@@ -308,7 +341,6 @@ export default {
     },
     //this.$emit('change-item-per-page',itemsPerPage)
     //this.$emit('change-page',page)
- 
 
     // #region AsideBar
     showAsideBar() {
@@ -447,8 +479,6 @@ export default {
       console.log(this.filter);
       this.searchmethod();
 
-
-
       /***
        * 
        *       author: "",
@@ -467,45 +497,49 @@ export default {
         publication_date
         relevance_score (only exists if there's a search filter active)
      */
-
     sortByTime(type) {
       // 早
       if (type == 1) {
-        if (
-          (alert(this.sort + 1),
-          this.sort.includes("publication_date:") ||
-            this.sort.includes("publication_date:desc"))
-        ) {
-          this.sort = this.sort.replace(
-            /publication_date(:desc)?,/,
-            "publication_date:"
-          );
-        } else {
-          this.sort += "publication_date:";
-        }
+        this.sort = "publication_date:";
+        // if (
+        //   (alert(this.sort + 1),
+        //   this.sort.includes("publication_date:") ||
+        //     this.sort.includes("publication_date:desc"))
+        // ) {
+        //   this.sort = this.sort.replace(
+        //     /publication_date(:desc)?,/,
+        //     "publication_date:"
+        //   );
+        // } else {
+        //   this.sort += "publication_date:";
+        // }
       }
       // 晚
       else if (type == 2) {
-        if (
-          (alert(this.sort + 2),
-          this.sort.includes("publication_date:") ||
-            this.sort.includes("publication_date:desc"))
-        ) {
-          this.sort = this.sort.replace(
-            /publication_date(:desc)?,/,
-            "publication_date:desc"
-          );
-        } else {
-          this.sort += "publication_date:desc";
-        }
+        this.sort = "publication_date:desc";
+        // if (
+        //   (alert(this.sort + 2),
+        //   this.sort.includes("publication_date:") ||
+        //     this.sort.includes("publication_date:desc"))
+        // ) {
+        //   this.sort = this.sort.replace(
+        //     /publication_date(:desc)?,/,
+        //     "publication_date:desc"
+        //   );
+        // } else {
+        //   this.sort += "publication_date:desc";
+        // }
       }
       alert(this.sort), this.searchmethod();
     },
 
     sortByCite(type) {
       if (type == 1) {
+        this.sort = "cited_by_count:";
       } else if (type == 2) {
+        this.sort = "cited_by_count:desc";
       }
+      alert(this.sort), this.searchmethod();
     },
 
     handleModoleSearch(searchdata) {
@@ -528,8 +562,8 @@ export default {
     },
     // 真正做搜索后端
     searchmethod() {
-      this.perpage = this.itemsPerPage
-      this.page = this.currentPage
+      this.perpage = this.itemsPerPage;
+      this.page = this.currentPage;
       const searchdata = {
         filter: this.filter.replace(/,$/, ""),
         search: this.search,
@@ -554,14 +588,13 @@ export default {
         Search.searchWorks(searchdata).then(
           (res) => {
             console.log(res.data);
-            
+
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
 
-            this.totalPages = res.data.meta.count
-            this.currentPage = res.data.meta.page
-            this.per_page = res.data.meta.per_page
-
+            this.totalPages = res.data.meta.count;
+            this.currentPage = res.data.meta.page;
+            this.per_page = res.data.meta.per_page;
           },
           (err) => {}
         );
@@ -573,9 +606,9 @@ export default {
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
 
-            this.totalPages = res.data.meta.count
-            this.currentPage = res.data.meta.page
-            this.per_page = res.data.meta.per_page
+            this.totalPages = res.data.meta.count;
+            this.currentPage = res.data.meta.page;
+            this.per_page = res.data.meta.per_page;
           },
           (err) => {}
         );
@@ -588,9 +621,9 @@ export default {
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
 
-            this.totalPages = res.data.meta.count
-            this.currentPage = res.data.meta.page
-            this.per_page = res.data.meta.per_page
+            this.totalPages = res.data.meta.count;
+            this.currentPage = res.data.meta.page;
+            this.per_page = res.data.meta.per_page;
           },
           (err) => {}
         );
@@ -603,9 +636,9 @@ export default {
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
 
-            this.totalPages = res.data.meta.count
-            this.currentPage = res.data.meta.page
-            this.per_page = res.data.meta.per_page
+            this.totalPages = res.data.meta.count;
+            this.currentPage = res.data.meta.page;
+            this.per_page = res.data.meta.per_page;
           },
           (err) => {}
         );
@@ -634,8 +667,6 @@ export default {
         });
       }
     },
-
-    
 
     // search
   },
