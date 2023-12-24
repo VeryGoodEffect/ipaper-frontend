@@ -142,8 +142,16 @@ export default {
             this.institutionURL = response.data.homepage_url
 
             this.relevantInstitution = []
-            for(let i = 0; i < 10; i++) {
-              this.relevantInstitution.push(response.data.associated_institutions[i])
+            if(response.data.associated_institutions.length >= 10)
+            {
+              for(let i = 0; i < 10; i++) {
+                this.relevantInstitution.push(response.data.associated_institutions[i])
+              }
+            }
+            else {
+              for(let i = 0; i < response.data.associated_institutions.length; i++) {
+                this.relevantInstitution.push(response.data.associated_institutions[i])
+              }
             }
             // this.relevantInstitution = response.data.associated_institutions
             this.institutionTags = response.data.x_concepts
@@ -166,8 +174,15 @@ export default {
         (response) => {
           console.log(response)
           this.institutionAuthors = []
-          for(let i = 0; i < 10; i++) {
-            this.institutionAuthors.push(response.data.results[i])
+          if(response.data.results.length >= 10) {
+            for(let i = 0; i < 10; i++) {
+              this.institutionAuthors.push(response.data.results[i])
+            }
+          }
+          else {
+            for(let i = 0; i < response.data.results.length; i++) {
+              this.institutionAuthors.push(response.data.results[i])
+            }
           }
           // console.log(this.institutionAuthors)
         }

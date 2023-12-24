@@ -67,6 +67,7 @@
           </div>   
         </div>
 
+        <TagDetailGraphScholarVue :authorList="authors"></TagDetailGraphScholarVue>
       </div>
 
       <div class="right-row"> 
@@ -96,11 +97,13 @@ import { Search } from '../../api/search'
 import SearchResultListItem from '../../components/search-result-list/SearchResultListItem.vue'
 import i18n from '../../language'
 import Pagination from "../../components/pagination/Pagination.vue"
+import TagDetailGraphScholarVue from '../../components/graphs/TagDetailGraphScholar.vue'
 export default {
   components: {
     SearchResultListItem,
     i18n,
-    Pagination
+    Pagination,
+    TagDetailGraphScholarVue
   },
   watch: {
     '$route.params.id': {
@@ -170,21 +173,39 @@ export default {
     getInstitutions(url) {
       Search.getEntities(url).then(
         (response) => {
+          console.log( "institutions"+response.data.results )
           this.institutions = []
-          for(let i = 0; i < 10; i++) {
-            this.institutions.push(response.data.results[i])
+          if(response.data.results.length >= 10)
+          {
+            for(let i = 0; i < 10; i++) {
+              this.institutions.push(response.data.results[i])
+            }
+          }
+          else {
+            for(let i = 0; i < response.data.results.length; i++) {
+              this.institutions.push(response.data.results[i])
+            }
           }
           // this.institutions = response.data.results
-          // console.log(this.institutions)
+          console.log(this.institutions)
         }
       )
     },
     getAuthors(url) {
       Search.getEntities(url).then(
         (response) => {
+          console.log( "author"+response.data.results )
           this.authors = []
-          for(let i = 0; i < 10; i++) {
-            this.authors.push(response.data.results[i])
+          if(response.data.results.length >= 10)
+          {
+            for(let i = 0; i < 10; i++) {
+              this.authors.push(response.data.results[i])
+            }
+          }
+          else {
+            for(let i = 0; i < response.data.results.length; i++) {
+              this.authors.push(response.data.results[i])
+            }
           }
         }
       )
@@ -194,9 +215,9 @@ export default {
       // Search.getEntities(url).then(
       Search.getPagnationEntities(this.papersURL, param).then(
         (response) => {
-          console.log(11224123123)
-          console.log(this.paginationInfo)
-          console.log(response)
+          // console.log(11224123123)
+          // console.log(this.paginationInfo)
+          // console.log(response)
           this.infoItems = []
           this.paginationInfo.totalPages = Math.ceil(response.data.meta.count / this.paginationInfo.itemsPerPage)
           // console.log(this.paginationInfo.totalPages)

@@ -226,5 +226,7 @@ export default {
     include_patend: '包含专利',
     include_cide: '包含引用',
 
+    // 
+    top_scholar: '部分学者',
 
 }

@@ -119,10 +119,11 @@ export default {
       }
       Application.applications(formData).then(
         (response) => {
-          alert('提交认证成功！')
+          this.handleClose()
+          console.log('申请认证成功')
         },
         (error) => {
-          alert(error.data)
+          console.log(error.data)
         }
       )
     },

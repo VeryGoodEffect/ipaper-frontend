@@ -24,7 +24,7 @@
               </p>
               <p class="personal-info-text-institution" v-if="authorInfo.institution.name !== null">
                 <em>{{ $t('personal_info_institution') }}</em>&nbsp;&nbsp;
-                <a :href="authorInfo.institution.ror">{{ authorInfo.institution.name }}</a>
+                <a @click="gotoInstitution(authorInfo.institution)">{{ authorInfo.institution.name }}</a>
               </p>
               <!-- <p class="personal-info-text-major">
                 <em>{{ $t('personal_info_major') }}</em>&nbsp;&nbsp;
@@ -62,7 +62,7 @@
             <div class="focus-area">
               <h3>{{ $t('scholar_portal_focus_areas') }}</h3>
               <div class="tag-container">
-                <a v-for="(tag, index) in interestTag" :key="index" class="tag-item" :href="tag.wikidata">
+                <a v-for="(tag, index) in interestTag" :key="index" class="tag-item" @click="gotoTag(tag)">
                   {{ tag.name }}
                 </a>
               </div>
@@ -76,15 +76,13 @@
               </div>
             </div>
             <div class="favorites-list">
-              <Pagination
-                class="pagination"
-                :defaultItemsPerPage="5"
+              <Pagination 
+              :itemsPerPage="this.paginationInfo.itemsPerPage"
+              :currentPage="this.paginationInfo.currentPage"
+              :totalPages="this.paginationInfo.totalPages"
+              @change-page="handleChangePage" @change-item-per-page="handleChangePerPage"
               >
-                <SearchResultListItem
-                  v-for="(info, index) in infoItems"
-                  :key="index"
-                  :infoItem="info"
-                ></SearchResultListItem>
+                <SearchResultListItem v-for="(info,index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
               </Pagination>
             </div>
           </div>
@@ -158,7 +156,11 @@ import { User } from '../../api/users'
           totalCitations: 0,
           totalWork: 0,
           yearCitations: 0,
-
+        },
+        paginationInfo: {
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalPages: 3,
         },
         infoItems: [
         //   {
@@ -325,7 +327,7 @@ import { User } from '../../api/users'
                 })
               }
               // this.getRelationMap()
-              this.getAuthorArticle()    
+              this.getAuthorArticle(this.paginationInfo.currentPage, this.paginationInfo.itemsPerPage)    
             },
             (error) => {
               console.log(error)
@@ -333,20 +335,30 @@ import { User } from '../../api/users'
           )
         } 
       },
-      getAuthorArticle() {
+      gotoInstitution(institution) {
+        this.$router.push('/institution_detail/' + institution.id)
+        // location.reload()
+      },
+      gotoTag(tag) {
+      //路由跳转到领域详情页 
+        this.$router.push('/tag_detail/' + tag.id)
+      },
+      getAuthorArticle(page, perPage) {
         console.log(this.authorInfo.works_api_url)
         var startIndex = this.authorInfo.works_api_url.indexOf('filter=')
         var filter = this.authorInfo.works_api_url.substring(startIndex + 7)
         console.log(filter)
         let data = {
-          filter: filter
+          filter: filter,
+          per_page: perPage,
+          page: page
         }
         Search.searchWorks(data).then(
             (response) => {
               // console.log(111)
               // console.log(response)
               // console.log(response.data.username)
-
+              this.paginationInfo.totalPages = Math.ceil(response.data.meta.count / this.paginationInfo.itemsPerPage)
               this.resultlist = response.data.results;
               // console.log(this.resultlist)
               this.resultlistToInfoItems();
@@ -474,6 +486,14 @@ import { User } from '../../api/users'
             console.log(error)
           }
         )
+      },
+      handleChangePage(page) {
+        this.paginationInfo.currentPage = page
+        this.getAuthorArticle(this.paginationInfo.currentPage, this.paginationInfo.itemsPerPage)
+      },
+      handleChangePerPage(perPage) {
+        this.paginationInfo.itemsPerPage = perPage
+        this.getAuthorArticle(this.paginationInfo.currentPage, this.paginationInfo.itemsPerPage)
       },
     },
   }
