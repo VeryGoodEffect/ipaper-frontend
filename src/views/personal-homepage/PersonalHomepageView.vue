@@ -86,8 +86,8 @@
             <div class="btn-wrapper">
                 <button v-if="isEditing" class="basic-btn authenticate-btn" @click="submitChangePersonalInfo">{{ $t('confirm_text' )}}</button>
                 <button v-if="isEditing" class="basic-btn authenticate-btn" @click="cancelChangePersonalInfo">{{ $t('cancel_text' )}}</button>
-                <button v-if="!isEditing" class="basic-btn authenticate-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>
-                <button v-if="!isEditing" class="basic-btn authenticate-btn" @click="modifyAuthenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>
+                <button v-if="!isEditing && !auditStatus" class="basic-btn authenticate-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>
+                <button v-if="!isEditing && auditStatus" class="basic-btn authenticate-btn" @click="auditDetailModalShouldShow = true">查看审核信息</button>
             </div>
         </div>
         <div class="tag-and-list">
@@ -127,9 +127,9 @@
 
 <AuthenticateIdentityModal :show="authenticateModalShouldShow" @close="authenticateModalShouldShow = false" />
 
-<ModifyAuthenticateModal :show="modifyAuthenticateModalShouldShow" @close="modifyAuthenticateModalShouldShow = false" />
-
 <InterestTagSelectorModal :show="interestTagSelectorModalShow" @close="interestTagSelectorModalShow = false" />
+
+<AuditDetailModal :show="auditDetailModalShouldShow" @close="auditDetailModalShouldShow = false" />
 </template>
 
 <script>
@@ -142,10 +142,13 @@ import {
 import {
     Article
 } from '../../api/article.js'
+import {
+    Application
+} from '../../api/applications.js'
 import FollowList from '../../components/follow-list/FollowList.vue'
 import AuthenticateIdentityModal from '../../components/modals/AuthenticateIdentityModal.vue'
-import ModifyAuthenticateModal from '../../components/modals/ModifyAuthenticateModal.vue'
-import InterestTagSelectorModal from "../../components/modals/InterestTagSelectorModal.vue";
+import InterestTagSelectorModal from "../../components/modals/InterestTagSelectorModal.vue"
+import AuditDetailModal from '../../components/modals/AuditDetailModal.vue'
 import {
     dataTool
 } from 'echarts'
@@ -155,8 +158,8 @@ export default {
         FavouriteList,
         FollowList,
         AuthenticateIdentityModal,
-        ModifyAuthenticateModal,
         InterestTagSelectorModal,
+        AuditDetailModal,
         i18n,
     },
     data() {
@@ -164,8 +167,8 @@ export default {
             isEditing: false,
             urlAdding: '',
             authenticateModalShouldShow: false,
-            modifyAuthenticateModalShouldShow: false,
             interestTagSelectorModalShow: false,
+            auditDetailModalShouldShow: false,
             infoItem: {
                 title: "低碳经济: 人类经济发展方式的新变革",
                 author: "鲍健强， 苗阳， 陈锋 - 中国工业经济, 2008 - cqvip.com",
@@ -195,12 +198,16 @@ export default {
             moveVisible: false,
             isFavourite: true,
             favouritesInfo: [],
+            auditDetail: null,
+            auditStatus: false // false 未提交、true 已提交
         }
     },
 
     created() {
         this.getUserInfo()
+        this.getAuditDetail()
         this.$bus.on('sendFlushInterestRequest', this.flushInterets)
+        this.$bus.on('sendFlushAuditStatusRequest', this.flushAuditStatus)
     },
     methods: {
         getUserInfo() {
@@ -258,6 +265,22 @@ export default {
                     }
                 )
             }
+        },
+        flushAuditStatus() {
+          this.auditStatus = true
+        },
+        getAuditDetail() {
+            Application.getSubmittedList().then(
+                response => {
+                    if (response.data.length != 0) {
+                       this.auditDetail = response.data[0]
+                       this.auditStatus = true
+                    }
+                },
+                error => {
+                    console.log(error.message);
+                }
+            )
         },
         changePersonalInfo() {
             this.isChangeing = true

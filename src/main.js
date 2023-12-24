@@ -106,7 +106,7 @@ const handleRemoveEllipsis = (el, binding) => {
   if (el.classList.contains('v-ellipsis')) {
     const outside = el.parentNode
     el.style.display = outside.style.display
-    console.log(outside)
+    // console.log(outside)
     if (outside) {
       const outsideParent = outside.parentNode
       outside.removeChild(el)

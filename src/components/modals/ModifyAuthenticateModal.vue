@@ -102,14 +102,9 @@ export default {
     methods: {
         ...mapMutations(['setIsLoggedIn']),
         handleClose() {
-            this.realName = ''
-            this.institution = ''
-            this.position = ''
-            this.concepts = ''
-            this.workEmail = ''
-            this.content = ''
             this.images = []
             this.imageFiles = []
+            this.$bus.emit('sendFlushAuditDetailRequest')
             this.$emit('close')
         },
         handleAuthenticate() {
@@ -133,7 +128,7 @@ export default {
             }
             Application.applications(formData).then(
                 (response) => {
-                    // alert('提交认证成功！')
+                    this.handleClose()
                 },
                 (error) => {
                     // alert(error.data)
