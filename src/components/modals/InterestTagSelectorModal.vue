@@ -68,7 +68,6 @@ export default {
                 response => {
                     this.formInterestTag = response.data
                     this.showInterestTag = this.transformInterestTag()
-                    console.log(this.showInterestTag);
                 },
                 error => {
                     alert('Error')
