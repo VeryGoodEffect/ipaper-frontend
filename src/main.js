@@ -21,84 +21,112 @@ transitionTime--optional
 wrappable--optional
 transition仅针对高度进行过渡。
 */
-app.directive('ellipsis', {
-  mounted(el, binding) {
-    let isWrap = true
-    // console.log(binding.value)
-    let Wrappable = binding.value.wrappable!==undefined ? binding.value.wrappable : true
-    // console.log(Wrappable)
-    //由于外盒子可能为flex,因此需要单独设置内盒子
-    const content = document.createElement(el.tagName)
-    //此处targetStyle仍具有约束性
-    const setComputedStyle = (targetStyleProperty, computedStyleProperty) => {
-      content.style[targetStyleProperty] = window.getComputedStyle(content)[computedStyleProperty]
-      console.log(content.style[targetStyleProperty])
-    }
-    //传递文字样式,设置过渡,设置DOM结构和最大宽度
-    const transitionTime = binding.value.transitionTime ? binding.value.transitionTime : '0.5s'
-    const transitionMicros = parseFloat(transitionTime) * 1000
-    {
-      const transition = `max-height ${transitionTime} ${binding.value.transitionMode ? binding.value.transitionMode : 'cubic-bezier(0.075, 0.82, 0.165, 1)'}`
-      const computedStyles = window.getComputedStyle(el)
-      content.style.fontFamily = computedStyles.fontFamily
-      content.style.fontSize = 'inherit'
-      content.style.color = 'inherit'
-      content.style.fontWeight = 'inherit'
-      content.style.textDecoration = 'inherit'
-      content.style.transition = transition
-      content.style.cursor = Wrappable?'pointer':'default'
-      content.innerHTML = el.innerHTML
-      el.innerHTML = ''
-      el.appendChild(content)
-      if (binding.value.maxWidth) {
-        content.style.maxWidth = binding.value.maxWidth
-      }
-      else {
-        setComputedStyle('max-width', 'width')
-      }
-    }
-    const wrapText = () => {
-      Wrappable = false
-      content.style.overflow = 'hidden'
-      content.style.textOverflow = 'ellipsis'
-      if (binding.value.maxLine && binding.value.maxLine > 1) {
-        content.style.display = '-webkit-box'
-        content.style.webkitBoxOrient = 'vertical'
-        content.style.webkitLineClamp = `${binding.value.maxLine}`
-      }
-      else {
-        content.style.whiteSpace = 'nowrap'
-      }
-      if (binding.value.wrappable) {
-        setTimeout(() => Wrappable = true, transitionMicros + 50)
-      }
-    }
-    const unwarpText = () => {
-      Wrappable = false
-      content.style.whiteSpace = 'normal'
-      content.style.webkitLineClamp = 'inherit'
-      setTimeout(() => Wrappable = true, transitionMicros + 50);
-    }
-    content.addEventListener('click', () => {
-      if (!Wrappable) return
-      if (isWrap === false) {
-        //仅用于获取省略状态下高度
-        wrapText()
-        setComputedStyle('max-height', 'height')
-        unwarpText()
-        setTimeout(wrapText, transitionMicros)//延迟切换为省略状态
-      }
-      else {
-        unwarpText()
-        //重新计算高度
-        content.style.maxHeight = content.scrollHeight + 'px'
-      }
-      isWrap = !isWrap
-    })
-    wrapText()
-    setComputedStyle('max-height', 'height')
+const handleEllipsis = (el, binding) => {
+  let isWrap = true
+  let Wrappable = binding.value.wrappable !== undefined ? binding.value.wrappable : true
+  //由于盒子可能为flex,因此需要单独设置外盒子并标识特殊类
+  const outside = document.createElement(el.tagName)
+  el.classList.add('v-ellipsis')
+  //此处targetStyle仍具有约束性
+  const setComputedStyle = (targetStyleProperty, computedStyleProperty) => {
+    outside.style[targetStyleProperty] = window.getComputedStyle(outside)[computedStyleProperty]
+    // console.log(outside.style[targetStyleProperty])
   }
-})
+  //传递文字样式,设置过渡,设置DOM结构和最大宽度
+  const transitionTime = binding.value.transitionTime ? binding.value.transitionTime : '0.5s'
+  const transitionMicros = parseFloat(transitionTime) * 1000
+  {
+    const transition = `max-height ${transitionTime} ${binding.value.transitionMode ? binding.value.transitionMode : 'cubic-bezier(0.075, 0.82, 0.165, 1)'}`
+    const computedStyles = window.getComputedStyle(el)
+    outside.style.fontFamily = computedStyles.fontFamily
+    outside.style.fontSize = 'inherit'
+    outside.style.color = 'inherit'
+    outside.style.fontWeight = 'inherit'
+    outside.style.textDecoration = 'inherit'
+    outside.style.transition = transition
+    outside.style.cursor = Wrappable ? 'pointer' : 'default'
+    // outside.innerHTML = el.innerHTML
+    //更改节点关系
+    el.parentNode.insertBefore(outside, el)
+    // el.parentNode.removeChild(el)
+    outside.appendChild(el)
+    // replaceChild(outside, el)
+    if (binding.value.maxWidth) {
+      outside.style.maxWidth = binding.value.maxWidth
+    }
+    else {
+      setComputedStyle('max-width', 'width')
+    }
+  }
+  const wrapText = () => {
+    Wrappable = false
+    outside.style.overflow = 'hidden'
+    el.style.overflow = 'hidden'
+    el.style.textOverflow = 'ellipsis'
+    if (binding.value.maxLine && binding.value.maxLine > 1) {
+      // outside.style.display = el.style.display
+      el.style.display = '-webkit-box'
+      el.style.webkitBoxOrient = 'vertical'
+      el.style.webkitLineClamp = `${binding.value.maxLine}`
+    }
+    else {
+      el.style.whiteSpace = 'nowrap'
+    }
+    if (binding.value.wrappable) {
+      setTimeout(() => Wrappable = true, transitionMicros + 50)
+    }
+  }
+  const unwarpText = () => {
+    Wrappable = false
+    el.style.whiteSpace = 'normal'
+    el.style.webkitLineClamp = 'inherit'
+    setTimeout(() => Wrappable = true, transitionMicros + 50);
+  }
+  outside.addEventListener('click', () => {
+    if (!Wrappable) return
+    if (isWrap === false) {
+      //仅用于获取省略状态下高度
+      wrapText()
+      setComputedStyle('max-height', 'height')
+      unwarpText()
+      setTimeout(wrapText, transitionMicros)//延迟切换为省略状态
+    }
+    else {
+      unwarpText()
+      //重新计算高度
+      outside.style.maxHeight = outside.scrollHeight + 'px'
+    }
+    isWrap = !isWrap
+  })
+  wrapText()
+  setComputedStyle('max-height', 'height')
+}
+
+const handleRemoveEllipsis = (el, binding) => {
+  if (el.classList.contains('v-ellipsis')) {
+    const outside = el.parentNode
+    el.style.display = outside.style.display
+    console.log(outside)
+    if (outside) {
+      const outsideParent = outside.parentNode
+      outside.removeChild(el)
+      outsideParent.insertBefore(el, outside)
+      outsideParent.removeChild(outside)
+    }
+  }
+}
+const ellipsis = {
+  mounted(el, binding) {
+    handleEllipsis(el, binding)
+  },
+  updated(el, binding) {
+    handleEllipsis(el, binding)
+  },
+  beforeUpdate(el, binding) {
+    handleRemoveEllipsis(el, binding)
+  },
+}
+app.directive('ellipsis', ellipsis)
 //悬浮框工具
 app.directive('tooltip', {
   mounted(el, binding) {
@@ -168,6 +196,7 @@ import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
 
 // highlightjs
 import hljs from 'highlight.js';
+import { finished } from 'stream'
 
 VMdPreview.use(githubTheme, {
   Hljs: hljs,
