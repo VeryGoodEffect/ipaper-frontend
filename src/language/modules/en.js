@@ -259,5 +259,12 @@ Since 2021
     re_audit: 'Reaudit',
     audit_progress: 'Audit Progress',
     is_auditing: 'Is Auditing',
-    view_audit_detail: 'Audit Detail'
+    view_audit_detail: 'Audit Detail',
+
+
+
+    audit_is_submit: 'Is Submitted',
+    audit_unconfirmed: 'Waiting for Confirm',
+    audit_failed: 'Failed',
+    audit_approved: 'Approved'
 }
