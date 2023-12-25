@@ -52,10 +52,10 @@ const router = createRouter({
       path: '/institution_detail/:id',
       component: InstitutionView
     },
-    // {
-    //   path: '/tag_detail/:id',
-    //   component: TagDetailView
-    // },
+    {
+      path: '/tag_detail/:id',
+      component: TagDetailView
+    },
     // {
     //   path: '/chat',
     //   component: ChatTestView
