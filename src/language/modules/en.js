@@ -94,7 +94,7 @@ export default {
     search_type_6: 'Institution Search',
 
     // interest_tag_select
-    interest_tag_select_text: 'Choose Your Interest Tag',
+    interest_tag_select_text: 'Pick your choice',
 
     check_approve: 'Do you confirm the approval of the user\'s application?',
     check_disapprove: 'Please inform the user of the reason for not passing the audit',
@@ -259,5 +259,12 @@ Since 2021
     re_audit: 'Reaudit',
     audit_progress: 'Audit Progress',
     is_auditing: 'Is Auditing',
-    view_audit_detail: 'Audit Detail'
+    view_audit_detail: 'Audit Detail',
+
+
+
+    audit_is_submit: 'Is Submitted',
+    audit_unconfirmed: 'Waiting for Confirm',
+    audit_failed: 'Failed',
+    audit_approved: 'Approved'
 }

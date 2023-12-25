@@ -132,12 +132,12 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: var(--theme-mode-very-high-contrast);
-  display: -webkit-box;
+  /* display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
-  line-clamp: 1;
+  line-clamp: 1; */
   cursor: pointer;
 }
 

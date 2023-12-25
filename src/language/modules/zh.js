@@ -248,4 +248,15 @@ export default {
     sort_by_citation: '引用次数排序',
 
 
+    audit_timestamp: '申请时间',
+    auditor_username: '审核管理员',
+    audit_progress: '审核进度',
+    audit_content: '备注',
+    view_audit_detail: '查看审核详情',
+    audit_is_submit: '审核已提交',
+    audit_unconfirmed: '审核通过，等待管理员确认',
+    audit_failed: '审核未通过',
+    audit_approved: '审核已通过',
+    audit_detail_text: '审核详情',
+    re_audit: '重新认证'
 }

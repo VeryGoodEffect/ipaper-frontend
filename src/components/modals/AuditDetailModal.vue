@@ -4,8 +4,10 @@
         <h3>{{ $t('audit_detail_text') }}</h3>
         <div>
             {{ $t('audit_progress')}}: 
-            <span v-if="this.percentage == 100">{{ this.auditDetail.status }}</span>
-            <span v-else>{{$t('is_auditing')}}</span>
+            <span v-if="this.status == 'processing'">{{ $t('audit_is_submit') }}</span>
+            <span v-else-if="this.status == 'unconfirmed'">{{ $t('audit_unconfirmed') }}</span>
+            <span v-else-if="this.status == 'failed'">{{ $t('audit_failed') }}</span>
+            <span v-else-if="this.status == 'approved'">{{ $t('audit_approved') }}</span>
             <n-progress type="line" :percentage="this.percentage" :indicator-placement="'inside'" processing />
         </div>
         <div>
@@ -96,7 +98,9 @@ export default {
                         this.image3 = response.data[0].image3
                         this.status = response.data[0].status
                         if (this.status == 'processing') {
-                            this.percentage = 50
+                            this.percentage = 33
+                        } else if (this.status == 'unconfirmed') {
+                            this.percentage = 67
                         } else {
                             this.percentage = 100
                         }
