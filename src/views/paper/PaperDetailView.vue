@@ -64,13 +64,13 @@
           </div>
           
           <button class="basic-btn-outline function-btn" @click="gotoPaperLandingURL" >
-            在线阅读
+            {{ $t('paper_detail_read_online') }}
           </button>
           <button class="basic-btn-outline function-btn" v-if="pdf_url != ''" @click="gotoPdfURL">
-            PDF阅读
+            {{ $t('paper_detail_readPDF') }}
           </button>
           <button class="basic-btn-outline function-btn" v-if="pdf_url != ''" @click="downloadPaper" >
-            PDF下载
+           {{ $t('paper_detail_downloadPDF') }}
           </button>
         </div>
       </div>
@@ -134,7 +134,8 @@ export default {
               this.doi = response.data.doi
             }
             if(response.data.primary_location.source != null) {
-              this.source = response.data.primary_location.source.display_name
+              var result = response.data.primary_location.source.display_name.replace(/=/g, "");
+              this.source = result
             }
             this.tags = response.data.concepts
             this.date = response.data.publication_date

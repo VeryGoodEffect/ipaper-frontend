@@ -1,7 +1,7 @@
 <template>
   <PopoutModal :show="show" @close="handleClose">
     <div class="container">
-      <h3>{{ '收藏夹名称' }} </h3>
+      <h3>{{ favoriteTitle }} </h3>
       <div class="list-item-wrapper" v-for="(item, idx) in contentList" :key="idx" 
         @contextmenu.prevent="handleRightClick($event, idx)"
         :id="'item-' + String(idx)"
@@ -55,6 +55,7 @@ export default {
       y: 0,
       idTobeMoved: '',
       paperIdTobeMoved: '',
+      favoriteTitle: '',
     }
   },
   emits: ['close'],
@@ -79,6 +80,11 @@ export default {
         User.getFavoriteList(this.favoriteId).then(
           (response) => {
             this.contentList = response.data
+          }
+        )
+        User.getFavorite(this.favoriteId).then(
+          (response) => {
+            this.favoriteTitle = response.data.name
           }
         )
       }

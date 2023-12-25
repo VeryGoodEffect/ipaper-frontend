@@ -7,11 +7,10 @@ import * as echarts from "echarts/core";
 import { TooltipComponent, GridComponent } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-
+import { ref } from "vue";
 export default {
   props: ["info"],
   mounted() {
-    // console.log(this.info[0])
     setTimeout(() => {
       this.initChart();
     }, 500); // 延迟 1 秒执行 initChart
@@ -34,7 +33,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: ['2020','2021','2022'],
+            data: [],
             axisTick: {
               alignWithLabel: true,
             },
@@ -47,16 +46,16 @@ export default {
         ],
         series: [
           {
-            name: "成果数量",
+            name: this.$t('institution_achievement_number'),
             type: "bar",
             barWidth: "30%",
-            data: [1000,2000,3000],
+            data: [],
           },
           {
-            name: "引用数量",
+            name: this.$t('institution_cite_number'),
             type: "bar",
             barWidth: "30%",
-            data: [1000,2000,3000],
+            data: [],
           },
         ],
       },
@@ -93,17 +92,35 @@ export default {
   watch: {
     info(oldVal, newVal) {
       // var len = this.info.length;
+      if (!newVal || !Array.isArray(newVal)) {
+        return;
+      }
+
       console.log(this.info, "!!!!!!!");
-      //   const reversedInfo = this.info.reverse();
-      const sortedInfo = this.newVal.sort((a, b) => a.year - b.year);
+      // const reversedInfo = newVal.reverse();
+      // const sortedInfo = reversedInfo.sort((a, b) => a.year - b.year);
       this.option.xAxis[0].data = [];
       this.option.series[0].data = [];
       this.option.series[1].data = [];
-      sortedInfo.forEach((element) => {
-        this.option.xAxis[0].data.push(element.year);
-        this.option.series[0].data.push(element.works_count);
-        this.option.series[1].data.push(element.cited_by_count);
-      });
+
+      var len = newVal.length;
+      var i = 5;
+      if(len<i) i=len;
+      console.log(len, "?????");
+      for (; i >= 0; i--) {
+        this.option.xAxis[0].data.push(newVal[i].year);
+        this.option.series[0].data.push(newVal[i].works_count);
+        this.option.series[1].data.push(newVal[i].cited_by_count);
+      }
+
+      console.log(this.option.xAxis[0].data, "!!!!!!!");
+      // newVal.forEach((element) => {
+      //   this.option.xAxis[0].data.push(element.year);
+      //   this.option.series[0].data.push(element.works_count);
+      //   this.option.series[1].data.push(element.cited_by_count);
+      // });
+
+      this.chart.setOption(this.option);
     },
   },
 };

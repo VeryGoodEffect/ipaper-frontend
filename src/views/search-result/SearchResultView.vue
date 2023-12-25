@@ -79,12 +79,12 @@
       <div v-show="show_sort">
         <div v-if="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
           <ul>
-            <li @click="show_sort_by_date = !show_sort_by_date">日期排序</li>
+            <li @click="show_sort_by_date = !show_sort_by_date">{{ $t('sort_by_date') }}</li>
             <li v-show="show_sort_by_date" @click="sortByTime(2)" style="cursor: pointer">
-              升序排序
+            {{ $t('ascending_sort') }}
             </li>
             <li v-show="show_sort_by_date" @click="sortByTime(1)" style="cursor: pointer">
-              降序排序
+            {{ $t('descending_sort') }}
             </li>
           </ul>
         </div>
@@ -92,13 +92,13 @@
         <div v-if="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
           <ul>
             <li @click="show_sort_by_cite = !show_sort_by_cite">
-              引用次數排序
+              {{ $t('sort_by_citation') }}
             </li>
             <li @click="sortByCite(1)" v-show="show_sort_by_cite" style="cursor: pointer">
-              升序排序
+              {{ $t('ascending_sort') }}
             </li>
             <li @click="sortByCite(2)" v-show="show_sort_by_cite" style="cursor: pointer">
-              降序排序
+            {{ $t('descending sort') }}
             </li>
           </ul>
         </div>
@@ -690,10 +690,12 @@ export default {
 .main-area {
   /* border: 2px solid blue; */
   display: flex;
+  justify-content: space-between;
 }
 
 .cond-area {
-  width: 300px;
+  border: 2px solid red;
+  width: 20%;
   /* height: 600px; */
   margin-top: 50px;
   margin-left: 30px;
@@ -759,6 +761,7 @@ export default {
   overflow: auto;
 }
 
+
 .search-bar {
   /* border: 2px solid red; */
   height: 60px;
@@ -804,7 +807,7 @@ export default {
 
 .chat {
   margin-top: 20px;
-  min-width: 320px;
+  width: 30%;
   display: flex;
   align-items: flex-start;
   position: relative;
