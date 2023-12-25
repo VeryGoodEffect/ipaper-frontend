@@ -119,8 +119,8 @@
                     t="1703450163993" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8553" width="200" height="200"><path d="M469.333333 469.333333V170.666667h85.333334v298.666666h298.666666v85.333334h-298.666666v298.666666h-85.333334v-298.666666H170.666667v-85.333334h298.666666z" p-id="8554"></path></svg>
                 </h3>
                 <div class="tag-container">
-                    <p v-for="(tag, index) in interests" :key="index" class="tag-item">
-                        {{ tag }}
+                    <p v-for="(tag, index) in interests" :key="index" class="tag-item" @click="jumpToTagDetail(tag)">
+                        {{ tag.name }}
                     </p>
                 </div>
             </div>
@@ -271,6 +271,9 @@ export default {
         },
         flushAuditStatus() {
           this.auditStatus = true
+        },
+        jumpToTagDetail(tag) {
+            this.$router.push('/tag_detail/' + tag.id)
         },
         getAuditDetail() {
             Application.getSubmittedList().then(

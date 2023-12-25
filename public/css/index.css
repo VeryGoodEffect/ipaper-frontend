@@ -270,10 +270,11 @@ pre * {
 }
 
 pre *::-webkit-scrollbar {
-  display: none;
+  display: none !important;
 }
 
-.dialog-bubble *{
+
+.dialog-bubble * {
   font-size: 14px;
   font-family: Monaco, Menlo, Consolas, "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", "Microsoft YaHei", sans-serif !important;
   line-height: 2em;

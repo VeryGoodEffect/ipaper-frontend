@@ -94,10 +94,15 @@ export default {
           query: query,
         });
       } else {
-        this.$emit("senddata", query);
+        // this.$emit("senddata", query);
         // alert("SendData")
         // 当前路由与目标路径不匹配
         // 执行其他逻辑
+        this.$router.push({
+          // path: "/search_result",
+          // type: this.search_type,
+          query: query,
+        });
       }
     },
     setSearchContent(data) {
