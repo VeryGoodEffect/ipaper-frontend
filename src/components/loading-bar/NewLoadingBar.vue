@@ -238,11 +238,11 @@ export default {
 }
 
 .animated-end {
-    background: var(--theme-color);
+    /* background: var(--theme-color); */
 }
 
 .animated-end .letters-container>span>span.letter-child {
-    color: var(--theme-mode);
+    /* color: var(--theme-mode); */
 }
 
 
