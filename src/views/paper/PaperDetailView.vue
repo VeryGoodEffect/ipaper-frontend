@@ -123,6 +123,7 @@ export default {
         Search.workRetrieve(this.paperId).then(
           (response) => {
             console.log(response)
+            console.log(1111)
             this.title = response.data.title
             this.authorships = response.data.authorships
             this.institutions = response.data.authorships.institutions 
