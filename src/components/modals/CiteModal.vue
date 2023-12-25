@@ -1,7 +1,7 @@
 <template>
     <PopoutModal :show="show" @close="handleClose">
       <div class="container">
-        <h3><span>引用</span></h3>
+        <h3><span>{{ $t('cite_modal_title') }}</span></h3>
         <div>{{ citations.IEEE }}</div>
       </div>
     </PopoutModal>

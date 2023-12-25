@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <button @click="displayTutorial = true">教程</button>
-        <button @click="handleLoading">预览加载条</button>
+        <button @click="displayTutorial = true">{{ $t('admin_view_instruction') }}</button>
+        <button @click="handleLoading">{{ $T('admin_view_loading') }}</button>
         <new-loading-bar :display="displayLoad" :progress="progress" @stop-display="displayLoad = false" :accelerate="false"
             :isReal="false"></new-loading-bar>
         <tutorial-view :display="displayTutorial" @stop-display="displayTutorial = false"></tutorial-view>

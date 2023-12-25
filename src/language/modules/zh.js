@@ -141,6 +141,11 @@ export default {
     paper_detail_tag: "标签",
     paper_detail_source: "专辑",
     paper_detail_doi: "DOI",
+    paper_detail_read_online: "在线阅读",
+    paper_detail_readPDF: " PDF阅读",
+    paper_detail_downloadPDF: " PDF下载",
+    cite_modal_title:"引用",
+
 
     all_status: '所有状态',
     select_audit_status: '筛选申请记录状态',
@@ -162,6 +167,9 @@ export default {
     check_disapprove: '请告知用户未通过审核的原因',
     approve_submitted: '已通过该申请',
     disapprove_submitted: '已拒绝该申请',
+    admin_view_instruction: "教程",
+    admin_view_loading: "预览加载条",
+
 
     public_date: "发表日期：",
 
@@ -172,6 +180,9 @@ export default {
     institution_URL: "官网链接",
     institution_relevant_institution: "相关机构",
     institution_author_achievement: "成果数",
+    institution_cite_number: "引用数量",
+    institution_achievement_number: "成果数量",
+    
 
     tag_detail_wiki: "维基百科",
     tag_detail_paper: "相关文献",
@@ -229,6 +240,12 @@ export default {
     // 
     top_scholar: '部分学者',
     talk_with_chat: '试用 ChatGPT',
+
+    reset_password: '重新设置你的密码',
+    sort_by_date: '日期排序',
+    ascending_sort: '升序排序',
+    descending_sort: '降序排序',
+    sort_by_citation: '引用次数排序',
 
 
 }

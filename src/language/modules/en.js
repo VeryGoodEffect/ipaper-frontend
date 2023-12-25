@@ -136,11 +136,15 @@ export default {
     scholar_portal_focus_areas: "Focus Areas",
     scholar_portal_net: "Relation Network",
 
-    paper_detail_abstract: "abstract",
-    paper_detail_keywords: "keywords",
-    paper_detail_tag: "tags",
-    paper_detail_source: "journal",
+    paper_detail_abstract: "Abstract",
+    paper_detail_keywords: "Keywords",
+    paper_detail_tag: "Tags",
+    paper_detail_source: "Journal",
     paper_detail_doi: "DOI",
+    paper_detail_read_online: "Read Online",
+    paper_detail_readPDF: "Read PDF",
+    paper_detail_downloadPDF: "Download",
+    cite_modal_title:"cite",
 
     all_status: 'All Status',
     select_audit_status: 'Select Application Status',
@@ -161,6 +165,8 @@ export default {
     no_images: 'No Images',
     submit_audit: 'Submit',
     public_date: "Date of Publication: ",
+    admin_view_instruction: "Instruction",
+    admin_view_loading: "Preview loadbar",
 
     institution_achievement: "Achievement",
     institution_main_scholar: "Main scholars",
@@ -169,6 +175,8 @@ export default {
     institution_URL: "Official website link",
     institution_relevant_institution: "Relevant institutions",
     institution_author_achievement: "Total achievements:",
+    institution_cite_number: "Number of citation ",
+    institution_achievement_number: "Number of achievements",
 
     tag_detail_wiki: "wiki",
     tag_detail_paper: "Related Literature",
@@ -232,13 +240,24 @@ Since 2021
     sort_by_down: 'Sort By Down',
 
     // include
-    include_patend: '包含专利',
-    include_cide: '包含引用',
+    include_patend: 'Contains patents',
+    include_cide: 'Contains references',
 
     talk_with_chat: 'Talk with ChatGPT',
     // 
     top_scholar: 'Top Scholar',
 
-
-    
+    reset_password: 'reset your password',
+    sort_by_date: 'sort by date',
+    ascending_sort: 'ascending sort',
+    descending_sort: 'descending sort',
+    sort_by_citation: 'sort by citation',
+    audit_detail_text: 'Audit Detail',
+    auditor_username: 'Auditor',
+    audit_timestamp: 'Audit Time',
+    audit_content: 'Content',
+    re_audit: 'Reaudit',
+    audit_progress: 'Audit Progress',
+    is_auditing: 'Is Auditing',
+    view_audit_detail: 'Audit Detail'
 }

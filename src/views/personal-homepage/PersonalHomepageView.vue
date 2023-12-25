@@ -87,7 +87,7 @@
                 <button v-if="isEditing" class="basic-btn authenticate-btn" @click="submitChangePersonalInfo">{{ $t('confirm_text' )}}</button>
                 <button v-if="isEditing" class="basic-btn authenticate-btn" @click="cancelChangePersonalInfo">{{ $t('cancel_text' )}}</button>
                 <button v-if="!isEditing && !auditStatus" class="basic-btn authenticate-btn" @click="authenticateModalShouldShow = true">{{ $t('authenticate_text') }}</button>
-                <button v-if="!isEditing && auditStatus" class="basic-btn authenticate-btn" @click="auditDetailModalShouldShow = true">查看审核信息</button>
+                <button v-if="!isEditing && auditStatus" class="basic-btn authenticate-btn" @click="auditDetailModalShouldShow = true">{{ $t('view_audit_detail')}}</button>
             </div>
         </div>
         <div class="tag-and-list">
