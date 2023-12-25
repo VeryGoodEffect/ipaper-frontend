@@ -126,7 +126,7 @@ export default {
             }
         },
         progress(value) {
-            console.log(value)
+            // console.log(value)
             let addProgress = () => {
                 if (this.localProgress < value + 0.2 && this.display) {
                     this.localProgress += 1
