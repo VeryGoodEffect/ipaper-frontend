@@ -394,6 +394,7 @@ p.abstract-wrapper {
   margin-bottom: 5px;
   color: var(--theme-color);
   cursor: pointer;
+  margin-left: 10px;
 }
 .paper-articles :hover {
   text-decoration: underline;
