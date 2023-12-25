@@ -119,7 +119,7 @@ export default {
       }
       Application.applications(formData).then(
         (response) => {
-          this.$bus.emit('sendFlushAuditStatus')
+          this.$bus.emit('sendFlushAuditStatusRequest')
           this.handleClose()
           console.log('申请认证成功')
         },
