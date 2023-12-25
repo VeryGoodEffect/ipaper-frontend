@@ -355,8 +355,8 @@ import { User } from '../../api/users'
         }
         Search.searchWorks(data).then(
             (response) => {
-              // console.log(111)
-              // console.log(response)
+              console.log(111)
+              console.log(response)
               // console.log(response.data.username)
               this.paginationInfo.totalPages = Math.ceil(response.data.meta.count / this.paginationInfo.itemsPerPage)
               this.resultlist = response.data.results;
@@ -381,6 +381,7 @@ import { User } from '../../api/users'
                 : "unkown",
             // author: "author",
             excerpt: "0",
+            id: item.id,
             timeCited: item.cited_by_count,
             keyword: "经济",
             related_times: item.related_works_count,

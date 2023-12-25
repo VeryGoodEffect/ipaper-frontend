@@ -11,7 +11,6 @@
           <h4 class="achievement">
             {{ $t('institution_achievement') }}
           </h4>
-          <InstitutionGraph :info="counts_by_year" class="graph"></InstitutionGraph>
           <div>
             <h4 class="tags">
             {{ $t('institution_main_tag') }}
@@ -79,6 +78,7 @@
       </div>
     
       <div>
+        <InstitutionGraph :info="counts_by_year" class="graph"></InstitutionGraph>
         <!-- <InstitutionGraphCite :info="counts_by_year"></InstitutionGraphCite> -->
       </div>
     </div>
@@ -266,7 +266,8 @@ export default {
 }
 .graph {
   /* width: 300px; */
-  width: 50%;
+  width: 80%;
+  margin: 0 auto;
 }
 .paper-list {
   font-size: 25px;

@@ -1,13 +1,9 @@
 <template>
   <div class="main-area">
-    <div class="cond-area" style="display: vertical">
-      <h3
-        class="filter-switch"
-        :class="{ 'filter-switch-active': show_filte }"
-        style="width: 100%"
-        @click="show_filte = !show_filte"
-      >
-        {{ $t("filter") }}
+    <div class="cond-area" style="display: vertical;">
+      <h3 class="filter-switch" :class="{ 'filter-switch-active': show_filte }" @click="show_filte = !show_filte">
+        {{ $t('filter') }}
+
       </h3>
       <div v-show="show_filte">
         <div
@@ -42,6 +38,7 @@
                   v-model="search_start_time"
                   type="text"
                   style="width: 30%" />
+                 ~ 
                 <input v-model="search_end_time" type="text" style="width: 30%"
               /></span>
             </li>
@@ -123,7 +120,6 @@
       <h3
         class="sort-switch"
         :class="{ 'sort-switch-active': show_sort }"
-        style="width: 100%"
         @click="show_sort = !show_sort"
       >
         {{ $t("sort") }}
@@ -306,48 +302,22 @@
       </Pagination>
     </div>
     <!-- <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT> -->
-    <div class="chat">
+  </div>
+  <div
+    id="chat"
+    :class="{ 'chat': true, 'dragging': isDragging }" 
+    :style="{ top: topDistance + 'px', left: leftDistance + 'px' }"
+    @mousedown.stop="startDrag"
+  >
       <template v-if="showChat">
         <ChatGPT />
-        <svg
-          @click="showChat = false"
-          t="1703445209964"
-          class="fold-icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="8413"
-          width="200"
-          height="200"
-        >
-          <path
-            d="M584.533333 512l-302.933333 302.933333L341.333333 874.666667l302.933334-302.933334 59.733333-59.733333-59.733333-59.733333L341.333333 145.066667 281.6 209.066667l302.933333 302.933333z"
-            fill="#444444"
-            p-id="8414"
-          ></path>
-        </svg>
+        <svg class="fold-icon" @click="showChat = false" t="1703515853080" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3724" width="200" height="200"><path d="M904.533333 674.133333l-362.666666-362.666666c-17.066667-17.066667-42.666667-17.066667-59.733334 0l-362.666666 362.666666c-17.066667 17.066667-17.066667 42.666667 0 59.733334 17.066667 17.066667 42.666667 17.066667 59.733333 0L512 401.066667l332.8 332.8c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866666-12.8c17.066667-17.066667 17.066667-42.666667 0-59.733334z" p-id="3725"></path></svg>
       </template>
       <template v-else>
-        <svg
-          @click="showChat = true"
-          t="1703444908491"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="8273"
-          width="200"
-          height="200"
-        >
-          <path
-            d="M401.066667 512l302.933333 302.933333-59.733333 59.733334L341.333333 571.733333 281.6 512 341.333333 452.266667l302.933334-302.933334 59.733333 59.733334L401.066667 512z"
-            fill="#444444"
-            p-id="8274"
-          ></path>
-        </svg>
-        <span @click="showChat = true">{{ $t("talk_with_chat") }}</span>
+        <span class="talk-hint">{{ $t("talk_with_chat") }}</span>
+        <svg class="unfold-chat" @click="showChat = true" t="1703515339866" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3584" width="200" height="200"><path d="M904.533333 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 644.266667 179.2 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333l362.666666 362.666667c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866667-12.8l362.666666-362.666667c17.066667-17.066667 17.066667-42.666667 0-59.733333z" p-id="3585"></path></svg>
       </template>
     </div>
-  </div>
 </template>
   
 <script>
@@ -457,6 +427,12 @@ export default {
 
       placehold: "",
       searchPanelRef: null,
+
+      topDistance: window.innerWidth > 500 ? 200 : 215,
+      leftDistance: window.innerWidth > 500 ? window.innerWidth - 330 : window.innerWidth * 0.5 - 160,
+      startX: 0,
+      startY: 0,
+      isDragging: false
     };
   },
   watch: {
@@ -508,6 +484,39 @@ export default {
     },
   },
   methods: {
+    // ==== CHAT ====
+    startDrag(event) {
+      const rectWidth = 320
+      const rectHeight = 60
+
+      const div = document.getElementById('chat')
+
+      if (
+        event.clientX <=  div.getBoundingClientRect().left + rectWidth &&
+        event.clientY <= div.getBoundingClientRect().top + rectHeight
+      ) {
+        this.isDragging = true
+        this.startX =  event.clientX - this.leftDistance
+        this.startY = event.clientY - this.topDistance
+        document.addEventListener('mousemove', this.handleDrag)
+        document.addEventListener('mouseup', this.stopDrag)
+      }
+    },
+    handleDrag(event) {
+      if (this.isDragging) {
+        this.leftDistance = event.clientX - this.startX
+        this.topDistance = event.clientY - this.startY
+      }
+    },
+    stopDrag() {
+      this.isDragging = false
+      document.removeEventListener('mousemove', this.handleDrag)
+      document.removeEventListener('mouseup', this.stopDrag)
+    },
+
+
+
+
     changePages(data) {
       this.currentPage = data;
       this.searchmethod(true);
@@ -896,14 +905,17 @@ export default {
   /* overflow: hidden; */
 }
 
+svg {
+  cursor: pointer;
+}
+
 .main-area {
   /* border: 2px solid blue; */
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .cond-area {
-  border: 2px solid red;
   width: 20%;
   /* height: 600px; */
   margin-top: 50px;
@@ -922,15 +934,18 @@ export default {
   cursor: pointer;
   transition: all ease-in-out 0.15s;
   text-align: center;
+  margin: 0 auto;
   margin-bottom: 10%;
-  padding: 3% 0;
+  padding: 2% 2%;
+  font-size: 0.8em;
+  width: 80%;
 }
 
 .cond-area .filter-switch:hover,
 .cond-area .sort-switch:hover {
   background: var(--theme-color);
   color: var(--theme-mode);
-  padding: 10% 0;
+  padding: 5% 2%;
 }
 
 .cond-area .filter-switch-active,
@@ -963,10 +978,13 @@ export default {
 }
 
 .search-container-wrapper {
-  width: 50%;
+  width: 60%;
   position: relative;
   height: 90vh;
   overflow: auto;
+}
+.search-container-wrapper::-webkit-scrollbar {
+  display: none !important;
 }
 
 .search-bar {
@@ -1013,35 +1031,47 @@ export default {
 }
 
 .chat {
-  margin-top: 20px;
-  width: 30%;
+  width: 320px;
   display: flex;
   align-items: flex-start;
-  position: relative;
+  position: absolute;
+  z-index: 9999;
+  box-shadow: 1px 1px 5px var(--theme-mode-contrast);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  background: var(--theme-mode);
 }
 
-.chat svg {
+/* .chat svg {
   fill: var(--default-text-color);
-  width: 30px;
-  height: 30px;
+  
   margin-right: 10px;
   cursor: pointer;
-}
-
-.chat span {
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.chat span:hover {
-  text-decoration: underline;
-}
+} */
 
 .fold-icon {
+  width: 30px;
+  height: 30px;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 10px;
+  top: 15px;
   z-index: 200;
+}
+
+.talk-hint {
+  font-size: 18px;
+  margin: 0 20px;
+  font-weight: bold;
+}
+
+.unfold-chat {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  fill: var(--default-text-color);
 }
 
 @media screen and (max-width: 1000px) {
@@ -1052,8 +1082,32 @@ export default {
   .cond-area {
     width: 90%;
     height: unset;
-    min-height: 300px;
+    /* min-height: 300px; */
     display: block;
+  }
+
+  .cond-area .filter-switch,
+  .cond-area .sort-switch {
+    width: fit-content;
+    padding: 0 30%;
+    margin: 5% auto;
+  }
+
+  .cond-area .filter-switch:hover,
+  .cond-area .sort-switch:hover {
+    background: var(--theme-color);
+    color: var(--theme-mode);
+    padding: 2% 30%;
+  }
+
+  .search-container-wrapper {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .search-container-wrapper {
+    padding-top: 50px;
   }
 }
 </style>
