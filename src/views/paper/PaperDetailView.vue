@@ -134,7 +134,8 @@ export default {
               this.doi = response.data.doi
             }
             if(response.data.primary_location.source != null) {
-              this.source = response.data.primary_location.source.display_name
+              var result = response.data.primary_location.source.display_name.replace(/=/g, "");
+              this.source = result
             }
             this.tags = response.data.concepts
             this.date = response.data.publication_date
