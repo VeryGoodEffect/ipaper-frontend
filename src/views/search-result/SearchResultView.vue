@@ -46,7 +46,7 @@
         </div>
 
 
-        <div
+        <div v-show="search_type == 1 || search_type == 3"
           class="filter-card"
           style="
             display: vertical;
@@ -70,8 +70,8 @@
         </div>
 
 
-        <div v-show="show_filte_by_language"
-          v-if="search_type == 1"
+        <div 
+          v-show="search_type == 1"
           class="filter-card"
           style="display: vertical; text-align: center"
         >
@@ -79,13 +79,13 @@
             <li @click="show_filte_by_language = !show_filte_by_language" style="cursor: pointer">
               {{ $t("filte_language") }}
             </li>
-            <li @click="setLanguage(1)" style="cursor: pointer">
+            <li @click="setLanguage(1)" v-show="show_filte_by_language" style="cursor: pointer">
               {{ $t("no_language_limit") }}
             </li>
-            <li @click="setLanguage(2)" style="cursor: pointer">
+            <li @click="setLanguage(2)" v-show="show_filte_by_language" style="cursor: pointer">
               {{ $t("chinece_language") }}
             </li>
-            <li @click="setLanguage(3)" style="cursor: pointer">
+            <li @click="setLanguage(3)" v-show="show_filte_by_language" style="cursor: pointer">
               {{ $t("english_language") }}
             </li>
             <!-- <li>时间不限</li> -->
