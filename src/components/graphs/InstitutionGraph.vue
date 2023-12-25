@@ -98,18 +98,20 @@ export default {
       }
 
       console.log(this.info, "!!!!!!!");
-      const reversedInfo = this.info.reverse();
-      // const sortedInfo = newVal.sort((a, b) => a.year - b.year);
+      // const reversedInfo = newVal.reverse();
+      // const sortedInfo = reversedInfo.sort((a, b) => a.year - b.year);
       this.option.xAxis[0].data = [];
       this.option.series[0].data = [];
       this.option.series[1].data = [];
 
       var len = newVal.length;
+      var i = 5;
+      if(len<i) i=len;
       console.log(len, "?????");
-      for (var i = 0; i < 5 && i < len; i++) {
-        this.option.xAxis[0].data.push(reversedInfo[i].year);
-        this.option.series[0].data.push(reversedInfo[i].works_count);
-        this.option.series[1].data.push(reversedInfo[i].cited_by_count);
+      for (; i >= 0; i--) {
+        this.option.xAxis[0].data.push(newVal[i].year);
+        this.option.series[0].data.push(newVal[i].works_count);
+        this.option.series[1].data.push(newVal[i].cited_by_count);
       }
 
       console.log(this.option.xAxis[0].data, "!!!!!!!");
