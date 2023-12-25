@@ -136,11 +136,14 @@ export default {
     scholar_portal_focus_areas: "Focus Areas",
     scholar_portal_net: "Relation Network",
 
-    paper_detail_abstract: "abstract",
-    paper_detail_keywords: "keywords",
-    paper_detail_tag: "tags",
-    paper_detail_source: "journal",
+    paper_detail_abstract: "Abstract",
+    paper_detail_keywords: "Keywords",
+    paper_detail_tag: "Tags",
+    paper_detail_source: "Journal",
     paper_detail_doi: "DOI",
+    paper_detail_read_online: "Read Online",
+    paper_detail_readPDF: "Read PDF",
+    paper_detail_downloadPDF: "Download",
 
     all_status: 'All Status',
     select_audit_status: 'Select Application Status',
@@ -169,6 +172,8 @@ export default {
     institution_URL: "Official website link",
     institution_relevant_institution: "Relevant institutions",
     institution_author_achievement: "Total achievements:",
+    institution_cite_number: "Number of citation ",
+    institution_achievement_number: "Number of achievements",
 
     tag_detail_wiki: "wiki",
     tag_detail_paper: "Related Literature",
@@ -232,8 +237,8 @@ Since 2021
     sort_by_down: 'Sort By Down',
 
     // include
-    include_patend: '包含专利',
-    include_cide: '包含引用',
+    include_patend: 'Contains patents',
+    include_cide: 'Contains references',
 
     talk_with_chat: 'Talk with ChatGPT',
     // 

@@ -7,11 +7,10 @@ import * as echarts from "echarts/core";
 import { TooltipComponent, GridComponent } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-
+import { ref } from "vue";
 export default {
   props: ["info"],
   mounted() {
-    // console.log(this.info[0])
     setTimeout(() => {
       this.initChart();
     }, 500); // 延迟 1 秒执行 initChart
@@ -47,13 +46,13 @@ export default {
         ],
         series: [
           {
-            name: "成果数量",
+            name: this.$t('institution_achievement_number'),
             type: "bar",
             barWidth: "30%",
             data: [],
           },
           {
-            name: "引用数量",
+            name: this.$t('institution_cite_number'),
             type: "bar",
             barWidth: "30%",
             data: [],

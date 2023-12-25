@@ -141,6 +141,10 @@ export default {
     paper_detail_tag: "标签",
     paper_detail_source: "专辑",
     paper_detail_doi: "DOI",
+    paper_detail_read_online: "在线阅读",
+    paper_detail_readPDF: " PDF阅读",
+    paper_detail_downloadPDF: " PDF下载",
+
 
     all_status: '所有状态',
     select_audit_status: '筛选申请记录状态',
@@ -172,6 +176,9 @@ export default {
     institution_URL: "官网链接",
     institution_relevant_institution: "相关机构",
     institution_author_achievement: "成果数",
+    institution_cite_number: "引用数量",
+    institution_achievement_number: "成果数量",
+    
 
     tag_detail_wiki: "维基百科",
     tag_detail_paper: "相关文献",

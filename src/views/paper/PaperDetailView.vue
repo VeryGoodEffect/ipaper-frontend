@@ -64,13 +64,13 @@
           </div>
           
           <button class="basic-btn-outline function-btn" @click="gotoPaperLandingURL" >
-            在线阅读
+            {{ $t('paper_detail_read_online') }}
           </button>
           <button class="basic-btn-outline function-btn" v-if="pdf_url != ''" @click="gotoPdfURL">
-            PDF阅读
+            {{ $t('paper_detail_readPDF') }}
           </button>
           <button class="basic-btn-outline function-btn" v-if="pdf_url != ''" @click="downloadPaper" >
-            PDF下载
+           {{ $t('paper_detail_downloadPDF') }}
           </button>
         </div>
       </div>

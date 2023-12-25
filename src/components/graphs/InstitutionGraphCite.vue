@@ -48,7 +48,7 @@ export default {
         ],
         series: [
           {
-            name: "引用数量",
+            name: this.$t('institution_cite_number'),
             type: "bar",
             barWidth: "60%",
             data: [],
