@@ -18,20 +18,20 @@
           "
         >
           <ul>
-            <li>{{ $t("filte_by_time") }}</li>
-            <li @click="setFilterTime(1)" style="cursor: pointer">
+            <li @click="show_filte_by_time = !show_filte_by_time">{{ $t("filte_by_time") }}</li>
+            <li @click="setFilterTime(1)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("no_limit_time") }}
             </li>
-            <li @click="setFilterTime(2)" style="cursor: pointer">
+            <li @click="setFilterTime(2)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("since_2023") }}
             </li>
-            <li @click="setFilterTime(3)" style="cursor: pointer">
+            <li @click="setFilterTime(3)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("since_2022") }}
             </li>
-            <li @click="setFilterTime(4)" style="cursor: pointer">
+            <li @click="setFilterTime(4)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("since_2021") }}
             </li>
-            <li @click="setFilterTime(5)" style="cursor: pointer">
+            <li @click="setFilterTime(5)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("self_define_time_range") }}
               <span
                 ><input
@@ -44,6 +44,31 @@
             </li>
           </ul>
         </div>
+
+
+        <div
+          class="filter-card"
+          style="
+            display: vertical;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            text-align: center;
+          "
+        >
+          <ul>
+            <li @click="show_filte_by_cite = !show_filte_by_cite">根据引用数量筛选</li>
+            <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
+              不限数量
+            </li>
+            <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
+              <input type="text" v-model="filte_count_value"
+                  style="width: 30%" />
+            </li>
+          </ul>
+        </div>
+
 
         <div
           v-if="search_type == 1"
@@ -100,24 +125,23 @@
         {{ $t("sort") }}
       </h3>
       <div v-show="show_sort">
-        <div
-          v-if="search_type == 1"
+        <div v-show="search_type == 1"
           class="filter-card"
           style="display: vertical; text-align: center"
         >
           <ul>
-            <li @click="show_sort_by_date = !show_sort_by_date">
+            <li v-show="search_type == 1" @click="show_sort_by_date = !show_sort_by_date">
               {{ $t("sort_by_date") }}
             </li>
             <li
-              v-show="show_sort_by_date"
+              v-show="show_sort_by_date && (search_type == 1)"
               @click="sortByTime(2)"
               style="cursor: pointer"
             >
               {{ $t("ascending_sort") }}
             </li>
             <li
-              v-show="show_sort_by_date"
+              v-show="show_sort_by_date && (search_type == 1)"
               @click="sortByTime(1)"
               style="cursor: pointer"
             >
@@ -126,31 +150,81 @@
           </ul>
         </div>
 
-        <div
-          v-if="search_type == 1"
+        <div v-show="search_type == 1 || search_type == 2 ||search_type == 3 ||search_type == 4 "
           class="filter-card"
           style="display: vertical; text-align: center"
         >
           <ul>
-            <li @click="show_sort_by_cite = !show_sort_by_cite">
+            <li v-show="search_type == 1 || search_type == 2 ||search_type == 3 ||search_type == 4 " @click="show_sort_by_cite = !show_sort_by_cite">
               引用次數排序
             </li>
             <li
               @click="sortByCite(1)"
-              v-show="show_sort_by_cite"
+              v-show="show_sort_by_cite && (search_type == 1 || search_type == 2 ||search_type == 3 ||search_type == 4 )"
               style="cursor: pointer"
             >
               {{ $t("ascending_sort") }}
             </li>
             <li
               @click="sortByCite(2)"
-              v-show="show_sort_by_cite"
+              v-show="show_sort_by_cite && (search_type == 1 || search_type == 2 ||search_type == 3 ||search_type == 4 )"
               style="cursor: pointer"
             >
               {{ $t("descending_sort") }}
             </li>
           </ul>
         </div>
+
+        <div v-show="search_type == 2 ||search_type == 3 ||search_type == 4 "
+          class="filter-card"
+          style="display: vertical; text-align: center"
+        >
+          <ul>
+            <li v-show="search_type == 2 ||search_type == 3 ||search_type == 4 " @click="show_sort_by_works_count = !show_sort_by_works_count">
+              成果数量排序
+            </li>
+            <li
+              @click="sortByWorksCount(1)"
+              v-show="show_sort_by_works_count && (search_type == 2 ||search_type == 3 ||search_type == 4 )"
+              style="cursor: pointer"
+            >
+              {{ $t("ascending_sort") }}
+            </li>
+            <li
+              @click="sortByWorksCount(2)"
+              v-show="show_sort_by_works_count && (search_type == 2 ||search_type == 3 ||search_type == 4 )"
+              style="cursor: pointer"
+            >
+              {{ $t("descending_sort") }}
+            </li>
+          </ul>
+        </div>
+
+        <div v-show="search_type == 1 || search_type == 2 ||search_type == 3 ||search_type == 4 "
+          class="filter-card"
+          style="display: vertical; text-align: center"
+        >
+          <ul>
+            <li v-show="search_type == 1 || search_type == 2 ||search_type == 3 ||search_type == 4 " @click="show_sort_by_display_name = !show_sort_by_display_name">
+              字母序排序
+            </li>
+            <li 
+              @click="sortByDisplayName(1)"
+              v-show="show_sort_by_display_name && (search_type == 1 || search_type == 2 ||search_type == 3 ||search_type == 4 )"
+              style="cursor: pointer"
+            >
+              {{ $t("ascending_sort") }}
+            </li>
+            <li
+              @click="sortByDisplayName(2)"
+              v-show="show_sort_by_display_name && (search_type == 1 || search_type == 2 ||search_type == 3 ||search_type == 4 )"
+              style="cursor: pointer"
+            >
+              {{ $t("descending_sort") }}
+            </li>
+          </ul>
+        </div>
+
       </div>
 
       <!-- <hr> -->
@@ -168,6 +242,7 @@
         <SearchPanel
           ref="searchPanelRef"
           @senddata="handleModoleSearch"
+          @setSearchTypeChild="handleChildSearchType"
         ></SearchPanel>
       </div>
       <div>
@@ -261,6 +336,7 @@ import SearchPanel from "../search/SearchPanel.vue";
 import ChatGPT from "../../components/chat/Chat.vue";
 import { ref } from "vue";
 import NewLoadingBarVue from "../../components/loading-bar/NewLoadingBar.vue";
+import FavouriteListChoosableVue from '../../components/favorites/FavouriteListChoosable.vue';
 export default {
   name: "SearchResultView",
   components: {
@@ -277,8 +353,27 @@ export default {
   },
   data() {
     return {
+      /***
+     * display_name
+        cited_by_count
+        works_count
+        publication_date
+        relevance_score (only exists if there's a search filter active)
+     */
       show_sort_by_date: false,
       show_sort_by_cite: false,
+      show_sort_by_works_count: false,
+      show_sort_by_display_name: false,
+
+      show_filte_by_time: false,
+      show_filte_by_cite: false,
+      show_filte_by_works_count: false,
+
+      filte_count_value: 10,
+      filte_cite_value: 100,
+
+
+
       show_sort: false,
       show_filte: false,
       showChat: false,
@@ -447,42 +542,6 @@ export default {
     showAsideBar() {
       this.show_property_search = !this.show_property_search;
     },
-
-    setSearchType(type) {
-      if (type == 0) {
-        // display_name.search:
-        // this.search_filter = "display_name.search:"
-        this.search_filter = "";
-        this.search_type = 1;
-      } else if (type == 1) {
-        //alert("abstract.search:");
-        this.search_filter = "abstract.search:";
-        this.search_type = 1;
-      } else if (type == 2) {
-        //alert("fulltext.search:");
-        this.search_filter = "fulltext.search:";
-        this.search_type = 1;
-      } else if (type == 3) {
-        //alert("display_name.search:");
-        this.search_filter = "display_name.search:";
-        this.search_type = 1;
-      }
-      // Author search
-      else if (type == 4) {
-        //alert("search author");
-        this.search_type = 2;
-      }
-
-      // 期刊
-      else if (type == 5) {
-        this.search_type = 3;
-      }
-      // 机构
-      else if (type == 6) {
-        this.search_type = 4;
-      }
-    },
-
     setWorkType() {
       if (this.selectedOption != null) {
         console.log(this.selectedOption);
@@ -512,16 +571,7 @@ export default {
           "";
       }
       this.searchdata.filter = this.filter;
-      console.log(JSON.parse(JSON.stringify(this.searchdata)));
-      // JSON.parse(JSON.stringify(this.searchdata));
-      Search.searchWorks(JSON.parse(JSON.stringify(this.searchdata))).then(
-        (res) => {
-          console.log(res.data);
-          this.resultlist = res.data.results;
-          this.resultlistToInfoItems();
-        },
-        (err) => {}
-      );
+      this.setQuery();
     },
 
     setLanguage(type) {
@@ -537,20 +587,23 @@ export default {
       }
 
       this.searchdata.filter = this.filter;
-      console.log(JSON.parse(JSON.stringify(this.searchdata)));
-      JSON.parse(JSON.stringify(this.searchdata));
-      Search.searchWorks(JSON.parse(JSON.stringify(this.searchdata))).then(
-        (res) => {
-          console.log(res.data.results);
-          this.resultlist = res.data.results;
-          this.resultlistToInfoItems();
-
-          this.progress = 100;
-        },
-        (err) => {}
-      );
+      this.setQuery();
     },
 
+    // instit
+    filteByCount(type) {
+      if(type == 0){
+        return;
+      }
+      if(type == 1){
+        // alert(this.filter)
+        this.filter = "cited_by_count:>"+this.filte_count_value
+        alert(this.filter)
+        this.setQuery();
+      }
+    },
+    // instit
+    filteWorksCount(type) {},
     advsearch(data) {
       //alert("data sent to advsearch");
       // inParts = [];
@@ -603,51 +656,62 @@ export default {
         publication_date
         relevance_score (only exists if there's a search filter active)
      */
+    setQuery(){
+      const query = {
+        filter: this.filter,
+        search: this.search,
+        sort: this.sort,
+        per_page: this.per_page,
+        page: this.page,
+        cursor: this.cursor,
+        search_type: this.search_type,
+      };
+
+      this.$router.push({
+        query: query
+      })
+    },
     sortByTime(type) {
-      // 早
-      // this.accelerate = true
-      // this.displayLoading = true
+
       if (type == 1) {
         this.sort = "publication_date:";
-        // if (
-        //   (alert(this.sort + 1),
-        //   this.sort.includes("publication_date:") ||
-        //     this.sort.includes("publication_date:desc"))
-        // ) {
-        //   this.sort = this.sort.replace(
-        //     /publication_date(:desc)?,/,
-        //     "publication_date:"
-        //   );
-        // } else {
-        //   this.sort += "publication_date:";
-        // }
       }
       // 晚
       else if (type == 2) {
         this.sort = "publication_date:desc";
-        // if (
-        //   (alert(this.sort + 2),
-        //   this.sort.includes("publication_date:") ||
-        //     this.sort.includes("publication_date:desc"))
-        // ) {
-        //   this.sort = this.sort.replace(
-        //     /publication_date(:desc)?,/,
-        //     "publication_date:desc"
-        //   );
-        // } else {
-        //   this.sort += "publication_date:desc";
-        // }
       }
-      this.searchmethod();
+      this.setQuery();
     },
 
+    sortByWorksCount(type) {
+      if (type == 1) {
+        this.sort = "works_count:"
+      } else if (type == 2) {
+        this.sort = "works_count:desc"
+      }
+      this.setQuery();
+    },
     sortByCite(type) {
       if (type == 1) {
         this.sort = "cited_by_count:";
       } else if (type == 2) {
         this.sort = "cited_by_count:desc";
       }
-      this.searchmethod();
+      this.setQuery();
+    },
+
+    sortByDisplayName(type) {
+      if (type == 1) {
+        this.sort = "display_name:"
+      } else if (type == 2) {
+        this.sort = "display_name:desc"
+      }
+      this.setQuery();
+    },
+
+
+    handleChildSearchType(searchType){
+      this.search_type = searchType
     },
 
     handleModoleSearch(searchdata) {

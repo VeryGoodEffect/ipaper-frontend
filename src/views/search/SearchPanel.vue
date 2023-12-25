@@ -1,26 +1,51 @@
 <template >
-  <div class="search-area">
-    <div>
-      <input v-model="search_search" type="text" class="basic-input search-input" :placeholder="place_holder"
-        @keydown.down="navigateDown" @keydown.up="navigateUp" @keydown.enter="searchOrChangeContent"
-        @focus="showAutoCompleteMenu" @blur="hideAutoCompleteMenu" />
-      <ul v-if="autoCompleteShouldShow && autoCompleteLists.length > 0">
-        <li :class="{ 'suggestion-active': index === activeSuggestionIndex }" v-for="(item, index) in autoCompleteLists"
-          :key="index" @mouseover="activeSuggestionIndex = index" @click="changeContent(item.display_name)">
-          {{ item.display_name }}
-        </li>
-      </ul>
+  <div>
+    <div class="search-area">
+      <div>
+        <input
+          v-model="search_search"
+          type="text"
+          class="basic-input search-input"
+          :placeholder="place_holder"
+          @keydown.down="navigateDown"
+          @keydown.up="navigateUp"
+          @keydown.enter="searchOrChangeContent"
+          @focus="showAutoCompleteMenu"
+          @blur="hideAutoCompleteMenu"
+        />
+        <ul v-if="autoCompleteShouldShow && autoCompleteLists.length > 0">
+          <li
+            :class="{ 'suggestion-active': index === activeSuggestionIndex }"
+            v-for="(item, index) in autoCompleteLists"
+            :key="index"
+            @mouseover="activeSuggestionIndex = index"
+            @click="changeContent(item.display_name)"
+          >
+            {{ item.display_name }}
+          </li>
+        </ul>
+      </div>
+      <button @click="search" class="basic-btn search-btn">
+        <svg
+          t="1699356103686"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="4162"
+          width="200"
+          height="200"
+        >
+          <path
+            d="M945.066667 898.133333l-189.866667-189.866666c55.466667-64 87.466667-149.333333 87.466667-241.066667 0-204.8-168.533333-373.333333-373.333334-373.333333S96 264.533333 96 469.333333 264.533333 842.666667 469.333333 842.666667c91.733333 0 174.933333-34.133333 241.066667-87.466667l189.866667 189.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c8.533333-12.8 8.533333-34.133333-2.133333-46.933334zM469.333333 778.666667C298.666667 778.666667 160 640 160 469.333333S298.666667 160 469.333333 160 778.666667 298.666667 778.666667 469.333333 640 778.666667 469.333333 778.666667z"
+            p-id="4163"
+            fill="#fff"
+          ></path>
+        </svg>
+      </button>
     </div>
-    <button @click="search" class="basic-btn search-btn">
-      <svg t="1699356103686" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        p-id="4162" width="200" height="200">
-        <path
-          d="M945.066667 898.133333l-189.866667-189.866666c55.466667-64 87.466667-149.333333 87.466667-241.066667 0-204.8-168.533333-373.333333-373.333334-373.333333S96 264.533333 96 469.333333 264.533333 842.666667 469.333333 842.666667c91.733333 0 174.933333-34.133333 241.066667-87.466667l189.866667 189.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c8.533333-12.8 8.533333-34.133333-2.133333-46.933334zM469.333333 778.666667C298.666667 778.666667 160 640 160 469.333333S298.666667 160 469.333333 160 778.666667 298.666667 778.666667 469.333333 640 778.666667 469.333333 778.666667z"
-          p-id="4163" fill="#fff"></path>
-      </svg>
-    </button>
+    <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar>
   </div>
-  <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar>
 </template>
 
 <script>
@@ -28,7 +53,7 @@ import { AutoComplete } from "../../api/autocomplete.js";
 import AsideBar from "../../components/search-property/AsideBar.vue";
 import i18n from "../../language";
 export default {
-  emits: ["senddata"],
+  emits: ["senddata", "setSearchTypeChild"],
   props: ["searchContent"],
   components: {
     i18n,
@@ -53,8 +78,8 @@ export default {
       autoCompleteLists: [],
       activeSuggestionIndex: -1,
       autoCompleteShouldShow: false,
-      place_holder: this.$t('search_type_0'),
-    }
+      place_holder: this.$t("search_type_0"),
+    };
   },
 
   watch: {
@@ -105,10 +130,13 @@ export default {
         });
       }
     },
-    setSearchContent(data) {
-      this.search_search = data
+    childSetSearchType() {
+      this.$emit("setSearchTypeChild", this.search_type);
     },
-    buildQuery() { },
+    setSearchContent(data) {
+      this.search_search = data;
+    },
+    buildQuery() {},
     advsearch(data) {
       // alert("data sent to advsearch");
       // queryParts = [];
@@ -132,7 +160,7 @@ export default {
         const field = data.is_key_title ? "title.search" : "abstract.search";
         this.search_filter += `${field}:${encodeURIComponent(data.keyword)},`;
       }
-      this.search_search = ""
+      this.search_search = "";
       console.log(this.search_filter);
       this.search();
     },
@@ -147,25 +175,25 @@ export default {
         this.search_filter = "";
         this.sort = "";
         this.search_type = 1;
-        this.place_holder = this.$t('search_type_0')
+        this.place_holder = this.$t("search_type_0");
       } else if (type == 1) {
         // alert("abstract.search:");
         this.search_filter = "abstract.search:";
         this.search_type = 1;
         this.sort = "";
-        this.place_holder = this.$t('search_type_1')
+        this.place_holder = this.$t("search_type_1");
       } else if (type == 2) {
         // alert("fulltext.search:");
         this.search_filter = "fulltext.search:";
         this.sort = "";
         this.search_type = 1;
-        this.place_holder = this.$t('search_type_2')
+        this.place_holder = this.$t("search_type_2");
       } else if (type == 3) {
         // alert("display_name.search:");
         this.search_filter = "display_name.search:";
         this.sort = "";
         this.search_type = 1;
-        this.place_holder = this.$t('search_type_3')
+        this.place_holder = this.$t("search_type_3");
       }
       // Author search
       else if (type == 4) {
@@ -173,7 +201,7 @@ export default {
         this.search_filter = "";
         this.sort = "";
         this.search_type = 2;
-        this.place_holder = this.$t('search_type_4')
+        this.place_holder = this.$t("search_type_4");
       }
 
       // 期刊
@@ -181,15 +209,17 @@ export default {
         this.search_filter = "";
         this.sort = "";
         this.search_type = 3;
-        this.place_holder = this.$t('search_type_5')
+        this.place_holder = this.$t("search_type_5");
       }
       // 机构
       else if (type == 6) {
         this.search_filter = "";
         this.sort = "";
         this.search_type = 4;
-        this.place_holder = this.$t('search_type_6')
+        this.place_holder = this.$t("search_type_6");
       }
+
+      // this.childSetSearchType();
     },
     autoComplete() {
       let data = {
@@ -233,9 +263,11 @@ export default {
     },
     searchOrChangeContent() {
       if (this.activeSuggestionIndex === -1) {
-        this.search()
+        this.search();
       } else {
-        this.changeContent(this.autoCompleteLists[this.activeSuggestionIndex].display_name)
+        this.changeContent(
+          this.autoCompleteLists[this.activeSuggestionIndex].display_name
+        );
       }
     },
     navigateDown() {
@@ -255,26 +287,30 @@ export default {
 
     hideAutoCompleteMenu() {
       setTimeout(() => {
-        this.autoCompleteShouldShow = false
-        this.activeSuggestionIndex = -1
-      }, 100)
+        this.autoCompleteShouldShow = false;
+        this.activeSuggestionIndex = -1;
+      }, 100);
     },
     changeContent(str) {
-      this.search_search = str
-      this.activeSuggestionIndex = -1
+      this.search_search = str;
+      this.activeSuggestionIndex = -1;
     },
     searchOrChangeContent() {
       if (this.activeSuggestionIndex === -1) {
-        this.search()
+        this.search();
       } else {
-        this.changeContent(this.autoCompleteLists[this.activeSuggestionIndex].display_name)
+        this.changeContent(
+          this.autoCompleteLists[this.activeSuggestionIndex].display_name
+        );
       }
     },
     scrollToAnchor(anchor) {
-      const offset = document.getElementById(anchor).getBoundingClientRect().top
-        - document.body.getBoundingClientRect().top - 60
-      window.scrollTo({ top: offset, behavior: 'smooth' })
-    }
+      const offset =
+        document.getElementById(anchor).getBoundingClientRect().top -
+        document.body.getBoundingClientRect().top -
+        60;
+      window.scrollTo({ top: offset, behavior: "smooth" });
+    },
   },
 };
 </script>
