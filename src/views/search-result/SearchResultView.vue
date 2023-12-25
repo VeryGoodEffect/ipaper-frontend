@@ -235,7 +235,7 @@ export default {
       filter: "",
       search: "",
       sort: "cited_by_count:desc",
-      perpage: "10",
+      per_page: "10",
       page: "1",
       cursor: "",
 
@@ -500,7 +500,7 @@ export default {
       this.searchdata = searchdata;
       this.search = searchdata.search;
       this.sort = searchdata.sort;
-      this.perpage = searchdata.perpage;
+      this.per_page = searchdata.per_page;
       this.cursor = searchdata.cursor;
       this.search_type = searchdata.search_type;
       // this.search_type = searchdata.search_type;
@@ -521,13 +521,13 @@ export default {
       this.displayLoading = true
       this.progress = 0
 
-      this.perpage = this.itemsPerPage;
+      this.per_page = this.itemsPerPage;
       this.page = this.currentPage;
       const searchdata = {
         filter: this.filter.replace(/,$/, ""),
         search: this.search,
         sort: this.sort,
-        per_page: this.perpage,
+        per_page: this.per_page,
         cursor: this.cursor,
         page: this.page,
       };
@@ -536,7 +536,7 @@ export default {
       // this.searchdata.filter = this.filter.replace(/,$/, "");
       // this.searchdata.search = this.search;
       // this.searchdata.sort = this.sort;
-      // this.searchdata.perpage = this.perpage;
+      // this.searchdata.per_page = this.per_page;
       // this.searchdata.cursor = this.cursor;
       // this.searchdata.page = this.page;
       // console.log(JSON.parse(JSON.stringify(this.searchdata)));
@@ -644,7 +644,7 @@ export default {
     this.searchdata = searchdata;
     this.search = searchdata.search;
     this.sort = searchdata.sort;
-    this.perpage = searchdata.perpage;
+    this.per_page = searchdata.per_page;
     this.cursor = searchdata.cursor;
     this.search_type = searchdata.search_type;
     this.changeSearchPanelContent(this.search);
