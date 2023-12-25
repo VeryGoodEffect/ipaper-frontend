@@ -144,6 +144,7 @@ export default {
     paper_detail_read_online: "在线阅读",
     paper_detail_readPDF: " PDF阅读",
     paper_detail_downloadPDF: " PDF下载",
+    cite_modal_title:"引用",
 
 
     all_status: '所有状态',
@@ -166,6 +167,9 @@ export default {
     check_disapprove: '请告知用户未通过审核的原因',
     approve_submitted: '已通过该申请',
     disapprove_submitted: '已拒绝该申请',
+    admin_view_instruction: "教程",
+    admin_view_loading: "预览加载条",
+
 
     public_date: "发表日期：",
 
@@ -236,6 +240,12 @@ export default {
     // 
     top_scholar: '部分学者',
     talk_with_chat: '试用 ChatGPT',
+
+    reset_password: '重新设置你的密码',
+    sort_by_date: '日期排序',
+    ascending_sort: '升序排序',
+    descending_sort: '降序排序',
+    sort_by_citation: '引用次数排序',
 
 
 }

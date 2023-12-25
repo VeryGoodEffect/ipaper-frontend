@@ -144,6 +144,7 @@ export default {
     paper_detail_read_online: "Read Online",
     paper_detail_readPDF: "Read PDF",
     paper_detail_downloadPDF: "Download",
+    cite_modal_title:"cite",
 
     all_status: 'All Status',
     select_audit_status: 'Select Application Status',
@@ -164,6 +165,8 @@ export default {
     no_images: 'No Images',
     submit_audit: 'Submit',
     public_date: "Date of Publication: ",
+    admin_view_instruction: "Instruction",
+    admin_view_loading: "Preview loadbar",
 
     institution_achievement: "Achievement",
     institution_main_scholar: "Main scholars",
@@ -244,6 +247,9 @@ Since 2021
     // 
     top_scholar: 'Top Scholar',
 
-
-    
+    reset_password: 'reset your password',
+    sort_by_date: 'sort by date',
+    ascending_sort: 'ascending sort',
+    descending_sort: 'descending sort',
+    sort_by_citation: 'sort by citation',
 }
