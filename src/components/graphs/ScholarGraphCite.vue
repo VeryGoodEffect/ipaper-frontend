@@ -58,14 +58,14 @@ export default {
       ],
       series: [
         {
-          name: "成果数量",
+          name: this.$t('institution_achievement_number'),
           type: "bar",
           barWidth: "35%",
           data: [],
           yAxisIndex: 1, // 使用第二个Y轴（右侧）
         },
         {
-          name: "引用数量",
+          name: this.$t('institution_cite_number'),
           type: "bar",
           barWidth: "35%",
           data: [],

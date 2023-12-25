@@ -1,6 +1,6 @@
 <template>
 <div>
-    重新设置你的密码
+    {{ $t('reset_password') }}
     <div>
         <input type="password" class="basic-input" :placeholder="$t('password_text')" v-model="password" />
         <input type="password" class="basic-input" :placeholder="$t('confirm_password')" v-model="password_confirm" @keyup.enter="resetPassword" />

@@ -86,6 +86,12 @@ export class User {
         })
     }
 
+    static async getFavorite(id) {
+        return service(url.users + "favorite/" + id + "/", {
+            method: "get"
+        })
+    }
+
     static async getFavoriteList(id) {
         return service(url.users + "favorite/list/" + id + "/", {
             method: "get"
