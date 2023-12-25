@@ -11,10 +11,7 @@ import { CanvasRenderer } from "echarts/renderers";
 export default {
   props: ["info"],
   mounted() {
-    // console.log(this.info[0])
-    setTimeout(() => {
-      this.initChart();
-    }, 500); // 延迟 1 秒执行 initChart
+    this.initChart();
   },
   data() {
     return {
@@ -95,16 +92,16 @@ export default {
       // 设置图表配置项并渲染图表
       // this.chart.setOption(this.option);
 
-      var len = this.info.length;
-      console.log(this.info, "!!!!!!!");
-      // const reversedInfo = this.info.reverse();
-      const sortedInfo = this.info.sort((a, b) => b.year - a.year);
+      // var len = this.info.length;
+      // console.log(this.info, "!!!!!!!");
+      // // const reversedInfo = this.info.reverse();
+      // const sortedInfo = this.info.sort((a, b) => b.year - a.year);
       
-      sortedInfo.reverse().forEach((element) => {
-        this.option.xAxis[0].data.push(element.year);
-        this.option.series[0].data.push(element.works_count);
-        this.option.series[1].data.push(element.cited_by_count);
-      });
+      // sortedInfo.reverse().forEach((element) => {
+      //   this.option.xAxis[0].data.push(element.year);
+      //   this.option.series[0].data.push(element.works_count);
+      //   this.option.series[1].data.push(element.cited_by_count);
+      // });
 
       this.chart.setOption(this.option);
     },
@@ -117,5 +114,40 @@ export default {
       }
     },
   },
+
+  watch:{
+    info(oldVal, newVal) {
+      // var len = this.info.length;
+      if (!newVal || !Array.isArray(newVal)) {
+        return;
+      }
+
+      console.log(this.info, "!!!!!!!");
+      // const reversedInfo = newVal.reverse();
+      // const sortedInfo = reversedInfo.sort((a, b) => a.year - b.year);
+      this.option.xAxis[0].data = [];
+      this.option.series[0].data = [];
+      this.option.series[1].data = [];
+
+      var len = newVal.length;
+      var i = 5;
+      if(len<i) i=len;
+      console.log(len, "?????");
+      for (; i >= 0; i--) {
+        this.option.xAxis[0].data.push(newVal[i].year);
+        this.option.series[0].data.push(newVal[i].works_count);
+        this.option.series[1].data.push(newVal[i].cited_by_count);
+      }
+
+      console.log(this.option.xAxis[0].data, "!!!!!!!");
+      // newVal.forEach((element) => {
+      //   this.option.xAxis[0].data.push(element.year);
+      //   this.option.series[0].data.push(element.works_count);
+      //   this.option.series[1].data.push(element.cited_by_count);
+      // });
+
+      this.chart.setOption(this.option);
+    },
+  }
 };
 </script>
