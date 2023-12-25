@@ -252,4 +252,12 @@ Since 2021
     ascending_sort: 'ascending sort',
     descending_sort: 'descending sort',
     sort_by_citation: 'sort by citation',
+    audit_detail_text: 'Audit Detail',
+    auditor_username: 'Auditor',
+    audit_timestamp: 'Audit Time',
+    audit_content: 'Content',
+    re_audit: 'Reaudit',
+    audit_progress: 'Audit Progress',
+    is_auditing: 'Is Auditing',
+    view_audit_detail: 'Audit Detail'
 }
