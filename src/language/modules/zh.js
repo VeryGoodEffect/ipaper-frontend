@@ -98,8 +98,8 @@ export default {
 
     // interest_tag_select
     interest_tag_select_text: '选择你的兴趣标签',
-    
-    
+
+
 
     //advanced_search
     search_text: '搜索',
@@ -144,7 +144,7 @@ export default {
     paper_detail_read_online: "在线阅读",
     paper_detail_readPDF: " PDF阅读",
     paper_detail_downloadPDF: " PDF下载",
-    cite_modal_title:"引用",
+    cite_modal_title: "引用",
 
 
     all_status: '所有状态',
@@ -182,7 +182,7 @@ export default {
     institution_author_achievement: "成果数",
     institution_cite_number: "引用数量",
     institution_achievement_number: "成果数量",
-    
+
 
     tag_detail_wiki: "维基百科",
     tag_detail_paper: "相关文献",
@@ -227,7 +227,7 @@ export default {
     chinece_language: '中文网页',
     english_language: '英文网页',
 
-    
+
 
 
     // sort
@@ -258,5 +258,30 @@ export default {
     audit_failed: '审核未通过',
     audit_approved: '审核已通过',
     audit_detail_text: '审核详情',
-    re_audit: '重新认证'
+    re_audit: '重新认证',
+    // 筛选来源
+    filte_source: '筛选来源',
+    filte_source_no_limit: '不限来源',
+    filte_source_journal: '期刊',
+    filte_source_respository: '资料库',
+    filte_source_conference: '会议',
+
+    // 根据语言筛选
+    filte_language: '根据语言筛选',
+
+
+    // 根据引用数量筛选
+    filte_cite: '根据引用数量筛选',
+    filte_cite_no_limit: '不限数量',
+    filte_cite_more_than: '多于',
+
+    sort_by_cite_count: '根据引用量搜索',
+
+
+    sort_by_works_count: '成果数量排序',
+
+    sort_by_alpha: '字母序排序',
+
+
+    
 }

@@ -144,7 +144,7 @@ export default {
     paper_detail_read_online: "Read Online",
     paper_detail_readPDF: "Read PDF",
     paper_detail_downloadPDF: "Download",
-    cite_modal_title:"cite",
+    cite_modal_title: "cite",
 
     all_status: 'All Status',
     select_audit_status: 'Select Application Status',
@@ -220,13 +220,13 @@ Since 2021
      */
     // Search filter
     filter: 'filte',
-    filte_by_time: 'filte_by_time',
+    filte_by_time: 'filte by time',
     no_limit_time: 'no time limit',
     since_2023: 'since_2023',
     since_2022: 'since_2022',
     since_2021: 'since_2021',
     self_define_time_range: 'time range',
-    
+
 
     // language
     no_language_limit: 'No Language Limit',
@@ -266,5 +266,27 @@ Since 2021
     audit_is_submit: 'Is Submitted',
     audit_unconfirmed: 'Waiting for Confirm',
     audit_failed: 'Failed',
-    audit_approved: 'Approved'
+    audit_approved: 'Approved',
+
+    // 筛选来源
+    filte_source: 'Source Type',
+    filte_source_no_limit: 'No Limit',
+    filte_source_journal: 'journal',
+    filte_source_respository: 'respository',
+    filte_source_conference: 'conference',
+    // filte_source_journal: 'journal',
+
+    filte_language: 'Sort By Language',
+
+    // 根据引用数量筛选
+    filte_cite: 'Sort By Cite',
+    filte_cite_no_limit: 'No Limit',
+    filte_cite_more_than: 'More Than',
+
+    sort_by_cite_count: 'Sort By Cite Count',
+
+    // sort works count
+    sort_by_works_count: 'Sort By Works Count',
+    sort_by_alpha: 'Alphabetical sorting',
+    
 }

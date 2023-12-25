@@ -58,24 +58,27 @@
           "
         >
           <ul>
-            <li @click="show_filte_by_cite = !show_filte_by_cite">根据引用数量筛选</li>
+            <li @click="show_filte_by_cite = !show_filte_by_cite">{{ $t("filte_cite") }}</li>
             <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
-              不限数量
+              {{ $t("filte_cite_no_limit") }}
             </li>
             <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
-              <input type="text" v-model="filte_count_value"
+             {{ $t("filte_cite_more_than") }} <input type="text" v-model="filte_count_value" 
                   style="width: 30%" />
             </li>
           </ul>
         </div>
 
 
-        <div
+        <div v-show="show_filte_by_language"
           v-if="search_type == 1"
           class="filter-card"
           style="display: vertical; text-align: center"
         >
           <ul>
+            <li @click="show_filte_by_language = !show_filte_by_language" style="cursor: pointer">
+              {{ $t("filte_language") }}
+            </li>
             <li @click="setLanguage(1)" style="cursor: pointer">
               {{ $t("no_language_limit") }}
             </li>
@@ -99,20 +102,39 @@
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
         </ul>
       </div> -->
-        <div
-          v-if="search_type == 3"
+        <div 
+          v-show="search_type == 3"
           class="filter-card"
           style="display: vertical; text-align: center"
         >
           <ul>
-            <li v-for="(option, index) in options" :key="index">
-              <input
-                type="radio"
-                :value="option.value"
-                v-model="selectedOption"
-              />
-              <label>{{ option.text }}</label>
+            <!--  -->
+            <li @click="show_filte_publication = !show_filte_publication" style="cursor: pointer">
+              {{ $t("filte_source") }}
             </li>
+            <li @click="setJounalType(0)" v-show="show_filte_publication" style="cursor: pointer">
+              {{ $t("filte_source_no_limit") }}
+            </li>
+            <li @click="setJounalType(1)" v-show="show_filte_publication" style="cursor: pointer">
+              {{ $t("filte_source_journal") }}
+            </li>
+            <li @click="setJounalType(2)" v-show="show_filte_publication" style="cursor: pointer">
+              {{ $t("filte_source_respository") }}
+            </li>
+            <li @click="setJounalType(3)" v-show="show_filte_publication" style="cursor: pointer">
+              {{ $t("filte_source_conference") }}
+            </li>
+            <!-- <li @click="setJounalType(4)" v-show="show_filte_publication" style="cursor: pointer">
+              ebook
+            </li>
+            <li @click="setJounalType(5)" v-show="show_filte_publication" style="cursor: pointer">
+              platform
+            </li>
+            <li @click="setJounalType(5)" v-show="show_filte_publication" style="cursor: pointer">
+              book series
+            </li> -->
+
+
           </ul>
         </div>
       </div>
@@ -156,7 +178,7 @@
         >
           <ul>
             <li v-show="search_type == 1 || search_type == 2 ||search_type == 3 ||search_type == 4 " @click="show_sort_by_cite = !show_sort_by_cite">
-              引用次數排序
+              {{ $t("sort_by_cite_count") }}
             </li>
             <li
               @click="sortByCite(1)"
@@ -181,7 +203,7 @@
         >
           <ul>
             <li v-show="search_type == 2 ||search_type == 3 ||search_type == 4 " @click="show_sort_by_works_count = !show_sort_by_works_count">
-              成果数量排序
+              {{ $t("sort_by_works_count") }}
             </li>
             <li
               @click="sortByWorksCount(1)"
@@ -206,7 +228,7 @@
         >
           <ul>
             <li v-show="search_type == 1 || search_type == 2 ||search_type == 3 ||search_type == 4 " @click="show_sort_by_display_name = !show_sort_by_display_name">
-              字母序排序
+              {{$t('sort_by_alpha')}}
             </li>
             <li 
               @click="sortByDisplayName(1)"
@@ -368,6 +390,8 @@ export default {
       show_filte_by_time: false,
       show_filte_by_cite: false,
       show_filte_by_works_count: false,
+      show_filte_by_language: false,
+      show_filte_publication: false,
 
       filte_count_value: 10,
       filte_cite_value: 100,
@@ -573,6 +597,27 @@ export default {
       this.searchdata.filter = this.filter;
       this.setQuery();
     },
+    setJounalType(type){
+      if(type == 0){
+        this.filter = "";
+      }else if(type == 1){
+        this.filter = "type:journal";
+      }else if(type == 2){
+        this.filter = "type:repository";
+      }else if(type == 3){
+        this.filter = "type:conference";
+      }else if(type == 4){
+        this.filter = "type:ebook";
+      }else if(type == 5){
+        this.filter = "type:platform";
+      }else if(type == 6){
+        this.filter = "type:book series";
+      }
+      this.searchdata.filter = this.filter;
+      this.setQuery();
+
+
+    },
 
     setLanguage(type) {
       this.accelerate = true;
@@ -771,8 +816,9 @@ export default {
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
 
-            this.totalPages = res.data.meta.count;
+            this.totalPages = Math.ceil(res.data.meta.count/res.data.meta.page);
             this.currentPage = res.data.meta.page;
+            // this.totalPages = Math.ceil(this.totalPages/this.currentPage)
             this.per_page = res.data.meta.per_page;
             this.progress = 100;
           },
@@ -786,8 +832,9 @@ export default {
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
 
-            this.totalPages = res.data.meta.count;
+            this.totalPages = Math.ceil(res.data.meta.count/res.data.meta.page);
             this.currentPage = res.data.meta.page;
+            // this.totalPages = Math.ceil(this.totalPages/this.currentPage)
             this.per_page = res.data.meta.per_page;
 
             this.progress = 100;
@@ -803,8 +850,9 @@ export default {
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
 
-            this.totalPages = res.data.meta.count;
+            this.totalPages = Math.ceil(res.data.meta.count/res.data.meta.page);
             this.currentPage = res.data.meta.page;
+            // this.totalPages = Math.ceil(this.totalPages/this.currentPage)
             this.per_page = res.data.meta.per_page;
 
             this.progress = 100;
@@ -820,8 +868,9 @@ export default {
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
 
-            this.totalPages = res.data.meta.count;
+            this.totalPages = Math.ceil(res.data.meta.count/res.data.meta.page);
             this.currentPage = res.data.meta.page;
+            // this.totalPages = Math.ceil(this.totalPages/this.currentPage)
             this.per_page = res.data.meta.per_page;
 
             this.progress = 100;
