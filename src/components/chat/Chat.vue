@@ -265,7 +265,7 @@ export default {
 .chatGPT {
   font-size: 20px;
   margin-top: 10px; 
-  margin-left: 100px;
+  margin-left: 70px;
   margin-bottom: 10px;
   font-weight: bold;
 }
