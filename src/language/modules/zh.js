@@ -216,9 +216,6 @@ export default {
     chinece_language: '中文网页',
     english_language: '英文网页',
 
-    
-
-
     // sort
     sort: '排序',
 
@@ -231,4 +228,13 @@ export default {
     talk_with_chat: '试用 ChatGPT',
 
 
+    // 审核详情
+    audit_detail_text: '审核详情',
+    auditor_username: '审核管理员',
+    audit_timestamp: '申请时间',
+    audit_content: '备注',
+    re_audit: '重新认证',
+    audit_progress: '审核进度',
+    is_auditing: '正在审核中',
+    view_audit_detail: '查看审核详情'
 }
