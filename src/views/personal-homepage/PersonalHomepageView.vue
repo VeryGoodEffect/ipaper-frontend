@@ -606,6 +606,7 @@ em {
 } */
 .tag-and-list {
     width: 60%;
+    margin-left: 30px;
 }
 
 .personal-tag {
@@ -635,7 +636,7 @@ em {
 
 .tag-item {
     margin-top: 10px;
-    margin-right: 10px;
+    margin-right: 20px;
     color: var(--theme-color);
     cursor: pointer;
 }

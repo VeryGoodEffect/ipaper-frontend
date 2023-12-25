@@ -23,6 +23,7 @@
 </PopoutModal>
 </template>
 
+
 <script>
 import PopoutModal from '../popout-modal/PopoutModal.vue'
 import TagButtonItem from '../button-item/TagButtonItem.vue'
@@ -211,6 +212,15 @@ export default {
     margin-bottom: 5px;
 }
 
+.select-container {
+    max-width: 60%;
+    height: 45px;
+    overflow-x: auto;
+    white-space: nowrap;
+    /* 避免换行 */
+    margin-bottom: 5px;
+}
+
 .select-content {
     display: flex;
     /* 确保内容可以横向排列 */
@@ -241,6 +251,9 @@ svg {
 }
 
 @media screen and (max-width: 768px) {
+    .container {
+        max-width: 80vw;
+    }
     .container>h3 {
         font-size: 25px;
         font-weight: bold;

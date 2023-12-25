@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="height: 100vh" class="my-graph">
+    <div style="height: 60vh" class="my-graph">
       <RelationGraph
         ref="graphRef"
         :options="graphOptions"
@@ -28,6 +28,10 @@ export default {
         allowSwitchJunctionPoint: true,
         defaultLineShape: 1,
         defaultJunctionPoint: "border",
+        backgroundColor: 'transparent',
+        defaultNodeColor: 'var(--theme-color)',
+        defaultFocusRootNode: false,
+        // disableZoom: true,
         layout: {
           layoutName: 'force',
           from: 'left',
@@ -67,75 +71,8 @@ export default {
       console.log(this.relationList)
       let __graph_json_data = {
         // rootId: 'root',
-        nodes: [
-          //  {id:'root', opacity:0}
-          // { id: "a", text: "a" },
-          // { id: "b", text: "b" },
-          // { id: "b1", text: "b1" },
-          // { id: "b1-1", text: "b1-1" },
-          // { id: "b1-2", text: "b1-2" },
-          // { id: "b1-3", text: "b1-3" },
-          // { id: "b1-4", text: "b1-4" },
-          // { id: "b1-5", text: "b1-5" },
-          // { id: "b1-6", text: "b1-6" },
-          // { id: "b2", text: "b2" },
-          // { id: "b2-1", text: "b2-1" },
-          // { id: "b2-2", text: "b2-2" },
-          // { id: "b2-3", text: "b2-3" },
-          // { id: "b2-4", text: "b2-4" },
-          // { id: "b3", text: "b3" },
-          // { id: "b3-1", text: "b3-1" },
-          // { id: "b3-2", text: "b3-2" },
-          // { id: "b3-3", text: "b3-3" },
-          // { id: "b3-4", text: "b3-4" },
-          // { id: "b3-5", text: "b3-5" },
-          // { id: "b3-6", text: "b3-6" },
-          // { id: "b3-7", text: "b3-7" },
-          // { id: "b4", text: "b4" },
-          // { id: "b4-1", text: "b4-1" },
-          // { id: "b4-2", text: "b4-2" },
-          // { id: "b4-3", text: "b4-3" },
-          // { id: "b4-4", text: "b4-4" },
-          // { id: "b4-5", text: "b4-5" },
-          // { id: "b4-6", text: "b4-6" },
-          // { id: "b4-7", text: "b4-7" },
-          // { id: "b4-8", text: "b4-8" },
-          // { id: "b4-9", text: "b4-9" },
-          // { id: "b5", text: "b5" },
-          // { id: "b5-1", text: "b5-1" },
-          // { id: "b5-2", text: "b5-2" },
-          // { id: "b5-3", text: "b5-3" },
-          // { id: "b5-4", text: "b5-4" },
-          // { id: "b6", text: "b6" },
-          // { id: "b6-1", text: "b6-1" },
-          // { id: "b6-2", text: "b6-2" },
-          // { id: "b6-3", text: "b6-3" },
-          // { id: "b6-4", text: "b6-4" },
-          // { id: "b6-5", text: "b6-5" },
-        ],
-        lines: [
-          // { from: "a", to: "b" },
-          // { from: "b", to: "b1" },
-          // { from: "b1", to: "b1-1" },
-          // { from: "b1", to: "b1-2" },
-          // { from: "b1", to: "b1-3" },
-          // { from: "b1", to: "b1-4" },
-          // { from: "b1", to: "b1-5" },
-          // { from: "b1", to: "b1-6" },
-          // { from: "b", to: "b2" },
-          // { from: "b2", to: "b2-1" },
-          // { from: "b2", to: "b2-2" },
-          // { from: "b2", to: "b2-3" },
-          // { from: "b2", to: "b2-4" },
-          // { from: "b", to: "b3" },
-          // { from: "b3", to: "b3-1" },
-          // { from: "b3", to: "b3-2" },
-          // { from: "b3", to: "b3-3" },
-          // { from: "b3", to: "b3-4" },
-          // { from: "b3", to: "b3-5" },
-          // { from: "b3", to: "b3-6" },
-          // { from: "b3", to: "b3-7" },
-        ],
+        nodes: [],
+        lines: [],
       };
       for(let i = 0; i < this.relationList.length && i<=20; i++) {
         if(i === 0) {
@@ -171,7 +108,7 @@ export default {
 };
 </script>
   
-<style>
+<style scoped>
 .my-graph {
   background: transparent !important;
 }

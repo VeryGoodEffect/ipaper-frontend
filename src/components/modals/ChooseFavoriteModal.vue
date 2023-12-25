@@ -52,9 +52,11 @@ export default {
     }
   },
   mounted() {
+    this.favouritesInfo = []
     this.fetchData()
   },
   updated() {
+    this.favouritesInfo = []
     this.fetchData()
   },
   emits: ['close'],

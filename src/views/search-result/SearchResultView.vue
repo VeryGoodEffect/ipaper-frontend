@@ -1,22 +1,20 @@
 <template>
   <div class="main-area">
-    <div class="cond-area" style="display: vertical; position: sticky; top: 0">
-      <h3 style="width: 100%;" @click="show_filte = !show_filte">
+    <div class="cond-area" style="display: vertical;">
+      <h3 class="filter-switch" :class="{ 'filter-switch-active': show_filte }" style="width: 100%;"
+        @click="show_filte = !show_filte">
         {{ $t('filter') }}
 
       </h3>
       <div v-show="show_filte">
-        <div
-          class="filter-card"
-          style="
+        <div class="filter-card" style="
             display: vertical;
             margin-left: auto;
             margin-right: auto;
             margin-top: 10%;
             margin-bottom: 10%;
             text-align: center;
-          "
-        >
+          ">
           <ul>
             <li>{{ $t("filte_by_time") }}</li>
             <li @click="setFilterTime(1)" style="cursor: pointer">
@@ -33,22 +31,13 @@
             </li>
             <li @click="setFilterTime(5)" style="cursor: pointer">
               {{ $t("self_define_time_range") }}
-              <span
-                ><input
-                  v-model="search_start_time"
-                  type="text"
-                  style="width: 30%" />
-                <input v-model="search_end_time" type="text" style="width: 30%"
-              /></span>
+              <span><input v-model="search_start_time" type="text" style="width: 30%" />
+                <input v-model="search_end_time" type="text" style="width: 30%" /></span>
             </li>
           </ul>
         </div>
 
-        <div
-          v-if="search_type == 1"
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
+        <div v-if="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
           <ul>
             <li @click="setLanguage(1)" style="cursor: pointer">
               {{ $t("no_language_limit") }}
@@ -73,74 +62,43 @@
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
         </ul>
       </div> -->
-        <div
-          v-if="search_type == 3"
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
+        <div v-if="search_type == 3" class="filter-card" style="display: vertical; text-align: center">
           <ul>
             <li v-for="(option, index) in options" :key="index">
-              <input
-                type="radio"
-                :value="option.value"
-                v-model="selectedOption"
-              />
+              <input type="radio" :value="option.value" v-model="selectedOption" />
               <label>{{ option.text }}</label>
             </li>
           </ul>
         </div>
       </div>
 
-      <h3 style="width: 100%" @click="show_sort = !show_sort">
+      <h3 class="sort-switch" :class="{ 'sort-switch-active': show_sort }" style="width: 100%"
+        @click="show_sort = !show_sort">
         {{ $t("sort") }}
       </h3>
       <div v-show="show_sort">
-        <div
-          v-if="search_type == 1"
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
+        <div v-if="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
           <ul>
-            <li @click="show_sort_by_date = !show_sort_by_date">日期排序</li>
-            <li
-              v-show="show_sort_by_date"
-              @click="sortByTime(2)"
-              style="cursor: pointer"
-            >
-              升序排序
+            <li @click="show_sort_by_date = !show_sort_by_date">{{ $t('sort_by_date') }}</li>
+            <li v-show="show_sort_by_date" @click="sortByTime(2)" style="cursor: pointer">
+            {{ $t('ascending_sort') }}
             </li>
-            <li
-              v-show="show_sort_by_date"
-              @click="sortByTime(1)"
-              style="cursor: pointer"
-            >
-              降序排序
+            <li v-show="show_sort_by_date" @click="sortByTime(1)" style="cursor: pointer">
+            {{ $t('descending_sort') }}
             </li>
           </ul>
         </div>
 
-        <div
-          v-if="search_type == 1"
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
+        <div v-if="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
           <ul>
             <li @click="show_sort_by_cite = !show_sort_by_cite">
               引用次數排序
             </li>
-            <li
-              @click="sortByCite(1)"
-              v-show="show_sort_by_cite"
-              style="cursor: pointer"
-            >
-              升序排序
+            <li @click="sortByCite(1)" v-show="show_sort_by_cite" style="cursor: pointer">
+              {{ $t('ascending_sort') }}
             </li>
-            <li
-              @click="sortByCite(2)"
-              v-show="show_sort_by_cite"
-              style="cursor: pointer"
-            >
-              降序排序
+            <li @click="sortByCite(2)" v-show="show_sort_by_cite" style="cursor: pointer">
+            {{ $t('descending sort') }}
             </li>
           </ul>
         </div>
@@ -167,15 +125,8 @@
     //this.$emit('change-page',page) -->
       <!-- 
        -->
-      <Pagination
-        @change-item-per-page="changeItemPerpage"
-        @change-page="changePages"
-        :itemsPerPage="itemsPerPage"
-        :currentPage="currentPage"
-        :totalPages="totalPages"
-        class="pagination"
-        :defaultItemsPerPage="5"
-      >
+      <Pagination @change-item-per-page="changeItemPerpage" @change-page="changePages" :itemsPerPage="itemsPerPage"
+        :currentPage="currentPage" :totalPages="totalPages" class="pagination" :defaultItemsPerPage="5">
         <div v-if="search_type == 1">
           <SearchResultListItem v-for="(info, index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
         </div>
@@ -196,13 +147,21 @@
     <!-- <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT> -->
     <div class="chat">
       <template v-if="showChat">
-        <ChatGPT/>
-        <svg @click="showChat = false"
-          t="1703445209964" class="fold-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8413" width="200" height="200"><path d="M584.533333 512l-302.933333 302.933333L341.333333 874.666667l302.933334-302.933334 59.733333-59.733333-59.733333-59.733333L341.333333 145.066667 281.6 209.066667l302.933333 302.933333z" fill="#444444" p-id="8414"></path></svg>
+        <ChatGPT />
+        <svg @click="showChat = false" t="1703445209964" class="fold-icon" viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="8413" width="200" height="200">
+          <path
+            d="M584.533333 512l-302.933333 302.933333L341.333333 874.666667l302.933334-302.933334 59.733333-59.733333-59.733333-59.733333L341.333333 145.066667 281.6 209.066667l302.933333 302.933333z"
+            fill="#444444" p-id="8414"></path>
+        </svg>
       </template>
       <template v-else>
-        <svg  @click="showChat = true"
-          t="1703444908491" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8273" width="200" height="200"><path d="M401.066667 512l302.933333 302.933333-59.733333 59.733334L341.333333 571.733333 281.6 512 341.333333 452.266667l302.933334-302.933334 59.733333 59.733334L401.066667 512z" fill="#444444" p-id="8274"></path></svg>
+        <svg @click="showChat = true" t="1703444908491" viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="8273" width="200" height="200">
+          <path
+            d="M401.066667 512l302.933333 302.933333-59.733333 59.733334L341.333333 571.733333 281.6 512 341.333333 452.266667l302.933334-302.933334 59.733333 59.733334L401.066667 512z"
+            fill="#444444" p-id="8274"></path>
+        </svg>
         <span @click="showChat = true">{{ $t('talk_with_chat') }}</span>
       </template>
     </div>
@@ -244,7 +203,7 @@ export default {
       show_sort_by_date: false,
       show_sort_by_cite: false,
       show_sort: false,
-      show_filte: false.valueOf,
+      show_filte: false,
       showChat: false,
 
       totalPages: 1,
@@ -496,7 +455,7 @@ export default {
         this.sort = "publication_date:";
         // if (
         //   (alert(this.sort + 1),
-          //   this.sort.includes("publication_date:") ||
+        //   this.sort.includes("publication_date:") ||
         //     this.sort.includes("publication_date:desc"))
         // ) {
         //   this.sort = this.sort.replace(
@@ -512,7 +471,7 @@ export default {
         this.sort = "publication_date:desc";
         // if (
         //   (alert(this.sort + 2),
-          //   this.sort.includes("publication_date:") ||
+        //   this.sort.includes("publication_date:") ||
         //     this.sort.includes("publication_date:desc"))
         // ) {
         //   this.sort = this.sort.replace(
@@ -731,11 +690,12 @@ export default {
 .main-area {
   /* border: 2px solid blue; */
   display: flex;
+  justify-content: space-between;
 }
 
 .cond-area {
   border: 2px solid red;
-  width: 300px;
+  width: 20%;
   /* height: 600px; */
   margin-top: 50px;
   margin-left: 30px;
@@ -746,11 +706,37 @@ export default {
   font-size: 30px;
 }
 
-.cond-area .filter-card {
-  border: 2px solid red;
 
+.cond-area .filter-switch,
+.cond-area .sort-switch {
+  background: var(--theme-mode-contrast);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all ease-in-out 0.15s;
+  text-align: center;
+  margin-bottom: 10%;
+  padding: 3% 0;
+}
+
+.cond-area .filter-switch:hover,
+.cond-area .sort-switch:hover {
+  background: var(--theme-color);
+  color: var(--theme-mode);
+  padding: 10% 0;
+}
+
+.cond-area .filter-switch-active,
+.cond-area .sort-switch-active {
+  background: var(--theme-color);
+  color: var(--theme-mode);
+}
+
+.cond-area .filter-card {
+  border: 2px solid var(--theme-mode-contrast);
   margin-top: 10%;
-  border-radius: 8px;
+
+  margin-bottom: 5%;
+  border-radius: 2%;
 }
 
 .cond-area .filter-card li {
@@ -761,6 +747,11 @@ export default {
   display: flex;
   align-items: center;
   font-family: Arial, sans-serif;
+  transition: all ease-in-out 0.2s;
+}
+
+.cond-area .filter-card li:hover {
+  background: var(--theme-mode-contrast);
 }
 
 .search-container-wrapper {
@@ -769,6 +760,7 @@ export default {
   height: 90vh;
   overflow: auto;
 }
+
 
 .search-bar {
   /* border: 2px solid red; */
@@ -815,7 +807,7 @@ export default {
 
 .chat {
   margin-top: 20px;
-  min-width: 320px;
+  width: 30%;
   display: flex;
   align-items: flex-start;
   position: relative;
@@ -829,7 +821,7 @@ export default {
   cursor: pointer;
 }
 
-.chat  span {
+.chat span {
   font-size: 20px;
   cursor: pointer;
 }
@@ -840,7 +832,8 @@ export default {
 
 .fold-icon {
   position: absolute;
-  right: 0;top: 0;
+  right: 0;
+  top: 0;
   z-index: 200;
 }
 
