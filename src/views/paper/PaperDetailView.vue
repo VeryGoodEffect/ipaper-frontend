@@ -56,6 +56,14 @@
             </h4>
             <a :href="doi" target="_blank"> {{this.doi}} </a>
           </div>
+          <div class="paper-articles" v-if = "doi != ''">
+            <h4 class="little-title"> 
+            {{ $t('paper_detail_relevant_articles') }}
+            </h4>
+            <div class="relevant-articles" v-for="(article, idx) in this.relevantArticles" :key="idx" @click="gotoAnotherPaper(article)">
+              {{ article.title }}
+            </div>
+          </div>
           <div class="paper-source" v-if = "source != ''">
             <h4 class="little-title"> 
             {{ $t('paper_detail_source') }}
@@ -95,6 +103,14 @@ export default {
     ChooseFavoriteModal,
     CiteModal
 },
+  watch: {
+    '$route.params.id': {
+      immediate: true,
+      handler(newVal, oldVal) {
+        this.getPaperDetail()
+      },
+    },
+  },
   data() {
     return {
       paperId: undefined,
@@ -110,7 +126,8 @@ export default {
       pdf_url: '',
       citations: [],
       collectModalShouldShow: false,
-      citeModalShouldShow: false
+      citeModalShouldShow: false,
+      relevantArticles: [],
     }
   },
   created() {
@@ -144,6 +161,10 @@ export default {
               this.pdf_url = response.data.primary_location.pdf_url
             }
             this.citations = response.data.citations
+            this.related_works_count = response.data.related_works_count
+            if(response.data.related_works_count > 0) {
+              this.getRelatedArticles(response.data.related_works_api_url) 
+            }
           }
         )
       }
@@ -185,6 +206,25 @@ export default {
       link.click()
       document.body.removeChild(link)
     },
+    getRelatedArticles(url) {
+      Search.getEntities(url).then(
+        (response) => {
+          console.log(response)
+          // console.log(222)
+          // console.log(this.institutionAuthors)
+          this.relevantArticles = []
+          if(this.related_works_count <= 3) {
+            this.relevantArticles = response.data.results
+          }
+          else {
+            for(let i = 0; i < 3; i++) {
+              this.relevantArticles.push(response.data.results[i])
+            }
+          }
+          console.log(this.relevantArticles)
+        }
+      )
+    },
     gotoAuthorPage(id) {
       this.$router.push('/scholar_portal/' + id);
     },
@@ -196,6 +236,9 @@ export default {
     },
     gotoPdfURL() {
       window.open(this.pdf_url, "_blank")
+    },
+    gotoAnotherPaper(article) {
+      this.$router.push('/paper_detail/' + article.id);
     },
   }
 }
@@ -329,6 +372,7 @@ export default {
 
 .paper-keywords h4,
 .paper-doi h4,
+.paper-articles h4,
 .paper-source h4 {
   display: inline-block;
   margin-right: 20px;
@@ -345,5 +389,13 @@ p.abstract-wrapper {
   /* overflow-wrap: break-word; */
   word-wrap: break-word;
   /* word-break: break-all; */
+}
+.relevant-articles {
+  margin-bottom: 5px;
+  color: var(--theme-color);
+  cursor: pointer;
+}
+.paper-articles :hover {
+  text-decoration: underline;
 }
 </style>

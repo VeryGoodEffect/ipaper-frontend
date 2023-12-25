@@ -141,6 +141,7 @@ export default {
     paper_detail_tag: "标签",
     paper_detail_source: "专辑",
     paper_detail_doi: "DOI",
+    paper_detail_relevant_articles: "相关文献",
     paper_detail_read_online: "在线阅读",
     paper_detail_readPDF: " PDF阅读",
     paper_detail_downloadPDF: " PDF下载",

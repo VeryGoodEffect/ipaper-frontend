@@ -141,6 +141,7 @@ export default {
     paper_detail_tag: "Tags",
     paper_detail_source: "Journal",
     paper_detail_doi: "DOI",
+    paper_detail_relevant_articles: "Relavant Articles",
     paper_detail_read_online: "Read Online",
     paper_detail_readPDF: "Read PDF",
     paper_detail_downloadPDF: "Download",
