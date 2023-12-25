@@ -1,8 +1,7 @@
 <template>
   <div class="main-area">
     <div class="cond-area" style="display: vertical;">
-      <h3 class="filter-switch" :class="{ 'filter-switch-active': show_filte }" style="width: 100%;"
-        @click="show_filte = !show_filte">
+      <h3 class="filter-switch" :class="{ 'filter-switch-active': show_filte }" @click="show_filte = !show_filte">
         {{ $t('filter') }}
 
       </h3>
@@ -32,6 +31,7 @@
             <li @click="setFilterTime(5)" style="cursor: pointer">
               {{ $t("self_define_time_range") }}
               <span><input v-model="search_start_time" type="text" style="width: 30%" />
+                 ~ 
                 <input v-model="search_end_time" type="text" style="width: 30%" /></span>
             </li>
           </ul>
@@ -72,8 +72,7 @@
         </div>
       </div>
 
-      <h3 class="sort-switch" :class="{ 'sort-switch-active': show_sort }" style="width: 100%"
-        @click="show_sort = !show_sort">
+      <h3 class="sort-switch" :class="{ 'sort-switch-active': show_sort }" @click="show_sort = !show_sort">
         {{ $t("sort") }}
       </h3>
       <div v-show="show_sort">
@@ -81,10 +80,10 @@
           <ul>
             <li @click="show_sort_by_date = !show_sort_by_date">{{ $t('sort_by_date') }}</li>
             <li v-show="show_sort_by_date" @click="sortByTime(2)" style="cursor: pointer">
-            {{ $t('ascending_sort') }}
+              {{ $t('ascending_sort') }}
             </li>
             <li v-show="show_sort_by_date" @click="sortByTime(1)" style="cursor: pointer">
-            {{ $t('descending_sort') }}
+              {{ $t('descending_sort') }}
             </li>
           </ul>
         </div>
@@ -98,7 +97,7 @@
               {{ $t('ascending_sort') }}
             </li>
             <li @click="sortByCite(2)" v-show="show_sort_by_cite" style="cursor: pointer">
-            {{ $t('descending sort') }}
+              {{ $t('descending sort') }}
             </li>
           </ul>
         </div>
@@ -694,7 +693,6 @@ export default {
 }
 
 .cond-area {
-  border: 2px solid red;
   width: 20%;
   /* height: 600px; */
   margin-top: 50px;
@@ -714,15 +712,18 @@ export default {
   cursor: pointer;
   transition: all ease-in-out 0.15s;
   text-align: center;
+  margin: 0 auto;
   margin-bottom: 10%;
-  padding: 3% 0;
+  padding: 2% 2%;
+  font-size: 0.8em;
+  width: 80%;
 }
 
 .cond-area .filter-switch:hover,
 .cond-area .sort-switch:hover {
   background: var(--theme-color);
   color: var(--theme-mode);
-  padding: 10% 0;
+  padding: 5% 2%;
 }
 
 .cond-area .filter-switch-active,
@@ -761,6 +762,9 @@ export default {
   overflow: auto;
 }
 
+.search-container-wrapper ::-webkit-scrollbar {
+  display: none;
+}
 
 .search-bar {
   /* border: 2px solid red; */
@@ -845,8 +849,22 @@ export default {
   .cond-area {
     width: 90%;
     height: unset;
-    min-height: 300px;
+    /* min-height: 300px; */
     display: block;
+  }
+
+  .cond-area .filter-switch,
+  .cond-area .sort-switch {
+    width: fit-content;
+    padding: 0 30%;
+    margin: 5% auto;
+  }
+
+  .cond-area .filter-switch:hover,
+  .cond-area .sort-switch:hover {
+    background: var(--theme-color);
+    color: var(--theme-mode);
+    padding: 2% 30%;
   }
 }
 </style>
