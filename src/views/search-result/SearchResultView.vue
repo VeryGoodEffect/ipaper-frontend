@@ -731,11 +731,12 @@ export default {
 .main-area {
   /* border: 2px solid blue; */
   display: flex;
+  justify-content: space-between;
 }
 
 .cond-area {
   border: 2px solid red;
-  width: 300px;
+  width: 20%;
   /* height: 600px; */
   margin-top: 50px;
   margin-left: 30px;
@@ -769,6 +770,7 @@ export default {
   height: 90vh;
   overflow: auto;
 }
+
 
 .search-bar {
   /* border: 2px solid red; */
@@ -815,7 +817,7 @@ export default {
 
 .chat {
   margin-top: 20px;
-  min-width: 320px;
+  width: 30%;
   display: flex;
   align-items: flex-start;
   position: relative;
