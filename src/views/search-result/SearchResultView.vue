@@ -101,20 +101,20 @@
           style="display: vertical; text-align: center"
         >
           <ul>
-            <li @click="show_sort_by_date = !show_sort_by_date">{{ $t('sort_by_date') }}</li>
+            <li @click="show_sort_by_date = !show_sort_by_date">日期排序</li>
             <li
               v-show="show_sort_by_date"
               @click="sortByTime(2)"
               style="cursor: pointer"
             >
-            {{ $t('ascending_sort') }}
+              升序排序
             </li>
             <li
               v-show="show_sort_by_date"
               @click="sortByTime(1)"
               style="cursor: pointer"
             >
-            {{ $t('descending_sort') }}
+              降序排序
             </li>
           </ul>
         </div>
@@ -126,21 +126,21 @@
         >
           <ul>
             <li @click="show_sort_by_cite = !show_sort_by_cite">
-              {{ $t('sort_by_citation') }}
+              引用次數排序
             </li>
             <li
               @click="sortByCite(1)"
               v-show="show_sort_by_cite"
               style="cursor: pointer"
             >
-              {{ $t('ascending_sort') }}
+              升序排序
             </li>
             <li
               @click="sortByCite(2)"
               v-show="show_sort_by_cite"
               style="cursor: pointer"
             >
-            {{ $t('descending sort') }}
+              降序排序
             </li>
           </ul>
         </div>
