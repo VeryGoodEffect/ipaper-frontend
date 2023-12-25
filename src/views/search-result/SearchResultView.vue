@@ -1,20 +1,26 @@
 <template>
   <div class="main-area">
-    <div class="cond-area" style="display: vertical;">
-      <h3 class="filter-switch" :class="{ 'filter-switch-active': show_filte }" style="width: 100%;"
-        @click="show_filte = !show_filte">
-        {{ $t('filter') }}
-
+    <div class="cond-area" style="display: vertical">
+      <h3
+        class="filter-switch"
+        :class="{ 'filter-switch-active': show_filte }"
+        style="width: 100%"
+        @click="show_filte = !show_filte"
+      >
+        {{ $t("filter") }}
       </h3>
       <div v-show="show_filte">
-        <div class="filter-card" style="
+        <div
+          class="filter-card"
+          style="
             display: vertical;
             margin-left: auto;
             margin-right: auto;
             margin-top: 10%;
             margin-bottom: 10%;
             text-align: center;
-          ">
+          "
+        >
           <ul>
             <li>{{ $t("filte_by_time") }}</li>
             <li @click="setFilterTime(1)" style="cursor: pointer">
@@ -31,13 +37,22 @@
             </li>
             <li @click="setFilterTime(5)" style="cursor: pointer">
               {{ $t("self_define_time_range") }}
-              <span><input v-model="search_start_time" type="text" style="width: 30%" />
-                <input v-model="search_end_time" type="text" style="width: 30%" /></span>
+              <span
+                ><input
+                  v-model="search_start_time"
+                  type="text"
+                  style="width: 30%" />
+                <input v-model="search_end_time" type="text" style="width: 30%"
+              /></span>
             </li>
           </ul>
         </div>
 
-        <div v-if="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
+        <div
+          v-if="search_type == 1"
+          class="filter-card"
+          style="display: vertical; text-align: center"
+        >
           <ul>
             <li @click="setLanguage(1)" style="cursor: pointer">
               {{ $t("no_language_limit") }}
@@ -62,43 +77,81 @@
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
         </ul>
       </div> -->
-        <div v-if="search_type == 3" class="filter-card" style="display: vertical; text-align: center">
+        <div
+          v-if="search_type == 3"
+          class="filter-card"
+          style="display: vertical; text-align: center"
+        >
           <ul>
             <li v-for="(option, index) in options" :key="index">
-              <input type="radio" :value="option.value" v-model="selectedOption" />
+              <input
+                type="radio"
+                :value="option.value"
+                v-model="selectedOption"
+              />
               <label>{{ option.text }}</label>
             </li>
           </ul>
         </div>
       </div>
 
-      <h3 class="sort-switch" :class="{ 'sort-switch-active': show_sort }" style="width: 100%"
-        @click="show_sort = !show_sort">
+      <h3
+        class="sort-switch"
+        :class="{ 'sort-switch-active': show_sort }"
+        style="width: 100%"
+        @click="show_sort = !show_sort"
+      >
         {{ $t("sort") }}
       </h3>
       <div v-show="show_sort">
-        <div v-if="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
+        <div
+          v-if="search_type == 1"
+          class="filter-card"
+          style="display: vertical; text-align: center"
+        >
           <ul>
-            <li @click="show_sort_by_date = !show_sort_by_date">{{ $t('sort_by_date') }}</li>
-            <li v-show="show_sort_by_date" @click="sortByTime(2)" style="cursor: pointer">
-            {{ $t('ascending_sort') }}
+            <li @click="show_sort_by_date = !show_sort_by_date">
+              {{ $t("sort_by_date") }}
             </li>
-            <li v-show="show_sort_by_date" @click="sortByTime(1)" style="cursor: pointer">
-            {{ $t('descending_sort') }}
+            <li
+              v-show="show_sort_by_date"
+              @click="sortByTime(2)"
+              style="cursor: pointer"
+            >
+              {{ $t("ascending_sort") }}
+            </li>
+            <li
+              v-show="show_sort_by_date"
+              @click="sortByTime(1)"
+              style="cursor: pointer"
+            >
+              {{ $t("descending_sort") }}
             </li>
           </ul>
         </div>
 
-        <div v-if="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
+        <div
+          v-if="search_type == 1"
+          class="filter-card"
+          style="display: vertical; text-align: center"
+        >
           <ul>
             <li @click="show_sort_by_cite = !show_sort_by_cite">
               引用次數排序
             </li>
-            <li @click="sortByCite(1)" v-show="show_sort_by_cite" style="cursor: pointer">
-              {{ $t('ascending_sort') }}
+            <li
+              @click="sortByCite(1)"
+              v-show="show_sort_by_cite"
+              style="cursor: pointer"
+            >
+              {{ $t("ascending_sort") }}
             </li>
-            <li @click="sortByCite(2)" v-show="show_sort_by_cite" style="cursor: pointer">
-            {{ $t('descending sort') }}
+            <li
+              @click="sortByCite(2)"
+              v-show="show_sort_by_cite"
+              style="cursor: pointer"
+            >
+              {{ $t("descending_sort") }}
             </li>
           </ul>
         </div>
@@ -108,10 +161,18 @@
     </div>
 
     <div class="search-container-wrapper">
-      <new-loading-bar :isReal="isReal" :display="displayLoading" :accelerate="accelerate" :progress="progress"
-        @stop-display="displayLoading = false"></new-loading-bar>
+      <new-loading-bar
+        :isReal="isReal"
+        :display="displayLoading"
+        :accelerate="accelerate"
+        :progress="progress"
+        @stop-display="displayLoading = false"
+      ></new-loading-bar>
       <div class="search-container">
-        <SearchPanel ref="searchPanelRef" @senddata="handleModoleSearch"></SearchPanel>
+        <SearchPanel
+          ref="searchPanelRef"
+          @senddata="handleModoleSearch"
+        ></SearchPanel>
       </div>
       <div>
         <ul>
@@ -125,21 +186,46 @@
     //this.$emit('change-page',page) -->
       <!-- 
        -->
-      <Pagination @change-item-per-page="changeItemPerpage" @change-page="changePages" :itemsPerPage="itemsPerPage"
-        :currentPage="currentPage" :totalPages="totalPages" class="pagination" :defaultItemsPerPage="5">
+      <Pagination
+        @change-item-per-page="changeItemPerpage"
+        @change-page="changePages"
+        :itemsPerPage="itemsPerPage"
+        :currentPage="currentPage"
+        :totalPages="totalPages"
+        class="pagination"
+        :defaultItemsPerPage="5"
+      >
         <div v-if="search_type == 1">
-          <SearchResultListItem v-for="(info, index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
+          <SearchResultListItem
+            v-for="(info, index) in infoItems"
+            :key="index"
+            :infoItem="info"
+          ></SearchResultListItem>
         </div>
         <div v-else-if="search_type == 2">
-          <ScholarListItem v-show="search_type == 2" v-for="(info, index) in infoItems" :key="index" :infoItem="info">
+          <ScholarListItem
+            v-show="search_type == 2"
+            v-for="(info, index) in infoItems"
+            :key="index"
+            :infoItem="info"
+          >
           </ScholarListItem>
         </div>
         <div v-else-if="search_type == 3">
-          <JournalListItem v-for="(info, index) in infoItems" :key="index" :infoItem="info"></JournalListItem>
+          <JournalListItem
+            v-for="(info, index) in infoItems"
+            :key="index"
+            :infoItem="info"
+          ></JournalListItem>
         </div>
 
         <div v-else>
-          <InstitutionListItem v-show="search_type == 4" v-for="(info, index) in infoItems" :key="index" :infoItem="info">
+          <InstitutionListItem
+            v-show="search_type == 4"
+            v-for="(info, index) in infoItems"
+            :key="index"
+            :infoItem="info"
+          >
           </InstitutionListItem>
         </div>
       </Pagination>
@@ -148,21 +234,42 @@
     <div class="chat">
       <template v-if="showChat">
         <ChatGPT />
-        <svg @click="showChat = false" t="1703445209964" class="fold-icon" viewBox="0 0 1024 1024" version="1.1"
-          xmlns="http://www.w3.org/2000/svg" p-id="8413" width="200" height="200">
+        <svg
+          @click="showChat = false"
+          t="1703445209964"
+          class="fold-icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="8413"
+          width="200"
+          height="200"
+        >
           <path
             d="M584.533333 512l-302.933333 302.933333L341.333333 874.666667l302.933334-302.933334 59.733333-59.733333-59.733333-59.733333L341.333333 145.066667 281.6 209.066667l302.933333 302.933333z"
-            fill="#444444" p-id="8414"></path>
+            fill="#444444"
+            p-id="8414"
+          ></path>
         </svg>
       </template>
       <template v-else>
-        <svg @click="showChat = true" t="1703444908491" viewBox="0 0 1024 1024" version="1.1"
-          xmlns="http://www.w3.org/2000/svg" p-id="8273" width="200" height="200">
+        <svg
+          @click="showChat = true"
+          t="1703444908491"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="8273"
+          width="200"
+          height="200"
+        >
           <path
             d="M401.066667 512l302.933333 302.933333-59.733333 59.733334L341.333333 571.733333 281.6 512 341.333333 452.266667l302.933334-302.933334 59.733333 59.733334L401.066667 512z"
-            fill="#444444" p-id="8274"></path>
+            fill="#444444"
+            p-id="8274"
+          ></path>
         </svg>
-        <span @click="showChat = true">{{ $t('talk_with_chat') }}</span>
+        <span @click="showChat = true">{{ $t("talk_with_chat") }}</span>
       </template>
     </div>
   </div>
@@ -174,7 +281,7 @@ import Pagination from "../../components/pagination/Pagination.vue";
 import i18n from "../../language";
 import { Search } from "../../api/search.js";
 import { AutoComplete } from "../../api/autocomplete.js";
-import NewLoadingBar from '../../components/loading-bar/NewLoadingBar.vue'
+import NewLoadingBar from "../../components/loading-bar/NewLoadingBar.vue";
 // import AsideBar from "../../components/search-property/AsideBar.vue";
 import InstitutionListItem from "../../components/list-item/InstitutionListItem.vue";
 import JournalListItem from "../../components/list-item/JournalListItem.vue";
@@ -183,7 +290,7 @@ import ScholarListItem from "../../components/list-item/ScholarListItem.vue";
 import SearchPanel from "../search/SearchPanel.vue";
 import ChatGPT from "../../components/chat/Chat.vue";
 import { ref } from "vue";
-import NewLoadingBarVue from '../../components/loading-bar/NewLoadingBar.vue';
+import NewLoadingBarVue from "../../components/loading-bar/NewLoadingBar.vue";
 export default {
   name: "SearchResultView",
   components: {
@@ -196,7 +303,7 @@ export default {
     Search,
     ChatGPT,
     SearchPanel,
-    NewLoadingBar
+    NewLoadingBar,
   },
   data() {
     return {
@@ -265,15 +372,54 @@ export default {
         this.autoComplete();
       }
     },
+    "$route.query": {
+      immediate: true,
+      handler(newQuery, oldQuery) {
+        const query = newQuery;
+        // alert(newQuery.search);
+        const searchdata = query;
+        this.searchdata = searchdata;
+        this.search = searchdata.search;
+        this.sort = searchdata.sort;
+        this.per_page = searchdata.per_page;
+        this.cursor = searchdata.cursor;
+        this.search_type = searchdata.search_type;
+        this.$nextTick(() => {
+          this.changeSearchPanelContent();
+        });
+
+        // this.changeSearchPanelContent();
+        if (this.searchdata && "search_type" in this.searchdata) {
+          delete this.searchdata["search_type"];
+        }
+        console.log(searchdata);
+        if (searchdata.filter != null)
+          searchdata.filter = searchdata.filter.replace(/,$/, "");
+        this.searchmethod();
+        /**
+           * 
+           *         filter: this.search_filter,
+        search: this.search_search,
+        sort: this.search_sort,
+        per_page: this.search_perpage,
+        page: this.search_page,
+        cursor: "",
+        search_type: this.search_type,
+           */
+
+        // 这里是当查询参数变化时执行的代码
+        // 比如，您可以根据新的查询参数重新加载数据
+      },
+    },
   },
   methods: {
     changePages(data) {
-      this.currentPage = data
-      this.searchmethod(true)
+      this.currentPage = data;
+      this.searchmethod(true);
     },
     changeItemPerpage(data) {
-      this.itemsPerPage = data
-      this.searchmethod(true)
+      this.itemsPerPage = data;
+      this.searchmethod(true);
     },
     // #region resultlistToInfoItems
     resultlistToInfoItems() {
@@ -287,7 +433,6 @@ export default {
     },
     //this.$emit('change-item-per-page',itemsPerPage)
     //this.$emit('change-page',page)
-
 
     // #region AsideBar
     showAsideBar() {
@@ -366,14 +511,14 @@ export default {
           this.resultlist = res.data.results;
           this.resultlistToInfoItems();
         },
-        (err) => { }
+        (err) => {}
       );
     },
 
     setLanguage(type) {
-      this.accelerate = true
-      this.displayLoading = true
-      this.progress = 0
+      this.accelerate = true;
+      this.displayLoading = true;
+      this.progress = 0;
       if (type == 1) {
         this.filter = "";
       } else if (type == 2) {
@@ -391,9 +536,9 @@ export default {
           this.resultlist = res.data.results;
           this.resultlistToInfoItems();
 
-          this.progress = 100
+          this.progress = 100;
         },
-        (err) => { }
+        (err) => {}
       );
     },
 
@@ -451,6 +596,8 @@ export default {
      */
     sortByTime(type) {
       // 早
+      // this.accelerate = true
+      // this.displayLoading = true
       if (type == 1) {
         this.sort = "publication_date:";
         // if (
@@ -516,10 +663,10 @@ export default {
     // 请传入是否快加速的参数accelerate
     searchmethod(accelerate) {
       if (accelerate) {
-        this.accelerate = accelerate
+        this.accelerate = accelerate;
       }
-      this.displayLoading = true
-      this.progress = 0
+      this.displayLoading = true;
+      this.progress = 0;
 
       this.per_page = this.itemsPerPage;
       this.page = this.currentPage;
@@ -554,9 +701,9 @@ export default {
             this.totalPages = res.data.meta.count;
             this.currentPage = res.data.meta.page;
             this.per_page = res.data.meta.per_page;
-            this.progress = 100
+            this.progress = 100;
           },
-          (err) => { }
+          (err) => {}
         );
       }
       // author
@@ -570,9 +717,9 @@ export default {
             this.currentPage = res.data.meta.page;
             this.per_page = res.data.meta.per_page;
 
-            this.progress = 100
+            this.progress = 100;
           },
-          (err) => { }
+          (err) => {}
         );
       }
       // 期刊
@@ -587,9 +734,9 @@ export default {
             this.currentPage = res.data.meta.page;
             this.per_page = res.data.meta.per_page;
 
-            this.progress = 100
+            this.progress = 100;
           },
-          (err) => { }
+          (err) => {}
         );
       }
       // 机构
@@ -604,9 +751,9 @@ export default {
             this.currentPage = res.data.meta.page;
             this.per_page = res.data.meta.per_page;
 
-            this.progress = 100
+            this.progress = 100;
           },
-          (err) => { }
+          (err) => {}
         );
       }
     },
@@ -634,27 +781,25 @@ export default {
       }
     },
 
-
-
     // search
   },
 
   mounted() {
-    const searchdata = this.$route.query;
-    this.searchdata = searchdata;
-    this.search = searchdata.search;
-    this.sort = searchdata.sort;
-    this.per_page = searchdata.per_page;
-    this.cursor = searchdata.cursor;
-    this.search_type = searchdata.search_type;
-    this.changeSearchPanelContent(this.search);
-    if (this.searchdata && "search_type" in this.searchdata) {
-      delete this.searchdata["search_type"];
-    }
-    console.log(searchdata);
-    if (searchdata.filter != null)
-      searchdata.filter = searchdata.filter.replace(/,$/, "");
-    this.searchmethod();
+    // const searchdata = this.$route.query;
+    // this.searchdata = searchdata;
+    // this.search = searchdata.search;
+    // this.sort = searchdata.sort;
+    // this.per_page = searchdata.per_page;
+    // this.cursor = searchdata.cursor;
+    // this.search_type = searchdata.search_type;
+    // this.changeSearchPanelContent();
+    // if (this.searchdata && "search_type" in this.searchdata) {
+    //   delete this.searchdata["search_type"];
+    // }
+    // console.log(searchdata);
+    // if (searchdata.filter != null)
+    //   searchdata.filter = searchdata.filter.replace(/,$/, "");
+    // this.searchmethod();
   },
 
   computed: {
@@ -705,7 +850,6 @@ export default {
   align-items: center;
   font-size: 30px;
 }
-
 
 .cond-area .filter-switch,
 .cond-area .sort-switch {
@@ -760,7 +904,6 @@ export default {
   height: 90vh;
   overflow: auto;
 }
-
 
 .search-bar {
   /* border: 2px solid red; */
