@@ -133,7 +133,7 @@ export default {
       if (institutionId) {
         Search.institutionRetrieve(institutionId).then(
           (response) => {
-            console.log(response)
+            console.log(response.data)
             this.institutionName = response.data.display_name
             this.institutionNameZh = response.data.display_name_zh
             this.institutionCountry = response.data.country_code

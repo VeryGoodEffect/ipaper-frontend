@@ -34,7 +34,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: ['2020','2021','2022'],
+            data: [],
             axisTick: {
               alignWithLabel: true,
             },
@@ -50,13 +50,13 @@ export default {
             name: "成果数量",
             type: "bar",
             barWidth: "30%",
-            data: [1000,2000,3000],
+            data: [],
           },
           {
             name: "引用数量",
             type: "bar",
             barWidth: "30%",
-            data: [1000,2000,3000],
+            data: [],
           },
         ],
       },
@@ -93,17 +93,33 @@ export default {
   watch: {
     info(oldVal, newVal) {
       // var len = this.info.length;
+      if (!newVal || !Array.isArray(newVal)) {
+        return;
+      }
+
       console.log(this.info, "!!!!!!!");
-      //   const reversedInfo = this.info.reverse();
-      const sortedInfo = this.newVal.sort((a, b) => a.year - b.year);
+      const reversedInfo = this.info.reverse();
+      // const sortedInfo = newVal.sort((a, b) => a.year - b.year);
       this.option.xAxis[0].data = [];
       this.option.series[0].data = [];
       this.option.series[1].data = [];
-      sortedInfo.forEach((element) => {
-        this.option.xAxis[0].data.push(element.year);
-        this.option.series[0].data.push(element.works_count);
-        this.option.series[1].data.push(element.cited_by_count);
-      });
+
+      var len = newVal.length;
+      console.log(len, "?????");
+      for (var i = 0; i < 5 && i < len; i++) {
+        this.option.xAxis[0].data.push(reversedInfo[i].year);
+        this.option.series[0].data.push(reversedInfo[i].works_count);
+        this.option.series[1].data.push(reversedInfo[i].cited_by_count);
+      }
+
+      console.log(this.option.xAxis[0].data, "!!!!!!!");
+      // newVal.forEach((element) => {
+      //   this.option.xAxis[0].data.push(element.year);
+      //   this.option.series[0].data.push(element.works_count);
+      //   this.option.series[1].data.push(element.cited_by_count);
+      // });
+
+      this.chart.setOption(this.option);
     },
   },
 };

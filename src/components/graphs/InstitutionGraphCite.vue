@@ -12,7 +12,6 @@ export default {
   props: ["info"],
   mounted() {
     // console.log(this.info[0])
-    
 
     setTimeout(() => {
       this.initChart();
@@ -77,13 +76,13 @@ export default {
       // 设置图表配置项并渲染图表
       // this.chart.setOption(this.option);
 
-      var len = this.info.length;
-      console.log(this.info, "!!!!!!!");
-      
-      this.info.reverse().forEach((element) => {
-        this.option.xAxis[0].data.push(element.year);
-        this.option.series[0].data.push(element.cited_by_count);
-      });
+      // var len = this.info.length;
+      // console.log(this.info, "!!!!!!!");
+
+      // this.info.reverse().forEach((element) => {
+      //   this.option.xAxis[0].data.push(element.year);
+      //   this.option.series[0].data.push(element.cited_by_count);
+      // });
 
       this.chart.setOption(this.option);
     },
@@ -93,6 +92,18 @@ export default {
         this.chart.dispose();
         this.chart = null;
       }
+    },
+  },
+  watch: {
+    info(oldVal, newVal) {
+      this.option.xAxis[0].data = []
+      this.option.series[0].data = []
+      newVal.reverse().forEach((element) => {
+        
+        this.option.xAxis[0].data.push(element.year);
+        this.option.series[0].data.push(element.cited_by_count);
+      });
+      this.chart.setOption(this.option);
     },
   },
 };
