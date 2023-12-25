@@ -1,13 +1,9 @@
 <template>
   <div class="main-area">
-    <div class="cond-area" style="display: vertical">
-      <h3
-        class="filter-switch"
-        :class="{ 'filter-switch-active': show_filte }"
-        style="width: 100%"
-        @click="show_filte = !show_filte"
-      >
-        {{ $t("filter") }}
+    <div class="cond-area" style="display: vertical;">
+      <h3 class="filter-switch" :class="{ 'filter-switch-active': show_filte }" @click="show_filte = !show_filte">
+        {{ $t('filter') }}
+
       </h3>
       <div v-show="show_filte">
         <div
@@ -42,6 +38,7 @@
                   v-model="search_start_time"
                   type="text"
                   style="width: 30%" />
+                 ~ 
                 <input v-model="search_end_time" type="text" style="width: 30%"
               /></span>
             </li>
@@ -98,7 +95,6 @@
       <h3
         class="sort-switch"
         :class="{ 'sort-switch-active': show_sort }"
-        style="width: 100%"
         @click="show_sort = !show_sort"
       >
         {{ $t("sort") }}
@@ -839,7 +835,6 @@ export default {
 }
 
 .cond-area {
-  border: 2px solid red;
   width: 20%;
   /* height: 600px; */
   margin-top: 50px;
@@ -858,15 +853,18 @@ export default {
   cursor: pointer;
   transition: all ease-in-out 0.15s;
   text-align: center;
+  margin: 0 auto;
   margin-bottom: 10%;
-  padding: 3% 0;
+  padding: 2% 2%;
+  font-size: 0.8em;
+  width: 80%;
 }
 
 .cond-area .filter-switch:hover,
 .cond-area .sort-switch:hover {
   background: var(--theme-color);
   color: var(--theme-mode);
-  padding: 10% 0;
+  padding: 5% 2%;
 }
 
 .cond-area .filter-switch-active,
@@ -903,6 +901,9 @@ export default {
   position: relative;
   height: 90vh;
   overflow: auto;
+}
+.search-container-wrapper ::-webkit-scrollbar {
+  display: none;
 }
 
 .search-bar {
@@ -988,8 +989,22 @@ export default {
   .cond-area {
     width: 90%;
     height: unset;
-    min-height: 300px;
+    /* min-height: 300px; */
     display: block;
+  }
+
+  .cond-area .filter-switch,
+  .cond-area .sort-switch {
+    width: fit-content;
+    padding: 0 30%;
+    margin: 5% auto;
+  }
+
+  .cond-area .filter-switch:hover,
+  .cond-area .sort-switch:hover {
+    background: var(--theme-color);
+    color: var(--theme-mode);
+    padding: 2% 30%;
   }
 }
 </style>
