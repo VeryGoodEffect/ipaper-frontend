@@ -312,5 +312,16 @@ Since 2021
     submission_falure: 'Submission Failure',
     submission_falure_hint: 'Check your authentication information',
 
+    img1: 'Set your theme color of the site.',
+    img2: 'Register an account for more personalized service',
+    img3: 'Login and view your personal reccomendation',
+    img4: 'Filters help you find the target more quickly',
+    img5: 'Unfold the attribute list and search everything',
+    img6: 'Apply for certification as a scholar on your personal homepage',
+    img7: 'AI assistant, quickly answer difficult questions',
+    img8: 'Follow scholars and explore expert portals',
+    img9: 'Manage favorites, copy reference formats and links',
+    img10: 'View favorites on your personal homepage and try the right-click menu',
+
     
 }
