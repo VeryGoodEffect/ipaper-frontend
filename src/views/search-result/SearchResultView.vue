@@ -7,7 +7,8 @@
         {{ $t("filter") }}
       </h3>
       <div v-show="show_filte">
-        <div class="filter-card" style="
+        <div v-show="search_type == 1 || search_type == 3" 
+         class="filter-card" style="
             display: vertical;
             margin-left: auto;
             margin-right: auto;
@@ -43,7 +44,7 @@
           </ul>
         </div>
 
-        <div v-show="search_type == 1 || search_type == 3" class="filter-card" style="
+        <div v-show="search_type == 1" class="filter-card" style="
             display: vertical;
             margin-left: auto;
             margin-right: auto;
@@ -390,7 +391,7 @@ export default {
       search_start_time: 2020,
       search_end_time: 2022,
       show_range: true,
-      search_type: 0,
+      search_type: 1,
 
       autoCompleteLists: [],
       // work type
@@ -426,6 +427,7 @@ export default {
       immediate: true,
       handler(newQuery, oldQuery) {
         const query = newQuery;
+        this.currentPage = 1
         // alert(newQuery.search);
         const searchdata = query;
         this.searchdata = searchdata;
@@ -863,6 +865,8 @@ export default {
 
     // search
   },
+
+
 
   mounted() {
     // let htmlString =
