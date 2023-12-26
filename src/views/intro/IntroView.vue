@@ -82,7 +82,7 @@ export default {
           filter: "",
           search: this.searchKeyword,
           sort: "",
-          perpage: "10",
+          per_page: "10",
           page: "1",
           cursor: "",
           search_type: 1,
