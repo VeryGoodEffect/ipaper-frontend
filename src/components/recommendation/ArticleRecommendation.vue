@@ -1,9 +1,9 @@
 <template>
   <div>
-    <ul>
+    <ul style="margin:0 auto">
       <li v-for="(article, index) in articles" :key="index">
         <h3 @click="jumpToPaperPage(index)">{{ article.title }}</h3>
-        <p class="abstract" v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: false}">
+        <p class="abstract" v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: false }">
           {{ article.abstract }}
         </p>
         <span v-for="(author, index) in article.authorships" :key="index" class="author">
@@ -27,15 +27,15 @@ export default {
     }
   },
   mounted() {
-      Article.getHotspotRecommend().then(
-        response => {
-          this.articles = response.data
-        }
-      )
+    Article.getHotspotRecommend().then(
+      response => {
+        this.articles = response.data
+      }
+    )
   },
   methods: {
     jumpToPaperPage(i) {
-      this.$router.replace('paper_detail/'+ this.articles[i].id)
+      this.$router.replace('paper_detail/' + this.articles[i].id)
     }
   }
 }
@@ -53,8 +53,8 @@ li {
 }
 
 li:last-of-type {
-    border-bottom: 0;
-  }
+  border-bottom: 0;
+}
 
 li h3 {
   color: var(--defaut-text-color);
@@ -72,7 +72,8 @@ li:hover h3 {
   font-size: 14px;
 }
 
-.author, .journal {
+.author,
+.journal {
   font-size: 14px;
   font-weight: bold;
   color: var(--defaut-text-color);

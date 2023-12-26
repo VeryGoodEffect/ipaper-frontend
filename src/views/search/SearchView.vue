@@ -112,7 +112,7 @@ export default {
   position: absolute;
   right: 0;
   top: 0;
-  margin-right: 15%;
+  /* margin-right: 15%; */
   margin-top: 10px;
   fill: var(--theme-color);
   cursor: pointer;
