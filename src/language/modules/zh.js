@@ -283,6 +283,8 @@ export default {
 
     sort_by_alpha: '字母序排序',
 
+    key_word_exp: 'DNA',
+
 
     
 }
