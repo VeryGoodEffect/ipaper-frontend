@@ -1,13 +1,9 @@
 <template>
   <div class="main-area">
-    
+
     <div class="cond-area" style="display: vertical">
       <!-- <div class="filter-card"  v-html="test_v_html"></div> -->
-      <h3
-        class="filter-switch"
-        :class="{ 'filter-switch-active': show_filte }"
-        @click="show_filte = !show_filte"
-      >
+      <h3 class="filter-switch" :class="{ 'filter-switch-active': show_filte }" @click="show_filte = !show_filte">
         {{ $t("filter") }}
       </h3>
       <div v-show="show_filte">
@@ -15,167 +11,85 @@
             display: vertical;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 10%;
-            margin-bottom: 10%;
             text-align: center;
           ">
           <ul>
             <li @click="show_filte_by_time = !show_filte_by_time">
               {{ $t("filte_by_time") }}
             </li>
-            <li
-              @click="setFilterTime(1)"
-              v-show="show_filte_by_time"
-              style="cursor: pointer"
-            >
+            <li @click="setFilterTime(1)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("no_limit_time") }}
             </li>
-            <li
-              @click="setFilterTime(2)"
-              v-show="show_filte_by_time"
-              style="cursor: pointer"
-            >
+            <li @click="setFilterTime(2)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("since_2023") }}
             </li>
-            <li
-              @click="setFilterTime(3)"
-              v-show="show_filte_by_time"
-              style="cursor: pointer"
-            >
+            <li @click="setFilterTime(3)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("since_2022") }}
             </li>
-            <li
-              @click="setFilterTime(4)"
-              v-show="show_filte_by_time"
-              style="cursor: pointer"
-            >
+            <li @click="setFilterTime(4)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("since_2021") }}
             </li>
-            <li
-              @click="setFilterTime(5)"
-              v-show="show_filte_by_time"
-              style="cursor: pointer"
-            >
+            <li @click="setFilterTime(5)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("self_define_time_range") }}
-              <span
-                ><input
-                  v-model="search_start_time"
-                  type="text"
-                  style="width: 30%" />
+              <span><input v-model="search_start_time" type="text" style="width: 30%" />
                 ~
-                <input v-model="search_end_time" type="text" style="width: 30%"
-              /></span>
+                <input v-model="search_end_time" type="text" style="width: 30%" /></span>
             </li>
           </ul>
         </div>
 
-          <div
-          v-show="search_type == 1 || search_type == 3"
-            class="filter-card"
-            style="
+        <div v-show="search_type == 1 || search_type == 3" class="filter-card" style="
             display: vertical;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 10%;
-            margin-bottom: 10%;
             text-align: center;
-          "
-        >
+          ">
           <ul>
             <li @click="show_filte_by_cite = !show_filte_by_cite">
               {{ $t("filte_cite") }}
             </li>
-            <li
-              @click="filteByCount(0)"
-              v-show="show_filte_by_cite"
-              style="cursor: pointer"
-            >
+            <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_no_limit") }}
             </li>
-            <li
-              @click="filteByCount(1)"
-              v-show="show_filte_by_cite"
-              style="cursor: pointer"
-            >
+            <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_more_than") }}
-              <input
-                type="text"
-                v-model="filte_count_value"
-                style="width: 30%"
-              />
+              <input type="text" v-model="filte_count_value" style="width: 30%" />
             </li>
           </ul>
         </div>
 
-        <div
-          v-show="search_type == 1"
-          class="filter-card"
-          style="
+        <div v-show="search_type == 1" class="filter-card" style="
             display: vertical;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 10%;
-            margin-bottom: 10%;
             text-align: center;
-          "
-        >
+          ">
           <ul>
             <li @click="show_filte_by_cite = !show_filte_by_cite">
               {{ $t("filte_cite") }}
             </li>
-            <li
-              @click="filteByCount(0)"
-              v-show="show_filte_by_cite"
-              style="cursor: pointer"
-            >
+            <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_no_limit") }}
             </li>
-            <li
-              @click="filteByCount(1)"
-              v-show="show_filte_by_cite"
-              style="cursor: pointer"
-            >
+            <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_more_than") }}
-              <input
-                type="text"
-                v-model="filte_count_value"
-                style="width: 30%"
-              />
+              <input type="text" v-model="filte_count_value" style="width: 30%" />
             </li>
           </ul>
         </div>
 
-        <div
-          v-show="search_type == 1"
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
+        <div v-show="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
           <ul>
-            <li
-              @click="show_filte_by_language = !show_filte_by_language"
-              style="cursor: pointer"
-            >
+            <li @click="show_filte_by_language = !show_filte_by_language" style="cursor: pointer">
               {{ $t("filte_language") }}
             </li>
-            <li
-              @click="setLanguage(1)"
-              v-show="show_filte_by_language"
-              style="cursor: pointer"
-            >
+            <li @click="setLanguage(1)" v-show="show_filte_by_language" style="cursor: pointer">
               {{ $t("no_language_limit") }}
             </li>
-            <li
-              @click="setLanguage(2)"
-              v-show="show_filte_by_language"
-              style="cursor: pointer"
-            >
+            <li @click="setLanguage(2)" v-show="show_filte_by_language" style="cursor: pointer">
               {{ $t("chinece_language") }}
             </li>
-            <li
-              @click="setLanguage(3)"
-              v-show="show_filte_by_language"
-              style="cursor: pointer"
-            >
+            <li @click="setLanguage(3)" v-show="show_filte_by_language" style="cursor: pointer">
               {{ $t("english_language") }}
             </li>
             <!-- <li>时间不限</li> -->
@@ -195,38 +109,19 @@
         <div v-show="search_type == 3" class="filter-card" style="display: vertical; text-align: center">
           <ul>
             <!--  -->
-            <li
-              @click="show_filte_publication = !show_filte_publication"
-              style="cursor: pointer"
-            >
+            <li @click="show_filte_publication = !show_filte_publication" style="cursor: pointer">
               {{ $t("filte_source") }}
             </li>
-            <li
-              @click="setJounalType(0)"
-              v-show="show_filte_publication"
-              style="cursor: pointer"
-            >
+            <li @click="setJounalType(0)" v-show="show_filte_publication" style="cursor: pointer">
               {{ $t("filte_source_no_limit") }}
             </li>
-            <li
-              @click="setJounalType(1)"
-              v-show="show_filte_publication"
-              style="cursor: pointer"
-            >
+            <li @click="setJounalType(1)" v-show="show_filte_publication" style="cursor: pointer">
               {{ $t("filte_source_journal") }}
             </li>
-            <li
-              @click="setJounalType(2)"
-              v-show="show_filte_publication"
-              style="cursor: pointer"
-            >
+            <li @click="setJounalType(2)" v-show="show_filte_publication" style="cursor: pointer">
               {{ $t("filte_source_respository") }}
             </li>
-            <li
-              @click="setJounalType(3)"
-              v-show="show_filte_publication"
-              style="cursor: pointer"
-            >
+            <li @click="setJounalType(3)" v-show="show_filte_publication" style="cursor: pointer">
               {{ $t("filte_source_conference") }}
             </li>
             <!-- <li @click="setJounalType(4)" v-show="show_filte_publication" style="cursor: pointer">
@@ -246,167 +141,99 @@
         {{ $t("sort") }}
       </h3>
       <div v-show="show_sort">
-        <div
-          v-show="search_type == 1"
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
+        <div v-show="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
           <ul>
-            <li
-              v-show="search_type == 1"
-              @click="show_sort_by_date = !show_sort_by_date"
-            >
+            <li v-show="search_type == 1" @click="show_sort_by_date = !show_sort_by_date">
               {{ $t("sort_by_date") }}
             </li>
-            <li
-              v-show="show_sort_by_date && search_type == 1"
-              @click="sortByTime(2)"
-              style="cursor: pointer"
-            >
+            <li v-show="show_sort_by_date && search_type == 1" @click="sortByTime(2)" style="cursor: pointer">
               {{ $t("ascending_sort") }}
             </li>
-            <li
-              v-show="show_sort_by_date && search_type == 1"
-              @click="sortByTime(1)"
-              style="cursor: pointer"
-            >
+            <li v-show="show_sort_by_date && search_type == 1" @click="sortByTime(1)" style="cursor: pointer">
               {{ $t("descending_sort") }}
             </li>
           </ul>
         </div>
 
-        <div
-          v-show="
-            search_type == 1 ||
-            search_type == 2 ||
-            search_type == 3 ||
-            search_type == 4
-          "
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
+        <div v-show="search_type == 1 ||
+          search_type == 2 ||
+          search_type == 3 ||
+          search_type == 4
+          " class="filter-card" style="display: vertical; text-align: center">
           <ul>
-            <li
-              v-show="
-                search_type == 1 ||
-                search_type == 2 ||
-                search_type == 3 ||
-                search_type == 4
-              "
-              @click="show_sort_by_cite = !show_sort_by_cite"
-            >
+            <li v-show="search_type == 1 ||
+              search_type == 2 ||
+              search_type == 3 ||
+              search_type == 4
+              " @click="show_sort_by_cite = !show_sort_by_cite">
               {{ $t("sort_by_cite_count") }}
             </li>
-            <li
-              @click="sortByCite(1)"
-              v-show="
-                show_sort_by_cite &&
-                (search_type == 1 ||
-                  search_type == 2 ||
-                  search_type == 3 ||
-                  search_type == 4)
-              "
-              style="cursor: pointer"
-            >
-              {{ $t("ascending_sort") }}
-            </li>
-            <li
-              @click="sortByCite(2)"
-              v-show="
-                show_sort_by_cite &&
-                (search_type == 1 ||
-                  search_type == 2 ||
-                  search_type == 3 ||
-                  search_type == 4)
-              "
-              style="cursor: pointer"
-            >
-              {{ $t("descending_sort") }}
-            </li>
-          </ul>
-        </div>
-
-        <div
-          v-show="search_type == 2 || search_type == 3 || search_type == 4"
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
-          <ul>
-            <li
-              v-show="search_type == 2 || search_type == 3 || search_type == 4"
-              @click="show_sort_by_works_count = !show_sort_by_works_count"
-            >
-              {{ $t("sort_by_works_count") }}
-            </li>
-            <li
-              @click="sortByWorksCount(1)"
-              v-show="
-                show_sort_by_works_count &&
-                (search_type == 2 || search_type == 3 || search_type == 4)
-              "
-              style="cursor: pointer"
-            >
-              {{ $t("ascending_sort") }}
-            </li>
-            <li
-              @click="sortByWorksCount(2)"
-              v-show="
-                show_sort_by_works_count &&
-                (search_type == 2 || search_type == 3 || search_type == 4)
-              "
-              style="cursor: pointer"
-            >
-              {{ $t("descending_sort") }}
-            </li>
-          </ul>
-        </div>
-
-        <div
-          v-show="
-            search_type == 1 ||
-            search_type == 2 ||
-            search_type == 3 ||
-            search_type == 4
-          "
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
-          <ul>
-            <li
-              v-show="
-                search_type == 1 ||
+            <li @click="sortByCite(1)" v-show="show_sort_by_cite &&
+              (search_type == 1 ||
                 search_type == 2 ||
                 search_type == 3 ||
-                search_type == 4
-              "
-              @click="show_sort_by_display_name = !show_sort_by_display_name"
-            >
-              {{ $t("sort_by_alpha") }}
-            </li>
-            <li
-              @click="sortByDisplayName(1)"
-              v-show="
-                show_sort_by_display_name &&
-                (search_type == 1 ||
-                  search_type == 2 ||
-                  search_type == 3 ||
-                  search_type == 4)
-              "
-              style="cursor: pointer"
-            >
+                search_type == 4)
+              " style="cursor: pointer">
               {{ $t("ascending_sort") }}
             </li>
-            <li
-              @click="sortByDisplayName(2)"
-              v-show="
-                show_sort_by_display_name &&
-                (search_type == 1 ||
-                  search_type == 2 ||
-                  search_type == 3 ||
-                  search_type == 4)
-              "
-              style="cursor: pointer"
-            >
+            <li @click="sortByCite(2)" v-show="show_sort_by_cite &&
+              (search_type == 1 ||
+                search_type == 2 ||
+                search_type == 3 ||
+                search_type == 4)
+              " style="cursor: pointer">
+              {{ $t("descending_sort") }}
+            </li>
+          </ul>
+        </div>
+
+        <div v-show="search_type == 2 || search_type == 3 || search_type == 4" class="filter-card"
+          style="display: vertical; text-align: center">
+          <ul>
+            <li v-show="search_type == 2 || search_type == 3 || search_type == 4"
+              @click="show_sort_by_works_count = !show_sort_by_works_count">
+              {{ $t("sort_by_works_count") }}
+            </li>
+            <li @click="sortByWorksCount(1)" v-show="show_sort_by_works_count &&
+              (search_type == 2 || search_type == 3 || search_type == 4)
+              " style="cursor: pointer">
+              {{ $t("ascending_sort") }}
+            </li>
+            <li @click="sortByWorksCount(2)" v-show="show_sort_by_works_count &&
+              (search_type == 2 || search_type == 3 || search_type == 4)
+              " style="cursor: pointer">
+              {{ $t("descending_sort") }}
+            </li>
+          </ul>
+        </div>
+
+        <div v-show="search_type == 1 ||
+          search_type == 2 ||
+          search_type == 3 ||
+          search_type == 4
+          " class="filter-card" style="display: vertical; text-align: center">
+          <ul>
+            <li v-show="search_type == 1 ||
+              search_type == 2 ||
+              search_type == 3 ||
+              search_type == 4
+              " @click="show_sort_by_display_name = !show_sort_by_display_name">
+              {{ $t("sort_by_alpha") }}
+            </li>
+            <li @click="sortByDisplayName(1)" v-show="show_sort_by_display_name &&
+              (search_type == 1 ||
+                search_type == 2 ||
+                search_type == 3 ||
+                search_type == 4)
+              " style="cursor: pointer">
+              {{ $t("ascending_sort") }}
+            </li>
+            <li @click="sortByDisplayName(2)" v-show="show_sort_by_display_name &&
+              (search_type == 1 ||
+                search_type == 2 ||
+                search_type == 3 ||
+                search_type == 4)
+              " style="cursor: pointer">
               {{ $t("descending_sort") }}
             </li>
           </ul>
@@ -420,11 +247,8 @@
       <new-loading-bar :isReal="isReal" :display="displayLoading" :accelerate="accelerate" :progress="progress"
         @stop-display="displayLoading = false"></new-loading-bar>
       <div class="search-container">
-        <SearchPanel
-          ref="searchPanelRef"
-          @senddata="handleModoleSearch"
-          @setSearchTypeChild="handleChildSearchType"
-        ></SearchPanel>
+        <SearchPanel ref="searchPanelRef" @senddata="handleModoleSearch" @setSearchTypeChild="handleChildSearchType">
+        </SearchPanel>
       </div>
       <div>
         <ul>
@@ -459,48 +283,24 @@
     </div>
     <!-- <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT> -->
   </div>
-  <div
-    id="chat"
-    :class="{ chat: true, dragging: isDragging }"
-    :style="{ top: topDistance + 'px', left: leftDistance + 'px' }"
-    @mousedown.stop="startDrag"
-  >
+  <div id="chat" :class="{ chat: true, dragging: isDragging }"
+    :style="{ top: topDistance + 'px', left: leftDistance + 'px' }" @mousedown.stop="startDrag">
     <template v-if="showChat">
       <ChatGPT />
-      <svg
-        class="fold-icon"
-        @click="showChat = false"
-        t="1703515853080"
-        viewBox="0 0 1024 1024"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        p-id="3724"
-        width="200"
-        height="200"
-      >
+      <svg class="fold-icon" @click="showChat = false" t="1703515853080" viewBox="0 0 1024 1024" version="1.1"
+        xmlns="http://www.w3.org/2000/svg" p-id="3724" width="200" height="200">
         <path
           d="M904.533333 674.133333l-362.666666-362.666666c-17.066667-17.066667-42.666667-17.066667-59.733334 0l-362.666666 362.666666c-17.066667 17.066667-17.066667 42.666667 0 59.733334 17.066667 17.066667 42.666667 17.066667 59.733333 0L512 401.066667l332.8 332.8c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866666-12.8c17.066667-17.066667 17.066667-42.666667 0-59.733334z"
-          p-id="3725"
-        ></path>
+          p-id="3725"></path>
       </svg>
     </template>
     <template v-else>
       <span class="talk-hint">{{ $t("talk_with_chat") }}</span>
-      <svg
-        class="unfold-chat"
-        @click="showChat = true"
-        t="1703515339866"
-        viewBox="0 0 1024 1024"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        p-id="3584"
-        width="200"
-        height="200"
-      >
+      <svg class="unfold-chat" @click="showChat = true" t="1703515339866" viewBox="0 0 1024 1024" version="1.1"
+        xmlns="http://www.w3.org/2000/svg" p-id="3584" width="200" height="200">
         <path
           d="M904.533333 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 644.266667 179.2 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333l362.666666 362.666667c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866667-12.8l362.666666-362.666667c17.066667-17.066667 17.066667-42.666667 0-59.733333z"
-          p-id="3585"
-        ></path>
+          p-id="3585"></path>
       </svg>
     </template>
   </div>
@@ -811,7 +611,7 @@ export default {
       }
     },
     // instit
-    filteWorksCount(type) {},
+    filteWorksCount(type) { },
     advsearch(data) {
       //alert("data sent to advsearch");
       // inParts = [];
@@ -1182,10 +982,9 @@ svg {
 
 .cond-area .filter-card {
   border: 2px solid var(--theme-mode-contrast);
-  margin-top: 10%;
-
+  margin-top: 5%;
   margin-bottom: 5%;
-  border-radius: 2%;
+  border-radius: 10px;
 }
 
 .cond-area .filter-card li {
@@ -1209,6 +1008,7 @@ svg {
   max-height: 90vh;
   overflow: auto;
 }
+
 .search-container-wrapper::-webkit-scrollbar {
   display: none !important;
 }
