@@ -312,6 +312,9 @@ export default {
   border: 2px solid var(--theme-mode-contrast);
   border-radius: 10px;
   padding: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 10px;
   /* justify-content: space-around; */
 }
 .dialog-bubble {
