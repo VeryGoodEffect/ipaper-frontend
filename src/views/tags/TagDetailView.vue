@@ -210,7 +210,7 @@ export default {
     getAuthors(url) {
       Search.getEntities(url).then(
         (response) => {
-          console.log("author" + response.data.results)
+          // console.log( "author"+response.data.results )
           this.authors = []
           if (response.data.results.length >= 10) {
             for (let i = 0; i < 10; i++) {
