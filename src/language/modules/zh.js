@@ -220,8 +220,9 @@ export default {
     no_limit_time: '没有时间限制',
     since_2023: '2023年以来',
     since_2022: '2022年以来',
-    since_2021: '2021年以来',
+    since_2019: '2019年以来',
     self_define_time_range: '范围',
+
 
     // language
     no_language_limit: '不限语言',
@@ -274,7 +275,7 @@ export default {
     // 根据引用数量筛选
     filte_cite: '根据引用数量筛选',
     filte_cite_no_limit: '不限数量',
-    filte_cite_more_than: '多于',
+    filte_cite_more_than: '引用次数多于',
 
     sort_by_cite_count: '根据引用量搜索',
 

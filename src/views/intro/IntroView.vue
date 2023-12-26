@@ -7,6 +7,7 @@
         <input
           class="basic-input huge-input"
           type="text"
+          @keyup.enter="basicSearch"
           :placeholder="$t('huge_input_placeholder')"
           v-model="searchKeyword"
           @keydown.down="navigateDown"

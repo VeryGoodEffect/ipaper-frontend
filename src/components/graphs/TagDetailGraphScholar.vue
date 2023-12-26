@@ -45,11 +45,18 @@ export default {
   mounted() {
     this.chart = echarts.init(this.$refs.tagdetailgraph);
     this.chart.setOption(this.option);
+    window.addEventListener("resize", this.manualResize);
+
   },
   beforeUnmount() {
     if (this.chart) {
       this.chart.dispose();
     }
+  },
+  methods:{
+    manualResize() {
+      this.chart.resize();
+    },
   },
   watch: {
     authorList(newVal, oldVal) {

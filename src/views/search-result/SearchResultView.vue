@@ -7,7 +7,8 @@
         {{ $t("filter") }}
       </h3>
       <div v-show="show_filte">
-        <div class="filter-card" style="
+        <div v-show="search_type == 1 || search_type == 3" 
+         class="filter-card" style="
             display: vertical;
             margin-left: auto;
             margin-right: auto;
@@ -15,7 +16,7 @@
           ">
           <ul>
             <li @click="show_filte_by_time = !show_filte_by_time">
-              {{ $t("filte_by_time") }}
+              {{ $t("filte_by_time") }} <svg  t="1703580067074" class="icon" viewBox="256 256 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4195" width="20" height="20"><path d="M680.1408 414.976c9.9328-8.704 24.2176-6.656 31.8976 4.608a27.8016 27.8016 0 0 1-4.096 35.84l-172.032 149.76a35.6352 35.6352 0 0 1-47.8208 0l-172.032-149.7088a27.8016 27.8016 0 0 1-4.096-35.9424c7.68-11.1616 22.016-13.2096 31.8976-4.608L512 561.3056l168.1408-146.2784z" fill="#17232B" p-id="4196"></path></svg>
             </li>
             <li @click="setFilterTime(1)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("no_limit_time") }}
@@ -27,7 +28,7 @@
               {{ $t("since_2022") }}
             </li>
             <li @click="setFilterTime(4)" v-show="show_filte_by_time" style="cursor: pointer">
-              {{ $t("since_2021") }}
+              {{ $t("since_2019") }}
             </li>
             <li v-show="show_filte_by_time" style="cursor: pointer" @click="setFilterTime(5)">
               
@@ -49,7 +50,7 @@
           </ul>
         </div>
 
-        <div v-show="search_type == 1 || search_type == 3" class="filter-card" style="
+        <div v-show="search_type == 1 || search_type == 2 || search_type == 3 || search_type == 4" class="filter-card" style="
             display: vertical;
             margin-left: auto;
             margin-right: auto;
@@ -57,7 +58,7 @@
           ">
           <ul>
             <li @click="show_filte_by_cite = !show_filte_by_cite">
-              {{ $t("filte_cite") }}
+              {{ $t("filte_cite") }}<svg  t="1703580067074" class="icon" viewBox="256 256 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4195" width="20" height="20"><path d="M680.1408 414.976c9.9328-8.704 24.2176-6.656 31.8976 4.608a27.8016 27.8016 0 0 1-4.096 35.84l-172.032 149.76a35.6352 35.6352 0 0 1-47.8208 0l-172.032-149.7088a27.8016 27.8016 0 0 1-4.096-35.9424c7.68-11.1616 22.016-13.2096 31.8976-4.608L512 561.3056l168.1408-146.2784z" fill="#17232B" p-id="4196"></path></svg>
             </li>
             <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_no_limit") }}
@@ -80,7 +81,7 @@
         <div v-show="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
           <ul>
             <li @click="show_filte_by_language = !show_filte_by_language" style="cursor: pointer">
-              {{ $t("filte_language") }}
+              {{ $t("filte_language") }} <svg  t="1703580067074" class="icon" viewBox="256 256 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4195" width="20" height="20"><path d="M680.1408 414.976c9.9328-8.704 24.2176-6.656 31.8976 4.608a27.8016 27.8016 0 0 1-4.096 35.84l-172.032 149.76a35.6352 35.6352 0 0 1-47.8208 0l-172.032-149.7088a27.8016 27.8016 0 0 1-4.096-35.9424c7.68-11.1616 22.016-13.2096 31.8976-4.608L512 561.3056l168.1408-146.2784z" fill="#17232B" p-id="4196"></path></svg>
             </li>
             <li @click="setLanguage(1)" v-show="show_filte_by_language" style="cursor: pointer">
               {{ $t("no_language_limit") }}
@@ -109,7 +110,7 @@
           <ul>
             <!--  -->
             <li @click="show_filte_publication = !show_filte_publication" style="cursor: pointer">
-              {{ $t("filte_source") }}
+              {{ $t("filte_source") }} <svg  t="1703580067074" class="icon" viewBox="256 256 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4195" width="20" height="20"><path d="M680.1408 414.976c9.9328-8.704 24.2176-6.656 31.8976 4.608a27.8016 27.8016 0 0 1-4.096 35.84l-172.032 149.76a35.6352 35.6352 0 0 1-47.8208 0l-172.032-149.7088a27.8016 27.8016 0 0 1-4.096-35.9424c7.68-11.1616 22.016-13.2096 31.8976-4.608L512 561.3056l168.1408-146.2784z" fill="#17232B" p-id="4196"></path></svg>
             </li>
             <li @click="setJounalType(0)" v-show="show_filte_publication" style="cursor: pointer">
               {{ $t("filte_source_no_limit") }}
@@ -143,7 +144,7 @@
         <div v-show="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
           <ul>
             <li v-show="search_type == 1" @click="show_sort_by_date = !show_sort_by_date">
-              {{ $t("sort_by_date") }}
+              {{ $t("sort_by_date") }}<svg  t="1703580067074" class="icon" viewBox="256 256 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4195" width="20" height="20"><path d="M680.1408 414.976c9.9328-8.704 24.2176-6.656 31.8976 4.608a27.8016 27.8016 0 0 1-4.096 35.84l-172.032 149.76a35.6352 35.6352 0 0 1-47.8208 0l-172.032-149.7088a27.8016 27.8016 0 0 1-4.096-35.9424c7.68-11.1616 22.016-13.2096 31.8976-4.608L512 561.3056l168.1408-146.2784z" fill="#17232B" p-id="4196"></path></svg>
             </li>
             <li v-show="show_sort_by_date && search_type == 1" @click="sortByTime(2)" style="cursor: pointer">
               {{ $t("ascending_sort") }}
@@ -165,7 +166,7 @@
               search_type == 3 ||
               search_type == 4
               " @click="show_sort_by_cite = !show_sort_by_cite">
-              {{ $t("sort_by_cite_count") }}
+              {{ $t("sort_by_cite_count") }}<svg  t="1703580067074" class="icon" viewBox="256 256 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4195" width="20" height="20"><path d="M680.1408 414.976c9.9328-8.704 24.2176-6.656 31.8976 4.608a27.8016 27.8016 0 0 1-4.096 35.84l-172.032 149.76a35.6352 35.6352 0 0 1-47.8208 0l-172.032-149.7088a27.8016 27.8016 0 0 1-4.096-35.9424c7.68-11.1616 22.016-13.2096 31.8976-4.608L512 561.3056l168.1408-146.2784z" fill="#17232B" p-id="4196"></path></svg>
             </li>
             <li @click="sortByCite(1)" v-show="show_sort_by_cite &&
               (search_type == 1 ||
@@ -191,7 +192,7 @@
           <ul>
             <li v-show="search_type == 2 || search_type == 3 || search_type == 4"
               @click="show_sort_by_works_count = !show_sort_by_works_count">
-              {{ $t("sort_by_works_count") }}
+              {{ $t("sort_by_works_count") }} <svg  t="1703580067074" class="icon" viewBox="256 256 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4195" width="20" height="20"><path d="M680.1408 414.976c9.9328-8.704 24.2176-6.656 31.8976 4.608a27.8016 27.8016 0 0 1-4.096 35.84l-172.032 149.76a35.6352 35.6352 0 0 1-47.8208 0l-172.032-149.7088a27.8016 27.8016 0 0 1-4.096-35.9424c7.68-11.1616 22.016-13.2096 31.8976-4.608L512 561.3056l168.1408-146.2784z" fill="#17232B" p-id="4196"></path></svg>
             </li>
             <li @click="sortByWorksCount(1)" v-show="show_sort_by_works_count &&
               (search_type == 2 || search_type == 3 || search_type == 4)
@@ -217,7 +218,7 @@
               search_type == 3 ||
               search_type == 4
               " @click="show_sort_by_display_name = !show_sort_by_display_name">
-              {{ $t("sort_by_alpha") }}
+              {{ $t("sort_by_alpha") }}<svg  t="1703580067074" class="icon" viewBox="256 256 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4195" width="20" height="20"><path d="M680.1408 414.976c9.9328-8.704 24.2176-6.656 31.8976 4.608a27.8016 27.8016 0 0 1-4.096 35.84l-172.032 149.76a35.6352 35.6352 0 0 1-47.8208 0l-172.032-149.7088a27.8016 27.8016 0 0 1-4.096-35.9424c7.68-11.1616 22.016-13.2096 31.8976-4.608L512 561.3056l168.1408-146.2784z" fill="#17232B" p-id="4196"></path></svg>
             </li>
             <li @click="sortByDisplayName(1)" v-show="show_sort_by_display_name &&
               (search_type == 1 ||
@@ -404,7 +405,7 @@ export default {
       search_start_time: 2020,
       search_end_time: 2022,
       show_range: true,
-      search_type: 0,
+      search_type: 1,
 
       autoCompleteLists: [],
       // work type
@@ -440,6 +441,7 @@ export default {
       immediate: true,
       handler(newQuery, oldQuery) {
         const query = newQuery;
+        this.currentPage = 1
         // alert(newQuery.search);
         const searchdata = query;
         this.searchdata = searchdata;
@@ -552,7 +554,7 @@ export default {
         // 2022
         this.filter = "publication_year:2022-";
       } else if (type == 4) {
-        this.filter = "publication_year:2021-";
+        this.filter = "publication_year:2019-";
       } else if (type == 5) {
         this.filter =
           "publication_year:" +
@@ -878,6 +880,8 @@ export default {
     // search
   },
 
+
+
   mounted() {
     // let htmlString =
     //   "<title>Depth-image-based rendering (DIBR), compression, and transmission for a new approach on 3D-TV</title>";
@@ -989,8 +993,13 @@ svg {
   margin-bottom: 5%;
   border-radius: 10px;
   z-index: 99999;
+  
+  display: block;
 }
-
+.search-button{
+  display: block;
+  width: 100%;
+}
 .cond-area .filter-card li {
   padding: 10px 15px;
   border-bottom: 1px solid #ddd;
@@ -1000,6 +1009,7 @@ svg {
   align-items: center;
   font-family: Arial, sans-serif;
   transition: all ease-in-out 0.2s;
+  justify-content: space-between;
 }
 
 .cond-area .filter-card li:hover {
