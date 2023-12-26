@@ -77,6 +77,7 @@ export default {
           }
         },
         (error) => {
+          this.$bus.emit('message', { title: this.$t('login_failure'), content: this.$t('login_failure_hint'), time: 1500 })
           // alert("登录失败！")
         }
       )

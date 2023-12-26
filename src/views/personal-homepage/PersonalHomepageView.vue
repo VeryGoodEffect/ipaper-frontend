@@ -316,10 +316,11 @@ export default {
                 User.changePersonalInfo(userId, data).then(
                     response => {
                         this.cur2savePersonalInfo()
+                        this.$bus.emit('message', { title: this.$t('change_info_success'), content: '', time: 1000 })
                     },
                     error => {
                         this.save2curPersonalInfo()
-                        // alert(error.message)
+                        this.$bus.emit('message', { title: this.$t('change_info_failure'), content: '', time: 1000 })
                     }
                 )
             }
@@ -335,11 +336,14 @@ export default {
                 User.changePersonalInfo(userId, data).then(
                     response => {
                         this.cur2savePersonalInfo()
+                        this.$bus.emit('message', { title: this.$t('change_info_success'), content: '', time: 1000 })
                         // alert('头像修改成功')
                     },
                     error => {
                         this.save2curPersonalInfo()
-                            (error.message)
+                            // (error.message)
+                        this.$bus.emit('message', { title: this.$t('change_info_failure'), content: '', time: 1000 })
+                        
                     }
                 )
             }

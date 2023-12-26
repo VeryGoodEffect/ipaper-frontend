@@ -222,13 +222,13 @@ main h2 {
 
 @media screen and (max-width: 600px) {
   main h2 {
-    font-size: 30px;
+    font-size: 40px;
   }
 }
 
 @media screen and (max-width: 450px) {
   main h2 {
-    font-size: 20px;
+    font-size: 35px;
   }
 }
 

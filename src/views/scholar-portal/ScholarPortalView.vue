@@ -18,7 +18,7 @@
                       {{ $t('scholar_portal_unfollow') }}
                   </div> 
               </div>
-              <p class="personal-info-text-region">
+              <p class="personal-info-text-region" v-if="authorInfo.region !== null && authorInfo.region !== ''">
                 <em>{{ $t('personal_info_region') }}</em>&nbsp;&nbsp;
                 {{ authorInfo.region }}
               </p>
@@ -194,131 +194,137 @@ import { User } from '../../api/users'
         works_count: 33075868,
         cited_by_count: 951448677,
       },
-        scholarInfo: {
-          id: "A5040654425",
-          display_name: "George M Garrity",
-          country_code: 'US',
-          // country_code 从last_known_institution.country_code获得
-          works_count: 96223,
-          cited_by_count: 40117,
+      scholarInfo: {
+        id: "A5040654425",
+        display_name: "George M Garrity",
+        country_code: 'US',
+        // country_code 从last_known_institution.country_code获得
+        works_count: 96223,
+        cited_by_count: 40117,
+      },
+      institutionInfo: {
+        id: "I1294671590",
+        display_name_zh: '法国国家科学研究中心',
+        display_name: 'French National Centre for Scientific Research',
+        country_code: 'FR',
+        works_count: 993011,
+        cited_by_count: 29396266,
+        ror: "https://ror.org/02feahw73",
+        homepage_url: "https://www.cnrs.fr",
+      },
+      isCreating: false,
+      moveVisible: false,
+      isFavourite: true,
+      favouritesInfo: [
+        // {
+        //   name: "感兴趣的内容",
+        //   showContextMenu: false
+        // },
+        // {
+        //   name: "我的收藏",
+        //   showContextMenu: false
+        // }, 
+        // {
+        //   name: "我的收藏",
+        //   showContextMenu: false
+        // },  
+        // {
+        //   name: "我的收藏",
+        //   showContextMenu: false
+        // }, 
+        // {
+        //   name: "量子力学",
+        //   showContextMenu: false
+        // }, 
+        // {
+        //   name: "有机化学",
+        //   showContextMenu: false
+        // }, 
+        // {
+        //   name: "Diffusion model",
+        //   showContextMenu: false
+        // }, 
+        // {
+        //   name: "CV",
+        //   showContextMenu: false
+        // }
+      ],
+      interestTag: [
+        {
+          name: '量子力学',
+          wikidata: '',
+          id: '',
         },
-        institutionInfo: {
-          id: "I1294671590",
-          display_name_zh: '法国国家科学研究中心',
-          display_name: 'French National Centre for Scientific Research',
-          country_code: 'FR',
-          works_count: 993011,
-          cited_by_count: 29396266,
-          ror: "https://ror.org/02feahw73",
-          homepage_url: "https://www.cnrs.fr",
+        {
+          name: '扩散模型',
+          wikidata: '',
+          id: '',
         },
-        isCreating: false,
-        moveVisible: false,
-        isFavourite: true,
-        favouritesInfo: [
-          // {
-          //   name: "感兴趣的内容",
-          //   showContextMenu: false
-          // },
-          // {
-          //   name: "我的收藏",
-          //   showContextMenu: false
-          // }, 
-          // {
-          //   name: "我的收藏",
-          //   showContextMenu: false
-          // },  
-          // {
-          //   name: "我的收藏",
-          //   showContextMenu: false
-          // }, 
-          // {
-          //   name: "量子力学",
-          //   showContextMenu: false
-          // }, 
-          // {
-          //   name: "有机化学",
-          //   showContextMenu: false
-          // }, 
-          // {
-          //   name: "Diffusion model",
-          //   showContextMenu: false
-          // }, 
-          // {
-          //   name: "CV",
-          //   showContextMenu: false
-          // }
-        ],
-        interestTag: [
-          {
-            name: '量子力学',
-            wikidata: '',
-            id: '',
-          },
-          {
-            name: '扩散模型',
-            wikidata: '',
-            id: '',
-          },
-          {
-            name: '语义分割',
-            wikidata: '',
-            id: '',
-          },
-          {
-            nawatme: '全景视觉',
-            link: '',
-            id: '',
-          },
-          
-        ],
-        resultlist: [],
-        relationList: [],
+        {
+          name: '语义分割',
+          wikidata: '',
+          id: '',
+        },
+        {
+          nawatme: '全景视觉',
+          link: '',
+          id: '',
+        },
+
+      ],
+      resultlist: [],
+      relationList: [],
+    }
+  },
+  watch: {
+    '$route.params': {
+      immediate: true,
+      handler(newParams) {
+        this.authorInfo.id = this.$route.params.id
+        this.getAuthorInfo()
+        this.getRelationMap()
       }
-    },
-    watch: {
-      '$route.params': {
-        immediate: true,
-        handler(newParams) {
-          this.authorInfo.id = this.$route.params.id
-          this.getAuthorInfo()
-          this.getRelationMap()
-        }
-      }
-    },
-    created() {
-      this.authorInfo.id = this.$route.params.id
-      this.getAuthorInfo()
-      // this.getRelationMap()
-    },
-    mounted(){
-      
-    },
-    methods: {
-      
-      async getAuthorInfo() {
-        //get author id
-        // let authorID = 'A5040654425'
-        // this.authorInfo.id = authorID
-        if (this.authorInfo.id) {
-          Search.searchAuthorInfo(this.authorInfo.id).then(
-            (response) => {
-              console.log(response.data)
-              // console.log(response.data.username)
-              this.authorInfo.nickName = response.data.display_name
-              this.authorInfo.orcid = response.data.orcid
-              this.isFollowing = response.data.is_followed
-              if(response.data.last_known_institution){
-                this.authorInfo.region = response.data.last_known_institution.country_code
+    }
+  },
+  created() {
+    this.authorInfo.id = this.$route.params.id
+    this.getAuthorInfo()
+    // this.getRelationMap()
+  },
+  mounted() {
+
+  },
+  methods: {
+    async getAuthorInfo() {
+      //get author id
+      // let authorID = 'A5040654425'
+      // this.authorInfo.id = authorID
+      this.mainProgress = 0
+      this.mainAccelerate = false
+      this.displayMainLoading = true
+      if (this.authorInfo.id) {
+        Search.searchAuthorInfo(this.authorInfo.id).then(
+          (response) => {
+            console.log(response)
+            // console.log(response.data.username)
+            this.authorInfo.nickName = response.data.display_name
+            this.authorInfo.orcid = response.data.orcid
+            this.isFollowing = response.data.is_followed
+            if(response.data.last_known_institution !== null) {
+              this.authorInfo.region = response.data.last_known_institution.country_code
               this.authorInfo.institution.id = response.data.last_known_institution.id
               this.authorInfo.institution.ror = response.data.last_known_institution.ror
               this.authorInfo.institution.name = response.data.last_known_institution.display_name
-              }
-              this.authorInfo.works_api_url = response.data.works_api_url
-              this.authorInfo.totalWork = response.data.works_count
+            }
+            this.authorInfo.works_api_url = response.data.works_api_url
+            this.authorInfo.totalWork = response.data.works_count
+            if(response.data.cited_by_count !== null) {
               this.authorInfo.totalCitations = response.data.cited_by_count
+            }
+            if(response.data.counts_by_year.length !== 0) {
               this.authorInfo.yearCitations = response.data.counts_by_year[0].cited_by_count
               this.authorInfo.counts_by_year = response.data.counts_by_year
+            }
 
               this.interestTag.splice(0, this.interestTag.length)
               for(let i = 0; i < response.data.x_concepts.length; i++) {

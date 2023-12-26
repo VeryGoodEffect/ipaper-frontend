@@ -100,15 +100,15 @@ export default {
     },
     showCollectModal() {
       this.collectModalShouldShow = true
-        },
-        downloadPaper() {
-          const link = document.createElement('a')
-          link.style.display = 'none'
-          link.href = this.infoItem.primary_location.pdf_url
-          link.setAttribute('download', this.infoItem.title + '.pdf')
-          document.body.appendChild(link)
-          link.click()
-          document.body.removeChild(link)
+    },
+    downloadPaper() {
+      const link = document.createElement('a')
+      link.style.display = 'none'
+      link.href = this.infoItem.primary_location.pdf_url
+      link.setAttribute('download', this.infoItem.title + '.pdf')
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
     }
   }
 }
@@ -117,7 +117,7 @@ export default {
 <style scoped>
 .out-border {
   /* border: 1px solid red; */
-  width: 700px;
+  width: 100%;
   min-height: 80px;
   position: relative;
 }
@@ -145,6 +145,7 @@ export default {
   text-decoration: underline;
 
 }
+
 .author {
   /* display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -197,7 +198,7 @@ export default {
 }
 
 svg.icon {
-  fill: var(--article-list-item-icon-color)  !important;
+  fill: var(--article-list-item-icon-color) !important;
 }
 
 .time-cited {

@@ -30,16 +30,23 @@
             <li @click="setFilterTime(4)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("since_2019") }}
             </li>
-            <!-- <li v-show="show_filte_by_time" style="cursor: pointer">
-              <span style="white-space: nowrap ;">{{ $t("self_define_time_range") }}</span>
-            </li> -->
-
-            <li  v-show="show_filte_by_time" style="cursor: pointer">
-              <span style=" ;"><input v-model="search_start_time" type="text" style="width: 30% ;" />
+            <li v-show="show_filte_by_time" style="cursor: pointer" @click="setFilterTime(5)">
+              
+              <div>
+                <span style="white-space: nowrap ;">{{ $t("self_define_time_range") }}</span>
+                <input @click.stop=";"
+                  class="basic-input" v-model="search_start_time" type="text" style="width: 30%;height: 25px; font-size: 14px; margin-left: 10px" />
                 ~
-                <input v-model="search_end_time" type="text" style="width: 30%;"/> 
-                <button class="search-button" @click="setFilterTime(5)" style="width: 100%">{{ $t("self_define_time_range") }}</button></span>
+                <input @click.stop=";"
+                  class="basic-input" v-model="search_end_time" type="text" style="width: 30%; height: 25px; font-size: 14px"/> 
+                <br>
+              <!-- <button class="basic-btn-outline" @click="setFilterTime(5)" style="width: 40%; margin: 10px auto; display: block;">{{$t('search_text')}}</button> -->
+                
+              </div>
             </li>
+            <!-- <li>
+
+            </li> -->
           </ul>
         </div>
 
@@ -56,11 +63,18 @@
             <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_no_limit") }}
             </li>
-            <li v-show="show_filte_by_cite" style="cursor: pointer">
-              {{ $t("filte_cite_more_than") }}<input type="text" v-model="filte_count_value" style="width: 50%" />
-              <button class="search-button" style="display: block;" @click="filteByCount(1)"> {{ $t('search_text') }} </button>
-              <!-- <input type="text" v-model="filte_count_value" style="width: 30%" /> -->
+            <li v-show="show_filte_by_cite" style="cursor: pointer" @click="filteByCount(1)">
+              {{ $t("filte_cite_more_than") }}
+              <input  @click.stop=";"
+                class="basic-input" type="text" v-model="filte_count_value" style="width: 30%; height: 25px; font-size: 14px; margin-left: 10px" />
+              <!-- <br>
+              <button class="basic-btn-outline" style="width: 40%; margin: 10px auto;" @click="filteByCount(1)">{{$t('search_text')}}</button> -->
+
             </li>
+            <!-- <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
+              <input class="basic-input" type="text" v-model="filte_count_value" style="width: 30%" />
+            </li> -->
+            
           </ul>
         </div>
 
@@ -269,7 +283,8 @@
     </div>
     <!-- <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT> -->
   </div>
-  <div id="chat" :class="{ chat: true, dragging: isDragging }"
+  <div v-if="$cookies.get('user_id')"
+    id="chat" :class="{ chat: true, dragging: isDragging }"
     :style="{ top: topDistance + 'px', left: leftDistance + 'px' }" @mousedown.stop="startDrag">
     <template v-if="showChat">
       <ChatGPT />
@@ -281,13 +296,15 @@
       </svg>
     </template>
     <template v-else>
-      <span class="talk-hint">{{ $t("talk_with_chat") }}</span>
-      <svg class="unfold-chat" @click="showChat = true" t="1703515339866" viewBox="0 0 1024 1024" version="1.1"
-        xmlns="http://www.w3.org/2000/svg" p-id="3584" width="200" height="200">
-        <path
-          d="M904.533333 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 644.266667 179.2 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333l362.666666 362.666667c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866667-12.8l362.666666-362.666667c17.066667-17.066667 17.066667-42.666667 0-59.733333z"
-          p-id="3585"></path>
-      </svg>
+      <div class="talk-hint-container">
+        <span class="talk-hint">{{ $t("talk_with_chat") }}</span>
+        <svg class="unfold-chat" @click="showChat = true" t="1703515339866" viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="3584" width="200" height="200">
+          <path
+            d="M904.533333 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 644.266667 179.2 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333l362.666666 362.666667c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866667-12.8l362.666666-362.666667c17.066667-17.066667 17.066667-42.666667 0-59.733333z"
+            p-id="3585"></path>
+        </svg>
+      </div>
     </template>
   </div>
 </template>
@@ -932,7 +949,7 @@ svg {
 }
 
 .cond-area {
-  width: 20%;
+  width: 15%;
   /* height: 600px; */
   margin-top: 50px;
   margin-left: 30px;
@@ -1000,7 +1017,7 @@ svg {
 }
 
 .search-container-wrapper {
-  width: 60%;
+  width: 75%;
   position: relative;
   height: 90vh;
   overflow: auto;
@@ -1015,7 +1032,7 @@ svg {
   height: 60px;
   /* width: 500px; */
   margin-top: 30px;
-  margin-left: 30px;
+  /* margin-left: 30px; */
 
   display: flex;
   /* justify-content: center; */
@@ -1044,8 +1061,9 @@ svg {
 }
 
 .pagination {
+  margin: 0 auto;
   margin-top: 30px;
-  margin-left: 30px;
+  padding: 0 10%;
 }
 
 .search-container {
@@ -1082,11 +1100,21 @@ svg {
   z-index: 200;
 }
 
+.talk-hint-container {
+  cursor: grab;
+  width: 100%;
+}
+
+.dragging .talk-hint-container {
+  cursor: grabbing;
+}
+
 .talk-hint {
   font-size: 18px;
   margin: 0 20px;
   font-weight: bold;
 }
+
 
 .unfold-chat {
   width: 30px;
@@ -1133,4 +1161,14 @@ svg {
     padding-top: 50px;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .search-container-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    margin: 0 auto ;
+  }
+}
+
 </style>

@@ -121,10 +121,10 @@ export default {
         (response) => {
           this.$bus.emit('sendFlushAuditStatusRequest')
           this.handleClose()
-          console.log('申请认证成功')
+          this.$bus.emit('message', {title: this.$t('submission_success'), content: '', time: 1000})
         },
         (error) => {
-          console.log(error.data)
+          this.$bus.emit('message', {title: this.$t('submission_success'), content: this.$t('submission_falure_hint'), time: 1500})
         }
       )
     },
