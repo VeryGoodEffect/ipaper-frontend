@@ -2,15 +2,16 @@
   <div class="container">
     <div class="header">
       <div class="conversation-button" @click="checkAllConversation">
-        <svg t="1703383758860" class="icon" viewBox="0 0 1084 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7653" width="200" height="200"><path d="M184.83361091 241.54245141h697.95496331a34.89774795 34.89774795 0 1 0 0-69.79549591H184.83361091a34.89774795 34.89774795 0 1 0-1e-8 69.79549591zM184.83361091 546.89774795h414.41075932a34.89774795 34.89774795 0 1 0 0-69.7954959H184.83361091a34.89774795 34.89774795 0 1 0-1e-8 69.7954959zM184.83361091 852.25304449h196.29983373a34.89774795 34.89774795 0 1 0 1e-8-69.7954959H184.83361091a34.89774795 34.89774795 0 1 0-1e-8 69.7954959z" p-id="7654"></path></svg>
+        <svg t="1703383758860" class="icon" viewBox="0 0 1084 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="7653" width="200" height="200">
+          <path
+            d="M184.83361091 241.54245141h697.95496331a34.89774795 34.89774795 0 1 0 0-69.79549591H184.83361091a34.89774795 34.89774795 0 1 0-1e-8 69.79549591zM184.83361091 546.89774795h414.41075932a34.89774795 34.89774795 0 1 0 0-69.7954959H184.83361091a34.89774795 34.89774795 0 1 0-1e-8 69.7954959zM184.83361091 852.25304449h196.29983373a34.89774795 34.89774795 0 1 0 1e-8-69.7954959H184.83361091a34.89774795 34.89774795 0 1 0-1e-8 69.7954959z"
+            p-id="7654"></path>
+        </svg>
         <div class="conversation-list scrollable-div" v-if="isCheckingRoom">
-          <ChatListItem
-            v-for="(conversation, index) in conversationList"
-            :key="conversation.index"
-            :conversationInfo="conversationList[index]"
-            @conversationClicked="conversationClicked(index)"
-            class="chat-list-item"
-          ></ChatListItem>
+          <ChatListItem v-for="(conversation, index) in conversationList" :key="conversation.index"
+            :conversationInfo="conversationList[index]" @conversationClicked="conversationClicked(index)"
+            class="chat-list-item"></ChatListItem>
         </div>
       </div>
       <p class="chatGPT">
@@ -20,12 +21,9 @@
         3.5
       </p>
     </div>
-    
+
     <div class="dialog-box scrollable-div">
-      <div
-        v-for="dialog in dialogList"
-        :key="dialog.index"
-      >
+      <div v-for="dialog in dialogList" :key="dialog.index">
         <div class="assistant-info" v-if="dialog.isResponse">
           <img src="https://img2.baidu.com/it/u=118397013,4126789630&fm=253&fmt=auto&app=138&f=JPEG?w=243&h=243">
           <p>Assistant</p>
@@ -39,18 +37,23 @@
       </div>
     </div>
     <div class="input-area">
-      <textarea
-        class="input-text"
-        v-model="inputText"
-      ></textarea>
+      <textarea class="input-text" v-model="inputText"></textarea>
       <div @click="submit" class="send-button">
-        <svg t="1703386830104" class="icon-send" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9604" width="200" height="200"><path d="M507.904 882.688c-18.432 0-33.28-14.848-33.28-33.28v-655.36c0-18.432 14.848-33.28 33.28-33.28s33.28 14.848 33.28 33.28v654.848c0 18.432-14.848 33.792-33.28 33.792z" fill="" p-id="9605"></path><path d="M787.968 502.784c-8.704 0-16.896-3.072-23.552-9.728L507.904 236.544 251.392 493.056c-12.8 12.8-34.304 12.8-47.104 0-12.8-12.8-12.8-34.304 0-47.104l280.064-280.064c6.144-6.144 14.848-9.728 23.552-9.728s17.408 3.584 23.552 9.728l280.064 280.064c12.8 12.8 12.8 34.304 0 47.104-6.656 6.656-15.36 9.728-23.552 9.728z" p-id="9606"></path></svg>
+        <svg t="1703386830104" class="icon-send" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="9604" width="200" height="200">
+          <path
+            d="M507.904 882.688c-18.432 0-33.28-14.848-33.28-33.28v-655.36c0-18.432 14.848-33.28 33.28-33.28s33.28 14.848 33.28 33.28v654.848c0 18.432-14.848 33.792-33.28 33.792z"
+            fill="" p-id="9605"></path>
+          <path
+            d="M787.968 502.784c-8.704 0-16.896-3.072-23.552-9.728L507.904 236.544 251.392 493.056c-12.8 12.8-34.304 12.8-47.104 0-12.8-12.8-12.8-34.304 0-47.104l280.064-280.064c6.144-6.144 14.848-9.728 23.552-9.728s17.408 3.584 23.552 9.728l280.064 280.064c12.8 12.8 12.8 34.304 0 47.104-6.656 6.656-15.36 9.728-23.552 9.728z"
+            p-id="9606"></path>
+        </svg>
       </div>
     </div>
   </div>
 </template>
   
-  <script>
+<script>
 import ChatListItem from "../../components/chat/ChatListItem.vue";
 import { Chat } from "../../api/chat.js";
 import { User } from "../../api/users.js";
@@ -124,7 +127,7 @@ export default {
         if (data.delta.content) {
           this.dialogList[this.dialogList.length - 1].content +=
             data.delta.content;
-            this.conversationID = data.delta.conversation.id
+          this.conversationID = data.delta.conversation.id
         }
       }
 
@@ -242,7 +245,7 @@ export default {
 };
 </script>
 
-  <style scoped>
+<style scoped>
 .container {
   background: var(--theme-mode);
   /* border: 2px solid var(--theme-mode-high-contrast); */
@@ -252,23 +255,31 @@ export default {
   position: relative;
   z-index: 100;
 }
+
 .header {
   margin: 0 auto;
   width: 90%;
   border-bottom: 2px solid var(--theme-mode-contrast);
   display: flex;
   margin-bottom: 10px;
+  cursor: grab;
 }
+
+.dragging .header {
+  cursor: grabbing;
+}
+
 /* .header > p {
   
 } */
 .chatGPT {
   font-size: 20px;
-  margin-top: 10px; 
+  margin-top: 10px;
   margin-left: 70px;
   margin-bottom: 10px;
   font-weight: bold;
 }
+
 .chatGPT-num {
   font-size: 20px;
   margin-top: 12px;
@@ -276,6 +287,7 @@ export default {
   font-size: 18px;
   /* color: var(--theme-color-50); */
 }
+
 .dialog-box {
   height: 520px;
   width: 100%;
@@ -284,10 +296,12 @@ export default {
   /* position: relative; */
   font-size: unset;
 }
-.dialog-box > div {
+
+.dialog-box>div {
   display: flex;
   flex-direction: column;
 }
+
 .scrollable-div::-webkit-scrollbar {
   width: 0.5em;
   display: none;
@@ -305,6 +319,7 @@ export default {
 .scrollable-div::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
+
 .input-area {
   display: flex;
   margin: 0 auto;
@@ -317,6 +332,7 @@ export default {
   left: 10px;
   /* justify-content: space-around; */
 }
+
 .dialog-bubble {
   border: 2px solid var(--theme-mode-high-contrast);
   border-radius: 10px;
@@ -336,6 +352,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+
 .conversation-button {
   text-align: center;
   cursor: pointer;
@@ -344,6 +361,7 @@ export default {
   transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   z-index: 999;
 }
+
 .conversation-list {
   position: absolute;
   top: calc(110%);
@@ -355,6 +373,7 @@ export default {
   border-radius: 5px;
   border: 2px solid var(--theme-mode-high-contrast);
 }
+
 .user-content {
   right: 0;
   /* width: 30px; */
@@ -362,9 +381,11 @@ export default {
   align-self: flex-end;
   border: unset;
 }
+
 .user-content p {
   color: white;
 }
+
 .input-text {
   border-radius: 5px;
   width: 300px;
@@ -373,6 +394,7 @@ export default {
   overflow: hidden;
   background-color: var(--theme-mode);
 }
+
 .send-button {
   background-color: var(--theme-color-80);
   /* color: white; */
@@ -382,12 +404,14 @@ export default {
   /* right: 0; */
   /* align-self: flex-end; */
 }
+
 .send-button :hover {
   background-color: var(--theme-color-100);
-  
+
   /* right: 0; */
   /* align-self: flex-end; */
 }
+
 .icon-send {
   fill: white;
   width: 30px;
@@ -395,25 +419,30 @@ export default {
   margin-top: 5px;
   margin-left: 5px;
 }
+
 .bubble-container {
   align-self: flex-end;
 }
+
 .chat-list-item {
   margin: 0 auto;
   border-bottom: 1px solid var(--theme-mode-contrast);
 }
+
 .assistant-info {
   display: flex;
 
 }
-.assistant-info > img{
+
+.assistant-info>img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin-left: 10px;
   margin-bottom: 5px;
 }
-.assistant-info > p{
+
+.assistant-info>p {
   margin-left: 10px;
   margin-top: 9px;
 }
@@ -423,21 +452,25 @@ export default {
   right: 0;
   align-self: flex-end;
 }
-.user-info > img{
+
+.user-info>img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin-right: 20px;
   margin-bottom: 5px;
 }
-.user-info > p{
+
+.user-info>p {
   margin-right: 10px;
   margin-top: 9px;
 }
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -446,10 +479,10 @@ export default {
 .md-preview {
   font-size: 15px !important;
 }
+
 .icon {
   width: 20px;
   height: 20px;
   fill: var(--default-text-color);
 }
-
 </style>

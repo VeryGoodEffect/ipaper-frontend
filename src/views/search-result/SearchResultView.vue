@@ -295,13 +295,15 @@
       </svg>
     </template>
     <template v-else>
-      <span class="talk-hint">{{ $t("talk_with_chat") }}</span>
-      <svg class="unfold-chat" @click="showChat = true" t="1703515339866" viewBox="0 0 1024 1024" version="1.1"
-        xmlns="http://www.w3.org/2000/svg" p-id="3584" width="200" height="200">
-        <path
-          d="M904.533333 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 644.266667 179.2 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333l362.666666 362.666667c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866667-12.8l362.666666-362.666667c17.066667-17.066667 17.066667-42.666667 0-59.733333z"
-          p-id="3585"></path>
-      </svg>
+      <div class="talk-hint-container">
+        <span class="talk-hint">{{ $t("talk_with_chat") }}</span>
+        <svg class="unfold-chat" @click="showChat = true" t="1703515339866" viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="3584" width="200" height="200">
+          <path
+            d="M904.533333 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 644.266667 179.2 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333l362.666666 362.666667c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866667-12.8l362.666666-362.666667c17.066667-17.066667 17.066667-42.666667 0-59.733333z"
+            p-id="3585"></path>
+        </svg>
+      </div>
     </template>
   </div>
 </template>
@@ -1086,11 +1088,21 @@ svg {
   z-index: 200;
 }
 
+.talk-hint-container {
+  cursor: grab;
+  width: 100%;
+}
+
+.dragging .talk-hint-container {
+  cursor: grabbing;
+}
+
 .talk-hint {
   font-size: 18px;
   margin: 0 20px;
   font-weight: bold;
 }
+
 
 .unfold-chat {
   width: 30px;
