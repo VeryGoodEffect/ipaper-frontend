@@ -1,11 +1,11 @@
 <template>
-  <div
-    id="scholar-graph"
-    style="width: 100%; height: 400px; z-index: 999"
-  ></div>
+  <div>
+    <slot></slot>
+    <div id="scholar-graph" style="width: 80%; height: 40vh; margin:0 auto;"></div>
+  </div>
 </template>
   
-  <script>
+<script>
 import * as echarts from "echarts/core";
 import { TooltipComponent, GridComponent } from "echarts/components";
 import { BarChart } from "echarts/charts";
@@ -105,8 +105,8 @@ export default {
       //   this.option.series[0].data.push(element.works_count);
       //   this.option.series[1].data.push(element.cited_by_count);
       // });
-      if(this.chart)
-      this.chart.setOption(this.option);
+      if (this.chart)
+        this.chart.setOption(this.option);
 
       window.addEventListener("resize", this.manualResize);
 
@@ -140,7 +140,7 @@ export default {
 
       var len = newVal.length;
       var i = 5;
-      if(!len) i=0;
+      if (!len) i = 0;
       else if (len < i) i = len;
 
       // console.log(len, "?????");

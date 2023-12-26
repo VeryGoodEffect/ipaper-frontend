@@ -782,7 +782,7 @@ export default {
             this.resultlistToInfoItems();
 
             this.totalPages = Math.ceil(
-              res.data.meta.count / res.data.meta.page
+              res.data.meta.count / res.data.per_page
             );
             this.currentPage = res.data.meta.page;
             // this.totalPages = Math.ceil(this.totalPages/this.currentPage)
