@@ -219,6 +219,8 @@ export default {
         this.place_holder = this.$t("search_type_6");
       }
 
+      this.search_search = ""
+
       // this.childSetSearchType();
     },
     autoComplete() {
