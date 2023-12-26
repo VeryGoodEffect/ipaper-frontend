@@ -56,25 +56,11 @@ export default {
       console.log(`myProp changed from ${oldVal} to ${newVal}`);
       // alert("meow")
       this.option.series[0].data = [];
-
       var len = newVal.length;
-      var i = 5;
-      if(!len) i=0;
-      else if (len < i) i = len;
-
-
-      let maxWorksCount = 0;
-      for(var i = 0;i<5;i++){
+      for(var i = 0;i<5&&i<len;i++){
         this.option.series[0].data.push({ value:newVal[i].works_count , name: newVal[i].display_name })
-        if (newVal[i].works_count > maxWorksCount) {
-          maxWorksCount = newVal[i].works_count;
-        }
       }
-
-      maxWorksCount = Math.ceil(maxWorksCount * 1.1);
-      this.option.yAxis[0].max = maxCitedByCount; // 引用数量的 Y 轴
       this.chart.setOption(this.option);
-      
       /***
        * {{ author.display_name }} 
             &ensp;&ensp;
