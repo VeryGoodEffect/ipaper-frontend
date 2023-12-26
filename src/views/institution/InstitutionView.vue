@@ -294,7 +294,7 @@ export default {
 
 .left-row {
   width: 50%;
-  max-height: 85vh;
+  height: 85vh;
   overflow: auto;
 }
 
@@ -309,7 +309,7 @@ export default {
 }
 
 .paper-list {
-  max-height: 85vh;
+  height: 85vh;
   overflow: auto;
   font-size: 25px;
   width: 50%;

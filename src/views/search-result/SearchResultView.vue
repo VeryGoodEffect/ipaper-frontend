@@ -362,8 +362,8 @@ export default {
       filte_count_value: 10,
       filte_cite_value: 100,
 
-      show_sort: false,
-      show_filte: false,
+      show_sort: true,
+      show_filte: true,
       showChat: false,
 
       totalPages: 1,
@@ -1006,7 +1006,7 @@ svg {
 .search-container-wrapper {
   width: 60%;
   position: relative;
-  max-height: 90vh;
+  height: 90vh;
   overflow: auto;
 }
 

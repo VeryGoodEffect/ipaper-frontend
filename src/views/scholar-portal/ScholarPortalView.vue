@@ -626,7 +626,7 @@ em {
 
 .personal-info {
   /* border: 1px solid red; */
-  max-height: 85vh;
+  height: 85vh;
   overflow: auto;
   width: 300px;
   display: flex;
@@ -717,7 +717,7 @@ em {
   margin-left: 20px;
 } */
 .tag-and-list {
-  max-height: 85vh;
+  height: 85vh;
   overflow: auto;
   width: 60%;
 }
