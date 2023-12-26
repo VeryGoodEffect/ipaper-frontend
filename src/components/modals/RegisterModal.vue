@@ -73,16 +73,15 @@ export default {
         password_confirm: this.confirmedPassword,
       }
       this.handleClose()
-      this.$bus.emit('message', { title: this.$t('register_success'), content: this.$t('check_email_hint'), time: 1500 })
       setTimeout(() => {
         this.handleJumpToLogin()
       }, 3000)
       Account.register(registerForm).then(
         (response) => {
-          
+          this.$bus.emit('message', { title: this.$t('register_success'), content: this.$t('check_email_hint'), time: 2000 })
         },
         (error) => {
-          alert("Error in register")
+          this.$bus.emit('message', { title: '注册失败', content: '注册信息填写错误', time: 2000 })
         }
       )
     }
