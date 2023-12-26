@@ -1,15 +1,22 @@
 <template>
-  <div id="scholar-graph" style="width: 100%; height: 400px; z-index: 999"></div>
+  <div style="position: relative;">
+    <div id="scholar-graph" style="width: 100%; height: 400px">
+    </div>
+  </div>
 </template>
   
-  <script>
+<script>
 import * as echarts from "echarts/core";
 import { TooltipComponent, GridComponent } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
+import NewLoadingBar from '../loading-bar/NewLoadingBar.vue';
 
 export default {
   props: ["info"],
+  components: {
+    NewLoadingBar
+  },
   mounted() {
     // console.log(this.info[0])
     setTimeout(() => {
@@ -41,37 +48,37 @@ export default {
           },
         ],
         yAxis: [
-        {
-          type: 'value',
-          min: 0,
-          max: 40000, // 引用数量的Y轴上限
-          // 可以为此轴添加额外的样式和配置
-        },
-        {
-          type: 'value',
-          min: 0,
-          max: 2000, // 成果数量的Y轴上限
-          // 可以为此轴添加额外的样式和配置
-          // 设置为右侧的 Y 轴
-          position: 'right',
-        }
-      ],
-      series: [
-        {
-          name: this.$t('institution_achievement_number'),
-          type: "bar",
-          barWidth: "35%",
-          data: [],
-          yAxisIndex: 1, // 使用第二个Y轴（右侧）
-        },
-        {
-          name: this.$t('institution_cite_number'),
-          type: "bar",
-          barWidth: "35%",
-          data: [],
-          yAxisIndex: 0, // 使用第一个Y轴（左侧）
-        }
-      ],
+          {
+            type: 'value',
+            min: 0,
+            max: 40000, // 引用数量的Y轴上限
+            // 可以为此轴添加额外的样式和配置
+          },
+          {
+            type: 'value',
+            min: 0,
+            max: 2000, // 成果数量的Y轴上限
+            // 可以为此轴添加额外的样式和配置
+            // 设置为右侧的 Y 轴
+            position: 'right',
+          }
+        ],
+        series: [
+          {
+            name: this.$t('institution_achievement_number'),
+            type: "bar",
+            barWidth: "35%",
+            data: [],
+            yAxisIndex: 1, // 使用第二个Y轴（右侧）
+          },
+          {
+            name: this.$t('institution_cite_number'),
+            type: "bar",
+            barWidth: "35%",
+            data: [],
+            yAxisIndex: 0, // 使用第一个Y轴（左侧）
+          }
+        ],
       },
 
     };
@@ -99,7 +106,7 @@ export default {
       console.log(this.info, "!!!!!!!");
       // const reversedInfo = this.info.reverse();
       const sortedInfo = this.info.sort((a, b) => b.year - a.year);
-      
+
       sortedInfo.reverse().forEach((element) => {
         this.option.xAxis[0].data.push(element.year);
         this.option.series[0].data.push(element.works_count);
@@ -107,6 +114,7 @@ export default {
       });
 
       this.chart.setOption(this.option);
+      // this.progress = 100
     },
 
     destroyChart() {

@@ -1,6 +1,5 @@
 <template>
-    <div ref="container" class="loading-container"
-        :class="{ 'open': display, 'loading-close-slow': slowClose, 'animated-end': slowClose }">
+    <div class="loading-container" :class="{ 'open': display, 'loading-close-slow': slowClose, 'animated-end': slowClose }">
         <div class="letters-container" :class="{}">
             <span>
                 <span class="letter-parent i" ref="parentI">i</span>
@@ -145,7 +144,7 @@ export default {
                 const smoothLoad = () => {
                     const y = (-Math.exp(-b * x) + 1) * a
                     this.localProgress = y * 100
-                    console.log(y)
+                    // console.log(y)
                     x += deltaTime / 1000
                     if (this.progress < 70 && this.display) {
                         setTimeout(smoothLoad, deltaTime);
@@ -158,14 +157,19 @@ export default {
     methods: {
         //因为采用了fixed，所以需要动态调整宽高
         resize() {
-            const container = this.$refs.container
+            const container = this.$el
             if (!container) {
                 return
             }
             const parentWidth = container.parentNode.offsetWidth
             const parentHeight = container.parentNode.offsetHeight
-            container.style.width = parentWidth + 'px'
-            container.style.height = parentHeight + 'px'
+            const parentTop = container.parentNode.getBoundingClientRect().top
+            // const parentLeft = container.parentNode.offsetHeight
+            // container.style.trainsition = 'none'
+            container.style.width = (parentWidth+1) + 'px'
+            container.style.height = (parentHeight+1) + 'px'
+            container.style.top = parentTop + 'px'
+            // container.style.trainsition = 'all ease-out 0.5s'
         }
     },
     mounted() {
@@ -173,10 +177,9 @@ export default {
         // 使用 MutationObserver 监听 DOM 变化
         var observer = new MutationObserver(this.resize);
         observer.observe(document.documentElement, { childList: true, subtree: true });
+        addEventListener('scroll', this.resize)
     },
-    beforeUnmount() {
-        removeEventListener('resize', this.resize)
-    },
+
 }
 </script>
 
@@ -184,15 +187,15 @@ export default {
 .loading-container {
     background: var(--theme-mode);
     /* backdrop-filter: blur(5px); */
-    position: sticky;
+    position: fixed;
     top: 0;
     display: none;
-    /* width: 100%;
-    height: 100%; */
+    width: 100%;
+    height: 100%;
     z-index: 500;
     align-items: center;
     justify-content: center;
-    transition: all ease-out 0.5s;
+    /* transition: all ease-out 0.5s; */
     transform-origin: center center;
 }
 
@@ -241,7 +244,8 @@ export default {
 }
 
 .animated-end {
-    /* background: var(--theme-color); */
+    /* background: var(--theme-color-translucent);
+    backdrop-filter: blur(10px); */
 }
 
 .animated-end .letters-container>span>span.letter-child {
@@ -256,11 +260,14 @@ export default {
 
 @keyframes out {
     0% {
+        backdrop-filter: blur(0px);
         opacity: 1;
         transform: scale(1);
     }
 
     100% {
+        backdrop-filter: blur(10px);
+        background: transparent;
         opacity: 0;
         display: none;
         transform: scale(3);

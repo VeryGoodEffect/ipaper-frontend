@@ -6,17 +6,14 @@
 
       </h3>
       <div v-show="show_filte">
-        <div
-          class="filter-card"
-          style="
+        <div class="filter-card" style="
             display: vertical;
             margin-left: auto;
             margin-right: auto;
             margin-top: 10%;
             margin-bottom: 10%;
             text-align: center;
-          "
-        >
+          ">
           <ul>
             <li @click="show_filte_by_time = !show_filte_by_time">{{ $t("filte_by_time") }}</li>
             <li @click="setFilterTime(1)" v-show="show_filte_by_time" style="cursor: pointer">
@@ -33,18 +30,36 @@
             </li>
             <li @click="setFilterTime(5)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("self_define_time_range") }}
-              <span
-                ><input
-                  v-model="search_start_time"
-                  type="text"
-                  style="width: 30%" />
-                 ~ 
-                <input v-model="search_end_time" type="text" style="width: 30%"
-              /></span>
+              <span><input v-model="search_start_time" type="text" style="width: 30%" />
+                ~
+                <input v-model="search_end_time" type="text" style="width: 30%" /></span>
             </li>
           </ul>
         </div>
 
+
+          <div
+            class="filter-card"
+            style="
+            display: vertical;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            text-align: center;
+          "
+          >
+            <ul>
+              <li @click="show_filte_by_cite = !show_filte_by_cite">根据引用数量筛选</li>
+              <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
+                不限数量
+              </li>
+              <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
+                <input type="text" v-model="filte_count_value"
+                    style="width: 30%" />
+              </li>
+            </ul>
+          </div>
 
         <div
           class="filter-card"
@@ -70,11 +85,7 @@
         </div>
 
 
-        <div
-          v-if="search_type == 1"
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
+        <div v-if="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
           <ul>
             <li @click="setLanguage(1)" style="cursor: pointer">
               {{ $t("no_language_limit") }}
@@ -99,29 +110,17 @@
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
         </ul>
       </div> -->
-        <div
-          v-if="search_type == 3"
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
+        <div v-if="search_type == 3" class="filter-card" style="display: vertical; text-align: center">
           <ul>
             <li v-for="(option, index) in options" :key="index">
-              <input
-                type="radio"
-                :value="option.value"
-                v-model="selectedOption"
-              />
+              <input type="radio" :value="option.value" v-model="selectedOption" />
               <label>{{ option.text }}</label>
             </li>
           </ul>
         </div>
       </div>
 
-      <h3
-        class="sort-switch"
-        :class="{ 'sort-switch-active': show_sort }"
-        @click="show_sort = !show_sort"
-      >
+      <h3 class="sort-switch" :class="{ 'sort-switch-active': show_sort }" @click="show_sort = !show_sort">
         {{ $t("sort") }}
       </h3>
       <div v-show="show_sort">
@@ -231,13 +230,8 @@
     </div>
 
     <div class="search-container-wrapper">
-      <new-loading-bar
-        :isReal="isReal"
-        :display="displayLoading"
-        :accelerate="accelerate"
-        :progress="progress"
-        @stop-display="displayLoading = false"
-      ></new-loading-bar>
+      <new-loading-bar :isReal="isReal" :display="displayLoading" :accelerate="accelerate" :progress="progress"
+        @stop-display="displayLoading = false"></new-loading-bar>
       <div class="search-container">
         <SearchPanel
           ref="searchPanelRef"
@@ -257,46 +251,21 @@
     //this.$emit('change-page',page) -->
       <!-- 
        -->
-      <Pagination
-        @change-item-per-page="changeItemPerpage"
-        @change-page="changePages"
-        :itemsPerPage="itemsPerPage"
-        :currentPage="currentPage"
-        :totalPages="totalPages"
-        class="pagination"
-        :defaultItemsPerPage="5"
-      >
+      <Pagination @change-item-per-page="changeItemPerpage" @change-page="changePages" :itemsPerPage="itemsPerPage"
+        :currentPage="currentPage" :totalPages="totalPages" class="pagination" :defaultItemsPerPage="5">
         <div v-if="search_type == 1">
-          <SearchResultListItem
-            v-for="(info, index) in infoItems"
-            :key="index"
-            :infoItem="info"
-          ></SearchResultListItem>
+          <SearchResultListItem v-for="(info, index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
         </div>
         <div v-else-if="search_type == 2">
-          <ScholarListItem
-            v-show="search_type == 2"
-            v-for="(info, index) in infoItems"
-            :key="index"
-            :infoItem="info"
-          >
+          <ScholarListItem v-show="search_type == 2" v-for="(info, index) in infoItems" :key="index" :infoItem="info">
           </ScholarListItem>
         </div>
         <div v-else-if="search_type == 3">
-          <JournalListItem
-            v-for="(info, index) in infoItems"
-            :key="index"
-            :infoItem="info"
-          ></JournalListItem>
+          <JournalListItem v-for="(info, index) in infoItems" :key="index" :infoItem="info"></JournalListItem>
         </div>
 
         <div v-else>
-          <InstitutionListItem
-            v-show="search_type == 4"
-            v-for="(info, index) in infoItems"
-            :key="index"
-            :infoItem="info"
-          >
+          <InstitutionListItem v-show="search_type == 4" v-for="(info, index) in infoItems" :key="index" :infoItem="info">
           </InstitutionListItem>
         </div>
       </Pagination>
@@ -523,6 +492,7 @@ export default {
     },
     changeItemPerpage(data) {
       this.itemsPerPage = data;
+      this.currentPage = 1
       this.searchmethod(true);
     },
     // #region resultlistToInfoItems
@@ -776,7 +746,7 @@ export default {
             this.per_page = res.data.meta.per_page;
             this.progress = 100;
           },
-          (err) => {}
+          (err) => { }
         );
       }
       // author
@@ -792,7 +762,7 @@ export default {
 
             this.progress = 100;
           },
-          (err) => {}
+          (err) => { }
         );
       }
       // 期刊
@@ -809,7 +779,7 @@ export default {
 
             this.progress = 100;
           },
-          (err) => {}
+          (err) => { }
         );
       }
       // 机构
@@ -826,7 +796,7 @@ export default {
 
             this.progress = 100;
           },
-          (err) => {}
+          (err) => { }
         );
       }
     },
@@ -980,7 +950,7 @@ svg {
 .search-container-wrapper {
   width: 60%;
   position: relative;
-  height: 90vh;
+  max-height: 90vh;
   overflow: auto;
 }
 .search-container-wrapper::-webkit-scrollbar {

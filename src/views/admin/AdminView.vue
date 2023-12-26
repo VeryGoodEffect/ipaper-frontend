@@ -1,9 +1,7 @@
 <template>
     <div class="container">
         <button @click="displayTutorial = true">{{ $t('admin_view_instruction') }}</button>
-        <button @click="handleLoading">{{ $T('admin_view_loading') }}</button>
-        <new-loading-bar :display="displayLoad" :progress="progress" @stop-display="displayLoad = false" :accelerate="false"
-            :isReal="false"></new-loading-bar>
+        <button @click="handleLoading">{{ $t('admin_view_loading') }}</button>
         <tutorial-view :display="displayTutorial" @stop-display="displayTutorial = false"></tutorial-view>
         <div class="status-select-container">
             <span class="select-tip">{{ $t('select_audit_status') }}</span>
@@ -15,7 +13,10 @@
                 <option :value="3">{{ $t('not_confirmed') }}</option>
             </select>
         </div>
+        <new-loading-bar :display="displayLoading" :progress="progress" @stop-display="displayLoading = false"
+            :accelerate="accelerate" :isReal="isReal"></new-loading-bar>
         <div class="audit-list">
+
             <ul>
                 <li v-if="auditDatas.length === 0" class="no-result-tip">{{ $t('no_audit_results') }}</li>
                 <pagination :items-per-page="itemsPerPage" :total-pages="totalPages" :current-page="currentPage"
@@ -47,7 +48,9 @@ export default {
     },
     data() {
         return {
-            displayLoad: false,
+            isReal: false,
+            accelerate: false,
+            displayLoading: false,
             progress: 0,
             displayTutorial: false,
             AvailableStatus: [-1, 0, 1, 2, 3],
@@ -107,7 +110,7 @@ export default {
                 limit: this.itemsPerPage,
                 offset: this.itemsPerPage * (this.currentPage - 1)
             }
-            this.getResult(param)
+            this.getResult(param, false)
         },
         handleChangePerPage(perPage) {
             this.itemsPerPage = perPage
@@ -115,9 +118,12 @@ export default {
                 limit: this.itemsPerPage,
                 offset: 0
             }
-            this.getResult(param)
+            this.getResult(param, false)
         },
-        getResult(param) {
+        getResult(param, accelerate) {
+            this.displayLoading = true
+            this.accelerate = accelerate
+            this.progress = 0
             Application.getAuditedList(param).then((data) => {
                 this.totalPages = Math.ceil(data.data.count / this.itemsPerPage)
                 console.log(this.totalPages)
@@ -150,14 +156,15 @@ export default {
                         images: image,
                         rejectReason: result.failed_reason
                     }
-                }, (err) => { 
-                    // alert(err) 
-                    })
+                })
+                this.progress = 100
+            }, (err) => {
+                // alert(err) 
             })
         },
         handleLoading() {
             this.progress = 0
-            this.displayLoad = true
+            this.displayLoading = true
             // for (let i = 1; i <= 100; i++) {
             //     setTimeout(() => {
             //         this.progress++
@@ -184,7 +191,7 @@ export default {
             if (value >= 0) {
                 param.status = this.packStatus(value)
             }
-            this.getResult(param)
+            this.getResult(param, false)
         }
     }
 }
@@ -199,7 +206,7 @@ export default {
     background: var(--theme-color-10);
     padding: 20px;
     border-radius: 15px;
-
+    position: relative;
 }
 
 .status-select-container {

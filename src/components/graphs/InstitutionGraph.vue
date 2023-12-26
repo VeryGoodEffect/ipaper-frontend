@@ -1,22 +1,37 @@
 <template>
-  <div id="graph-count" style="width: 100%; height: 400px; z-index: 999"></div>
+  <div>
+    <new-loading-bar :isReal="isReal" :display="displayLoading" :accelerate="accelerateLoading" :progress="progress"
+      @stop-display="displayLoading = false"></new-loading-bar>
+    <div id="graph-count" style="width: 100%; height: 400px"></div>
+  </div>
 </template>
   
-  <script>
+<script>
 import * as echarts from "echarts/core";
 import { TooltipComponent, GridComponent } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-import { ref } from "vue";
+import NewLoadingBar from '../loading-bar/NewLoadingBar.vue';
 export default {
   props: ["info"],
+  components: {
+    NewLoadingBar
+  },
   mounted() {
+    this.progress = 0
+    this.displayLoading = true
     setTimeout(() => {
+      this.progress = 100
       this.initChart();
     }, 500); // 延迟 1 秒执行 initChart
   },
   data() {
     return {
+      displayLoading: false,
+      accelerate: false,
+      isReal: false,
+      progress: 0,
+
       option: {
         tooltip: {
           trigger: "axis",
@@ -78,6 +93,7 @@ export default {
       const chartDom = document.getElementById("graph-count");
       this.chart = echarts.init(chartDom);
 
+
       this.chart.setOption(this.option);
     },
 
@@ -105,7 +121,7 @@ export default {
 
       var len = newVal.length;
       var i = 5;
-      if(len<i) i=len;
+      if (len < i) i = len;
       console.log(len, "?????");
       for (; i >= 0; i--) {
         this.option.xAxis[0].data.push(newVal[i].year);
@@ -119,7 +135,10 @@ export default {
       //   this.option.series[0].data.push(element.works_count);
       //   this.option.series[1].data.push(element.cited_by_count);
       // });
-
+      if (!this.chart) {
+        const chartDom = document.getElementById("graph-count");
+        this.chart = echarts.init(chartDom);
+      }
       this.chart.setOption(this.option);
     },
   },
