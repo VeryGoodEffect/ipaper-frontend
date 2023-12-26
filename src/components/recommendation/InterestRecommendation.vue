@@ -1,8 +1,8 @@
 <template>
 <div >
-  <ul>
-    <li @click="JumpArticle(article.paper_id)" v-for="(article, index) in articles" :key="index">
-      <h3>{{ article.title }}</h3>
+  <ul style="margin:0 auto">
+    <li  v-for="(article, index) in articles" :key="index">
+      <h3 @click="JumpArticle(article.paper_id)">{{ article.title }}</h3>
       <p class="abstract" v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: false}">
         {{ article.abstract }}
       </p>
