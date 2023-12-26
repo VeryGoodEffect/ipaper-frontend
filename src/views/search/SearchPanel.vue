@@ -44,7 +44,7 @@
         </svg>
       </button>
     </div>
-    <AsideBar @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar>
+    <AsideBar style="z-index: 9999;" @setSearchType="setSearchType" @advsearch="advsearch"></AsideBar>
   </div>
 </template>
 
