@@ -8,8 +8,8 @@
     </div>
     <div class="main-area">
       <div class="left-row">
-        <!-- <new-loading-bar :isReal="infoReal" :display="displayInfoLoading" :accelerate="infoAccelerate"
-          :progress="infoProgress" @stop-display="displayInfoLoading = false"></new-loading-bar> -->
+        <new-loading-bar :isReal="infoReal" :display="displayInfoLoading" :accelerate="infoAccelerate"
+          :progress="infoProgress" @stop-display="displayInfoLoading = false"></new-loading-bar>
         <div>
           <p class="tags">
             {{ $t('tag_detail_wiki') }}
@@ -72,8 +72,8 @@
       </div>
 
       <div class="right-row">
-        <!-- <new-loading-bar :isReal="pageReal" :display="displayPageLoading" :accelerate="pageAccelerate"
-          :progress="pageProgress" @stop-display="displayPageLoading = false"></new-loading-bar> -->
+        <new-loading-bar :isReal="pageReal" :display="displayPageLoading" :accelerate="pageAccelerate"
+          :progress="pageProgress" @stop-display="displayPageLoading = false"></new-loading-bar>
         <div>
           <p class="tags-right">
             {{ $t('tag_detail_paper') }}
@@ -153,6 +153,8 @@ export default {
     getTagDetail() {
       this.infoSegment = 0
       this.displayInfoLoading = true
+      this.pageProgress = 0
+      this.displayPageLoading = true
       let tagId = this.$route.params.id
       if (tagId) {
         Search.conceptRetrieve(tagId).then(
