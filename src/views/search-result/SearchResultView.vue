@@ -934,7 +934,7 @@ svg {
 }
 
 .cond-area {
-  width: 20%;
+  width: 15%;
   /* height: 600px; */
   margin-top: 50px;
   margin-left: 30px;
@@ -996,7 +996,7 @@ svg {
 }
 
 .search-container-wrapper {
-  width: 70%;
+  width: 75%;
   position: relative;
   height: 90vh;
   overflow: auto;
