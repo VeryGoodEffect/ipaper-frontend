@@ -1,17 +1,12 @@
 <template>
   <div>
     <div style="height: 60vh" class="my-graph">
-      <RelationGraph
-        ref="graphRef"
-        :options="graphOptions"
-        :on-node-click="onNodeClick"
-        :on-line-click="onLineClick"
-      />
+      <RelationGraph ref="graphRef" :options="graphOptions" :on-node-click="onNodeClick" :on-line-click="onLineClick" />
     </div>
   </div>
 </template>
   
-  <script>
+<script>
 // 如果您没有在main.js文件中使用Vue.use(RelationGraph); 就需要使用下面这一行代码来引入relation-graph
 import RelationGraph from "relation-graph/vue3";
 export default {
@@ -55,9 +50,9 @@ export default {
       }
     }
   },
-    // mounted() {
-    //   this.showSeeksGraph();
-    // },
+  // mounted() {
+  //   this.showSeeksGraph();
+  // },
   beforeDestroy() {
     console.log("beforeDestroy stop layout");
     this.$refs.graphRef.getInstance().stopAutoLayout();
@@ -74,16 +69,16 @@ export default {
         nodes: [],
         lines: [],
       };
-      for(let i = 0; i < this.relationList.length && i<=20; i++) {
-        if(i === 0) {
+      for (let i = 0; i < this.relationList.length && i <= 20; i++) {
+        if (i === 0) {
           __graph_json_data.rootId = this.relationList[i].id
         }
         __graph_json_data.nodes.push({
           id: this.relationList[i].id,
           text: this.relationList[i].display_name
         })
-        if(i !== 0) {
-            __graph_json_data.lines.push({
+        if (i !== 0) {
+          __graph_json_data.lines.push({
             from: this.relationList[0].id,
             to: this.relationList[i].id
           })
@@ -111,5 +106,8 @@ export default {
 <style scoped>
 .my-graph {
   background: transparent !important;
+  border: var(--theme-color) 5px solid;
+  border-radius: 10px;
+  margin: 3% auto;
 }
 </style>

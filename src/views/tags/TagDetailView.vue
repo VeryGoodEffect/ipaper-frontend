@@ -153,6 +153,8 @@ export default {
     getTagDetail() {
       this.infoSegment = 0
       this.displayInfoLoading = true
+      this.pageProgress = 0
+      this.displayPageLoading = true
       let tagId = this.$route.params.id
       if (tagId) {
         Search.conceptRetrieve(tagId).then(

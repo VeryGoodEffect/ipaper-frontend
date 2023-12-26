@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <button @click="displayTutorial = true">{{ $t('admin_view_instruction') }}</button>
-        <button @click="handleLoading">{{ $t('admin_view_loading') }}</button>
+        <!-- <button @click="displayTutorial = true">{{ $t('admin_view_instruction') }}</button>
+        <button @click="handleLoading">{{ $t('admin_view_loading') }}</button> -->
         <tutorial-view :display="displayTutorial" @stop-display="displayTutorial = false"></tutorial-view>
         <div class="status-select-container">
             <span class="select-tip">{{ $t('select_audit_status') }}</span>
@@ -184,6 +184,7 @@ export default {
     },
     watch: {
         selectStatus(value) {
+            this.currentPage = 1
             const param = {
                 limit: this.itemsPerPage,
                 offset: 0,

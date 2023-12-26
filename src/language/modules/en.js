@@ -220,8 +220,8 @@ Since 2022
 Since 2021
      */
     // Search filter
-    filter: 'filte',
-    filte_by_time: 'filte by time',
+    filter: 'filter',
+    filte_by_time: 'filter by time',
     no_limit_time: 'no time limit',
     since_2023: 'since_2023',
     since_2022: 'since_2022',

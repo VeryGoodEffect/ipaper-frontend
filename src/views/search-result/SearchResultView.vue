@@ -29,11 +29,16 @@
             <li @click="setFilterTime(4)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("since_2021") }}
             </li>
-            <li @click="setFilterTime(5)" v-show="show_filte_by_time" style="cursor: pointer">
-              {{ $t("self_define_time_range") }}
-              <span><input v-model="search_start_time" type="text" style="width: 30%" />
+            <li v-show="show_filte_by_time" style="cursor: pointer">
+              <span style="white-space: nowrap ;">{{ $t("self_define_time_range") }}</span>
+            </li>
+
+            <li  v-show="show_filte_by_time" style="cursor: pointer">
+              <span style=" ;"><input v-model="search_start_time" type="text" style="width: 30% ;" />
                 ~
-                <input v-model="search_end_time" type="text" style="width: 30%" /></span>
+                <input v-model="search_end_time" type="text" style="width: 30%;"/> <button @click="setFilterTime(5)" style="width: 40%;">搜索</button></span>
+
+                
             </li>
           </ul>
         </div>
@@ -51,28 +56,11 @@
             <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_no_limit") }}
             </li>
-            <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
+            <li v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_more_than") }}
               <input type="text" v-model="filte_count_value" style="width: 30%" />
             </li>
-          </ul>
-        </div>
-
-        <div v-show="search_type == 1" class="filter-card" style="
-            display: vertical;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-          ">
-          <ul>
-            <li @click="show_filte_by_cite = !show_filte_by_cite">
-              {{ $t("filte_cite") }}
-            </li>
-            <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
-              {{ $t("filte_cite_no_limit") }}
-            </li>
             <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
-              {{ $t("filte_cite_more_than") }}
               <input type="text" v-model="filte_count_value" style="width: 30%" />
             </li>
           </ul>
@@ -283,7 +271,8 @@
     </div>
     <!-- <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT> -->
   </div>
-  <div id="chat" :class="{ chat: true, dragging: isDragging }"
+  <div v-if="$cookies.get('user_id')"
+    id="chat" :class="{ chat: true, dragging: isDragging }"
     :style="{ top: topDistance + 'px', left: leftDistance + 'px' }" @mousedown.stop="startDrag">
     <template v-if="showChat">
       <ChatGPT />
@@ -295,13 +284,15 @@
       </svg>
     </template>
     <template v-else>
-      <span class="talk-hint">{{ $t("talk_with_chat") }}</span>
-      <svg class="unfold-chat" @click="showChat = true" t="1703515339866" viewBox="0 0 1024 1024" version="1.1"
-        xmlns="http://www.w3.org/2000/svg" p-id="3584" width="200" height="200">
-        <path
-          d="M904.533333 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 644.266667 179.2 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333l362.666666 362.666667c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866667-12.8l362.666666-362.666667c17.066667-17.066667 17.066667-42.666667 0-59.733333z"
-          p-id="3585"></path>
-      </svg>
+      <div class="talk-hint-container">
+        <span class="talk-hint">{{ $t("talk_with_chat") }}</span>
+        <svg class="unfold-chat" @click="showChat = true" t="1703515339866" viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="3584" width="200" height="200">
+          <path
+            d="M904.533333 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 644.266667 179.2 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333l362.666666 362.666667c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866667-12.8l362.666666-362.666667c17.066667-17.066667 17.066667-42.666667 0-59.733333z"
+            p-id="3585"></path>
+        </svg>
+      </div>
     </template>
   </div>
 </template>
@@ -362,8 +353,8 @@ export default {
       filte_count_value: 10,
       filte_cite_value: 100,
 
-      show_sort: false,
-      show_filte: false,
+      show_sort: true,
+      show_filte: true,
       showChat: false,
 
       totalPages: 1,
@@ -792,6 +783,7 @@ export default {
       else if (this.search_type == 2) {
         Search.searchAuthor(searchdata).then(
           (res) => {
+            console.log(res.data);
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
 
@@ -938,7 +930,7 @@ svg {
 .main-area {
   /* border: 2px solid blue; */
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly
 }
 
 .cond-area {
@@ -985,6 +977,7 @@ svg {
   margin-top: 5%;
   margin-bottom: 5%;
   border-radius: 10px;
+  z-index: 99999;
 }
 
 .cond-area .filter-card li {
@@ -1003,9 +996,9 @@ svg {
 }
 
 .search-container-wrapper {
-  width: 60%;
+  width: 70%;
   position: relative;
-  max-height: 90vh;
+  height: 90vh;
   overflow: auto;
 }
 
@@ -1047,8 +1040,9 @@ svg {
 }
 
 .pagination {
+  margin: 0 auto;
   margin-top: 30px;
-  margin-left: 30px;
+  padding: 0 10%;
 }
 
 .search-container {
@@ -1085,11 +1079,21 @@ svg {
   z-index: 200;
 }
 
+.talk-hint-container {
+  cursor: grab;
+  width: 100%;
+}
+
+.dragging .talk-hint-container {
+  cursor: grabbing;
+}
+
 .talk-hint {
   font-size: 18px;
   margin: 0 20px;
   font-weight: bold;
 }
+
 
 .unfold-chat {
   width: 30px;
