@@ -1,6 +1,7 @@
 <template>
-    <div class="loading-container" :class="{ 'open': display, 'loading-close-slow': slowClose, 'animated-end': slowClose }">
-        <div class="letters-container" :class="{}">
+    <div class="loading-container"
+        :class="{ 'open': display, 'container-close-slow': slowClose, 'animated-end': slowClose }">
+        <div class="letters-container" :class="{ 'letter-close-slow': slowClose }">
             <span>
                 <span class="letter-parent i" ref="parentI">i</span>
                 <span class="letter-child i" :class="{ 'animated': localProgress >= (100 / 6) * 1 }" ref="childI">i</span>
@@ -166,8 +167,8 @@ export default {
             const parentTop = container.parentNode.getBoundingClientRect().top
             // const parentLeft = container.parentNode.offsetHeight
             // container.style.trainsition = 'none'
-            container.style.width = (parentWidth+1) + 'px'
-            container.style.height = (parentHeight+1) + 'px'
+            container.style.width = (parentWidth + 1) + 'px'
+            container.style.height = (parentHeight + 1) + 'px'
             container.style.top = parentTop + 'px'
             // container.style.trainsition = 'all ease-out 0.5s'
         }
@@ -253,24 +254,35 @@ export default {
 }
 
 
-.loading-close-slow {
-    animation: out 0.75s ease-in-out 1 forwards;
+.letter-close-slow {
+    animation: letters-out 0.75s ease-in-out 1 forwards;
 }
 
+.container-close-slow {
+    animation: container-out 0.75s ease-in-out 1 forwards;
+}
 
-@keyframes out {
+@keyframes container-out {
     0% {
-        backdrop-filter: blur(0px);
         opacity: 1;
+        backdrop-filter: blur(0px);
+    }
+
+    100% {
+        display: none;
+        opacity: 0;
+        backdrop-filter: blur(10px);
+        background: transparent;
+    }
+}
+
+@keyframes letters-out {
+    0% {
         transform: scale(1);
     }
 
     100% {
-        backdrop-filter: blur(10px);
-        background: transparent;
-        opacity: 0;
-        display: none;
-        transform: scale(3);
+        transform: scale(2.5);
     }
 }
 
