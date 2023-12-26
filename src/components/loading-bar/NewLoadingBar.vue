@@ -159,7 +159,7 @@ export default {
         //因为采用了fixed，所以需要动态调整宽高
         resize() {
             const container = this.$el
-            if (!container) {
+            if ((!container) || (!container.parentNode)) {
                 return
             }
             const parentWidth = container.parentNode.offsetWidth
