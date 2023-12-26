@@ -239,7 +239,7 @@ export default {
           // console.log(this.paginationInfo)
           // console.log(response)
           this.infoItems = []
-          this.paginationInfo.totalPages = Math.ceil(response.data.meta.count / this.paginationInfo.itemsPerPage)
+          this.paginationInfo.totalPages = Math.ceil(response.data.meta.count / response.data.meta.per_page)
           // console.log(this.paginationInfo.totalPages)
           this.infoItems = response.data.results
           // console.log(this.infoItems)
