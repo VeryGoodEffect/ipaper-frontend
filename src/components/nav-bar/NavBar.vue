@@ -1,7 +1,7 @@
 <template>
   <header>
     <section>
-      <svg  @click="backToSearch" class="logo-svg" preserveAspectRatio="xMidYMid meet" viewBox="365.25 653.4000000000001 753 201" xmlns="http://www.w3.org/2000/svg" version="1.0" >
+      <svg  @click="backToSearch" class="logo-svg" preserveAspectRatio="xMidYMid meet" viewBox="305 653.4000000000001 620 201" xmlns="http://www.w3.org/2000/svg" version="1.0" >
 <g stroke="none"   transform="translate(0.000000,1500.000000) scale(0.080000,-0.080000)">
 <path d="M4995 8400 c-67 -10 -141 -59 -186 -122 l-22 -30 47 36 c112 85 220&#10;66 333 -58 257 -281 308 -1002 94 -1333 -63 -97 -135 -143 -222 -143 -70 1&#10;-164 64 -224 150 -28 41 -63 56 -51 23 21 -55 97 -171 143 -218 72 -74 135&#10;-105 211 -105 143 0 255 117 331 345 16 50 33 111 36 138 8 55 -4 52 160 32&#10;140 -18 406 -20 490 -4 103 19 165 61 165 112 0 72 -104 176 -263 262 -70 39&#10;-105 40 -52 2 64 -46 125 -110 136 -144 10 -30 9 -39 -8 -62 -47 -62 -166 -87&#10;-383 -77 -80 3 -161 8 -180 12 l-35 6 -1 181 c0 121 -7 216 -18 282 -77 457&#10;-280 748 -501 715z"/>
 <path d="M4663 8189 c-75 -22 -99 -119 -44 -178 55 -59 155 -35 181 43 26 81&#10;-53 159 -137 135z"/>
@@ -200,7 +200,7 @@ export default {
 
 svg.logo-svg {
   width: 200px;
-  height: 200px;
+  height: 140px;
   cursor: pointer;
   translate: 0 -40px;
   fill: var(--theme-color) !important;

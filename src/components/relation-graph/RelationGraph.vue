@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="height: 60vh" class="my-graph">
-      <RelationGraph ref="graphRef" :options="graphOptions" :on-node-click="onNodeClick" :on-line-click="onLineClick" />
+      <RelationGraph ref="graphRef" :options="graphOptions" :on-node-dblclick="onNodeClick" :on-line-click="onLineClick" />
     </div>
   </div>
 </template>

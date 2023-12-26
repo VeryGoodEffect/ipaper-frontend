@@ -225,7 +225,7 @@ Since 2021
     no_limit_time: 'no time limit',
     since_2023: 'since_2023',
     since_2022: 'since_2022',
-    since_2021: 'since_2021',
+    since_2019: 'since_2019',
     self_define_time_range: 'time range',
 
 

@@ -1,7 +1,12 @@
 <template>
   <div>
-    <new-loading-bar :isReal="isReal" :display="displayLoading" :accelerate="accelerateLoading" :progress="progress"
-      @stop-display="displayLoading = false"></new-loading-bar>
+    <new-loading-bar
+      :isReal="isReal"
+      :display="displayLoading"
+      :accelerate="accelerateLoading"
+      :progress="progress"
+      @stop-display="displayLoading = false"
+    ></new-loading-bar>
     <div id="graph-count" style="width: 100%; height: 400px"></div>
   </div>
 </template>
@@ -11,20 +16,20 @@ import * as echarts from "echarts/core";
 import { TooltipComponent, GridComponent } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-import NewLoadingBar from '../loading-bar/NewLoadingBar.vue';
+import NewLoadingBar from "../loading-bar/NewLoadingBar.vue";
 export default {
   props: ["info"],
   components: {
-    NewLoadingBar
+    NewLoadingBar,
   },
   mounted() {
-    this.progress = 0
-    this.displayLoading = true
+    this.progress = 0;
+    this.displayLoading = true;
     // console.log(this.info[0])
     setTimeout(() => {
-      this.progress = 100
+      this.progress = 100;
       this.initChart();
-    }, 500); // 延迟 1 秒执行 initChart
+    }, 100); // 延迟 1 秒执行 initChart
   },
   data() {
     return {
@@ -108,10 +113,13 @@ export default {
       const chartDom = document.getElementById("graph-count");
       this.chart = echarts.init(chartDom);
 
-
       this.chart.setOption(this.option);
-    },
 
+      window.addEventListener("resize", this.manualResize);
+    },
+    manualResize() {
+      this.chart.resize();
+    },
     destroyChart() {
       // 销毁图表
       if (this.chart) {
@@ -172,3 +180,9 @@ export default {
   },
 };
 </script>
+
+<style scope>
+canvas {
+  width: 100%;
+}
+</style>
