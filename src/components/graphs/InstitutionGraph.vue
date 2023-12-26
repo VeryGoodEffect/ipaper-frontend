@@ -20,6 +20,7 @@ export default {
   mounted() {
     this.progress = 0
     this.displayLoading = true
+    // console.log(this.info[0])
     setTimeout(() => {
       this.progress = 100
       this.initChart();
@@ -57,20 +58,34 @@ export default {
         yAxis: [
           {
             type: "value",
+            min: 0,
+            max: 40000, // 引用数量的Y轴上限
+            // 可以为此轴添加额外的样式和配置
+            position: "right",
+          },
+          {
+            type: "value",
+            min: 0,
+            max: 2000, // 成果数量的Y轴上限
+            // 可以为此轴添加额外的样式和配置
+            // 设置为右侧的 Y 轴
+            position: "left",
           },
         ],
         series: [
           {
-            name: this.$t('institution_achievement_number'),
+            name: "成果数量",
             type: "bar",
             barWidth: "30%",
             data: [],
+            yAxisIndex: 1,
           },
           {
-            name: this.$t('institution_cite_number'),
+            name: "引用数量",
             type: "bar",
             barWidth: "30%",
             data: [],
+            yAxisIndex: 0,
           },
         ],
       },
@@ -123,11 +138,26 @@ export default {
       var i = 5;
       if (len < i) i = len;
       console.log(len, "?????");
+      let maxWorksCount = 0;
+      let maxCitedByCount = 0;
       for (; i >= 0; i--) {
         this.option.xAxis[0].data.push(newVal[i].year);
         this.option.series[0].data.push(newVal[i].works_count);
         this.option.series[1].data.push(newVal[i].cited_by_count);
+
+        if (newVal[i].works_count > maxWorksCount) {
+          maxWorksCount = newVal[i].works_count;
+        }
+        if (newVal[i].cited_by_count > maxCitedByCount) {
+          maxCitedByCount = newVal[i].cited_by_count;
+        }
       }
+
+      maxWorksCount = Math.ceil(maxWorksCount * 1.1);
+      maxCitedByCount = Math.ceil(maxCitedByCount * 1.1);
+
+      this.option.yAxis[0].max = maxCitedByCount; // 引用数量的 Y 轴
+      this.option.yAxis[1].max = maxWorksCount; // 成果数量的 Y 轴
 
       console.log(this.option.xAxis[0].data, "!!!!!!!");
       // newVal.forEach((element) => {
@@ -135,11 +165,9 @@ export default {
       //   this.option.series[0].data.push(element.works_count);
       //   this.option.series[1].data.push(element.cited_by_count);
       // });
-      if (!this.chart) {
-        const chartDom = document.getElementById("graph-count");
-        this.chart = echarts.init(chartDom);
+      if (this.chart) {
+        this.chart.setOption(this.option);
       }
-      this.chart.setOption(this.option);
     },
   },
 };
