@@ -271,7 +271,8 @@
     </div>
     <!-- <ChatGPT style="display: vertical; position: sticky; top: 60px"></ChatGPT> -->
   </div>
-  <div id="chat" :class="{ chat: true, dragging: isDragging }"
+  <div v-if="$cookies.get('user_id')"
+    id="chat" :class="{ chat: true, dragging: isDragging }"
     :style="{ top: topDistance + 'px', left: leftDistance + 'px' }" @mousedown.stop="startDrag">
     <template v-if="showChat">
       <ChatGPT />
