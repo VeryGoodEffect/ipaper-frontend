@@ -11,7 +11,8 @@
                 </svg>
             </button>
         </div>
-        <div class="images-container" :style="{ 'transform': `translateX(${-index * 100}%)` }">
+        <div class="images-container" :style="{ 'transform': `translateX(${-index * 100}%)` }"
+            :class="{ 'images-close': close }">
             <div class="image-container" v-for="data in datas" :key="datas.indexOf(data)">
                 <div class="image" :style="{ 'background-image': `url('${data.image}')` }">
                 </div>
@@ -57,7 +58,7 @@ export default {
         return {
             index: 0,
             close: false,
-            datas:  [
+            datas: [
                 {
                     image: '/public/imgs/1.png',
                     text: this.$t('img1')
@@ -106,7 +107,7 @@ export default {
             type: Boolean,
             required: true
         },
-        
+
     },
     methods: {
         handleNext() {
@@ -241,6 +242,10 @@ button:hover {
 
 .tutorial-close {
     animation: out 1s ease-in-out 1 forwards;
+}
+
+.images-close {
+    transition: all ease-in-out 1.5s;
 }
 
 @keyframes in {
