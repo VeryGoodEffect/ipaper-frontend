@@ -193,6 +193,7 @@ export default {
             if (response.data.related_works_count > 0) {
               this.getRelatedArticles(response.data.related_works_api_url)
             }
+            this.progress = 100
           }
         )
       }
