@@ -941,7 +941,7 @@ svg {
 .main-area {
   /* border: 2px solid blue; */
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly
 }
 
 .cond-area {
@@ -1006,7 +1006,7 @@ svg {
 }
 
 .search-container-wrapper {
-  width: 60%;
+  width: 70%;
   position: relative;
   height: 90vh;
   overflow: auto;
@@ -1050,8 +1050,9 @@ svg {
 }
 
 .pagination {
+  margin: 0 auto;
   margin-top: 30px;
-  margin-left: 30px;
+  padding: 0 10%;
 }
 
 .search-container {
