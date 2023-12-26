@@ -196,8 +196,8 @@ export default {
     message_all: 'All',
     message_unread: 'Unread',
     unread_cnt_1: 'You have ',
-    unread_cnt_2: ' unread',
-    unread_cnt_3: ' unreads',
+    unread_cnt_2: ' Unread',
+    unread_cnt_3: ' Unreads',
     set_read_all: 'Read All',
     delete_read: 'Delete Reads',
     read_it: 'Set Read',
@@ -220,13 +220,13 @@ Since 2022
 Since 2021
      */
     // Search filter
-    filter: 'filter',
-    filte_by_time: 'filter by time',
-    no_limit_time: 'no time limit',
-    since_2023: 'since_2023',
-    since_2022: 'since_2022',
-    since_2021: 'since_2021',
-    self_define_time_range: 'time range',
+    filter: 'Filter',
+    filte_by_time: 'Filter by Time',
+    no_limit_time: 'No Time Limit',
+    since_2023: 'Since 2023',
+    since_2022: 'Since 2022',
+    since_2021: 'Since 2021',
+    self_define_time_range: 'Time Range',
 
 
     // language
@@ -235,24 +235,24 @@ Since 2021
     english_language: 'EN Language',
 
     // sort
-    sort: 'sort',
+    sort: 'Sort',
     sort_by_date: 'Sort By Date',
     sort_by_up: 'Sort By Up',
     sort_by_down: 'Sort By Down',
 
     // include
-    include_patend: 'Contains patents',
-    include_cide: 'Contains references',
+    include_patend: 'Contains Patents',
+    include_cide: 'Contains References',
 
     talk_with_chat: 'Talk with ChatGPT',
     // 
     top_scholar: 'Top Scholar',
 
-    reset_password: 'reset your password',
-    sort_by_date: 'sort by date',
-    ascending_sort: 'ascending sort',
-    descending_sort: 'descending sort',
-    sort_by_citation: 'sort by citation',
+    reset_password: 'Reset Your Password',
+    sort_by_date: 'Sort by Date',
+    ascending_sort: 'Ascending Sort',
+    descending_sort: 'Descending Sort',
+    sort_by_citation: 'Sort by Citation',
     audit_detail_text: 'Audit Detail',
     auditor_username: 'Auditor',
     audit_timestamp: 'Audit Time',
@@ -273,23 +273,23 @@ Since 2021
     filte_source: 'Source Type',
     filte_source_no_limit: 'No Limit',
     filte_source_journal: 'journal',
-    filte_source_respository: 'respository',
-    filte_source_conference: 'conference',
+    filte_source_respository: 'Respository',
+    filte_source_conference: 'Conference',
     // filte_source_journal: 'journal',
 
-    filte_language: 'Sort By Language',
+    filte_language: 'Sort by Language',
 
     // 根据引用数量筛选
-    filte_cite: 'Sort By Cite',
+    filte_cite: 'Sort by Cite',
     filte_cite_no_limit: 'No Limit',
     filte_cite_more_than: 'More Than',
 
-    sort_by_cite_count: 'Sort By Cite Count',
+    sort_by_cite_count: 'Sort by Cite Count',
 
     // sort works count
-    sort_by_works_count: 'Sort By Works Count',
+    sort_by_works_count: 'Sort by Works Count',
     sort_by_alpha: 'Alphabetical sorting',
-    
+
 
     key_word_exp: 'DNA',
 }
