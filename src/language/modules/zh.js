@@ -240,7 +240,7 @@ export default {
 
     // 
     top_scholar: '部分学者',
-    talk_with_chat: '试用 ChatGPT',
+    talk_with_chat: '试用 AI 小助手',
 
     reset_password: '重新设置你的密码',
     sort_by_date: '日期排序',
@@ -285,6 +285,22 @@ export default {
 
     key_word_exp: 'DNA',
 
+    login_failure: '登录失败',
+    login_failure_hint: '检查账号是否存在及密码是否正确',
 
+    register_failure: '注册失败',
+    register_failure_hint: '邮箱重复或密码过于简单',
     
+    different_password: '两次输入的密码不一致',
+
+    already_copied: '分享链接已复制到剪贴板',
+
+    change_info_success: '修改成功',
+    change_info_failure: '修改失败',
+
+    submission_success: '提交成功',
+    submission_falure: '提交失败',
+    submission_falure_hint: '检查你的认证信息',
+    
+
 }

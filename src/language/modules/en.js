@@ -244,7 +244,7 @@ Since 2021
     include_patend: 'Contains patents',
     include_cide: 'Contains references',
 
-    talk_with_chat: 'Talk with ChatGPT',
+    talk_with_chat: 'Talk with AI assistant',
     // 
     top_scholar: 'Top Scholar',
 
@@ -292,4 +292,25 @@ Since 2021
     
 
     key_word_exp: 'DNA',
+
+
+    // messages
+    login_failure: 'Login Failure',
+    login_failure_hint: 'Check your account or password',
+    
+    register_failure: 'Register Failure',
+    register_failure_hint: 'Duplicate email or overly simple password',
+
+    different_password: 'Entered passwords differ',
+
+    already_copied: 'The sharing link has been copied to the clipboard',
+
+    change_info_success: 'Successfully modified personal information',
+    change_info_failure: 'Failed to modify personal information',
+
+    submission_success: 'Submission Success',
+    submission_falure: 'Submission Failure',
+    submission_falure_hint: 'Check your authentication information',
+
+    
 }

@@ -1,5 +1,5 @@
 <template>
-<div>
+<div >
   <ul>
     <li @click="JumpArticle(article.paper_id)" v-for="(article, index) in articles" :key="index">
       <h3>{{ article.title }}</h3>

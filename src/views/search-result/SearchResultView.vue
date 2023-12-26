@@ -930,7 +930,7 @@ svg {
 .main-area {
   /* border: 2px solid blue; */
   display: flex;
-  justify-content: space-evenly
+  justify-content: flex-start;
 }
 
 .cond-area {
@@ -1011,7 +1011,7 @@ svg {
   height: 60px;
   /* width: 500px; */
   margin-top: 30px;
-  margin-left: 30px;
+  /* margin-left: 30px; */
 
   display: flex;
   /* justify-content: center; */
@@ -1140,4 +1140,14 @@ svg {
     padding-top: 50px;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .search-container-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    margin: 0 auto ;
+  }
+}
+
 </style>

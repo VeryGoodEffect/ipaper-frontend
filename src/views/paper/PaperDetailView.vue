@@ -139,8 +139,8 @@ export default {
       if (this.paperId) {
         Search.workRetrieve(this.paperId).then(
           (response) => {
-            console.log(response)
-            console.log(1111)
+            // console.log(response)
+            // console.log(1111)
             this.title = response.data.title
             this.authorships = response.data.authorships
             this.institutions = response.data.authorships.institutions 
@@ -193,7 +193,8 @@ export default {
       const type = "text/plain";
       const blob = new Blob([text], { type });
       const data = [new ClipboardItem({ [type]: blob })];
-      navigator.clipboard.write(data);
+      navigator.clipboard.writeText(text);
+      this.$bus.emit('message', { title: this.$t('already_copied'), content: text, time: 3000 })
       // alert("已复制到剪切板");
     },
     downloadPaper(event) {
