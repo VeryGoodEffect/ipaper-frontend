@@ -1,7 +1,8 @@
 <template>
   <div>
     <div style="height: 60vh" class="my-graph">
-      <RelationGraph ref="graphRef" :options="graphOptions" :on-node-click="onNodeClick" :on-line-click="onLineClick" />
+      <RelationGraph ref="graphRef" :options="graphOptions" :on-node-click="onNodeClick"
+        :on-line-click="onLineClick" />
     </div>
   </div>
 </template>
@@ -24,8 +25,15 @@ export default {
         defaultLineShape: 1,
         defaultJunctionPoint: "border",
         backgroundColor: 'transparent',
-        defaultNodeColor: 'var(--theme-color)',
+        defaultLineWidth: 3,
+        defaultLineShape: 5,
+        defaultNodeColor: 'var(--theme-mode)',
+        defaultNodeBorderWidth: 2,
+        defaultNodeBorderColor: 'var(--theme-color)',
         defaultFocusRootNode: false,
+        defaultNodeFontColor: "var(--default-text-color)",
+        checkedLineColor: "var(--theme-color)",
+        checkedNodeColor: "var(--theme-color)",
         // disableZoom: true,
         layout: {
           layoutName: 'force',
@@ -109,5 +117,37 @@ export default {
   border: var(--theme-color) 5px solid;
   border-radius: 10px;
   margin: 3% auto;
+}
+
+:deep(.relation-graph .rel-map) {
+  cursor: grab !important;
+}
+
+
+:deep(.rel-node-shape-0.rel-node-type-node.rel-node) {
+  cursor: pointer !important;
+  overflow: hidden !important;
+  transition: all ease-in-out 0.2s;
+}
+
+:deep(.rel-node:hover) {
+  background: var(--theme-color) !important;
+    box-shadow: 0 0 0 8px var(--theme-color-50) !important;
+}
+
+:deep(.rel-node .c-node-text span) {
+  transition: all ease-in-out 0.2s;
+}
+
+:deep(.rel-node:hover .c-node-text span) {
+  color: var(--theme-mode) !important;
+}
+
+:deep(.c-rg-line-checked-bg) {
+  stroke: var(--theme-color-50) !important;
+}
+
+:deep(.relation-graph .rel-node-checked) {
+  box-shadow: 0 0 0 8px var(--theme-color-50);
 }
 </style>
