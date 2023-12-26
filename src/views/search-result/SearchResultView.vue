@@ -11,17 +11,14 @@
         {{ $t("filter") }}
       </h3>
       <div v-show="show_filte">
-        <div
-          class="filter-card"
-          style="
+        <div class="filter-card" style="
             display: vertical;
             margin-left: auto;
             margin-right: auto;
             margin-top: 10%;
             margin-bottom: 10%;
             text-align: center;
-          "
-        >
+          ">
           <ul>
             <li @click="show_filte_by_time = !show_filte_by_time">
               {{ $t("filte_by_time") }}
@@ -72,8 +69,46 @@
           </ul>
         </div>
 
-        <div
+          <div
           v-show="search_type == 1 || search_type == 3"
+            class="filter-card"
+            style="
+            display: vertical;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            text-align: center;
+          "
+        >
+          <ul>
+            <li @click="show_filte_by_cite = !show_filte_by_cite">
+              {{ $t("filte_cite") }}
+            </li>
+            <li
+              @click="filteByCount(0)"
+              v-show="show_filte_by_cite"
+              style="cursor: pointer"
+            >
+              {{ $t("filte_cite_no_limit") }}
+            </li>
+            <li
+              @click="filteByCount(1)"
+              v-show="show_filte_by_cite"
+              style="cursor: pointer"
+            >
+              {{ $t("filte_cite_more_than") }}
+              <input
+                type="text"
+                v-model="filte_count_value"
+                style="width: 30%"
+              />
+            </li>
+          </ul>
+        </div>
+
+        <div
+          v-show="search_type == 1"
           class="filter-card"
           style="
             display: vertical;
@@ -157,11 +192,7 @@
           <li style="cursor: pointer"><input type="checkbox" />包含引用</li>
         </ul>
       </div> -->
-        <div
-          v-show="search_type == 3"
-          class="filter-card"
-          style="display: vertical; text-align: center"
-        >
+        <div v-show="search_type == 3" class="filter-card" style="display: vertical; text-align: center">
           <ul>
             <!--  -->
             <li
@@ -211,11 +242,7 @@
         </div>
       </div>
 
-      <h3
-        class="sort-switch"
-        :class="{ 'sort-switch-active': show_sort }"
-        @click="show_sort = !show_sort"
-      >
+      <h3 class="sort-switch" :class="{ 'sort-switch-active': show_sort }" @click="show_sort = !show_sort">
         {{ $t("sort") }}
       </h3>
       <div v-show="show_sort">
@@ -390,13 +417,8 @@
     </div>
 
     <div class="search-container-wrapper">
-      <new-loading-bar
-        :isReal="isReal"
-        :display="displayLoading"
-        :accelerate="accelerate"
-        :progress="progress"
-        @stop-display="displayLoading = false"
-      ></new-loading-bar>
+      <new-loading-bar :isReal="isReal" :display="displayLoading" :accelerate="accelerate" :progress="progress"
+        @stop-display="displayLoading = false"></new-loading-bar>
       <div class="search-container">
         <SearchPanel
           ref="searchPanelRef"
@@ -416,46 +438,21 @@
     //this.$emit('change-page',page) -->
       <!-- 
        -->
-      <Pagination
-        @change-item-per-page="changeItemPerpage"
-        @change-page="changePages"
-        :itemsPerPage="itemsPerPage"
-        :currentPage="currentPage"
-        :totalPages="totalPages"
-        class="pagination"
-        :defaultItemsPerPage="5"
-      >
+      <Pagination @change-item-per-page="changeItemPerpage" @change-page="changePages" :itemsPerPage="itemsPerPage"
+        :currentPage="currentPage" :totalPages="totalPages" class="pagination" :defaultItemsPerPage="5">
         <div v-if="search_type == 1">
-          <SearchResultListItem
-            v-for="(info, index) in infoItems"
-            :key="index"
-            :infoItem="info"
-          ></SearchResultListItem>
+          <SearchResultListItem v-for="(info, index) in infoItems" :key="index" :infoItem="info"></SearchResultListItem>
         </div>
         <div v-else-if="search_type == 2">
-          <ScholarListItem
-            v-show="search_type == 2"
-            v-for="(info, index) in infoItems"
-            :key="index"
-            :infoItem="info"
-          >
+          <ScholarListItem v-show="search_type == 2" v-for="(info, index) in infoItems" :key="index" :infoItem="info">
           </ScholarListItem>
         </div>
         <div v-else-if="search_type == 3">
-          <JournalListItem
-            v-for="(info, index) in infoItems"
-            :key="index"
-            :infoItem="info"
-          ></JournalListItem>
+          <JournalListItem v-for="(info, index) in infoItems" :key="index" :infoItem="info"></JournalListItem>
         </div>
 
         <div v-else>
-          <InstitutionListItem
-            v-show="search_type == 4"
-            v-for="(info, index) in infoItems"
-            :key="index"
-            :infoItem="info"
-          >
+          <InstitutionListItem v-show="search_type == 4" v-for="(info, index) in infoItems" :key="index" :infoItem="info">
           </InstitutionListItem>
         </div>
       </Pagination>
@@ -714,6 +711,7 @@ export default {
     },
     changeItemPerpage(data) {
       this.itemsPerPage = data;
+      this.currentPage = 1
       this.searchmethod(true);
     },
     // #region resultlistToInfoItems
@@ -987,7 +985,7 @@ export default {
             this.per_page = res.data.meta.per_page;
             this.progress = 100;
           },
-          (err) => {}
+          (err) => { }
         );
       }
       // author
@@ -1006,7 +1004,7 @@ export default {
 
             this.progress = 100;
           },
-          (err) => {}
+          (err) => { }
         );
       }
       // 期刊
@@ -1026,7 +1024,7 @@ export default {
 
             this.progress = 100;
           },
-          (err) => {}
+          (err) => { }
         );
       }
       // 机构
@@ -1046,7 +1044,7 @@ export default {
 
             this.progress = 100;
           },
-          (err) => {}
+          (err) => { }
         );
       }
     },
@@ -1208,7 +1206,7 @@ svg {
 .search-container-wrapper {
   width: 60%;
   position: relative;
-  height: 90vh;
+  max-height: 90vh;
   overflow: auto;
 }
 .search-container-wrapper::-webkit-scrollbar {

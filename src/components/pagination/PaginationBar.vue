@@ -107,6 +107,11 @@ export default {
       }
     }
   },
+  watch: {
+    currentPage(value) {
+      this.jumpPage = value
+    }
+  }
 }
 </script>
 
