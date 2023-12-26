@@ -6,12 +6,18 @@ import mitt from 'mitt'
 import VueCookies from 'vue-cookies'
 import i18n from './language'
 import { walk } from 'vue/compiler-sfc'
+import VaTex from 'vatex';
+
+
 const app = createApp(App)
 
 app.config.globalProperties.$bus = new mitt()
 app.config.globalProperties.$cookies = VueCookies
 app.use(router).use(store).use(i18n)
 
+
+
+app.use(VaTex);
 /*省略号工具.可以传递的参数包括
 maxWidth--optional 若未指定则按照初始ComputedStyle计算
 note:由于可能使用flex属性，该属性可能不会正常生效

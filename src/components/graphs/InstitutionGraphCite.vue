@@ -96,6 +96,8 @@ export default {
       // });
 
       this.chart.setOption(this.option);
+            window.addEventListener("resize", this.manualResize);
+
     },
     destroyChart() {
       // 销毁图表
@@ -103,6 +105,9 @@ export default {
         this.chart.dispose();
         this.chart = null;
       }
+    },
+    manualResize() {
+      this.chart.resize();
     },
   },
   watch: {
