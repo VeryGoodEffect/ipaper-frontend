@@ -53,13 +53,21 @@ export default {
   },
   watch: {
     authorList(newVal, oldVal) {
-      console.log(`myProp changed from ${oldVal} to ${newVal}`);
+      if (!newVal || !Array.isArray(newVal)) {
+        return;
+      }
+      // console.log(`myProp changed from ${oldVal} to ${newVal}`);
       // alert("meow")
       this.option.series[0].data = [];
+
       var len = newVal.length;
-      for(var i = 0;i<5&&i<len;i++){
+      var i = 5;
+      if (!len) i = 0;
+      else if (len < i) i = len;
+      for(i=i-1;i>=0;i--){
         this.option.series[0].data.push({ value:newVal[i].works_count , name: newVal[i].display_name })
       }
+      if(this.chart)
       this.chart.setOption(this.option);
       /***
        * {{ author.display_name }} 
