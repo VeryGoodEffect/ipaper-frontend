@@ -1,6 +1,7 @@
 <template>
   <div style="position: relative;">
-    <div id="scholar-graph" style="width: 100%; height: 400px">
+    <slot></slot>
+    <div id="scholar-graph">
     </div>
   </div>
 </template>
@@ -45,38 +46,38 @@ export default {
           },
         ],
         yAxis: [
-            {
-              type: "value",
-              min: 0,
-              max: 40000, // 引用数量的Y轴上限
-              // 可以为此轴添加额外的样式和配置
+          {
+            type: "value",
+            min: 0,
+            max: 40000, // 引用数量的Y轴上限
+            // 可以为此轴添加额外的样式和配置
             position: "right",
-            },
-            {
-              type: "value",
-              min: 0,
-              max: 2000, // 成果数量的Y轴上限
-              // 可以为此轴添加额外的样式和配置
-              // 设置为右侧的 Y 轴
-              position: "left",
-            },
-          ],
-          series: [
-            {
-              name: this.$t("institution_achievement_number"),
-              type: "bar",
-              barWidth: "35%",
-              data: [],
-              yAxisIndex: 1, // 使用第二个Y轴（右侧）
-            },
-            {
-              name: this.$t("institution_cite_number"),
-              type: "bar",
-              barWidth: "35%",
-              data: [],
-              yAxisIndex: 0, // 使用第一个Y轴（左侧）
-            },
-          ],
+          },
+          {
+            type: "value",
+            min: 0,
+            max: 2000, // 成果数量的Y轴上限
+            // 可以为此轴添加额外的样式和配置
+            // 设置为右侧的 Y 轴
+            position: "left",
+          },
+        ],
+        series: [
+          {
+            name: this.$t("institution_achievement_number"),
+            type: "bar",
+            barWidth: "35%",
+            data: [],
+            yAxisIndex: 1, // 使用第二个Y轴（右侧）
+          },
+          {
+            name: this.$t("institution_cite_number"),
+            type: "bar",
+            barWidth: "35%",
+            data: [],
+            yAxisIndex: 0, // 使用第一个Y轴（左侧）
+          },
+        ],
       },
     };
   },
@@ -139,7 +140,7 @@ export default {
 
       var len = newVal.length;
       var i = 5;
-      if(!len) i=0;
+      if (!len) i = 0;
       else if (len < i) i = len;
 
       // console.log(len, "?????");
@@ -177,3 +178,12 @@ export default {
   },
 };
 </script>
+<style scoped>
+#scholar-graph {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin: 0 auto;
+}
+
+</style>

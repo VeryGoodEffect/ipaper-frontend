@@ -1,8 +1,8 @@
 <template>
   <div>
-    <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
-      :accelerate="mainAccelerate" :isReal="isReal"></new-loading-bar>
     <div class="main-part">
+      <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
+        :accelerate="mainAccelerate" :isReal="isReal"></new-loading-bar>
       <div class="info-tag-list">
         <div class="personal-info">
           <!-- <div class="personal-image">
@@ -102,7 +102,11 @@
         </div>
       </div>
     </div>
-    <ScholarGraphCite :info="authorInfo.counts_by_year"></ScholarGraphCite>
+    <ScholarGraphCite :info="authorInfo.counts_by_year">
+      <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
+        :accelerate="mainAccelerate" :isReal="isReal">
+      </new-loading-bar>
+    </ScholarGraphCite>
   </div>
   <div class="relation-network">
     <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
@@ -615,8 +619,15 @@ em {
 
 }
 
+.personal-info::-webkit-scrollbar,
+.tag-and-list::-webkit-scrollbar {
+  display: none;
+}
+
 .personal-info {
   /* border: 1px solid red; */
+  max-height: 85vh;
+  overflow: auto;
   width: 300px;
   display: flex;
   flex-wrap: wrap;
@@ -706,6 +717,8 @@ em {
   margin-left: 20px;
 } */
 .tag-and-list {
+  max-height: 85vh;
+  overflow: auto;
   width: 60%;
 }
 
@@ -767,8 +780,6 @@ em {
 
 .favorites-list {
   position: relative;
-  overflow: auto;
-  max-height: 600px;
 }
 
 .favorites-list::-webkit-scrollbar {
