@@ -160,7 +160,7 @@ import { User } from '../../api/users'
         paginationInfo: {
           itemsPerPage: 5,
           currentPage: 1,
-          totalPages: 3,
+          totalPages: 1,
         },
         infoItems: [
         //   {
@@ -310,15 +310,21 @@ import { User } from '../../api/users'
             this.authorInfo.nickName = response.data.display_name
             this.authorInfo.orcid = response.data.orcid
             this.isFollowing = response.data.is_followed
-            this.authorInfo.region = response.data.last_known_institution.country_code
-            this.authorInfo.institution.id = response.data.last_known_institution.id
-            this.authorInfo.institution.ror = response.data.last_known_institution.ror
-            this.authorInfo.institution.name = response.data.last_known_institution.display_name
+            if(response.data.last_known_institution !== null) {
+              this.authorInfo.region = response.data.last_known_institution.country_code
+              this.authorInfo.institution.id = response.data.last_known_institution.id
+              this.authorInfo.institution.ror = response.data.last_known_institution.ror
+              this.authorInfo.institution.name = response.data.last_known_institution.display_name
+            }
             this.authorInfo.works_api_url = response.data.works_api_url
             this.authorInfo.totalWork = response.data.works_count
-            this.authorInfo.totalCitations = response.data.cited_by_count
-            this.authorInfo.yearCitations = response.data.counts_by_year[0].cited_by_count
-            this.authorInfo.counts_by_year = response.data.counts_by_year
+            if(response.data.cited_by_count !== null) {
+              this.authorInfo.totalCitations = response.data.cited_by_count
+            }
+            if(response.data.counts_by_year.length !== 0) {
+              this.authorInfo.yearCitations = response.data.counts_by_year[0].cited_by_count
+              this.authorInfo.counts_by_year = response.data.counts_by_year
+            }
 
               this.interestTag.splice(0, this.interestTag.length)
               for(let i = 0; i < response.data.x_concepts.length; i++) {
