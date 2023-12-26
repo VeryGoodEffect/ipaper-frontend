@@ -1,8 +1,7 @@
 <template>
-  <div style="position: relative;">
+  <div>
     <slot></slot>
-    <div id="scholar-graph">
-    </div>
+    <div id="scholar-graph" style="width: 80%; height: 40vh; margin:0 auto;"></div>
   </div>
 </template>
   
@@ -11,13 +10,9 @@ import * as echarts from "echarts/core";
 import { TooltipComponent, GridComponent } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-import NewLoadingBar from '../loading-bar/NewLoadingBar.vue';
 
 export default {
   props: ["info"],
-  components: {
-    NewLoadingBar
-  },
   mounted() {
     this.initChart();
   },
@@ -110,9 +105,11 @@ export default {
       //   this.option.series[0].data.push(element.works_count);
       //   this.option.series[1].data.push(element.cited_by_count);
       // });
+      if (this.chart)
+        this.chart.setOption(this.option);
 
-      this.chart.setOption(this.option);
-      // this.progress = 100
+      window.addEventListener("resize", this.manualResize);
+
     },
 
     destroyChart() {
@@ -121,6 +118,9 @@ export default {
         this.chart.dispose();
         this.chart = null;
       }
+    },
+    manualResize() {
+      this.chart.resize();
     },
   },
 
@@ -178,12 +178,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-#scholar-graph {
-  position: relative;
-  width: 100%;
-  height: 400px;
-  margin: 0 auto;
-}
-
-</style>

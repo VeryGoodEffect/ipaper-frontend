@@ -14,7 +14,7 @@
     "dat.gui": "^0.7.9",
     "echarts": "^5.4.3",
     "highlight.js": "^11.9.0",
-    "katex": "^0.13.11",
+    "katex": "^0.13.24",
     "markdown-it": "^14.0.0",
     "marked": "^11.1.0",
     "mathjax": "^3.2.2",

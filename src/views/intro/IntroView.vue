@@ -7,6 +7,7 @@
         <input
           class="basic-input huge-input"
           type="text"
+          @keyup.enter="basicSearch"
           :placeholder="$t('huge_input_placeholder')"
           v-model="searchKeyword"
           @keydown.down="navigateDown"
@@ -81,7 +82,7 @@ export default {
           filter: "",
           search: this.searchKeyword,
           sort: "",
-          perpage: "10",
+          per_page: "10",
           page: "1",
           cursor: "",
           search_type: 1,
@@ -221,13 +222,13 @@ main h2 {
 
 @media screen and (max-width: 600px) {
   main h2 {
-    font-size: 30px;
+    font-size: 40px;
   }
 }
 
 @media screen and (max-width: 450px) {
   main h2 {
-    font-size: 20px;
+    font-size: 35px;
   }
 }
 

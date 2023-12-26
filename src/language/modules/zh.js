@@ -220,8 +220,9 @@ export default {
     no_limit_time: '没有时间限制',
     since_2023: '2023年以来',
     since_2022: '2022年以来',
-    since_2021: '2021年以来',
-    self_define_time_range: '时间范围',
+    since_2019: '2019年以来',
+    self_define_time_range: '范围',
+
 
     // language
     no_language_limit: '不限语言',
@@ -240,7 +241,7 @@ export default {
 
     // 
     top_scholar: '部分学者',
-    talk_with_chat: '试用 ChatGPT',
+    talk_with_chat: '试用 AI 小助手',
 
     reset_password: '重新设置你的密码',
     sort_by_date: '日期排序',
@@ -274,7 +275,7 @@ export default {
     // 根据引用数量筛选
     filte_cite: '根据引用数量筛选',
     filte_cite_no_limit: '不限数量',
-    filte_cite_more_than: '多于',
+    filte_cite_more_than: '引用次数多于',
 
     sort_by_cite_count: '根据引用量搜索',
 
@@ -285,6 +286,31 @@ export default {
 
     key_word_exp: 'DNA',
 
+    login_failure: '登录失败',
+    login_failure_hint: '检查账号是否存在及密码是否正确',
 
+    register_failure: '注册失败',
+    register_failure_hint: '邮箱重复或密码过于简单',
     
+    different_password: '两次输入的密码不一致',
+
+    already_copied: '分享链接已复制到剪贴板',
+
+    change_info_success: '修改成功',
+    change_info_failure: '修改失败',
+
+    submission_success: '提交成功',
+    submission_falure: '提交失败',
+    submission_falure_hint: '检查你的认证信息',
+    
+    img1: '设置主题颜色，开启一天好心情',
+    img2: '注册账户，体验更个性化的服务',
+    img3: '登录即可查看专属于你的推荐',
+    img4: '利用筛选功能，更快找到目标',
+    img5: '展开属性列表，你想找的这里都有',
+    img6: '在个人主页申请认证学者，成为 iPaper 的专家',
+    img7: 'AI 小助手，快速解答疑难问题',
+    img8: '关注学者，在个人主页更容易地跳转专家门户',
+    img9: '管理收藏夹，复制引用格式和链接',
+    img10: '在个人主页查看收藏夹，试试右键菜单',
 }

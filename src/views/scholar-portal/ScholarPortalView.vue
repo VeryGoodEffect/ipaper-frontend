@@ -1,118 +1,116 @@
 <template>
-  <div>
-    <div class="main-part">
-      <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
-        :accelerate="mainAccelerate" :isReal="isReal"></new-loading-bar>
-      <div class="info-tag-list">
-        <div class="personal-info">
-          <!-- <div class="personal-image">
+  <div class="main-part">
+    <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
+      :accelerate="mainAccelerate" :isReal="isReal"></new-loading-bar>
+    <div class="info-tag-list">
+      <div class="personal-info">
+        <!-- <div class="personal-image">
               <img :src="authorInfo.avatarUrl" alt="Personal Image">
             </div> -->
-          <div class="personal-info-text">
-            <p class="personal-info-text-nickname">
-              <!-- {{ $t('personal_info_nick_name') }}:  -->
-              <a :href="authorInfo.orcid">{{ authorInfo.nickName }}</a>
-            </p>
-            <div>
-              <div class="follow is-follow" @click="follow" v-if="!isFollowing">
-                {{ $t('scholar_portal_follow') }}
-              </div>
-              <div class="follow un-follow" @click="unfollow" v-else>
-                {{ $t('scholar_portal_unfollow') }}
-              </div>
+        <div class="personal-info-text">
+          <p class="personal-info-text-nickname">
+            <!-- {{ $t('personal_info_nick_name') }}:  -->
+            <a :href="authorInfo.orcid">{{ authorInfo.nickName }}</a>
+          </p>
+          <div>
+            <div class="follow is-follow" @click="follow" v-if="!isFollowing">
+              {{ $t('scholar_portal_follow') }}
             </div>
-            <p class="personal-info-text-region" v-if="authorInfo.region !== null && authorInfo.region !== ''">
-              <em>{{ $t('personal_info_region') }}</em>&nbsp;&nbsp;
-              {{ authorInfo.region }}
-            </p>
-            <p class="personal-info-text-institution" v-if="authorInfo.institution.name !== null">
-              <em>{{ $t('personal_info_institution') }}</em>&nbsp;&nbsp;
-              <a @click="gotoInstitution(authorInfo.institution)">{{ authorInfo.institution.name }}</a>
-            </p>
-            <!-- <p class="personal-info-text-major">
+            <div class="follow un-follow" @click="unfollow" v-else>
+              {{ $t('scholar_portal_unfollow') }}
+            </div>
+          </div>
+          <p class="personal-info-text-region" v-if="authorInfo.region !== null && authorInfo.region !== ''">
+            <em>{{ $t('personal_info_region') }}</em>&nbsp;&nbsp;
+            {{ authorInfo.region }}
+          </p>
+          <p class="personal-info-text-institution" v-if="authorInfo.institution.name !== null">
+            <em>{{ $t('personal_info_institution') }}</em>&nbsp;&nbsp;
+            <a @click="gotoInstitution(authorInfo.institution)">{{ authorInfo.institution.name }}</a>
+          </p>
+          <!-- <p class="personal-info-text-major">
                 <em>{{ $t('personal_info_major') }}</em>&nbsp;&nbsp;
                 {{ authorInfo.major }}
               </p> -->
-            <p class="personal-info-text-email" v-if="authorInfo.email !== null && authorInfo.email !== ''">
-              <em>{{ $t('personal_info_email') }}</em>&nbsp;&nbsp;
-              {{ authorInfo.email }}
-            </p>
-            <p class="personal-info-text-institution">
-              <em>{{ $t('scholar_portal_total_publications') }}</em>&nbsp;&nbsp;
-              {{ authorInfo.totalWork }}
-            </p>
-            <p class="personal-info-text-institution">
-              <em>{{ $t('scholar_portal_total_citations') }}</em>&nbsp;&nbsp;
-              {{ authorInfo.totalCitations }}
-            </p>
-            <p class="personal-info-text-institution">
-              <em>{{ $t('scholar_portal_this_year_citations') }}</em>&nbsp;&nbsp;
-              {{ authorInfo.yearCitations }}
-            </p>
-            <p class="personal-info-text-url" v-if="authorInfo.urls.length !== 0">
-              <em>{{ $t('personal_info_url') }}</em>
-            <ul class="personal-info-text-url-list">
-              <li v-for="(url, index) in authorInfo.urls" :key="index">
-                &nbsp;&nbsp;&nbsp;<svg t="1702890339983" viewBox="0 0 1024 1024" version="1.1"
-                  xmlns="http://www.w3.org/2000/svg" p-id="4227">
-                  <path
-                    d="M377.6 473.6C377.6 448 384 422.4 403.2 403.2l70.4-70.4 57.6-57.6c19.2-19.2 38.4-25.6 64-25.6 25.6 0 44.8 6.4 64 25.6 38.4 38.4 38.4 89.6 0 128l-128 128C512 550.4 492.8 556.8 467.2 556.8L416 608C428.8 614.4 448 620.8 467.2 620.8 512 620.8 544 601.6 576 576l128-128c57.6-57.6 57.6-153.6 0-211.2-57.6-57.6-153.6-57.6-211.2 0l-128 128C320 403.2 307.2 467.2 326.4 524.8L377.6 473.6z"
-                    p-id="4228"></path>
-                  <path
-                    d="M646.4 550.4c0 25.6-6.4 51.2-25.6 70.4l-128 128c-19.2 19.2-38.4 25.6-64 25.6-25.6 0-44.8-6.4-64-25.6-38.4-38.4-38.4-89.6 0-128l128-128c19.2-19.2 44.8-25.6 70.4-25.6l51.2-51.2C588.8 409.6 576 403.2 556.8 403.2 512 403.2 473.6 422.4 448 448L320 576c-57.6 57.6-57.6 153.6 0 211.2 57.6 57.6 153.6 57.6 211.2 0l128-128c44.8-44.8 57.6-108.8 32-160L646.4 550.4z"
-                    p-id="4229"></path>
-                </svg>
-                <a :href="url" target="_blank">{{ url }}</a>
-              </li>
-            </ul>
-            </p>
-          </div>
-
-
-
-          <div class="focus-area">
-            <h3>{{ $t('scholar_portal_focus_areas') }}</h3>
-            <div class="tag-container">
-              <a v-for="(tag, index) in interestTag" :key="index" class="tag-item" @click="gotoTag(tag)">
-                {{ tag.name }}
-              </a>
-            </div>
-          </div>
+          <p class="personal-info-text-email" v-if="authorInfo.email !== null && authorInfo.email !== ''">
+            <em>{{ $t('personal_info_email') }}</em>&nbsp;&nbsp;
+            {{ authorInfo.email }}
+          </p>
+          <p class="personal-info-text-institution">
+            <em>{{ $t('scholar_portal_total_publications') }}</em>&nbsp;&nbsp;
+            {{ authorInfo.totalWork }}
+          </p>
+          <p class="personal-info-text-institution">
+            <em>{{ $t('scholar_portal_total_citations') }}</em>&nbsp;&nbsp;
+            {{ authorInfo.totalCitations }}
+          </p>
+          <p class="personal-info-text-institution">
+            <em>{{ $t('scholar_portal_this_year_citations') }}</em>&nbsp;&nbsp;
+            {{ authorInfo.yearCitations }}
+          </p>
+          <p class="personal-info-text-url" v-if="authorInfo.urls.length !== 0">
+            <em>{{ $t('personal_info_url') }}</em>
+          <ul class="personal-info-text-url-list">
+            <li v-for="(url, index) in authorInfo.urls" :key="index">
+              &nbsp;&nbsp;&nbsp;<svg t="1702890339983" viewBox="0 0 1024 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="4227">
+                <path
+                  d="M377.6 473.6C377.6 448 384 422.4 403.2 403.2l70.4-70.4 57.6-57.6c19.2-19.2 38.4-25.6 64-25.6 25.6 0 44.8 6.4 64 25.6 38.4 38.4 38.4 89.6 0 128l-128 128C512 550.4 492.8 556.8 467.2 556.8L416 608C428.8 614.4 448 620.8 467.2 620.8 512 620.8 544 601.6 576 576l128-128c57.6-57.6 57.6-153.6 0-211.2-57.6-57.6-153.6-57.6-211.2 0l-128 128C320 403.2 307.2 467.2 326.4 524.8L377.6 473.6z"
+                  p-id="4228"></path>
+                <path
+                  d="M646.4 550.4c0 25.6-6.4 51.2-25.6 70.4l-128 128c-19.2 19.2-38.4 25.6-64 25.6-25.6 0-44.8-6.4-64-25.6-38.4-38.4-38.4-89.6 0-128l128-128c19.2-19.2 44.8-25.6 70.4-25.6l51.2-51.2C588.8 409.6 576 403.2 556.8 403.2 512 403.2 473.6 422.4 448 448L320 576c-57.6 57.6-57.6 153.6 0 211.2 57.6 57.6 153.6 57.6 211.2 0l128-128c44.8-44.8 57.6-108.8 32-160L646.4 550.4z"
+                  p-id="4229"></path>
+              </svg>
+              <a :href="url" target="_blank">{{ url }}</a>
+            </li>
+          </ul>
+          </p>
         </div>
-        <div class="tag-and-list">
-          <div class="list">
-            <div class="favourites-header">
-              <div class="favourites-subscribe-tab">
-                <h3>{{ $t('scholar_portal_articles') }}</h3>
-              </div>
-            </div>
-            <div class="favorites-list">
-              <new-loading-bar :display="displayPageLoading" :progress="pageProgress"
-                @stop-display="displayPageLoading = false" :accelerate="pageAccelerate"
-                :isReal="isReal"></new-loading-bar>
-              <Pagination :itemsPerPage="this.paginationInfo.itemsPerPage" :currentPage="this.paginationInfo.currentPage"
-                :totalPages="this.paginationInfo.totalPages" @change-page="handleChangePage"
-                @change-item-per-page="handleChangePerPage">
-                <SearchResultListItem v-for="(info, index) in infoItems" :key="index" :infoItem="info">
-                </SearchResultListItem>
-              </Pagination>
-            </div>
-          </div>
 
+
+
+        <div class="focus-area">
+          <h3>{{ $t('scholar_portal_focus_areas') }}</h3>
+          <div class="tag-container">
+            <a v-for="(tag, index) in interestTag" :key="index" class="tag-item" @click="gotoTag(tag)">
+              {{ tag.name }}
+            </a>
+          </div>
         </div>
       </div>
+      <div class="tag-and-list">
+        <div class="list">
+          <div class="favourites-header">
+            <div class="favourites-subscribe-tab">
+              <h3>{{ $t('scholar_portal_articles') }}</h3>
+            </div>
+          </div>
+          <div class="favorites-list">
+            <new-loading-bar :display="displayPageLoading" :progress="pageProgress"
+              @stop-display="displayPageLoading = false" :accelerate="pageAccelerate" :isReal="isReal"></new-loading-bar>
+            <Pagination :itemsPerPage="this.paginationInfo.itemsPerPage" :currentPage="this.paginationInfo.currentPage"
+              :totalPages="this.paginationInfo.totalPages" @change-page="handleChangePage"
+              @change-item-per-page="handleChangePerPage">
+              <SearchResultListItem v-for="(info, index) in infoItems" :key="index" :infoItem="info">
+              </SearchResultListItem>
+            </Pagination>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <ScholarGraphCite :info="authorInfo.counts_by_year">
-      <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
-        :accelerate="mainAccelerate" :isReal="isReal">
-      </new-loading-bar>
-    </ScholarGraphCite>
   </div>
+  <ScholarGraphCite :info="authorInfo.counts_by_year">
+    <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
+      :accelerate="mainAccelerate" :isReal="isReal">
+    </new-loading-bar>
+  </ScholarGraphCite>
   <div class="relation-network">
     <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
       :accelerate="mainAccelerate" :isReal="isReal"></new-loading-bar>
     <h3>{{ $t('scholar_portal_net') }}</h3>
     <AuthorRelationGraph :relationList="relationList"></AuthorRelationGraph>
+
   </div>
   <!-- <EchartGraph :relationList="relationList"></EchartGraph> -->
 </template>
@@ -331,6 +329,7 @@ export default {
       this.mainProgress = 0
       this.mainAccelerate = false
       this.displayMainLoading = true
+
       if (this.authorInfo.id) {
         Search.searchAuthorInfo(this.authorInfo.id).then(
           (response) => {
@@ -339,7 +338,7 @@ export default {
             this.authorInfo.nickName = response.data.display_name
             this.authorInfo.orcid = response.data.orcid
             this.isFollowing = response.data.is_followed
-            if(response.data.last_known_institution !== null) {
+            if (response.data.last_known_institution !== null) {
               this.authorInfo.region = response.data.last_known_institution.country_code
               this.authorInfo.institution.id = response.data.last_known_institution.id
               this.authorInfo.institution.ror = response.data.last_known_institution.ror
@@ -347,10 +346,10 @@ export default {
             }
             this.authorInfo.works_api_url = response.data.works_api_url
             this.authorInfo.totalWork = response.data.works_count
-            if(response.data.cited_by_count !== null) {
+            if (response.data.cited_by_count !== null) {
               this.authorInfo.totalCitations = response.data.cited_by_count
             }
-            if(response.data.counts_by_year.length !== 0) {
+            if (response.data.counts_by_year.length !== 0) {
               this.authorInfo.yearCitations = response.data.counts_by_year[0].cited_by_count
               this.authorInfo.counts_by_year = response.data.counts_by_year
             }
@@ -364,7 +363,7 @@ export default {
               })
             }
             // this.getRelationMap()
-            this.getAuthorArticle(this.paginationInfo.currentPage, this.paginationInfo.itemsPerPage, false)
+            this.getAuthorArticle(this.paginationInfo.currentPage, this.paginationInfo.itemsPerPage)
           },
           (error) => {
             console.log(error)
@@ -385,7 +384,6 @@ export default {
         this.pageProgress = 0
         this.displayPageLoading = true
       }
-
       console.log(this.authorInfo.works_api_url)
       var startIndex = this.authorInfo.works_api_url.indexOf('filter=')
       var filter = this.authorInfo.works_api_url.substring(startIndex + 7)
@@ -404,6 +402,7 @@ export default {
           this.resultlist = response.data.results;
           // console.log(this.resultlist)
           this.resultlistToInfoItems();
+
           this.mainProgress = 100
           this.pageProgress = 100
         },
@@ -534,11 +533,11 @@ export default {
     },
     handleChangePage(page) {
       this.paginationInfo.currentPage = page
-      this.getAuthorArticle(this.paginationInfo.currentPage, this.paginationInfo.itemsPerPage, true)
+      this.getAuthorArticle(this.paginationInfo.currentPage, this.paginationInfo.itemsPerPage,true)
     },
     handleChangePerPage(perPage) {
       this.paginationInfo.itemsPerPage = perPage
-      this.getAuthorArticle(this.paginationInfo.currentPage, this.paginationInfo.itemsPerPage, true)
+      this.getAuthorArticle(this.paginationInfo.currentPage, this.paginationInfo.itemsPerPage,true)
     },
   },
 }
@@ -567,7 +566,6 @@ em {
   font-weight: bold;
 }
 
-
 .return-part {
   display: flex;
   width: 80px;
@@ -592,7 +590,6 @@ em {
 
 .main-part {
   /* min-height: 800px; */
-  position: relative;
   width: 100%;
   /* min-width: 500px; */
   display: flex;
@@ -625,15 +622,8 @@ em {
 
 }
 
-.personal-info::-webkit-scrollbar,
-.tag-and-list::-webkit-scrollbar {
-  display: none;
-}
-
 .personal-info {
   /* border: 1px solid red; */
-  height: 85vh;
-  overflow: auto;
   width: 300px;
   display: flex;
   flex-wrap: wrap;
@@ -723,8 +713,6 @@ em {
   margin-left: 20px;
 } */
 .tag-and-list {
-  height: 85vh;
-  overflow: auto;
   width: 60%;
 }
 
@@ -782,14 +770,6 @@ em {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-}
-
-.favorites-list {
-  position: relative;
-}
-
-.favorites-list::-webkit-scrollbar {
-  display: none !important;
 }
 
 .follow {
@@ -928,7 +908,6 @@ em {
 }
 
 .relation-network {
-  position: relative;
   width: 80%;
   margin-left: 10%;
 }

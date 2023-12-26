@@ -225,8 +225,8 @@ Since 2021
     no_limit_time: 'No Time Limit',
     since_2023: 'Since 2023',
     since_2022: 'Since 2022',
-    since_2021: 'Since 2021',
-    self_define_time_range: 'Time Range',
+    since_2019: 'Since 2019',
+    self_define_time_range: 'Range',
 
 
     // language
@@ -244,7 +244,7 @@ Since 2021
     include_patend: 'Contains Patents',
     include_cide: 'Contains References',
 
-    talk_with_chat: 'Talk with ChatGPT',
+    talk_with_chat: 'Talk with AI assistant',
     // 
     top_scholar: 'Top Scholar',
 
@@ -292,4 +292,36 @@ Since 2021
 
 
     key_word_exp: 'DNA',
+
+
+    // messages
+    login_failure: 'Login Failure',
+    login_failure_hint: 'Check your account or password',
+    
+    register_failure: 'Register Failure',
+    register_failure_hint: 'Duplicate email or overly simple password',
+
+    different_password: 'Entered passwords differ',
+
+    already_copied: 'The sharing link has been copied to the clipboard',
+
+    change_info_success: 'Successfully modified personal information',
+    change_info_failure: 'Failed to modify personal information',
+
+    submission_success: 'Submission Success',
+    submission_falure: 'Submission Failure',
+    submission_falure_hint: 'Check your authentication information',
+
+    img1: 'Set your theme color of the site.',
+    img2: 'Register an account for more personalized service',
+    img3: 'Login and view your personal reccomendation',
+    img4: 'Filters help you find the target more quickly',
+    img5: 'Unfold the attribute list and search everything',
+    img6: 'Apply for certification as a scholar on your personal homepage',
+    img7: 'AI assistant, quickly answer difficult questions',
+    img8: 'Follow scholars and explore expert portals',
+    img9: 'Manage favorites, copy reference formats and links',
+    img10: 'View favorites on your personal homepage and try the right-click menu',
+
+    
 }

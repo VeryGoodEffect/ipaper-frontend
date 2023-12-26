@@ -158,7 +158,7 @@ export default {
 
 .author span {
   font-size: 16px;
-  color: var(--theme-mode-very-high-contrast);
+  color: var(--theme-color);
   margin-right: 10px;
 }
 

@@ -11,7 +11,8 @@
                 </svg>
             </button>
         </div>
-        <div class="images-container" :style="{ 'transform': `translateX(${-index * 100}%)` }">
+        <div class="images-container" :style="{ 'transform': `translateX(${-index * 100}%)` }"
+            :class="{ 'images-close': close }">
             <div class="image-container" v-for="data in datas" :key="datas.indexOf(data)">
                 <div class="image" :style="{ 'background-image': `url('${data.image}')` }">
                 </div>
@@ -47,12 +48,58 @@
     </div>
 </template>
 <script>
+import i18n from '../../language'
 export default {
     name: 'TutorialView',
+    components: {
+        i18n
+    },
     data() {
         return {
             index: 0,
             close: false,
+            datas: [
+                {
+                    image: '/public/imgs/1.png',
+                    text: this.$t('img1')
+                },
+                {
+                    image: '/public/imgs/2.png',
+                    text: this.$t('img2')
+                },
+                {
+                    image: '/public/imgs/3.png',
+                    text: this.$t('img3')
+                },
+                {
+                    image: '/public/imgs/4.png',
+                    text: this.$t('img4')
+                },
+                {
+                    image: '/public/imgs/5.png',
+                    text: this.$t('img5')
+                },
+                {
+                    image: '/public/imgs/6.png',
+                    text: this.$t('img6')
+                },
+                {
+                    image: '/public/imgs/7.png',
+                    text: this.$t('img7')
+                },
+                {
+                    image: '/public/imgs/8.png',
+                    text: this.$t('img8')
+                },
+                {
+                    image: '/public/imgs/9.png',
+                    text: this.$t('img9')
+                },
+                {
+                    image: '/public/imgs/10.png',
+                    text: this.$t('img10')
+                }
+            ]
         }
     },
     props: {
@@ -60,27 +107,7 @@ export default {
             type: Boolean,
             required: true
         },
-        datas: {
-            type: Array,
-            default: [
-                {
-                    image: '/public/3d models/avatar.jpg',
-                    text: '这是第一张图片'
-                },
-                {
-                    image: '/public/3d models/avatar.jpg',
-                    text: '这是第二张图片'
-                },
-                {
-                    image: '/public/3d models/avatar.jpg',
-                    text: '这是第三张图片'
-                },
-                {
-                    image: '/public/3d models/avatar.jpg',
-                    text: '这是第四张图片'
-                }
-            ]
-        }
+
     },
     methods: {
         handleNext() {
@@ -88,7 +115,7 @@ export default {
                 this.close = true
                 this.index = 0
                 setTimeout(() => {
-                    this.$emit('stop-display')
+                    this.$emit('hide')
                     this.close = false
                     this.index = 0
                 }, 1000)
@@ -106,7 +133,7 @@ export default {
             this.close = true
             this.index = this.datas.length - 1
             setTimeout(() => {
-                this.$emit('stop-display')
+                this.$emit('hide')
                 this.close = false
                 this.index = 0
             }, 1000)
@@ -215,6 +242,10 @@ button:hover {
 
 .tutorial-close {
     animation: out 1s ease-in-out 1 forwards;
+}
+
+.images-close {
+    transition: all ease-in-out 1.5s;
 }
 
 @keyframes in {
