@@ -221,7 +221,7 @@ export default {
     since_2023: '2023年以来',
     since_2022: '2022年以来',
     since_2021: '2021年以来',
-    self_define_time_range: '时间范围',
+    self_define_time_range: '范围',
 
     // language
     no_language_limit: '不限语言',
