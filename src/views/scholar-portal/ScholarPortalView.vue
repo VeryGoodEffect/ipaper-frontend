@@ -1,7 +1,7 @@
 <template>
   <div>
     <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
-      :accelerate="mainAccelerate" :isReal="mainReal"></new-loading-bar>
+      :accelerate="mainAccelerate" :isReal="isReal"></new-loading-bar>
     <div class="main-part">
       <div class="info-tag-list">
         <div class="personal-info">
@@ -89,7 +89,7 @@
             <div class="favorites-list">
               <new-loading-bar :display="displayPageLoading" :progress="pageProgress"
                 @stop-display="displayPageLoading = false" :accelerate="pageAccelerate"
-                :isReal="pageReal"></new-loading-bar>
+                :isReal="isReal"></new-loading-bar>
               <Pagination :itemsPerPage="this.paginationInfo.itemsPerPage" :currentPage="this.paginationInfo.currentPage"
                 :totalPages="this.paginationInfo.totalPages" @change-page="handleChangePage"
                 @change-item-per-page="handleChangePerPage">
@@ -106,7 +106,7 @@
   </div>
   <div class="relation-network">
     <new-loading-bar :display="displayMainLoading" :progress="mainProgress" @stop-display="displayMainLoading = false"
-      :accelerate="mainAccelerate" :isReal="mainReal"></new-loading-bar>
+      :accelerate="mainAccelerate" :isReal="isReal"></new-loading-bar>
     <h3>{{ $t('scholar_portal_net') }}</h3>
     <AuthorRelationGraph :relationList="relationList"></AuthorRelationGraph>
   </div>
@@ -149,15 +149,14 @@ export default {
   },
   data() {
     return {
+      isReal: false,
       displayMainLoading: false,
       mainProgress: 0,
       mainAccelerate: false,
-      mainReal: false,
 
       displayPageLoading: false,
       pageProgress: 0,
       pageAccelerate: true,
-      pageReal: false,
 
       isFollowing: false,
       isArticle: true,
