@@ -792,6 +792,7 @@ export default {
       else if (this.search_type == 2) {
         Search.searchAuthor(searchdata).then(
           (res) => {
+            console.log(res.data);
             this.resultlist = res.data.results;
             this.resultlistToInfoItems();
 

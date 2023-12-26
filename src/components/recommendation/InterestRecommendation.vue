@@ -1,7 +1,7 @@
 <template>
 <div>
   <ul>
-    <li v-for="(article, index) in articles" :key="index">
+    <li @click="JumpArticle(article.paper_id)" v-for="(article, index) in articles" :key="index">
       <h3>{{ article.title }}</h3>
       <p class="abstract" v-ellipsis="{ maxLine: 3, maxWidth: '100%', wrappable: false}">
         {{ article.abstract }}
@@ -30,8 +30,20 @@ export default {
       Article.getInterestRecommend().then(
         response => {
           this.articles = response.data
+          console.log(this.articles)
         }
       )
+  },
+
+
+  methods:{
+    JumpArticle(paper_id){
+      this.$router.push({
+        path: "/paper_detail/" + paper_id,
+        url: this.url
+        
+      })
+    }
   }
 }
 </script>
