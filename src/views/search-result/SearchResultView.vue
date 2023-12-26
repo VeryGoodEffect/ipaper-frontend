@@ -31,16 +31,16 @@
             </li>
             <li v-show="show_filte_by_time" style="cursor: pointer">
               <span style="white-space: nowrap ;">{{ $t("self_define_time_range") }}</span>
-            </li>
-
-            <li  v-show="show_filte_by_time" style="cursor: pointer">
-              <span style=" ;"><input v-model="search_start_time" type="text" style="width: 30% ;" />
+              <br>
+              <div>
+                <input class="basic-input" v-model="search_start_time" type="text" style="width: 30%;height: 25px; font-size: 14px" />
                 ~
-                <input v-model="search_end_time" type="text" style="width: 30%;"/> <button @click="setFilterTime(5)" style="width: 40%;">搜索</button></span>
-
-                
+                <input class="basic-input" v-model="search_end_time" type="text" style="width: 30%; height: 25px; font-size: 14px"/> 
+                <br>
+              </div>
             </li>
           </ul>
+          <button class="basic-btn-outline" @click="setFilterTime(5)" style="width: 40%; margin: 10px 0;">{{$t('search_text')}}</button>
         </div>
 
         <div v-show="search_type == 1 || search_type == 3" class="filter-card" style="
@@ -58,12 +58,13 @@
             </li>
             <li v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_more_than") }}
-              <input type="text" v-model="filte_count_value" style="width: 30%" />
+              <input class="basic-input" type="text" v-model="filte_count_value" style="width: 30%; height: 25px; font-size: 14px" />
             </li>
-            <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
-              <input type="text" v-model="filte_count_value" style="width: 30%" />
-            </li>
+            <!-- <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
+              <input class="basic-input" type="text" v-model="filte_count_value" style="width: 30%" />
+            </li> -->
           </ul>
+          <button class="basic-btn-outline" style="width: 40%; margin: 10px auto;" @click="filteByCount(1)">{{$t('search_text')}}</button>
         </div>
 
         <div v-show="search_type == 1" class="filter-card" style="display: vertical; text-align: center">
@@ -597,7 +598,7 @@ export default {
       if (type == 1) {
         // alert(this.filter)
         this.filter = "cited_by_count:>" + this.filte_count_value;
-        alert(this.filter);
+        // alert(this.filter);
         this.setQuery();
       }
     },
