@@ -89,7 +89,7 @@
 
   <ChangePasswordModal :show="changePasswordModalShow" @close="changePasswordModalShow = false" />
 
-  <tutorial-view :display="tShouldShow" @hide="tShouldShow = false"/>
+  <tutorial-view v-if="tShouldShow" :display="tShouldShow" @hide="tShouldShow = false"/>
 
 </template>
 
