@@ -29,11 +29,16 @@
             <li @click="setFilterTime(4)" v-show="show_filte_by_time" style="cursor: pointer">
               {{ $t("since_2021") }}
             </li>
-            <li @click="setFilterTime(5)" v-show="show_filte_by_time" style="cursor: pointer">
-              {{ $t("self_define_time_range") }}
-              <span><input v-model="search_start_time" type="text" style="width: 30%" />
+            <li v-show="show_filte_by_time" style="cursor: pointer">
+              <span style="white-space: nowrap ;">{{ $t("self_define_time_range") }}</span>
+            </li>
+
+            <li  v-show="show_filte_by_time" style="cursor: pointer">
+              <span style=" ;"><input v-model="search_start_time" type="text" style="width: 30% ;" />
                 ~
-                <input v-model="search_end_time" type="text" style="width: 30%" /></span>
+                <input v-model="search_end_time" type="text" style="width: 30%;"/> <button @click="setFilterTime(5)" style="width: 40%;">搜索</button></span>
+
+                
             </li>
           </ul>
         </div>
@@ -51,28 +56,11 @@
             <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_no_limit") }}
             </li>
-            <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
+            <li v-show="show_filte_by_cite" style="cursor: pointer">
               {{ $t("filte_cite_more_than") }}
               <input type="text" v-model="filte_count_value" style="width: 30%" />
             </li>
-          </ul>
-        </div>
-
-        <div v-show="search_type == 1" class="filter-card" style="
-            display: vertical;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-          ">
-          <ul>
-            <li @click="show_filte_by_cite = !show_filte_by_cite">
-              {{ $t("filte_cite") }}
-            </li>
-            <li @click="filteByCount(0)" v-show="show_filte_by_cite" style="cursor: pointer">
-              {{ $t("filte_cite_no_limit") }}
-            </li>
             <li @click="filteByCount(1)" v-show="show_filte_by_cite" style="cursor: pointer">
-              {{ $t("filte_cite_more_than") }}
               <input type="text" v-model="filte_count_value" style="width: 30%" />
             </li>
           </ul>
@@ -986,6 +974,7 @@ svg {
   margin-top: 5%;
   margin-bottom: 5%;
   border-radius: 10px;
+  z-index: 99999;
 }
 
 .cond-area .filter-card li {
